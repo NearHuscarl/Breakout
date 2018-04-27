@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Ball.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Font.spritefont</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Block1.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Block2.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Block3.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Block4.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Block5.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Block6.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Block7.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Background.jpg</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Exit.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/ExitHover.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Option.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/OptionClicked.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/OptionHover.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Start.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/StartClicked.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/StartHover.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/ExitClicked.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Paddle.png</File>
+  </SourceFiles>
+</SourceFileCollection>

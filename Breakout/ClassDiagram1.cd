@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Breakout.Views.Renderers.AbstractRenderer" Collapsed="true">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAEAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Renderers\AbstractRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Views.Renderers.BreakoutRenderer" Collapsed="true">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIGAFAAAAB0ACoAAACgIAAAAAQBAAgAAAgAQAABIgg=</HashCode>
+      <FileName>Views\Renderers\BreakoutRenderer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="uiFactory" />
+      <Field Name="background" />
+      <Field Name="BallUI" />
+      <Field Name="ExitButton" />
+      <Field Name="Live" />
+      <Field Name="PaddleUI" />
+      <Field Name="Score" />
+      <Field Name="HelpButton" />
+      <Field Name="BlockLeft" />
+      <Field Name="StartGameButton" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Breakout.Views.UI.Background" Collapsed="true">
+    <Position X="4.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\UI\Background.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Views.UI.Ball" Collapsed="true">
+    <Position X="2.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Views\UI\Ball.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Sprite" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Breakout.Views.UI.Block" Collapsed="true">
+    <Position X="4.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Views\UI\Block.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Sprite" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Breakout.Views.UI.Button" Collapsed="true">
+    <Position X="0.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAgAAAAACAAAAAhAAAAAQCAAABAAAAAA=</HashCode>
+      <FileName>Views\UI\Button.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Sprite" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Breakout.Views.UI.Font" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAgAAAAAAIAAAAAAAAACAAAAACAAAAAA=</HashCode>
+      <FileName>Views\UI\Font.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Views.UI.Paddle" Collapsed="true">
+    <Position X="6.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Views\UI\Paddle.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Sprite" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Breakout.Views.UI.Sprite" Collapsed="true">
+    <Position X="3.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAgAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Views\UI\Sprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Views.UIFactory" Collapsed="true">
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAEAAEAKEBAAAAAgAkAAAAAIAAABAAEAAAAQAEAAAA=</HashCode>
+      <FileName>Views\UIFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

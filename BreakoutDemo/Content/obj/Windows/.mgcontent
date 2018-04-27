@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Ball.png</File>
+    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Bat.png</File>
+    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Font.spritefont</File>
+    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block1.png</File>
+    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block2.png</File>
+    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block3.png</File>
+    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block4.png</File>
+    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block5.png</File>
+    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block6.png</File>
+    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block7.png</File>
+  </SourceFiles>
+</SourceFileCollection>
