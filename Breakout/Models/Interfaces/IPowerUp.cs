@@ -1,4 +1,5 @@
 ﻿using Breakout.Models.Balls;
+using Breakout.Models.Enums;
 using Breakout.Models.Paddles;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ namespace Breakout.Models.Interfaces
 {
 	public interface IPowerUp
 	{
-		void ModifyAbility(Paddle paddle, List<Ball> balls);
+		PowerUpType PowerUpType { get; }
+
+		void ModifyAbility<T>(T entity);
 	}
 }

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Interfaces
 {
-	public interface IBall
+	public interface IPlayer
 	{
-		int Radius { get; set; }
-		int Strength { get; set; }
-		int Velocity { get; set; }
+		int Live { get; set; }
+		int Score { get; set; }
+		int CurrentCombo { get; set; }
+		int HighestCombo { get; set; }
 	}
 }

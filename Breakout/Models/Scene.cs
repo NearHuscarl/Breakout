@@ -15,7 +15,7 @@ namespace Breakout.Models
 		public static List<Ball> balls;
 		public static List<Block> blocks;
 
-		public static void InitializeScense()
+		public static void Initialize()
 		{
 			paddle = new Paddle();
 			balls = new List<Ball>()
@@ -27,7 +27,7 @@ namespace Breakout.Models
 
 		public static void InitializeBlocks()
 		{
-
+			Console.WriteLine("fuck");
 		}
 	}
 }

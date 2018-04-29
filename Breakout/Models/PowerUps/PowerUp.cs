@@ -1,8 +1,7 @@
 ﻿using Breakout.Models.Balls;
+using Breakout.Models.Enums;
 using Breakout.Models.Interfaces;
 using Breakout.Models.Paddles;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +12,34 @@ namespace Breakout.Models.PowerUps
 {
 	public class PowerUp : IPowerUp
 	{
-		public Vector2 Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-		public Texture2D Texture { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		public PowerUpType PowerUpType { get; }
 
-		public void ModifyAbility(Paddle paddle, List<Ball> balls)
+		public PowerUp(PowerUpType powerUpType)
 		{
-			// BonusGenerator.GenerateRandomBonus(ref sprites)
+			PowerUpType = powerUpType;
+		}
+
+		public void ModifyAbility<T>(T entity)
+		{
+			List<Ball> balls = entity as List<Ball>;
+
+			if (balls != null)
+			{
+				var BallModification = PowerUpBehaviour.Balls[PowerUpType];
+
+				BallModification.Invoke(balls);
+				return;
+			}
+
+			Paddle paddle = entity as Paddle;
+
+			if (paddle != null)
+			{
+				var PaddleModification = PowerUpBehaviour.Paddle[PowerUpType];
+
+				PaddleModification.Invoke(paddle);
+				return;
+			}
 		}
 	}
 }

@@ -1,5 +1,4 @@
-﻿using Breakout.Models.PowerUps;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Interfaces
 {
-	public interface IBlock
+	public interface IEntity
 	{
-		PowerUp SpawnPowerUp();
-		void Hit();
+		void SetPosition(int x, int y);
 	}
 }

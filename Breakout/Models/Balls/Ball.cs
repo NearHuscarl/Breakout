@@ -11,5 +11,8 @@ namespace Breakout.Models.Balls
 {
 	public class Ball : IBall
 	{
+		public int Radius { get; set; }
+		public int Strength { get; set; }
+		public int Velocity { get; set; }
 	}
 }

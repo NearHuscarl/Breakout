@@ -1,5 +1,7 @@
-﻿using Breakout.Models.Interfaces;
+﻿using Breakout.Models.Enums;
+using Breakout.Models.Interfaces;
 using Breakout.Models.PowerUps;
+using Breakout.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -12,13 +14,53 @@ namespace Breakout.Models.Blocks
 {
 	public class Block : IBlock
 	{
-		public Vector2 Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-		public Texture2D Texture { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		private int health;
+
+		public int Health
+		{
+			get
+			{
+				return health;
+			}
+			private set
+			{
+				health = value;
+
+				if (value <= 0)
+				{
+					IsBroken = true;
+				}
+			}
+		}
+
+		public BlockType BlockType { get; }
+		public bool IsBroken { get; private set; } = false;
+		public Vector2 Position { get; set; }
+
+		private readonly int powerUpSpawnChance;
+
+		public Block(BlockType blockType)
+		{
+			BlockType = blockType;
+			Health = BlockInfo.Health[blockType];
+			powerUpSpawnChance = BlockInfo.PowerUpSpawnChance[blockType];
+		}
 
 		public PowerUp SpawnPowerUp()
 		{
-			// PowerUp PowerUpGenerator.GenerateRandomPowerUp(sprites)
-			return new PowerUp();
+			if (RandomMath.RandomPercent(powerUpSpawnChance))
+			{
+				return PowerUpGenerator.GenerateRandomPowerUp();
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		public void Hit()
+		{
+			Health -= 10;
 		}
 	}
 }

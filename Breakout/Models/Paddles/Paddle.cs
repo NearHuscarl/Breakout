@@ -11,17 +11,12 @@ namespace Breakout.Models.Paddles
 {
 	public class Paddle : IPaddle
 	{
-		public Vector2 Position { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-		public Texture2D Texture { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-		public void MoveLeft(int speed)
+		public int Length { get; set; }
+		public float Velocity { get; set; }
+		
+		public void ModifyLength(int offset)
 		{
-			throw new NotImplementedException();
-		}
-
-		public void MoveRight(int speed)
-		{
-			throw new NotImplementedException();
+			Length+= offset;
 		}
 	}
 }

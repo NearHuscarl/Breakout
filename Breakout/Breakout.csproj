@@ -51,6 +51,8 @@
     <Compile Include="Controllers\States\CreditState.cs" />
     <Compile Include="Controllers\States\State.cs" />
     <Compile Include="Models\Balls\Ball.cs" />
+    <Compile Include="Models\Blocks\BlockInfo.cs" />
+    <Compile Include="Models\Interfaces\IPlayer.cs" />
     <Compile Include="Models\Paddles\Paddle.cs" />
     <Compile Include="Models\Blocks\Block.cs" />
     <Compile Include="Models\Enums\BlockType.cs" />
@@ -60,9 +62,13 @@
     <Compile Include="Models\Interfaces\IPaddle.cs" />
     <Compile Include="Models\Interfaces\IBlock.cs" />
     <Compile Include="Models\Interfaces\IPowerUp.cs" />
+    <Compile Include="Models\Player\Player.cs" />
     <Compile Include="Models\PowerUps\PowerUp.cs" />
+    <Compile Include="Models\PowerUps\PowerUpBehaviour.cs" />
+    <Compile Include="Models\PowerUps\PowerUpGenerator.cs" />
     <Compile Include="Models\Scene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\RandomMath.cs" />
     <Compile Include="Views\Renderers\AbstractRenderer.cs" />
     <Compile Include="Views\Renderers\MonoGameRenderer.cs" />
     <Compile Include="Views\UIFactory.cs" />

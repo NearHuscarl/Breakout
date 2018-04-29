@@ -47,10 +47,16 @@ namespace Breakout.Utilities
 			return direction;
 		}
 
-
 		public static bool RandomPercent(float percentage)
 		{
 			return random.NextDouble() * 100 < percentage;
+		}
+
+		public static T RandomEnum<T>()
+		{
+			var enumValues = Enum.GetValues(typeof(T));
+
+			return (T) enumValues.GetValue(random.Next(enumValues.Length));
 		}
 	}
 }

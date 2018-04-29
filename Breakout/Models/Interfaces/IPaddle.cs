@@ -9,9 +9,7 @@ namespace Breakout.Models.Interfaces
 {
 	public interface IPaddle
 	{
-		void MoveLeft(int speed);
-		void MoveRight(int speed);
-		// void TakeLive(int lives);
-		// void AddLive(int lives);
+		int Length { get; set; }
+		float Velocity { get; set; }
 	}
 }
