@@ -1,4 +1,7 @@
-﻿using Breakout.Views.UI;
+﻿using Breakout.Models;
+using Breakout.Models.Enums;
+using Breakout.Models.Meta;
+using Breakout.Views.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,21 +15,18 @@ namespace Breakout.Views.Renderers
 {
 	public class MonoGameRenderer : AbstractRenderer
 	{
-		private int screenWidth = EntryPoint.Game.graphics.PreferredBackBufferWidth;
-		private int screenHeight = EntryPoint.Game.graphics.PreferredBackBufferHeight;
-
 		private ContentManager content = EntryPoint.Game.Content;
 		private SpriteBatch spriteBatch = EntryPoint.Game.SpriteBatch;
 		private SpriteFont font = EntryPoint.Game.Content.Load<SpriteFont>("Font");
-		private UIFactory uiFactory;
 
-		public Button StartGameButton;
-		public Button OptionButton;
-		public Button ExitButton;
+		public ButtonUI StartButton;
+		public ButtonUI CreditButton;
+		public ButtonUI ExitButton;
 
-		public Paddle PaddleUI;
-		public Ball BallUI;
-		public List<Block> Blocks;
+		public Sprite PaddleUI;
+		public Sprite BallUI;
+		public Sprite BlockUI;
+		public Dictionary<BlockType, Sprite> Blocks;
 
 		private float ballVelocity;
 		private float paddleVelocity;
@@ -42,51 +42,50 @@ namespace Breakout.Views.Renderers
 
 		public MonoGameRenderer()
 		{
-			uiFactory = new UIFactory(screenWidth, screenHeight);
+			background = UIFactory.CreateBackground(content);
 
-			background = uiFactory.CreateBackground(content);
+			StartButton = UIFactory.CreateStartButton(content);
+			CreditButton = UIFactory.CreateCreditButton(content);
+			ExitButton = UIFactory.CreateExitButton(content);
 
-			StartGameButton = uiFactory.CreateStartGameButton(content);
-			OptionButton = uiFactory.CreateOptionButton(content);
-			ExitButton = uiFactory.CreateExitButton(content);
-
-			PaddleUI = uiFactory.CreatePaddle(content);
-			BallUI = uiFactory.CreateBall(content, PaddleUI);
-			Blocks = uiFactory.CreateBlocks(content);
+			PaddleUI = UIFactory.CreatePaddle(content);
+			BallUI = UIFactory.CreateBall(content);
+			BlockUI = UIFactory.CreateBlock(content);
+			Blocks = UIFactory.CreateBlocks(content);
 
 			ballVelocity = 3f;
 			paddleVelocity = 10f;
 			IsPlaying = false;
 
-			Score = uiFactory.CreateScoreFont(font);
-			Live = uiFactory.CreateLiveFont(font);
-			BlockLeft = uiFactory.CreateBlockLeftFont(font);
-			CurrentCombo = uiFactory.CreateComboFont(font);
-			HighestCombo = uiFactory.CreateMaxComboFont(font);
+			Score = UIFactory.CreateScoreFont(font);
+			Live = UIFactory.CreateLiveFont(font);
+			BlockLeft = UIFactory.CreateBlockLeftFont(font);
+			CurrentCombo = UIFactory.CreateComboFont(font);
+			HighestCombo = UIFactory.CreateMaxComboFont(font);
+		}
+
+		public override void DrawMenu()
+		{
+			StartButton.Draw(spriteBatch, Scene.StartButton);
+			CreditButton.Draw(spriteBatch, Scene.CreditButton);
+			ExitButton.Draw(spriteBatch, Scene.ExitButton);
 		}
 
 		public override void DrawGame()
 		{
 			background.Draw(spriteBatch);
 
-			PaddleUI.Draw(spriteBatch);
-			BallUI.Draw(spriteBatch);
+			PaddleUI.Draw(spriteBatch, Scene.Paddle);
+			BallUI.Draw(spriteBatch, Scene.Balls[0]);
 
-			foreach (var block in Blocks)
-				block.Draw(spriteBatch);
+			for (int i = 0; i <= Scene.Blocks.Count - 1; i++)
+				Blocks[Scene.Blocks[i].Type].Draw(spriteBatch, Scene.Blocks[i]);
 
 			Score.Draw(spriteBatch);
 			Live.Draw(spriteBatch);
 			BlockLeft.Draw(spriteBatch);
 			CurrentCombo.Draw(spriteBatch);
 			HighestCombo.Draw(spriteBatch);
-		}
-
-		public override void DrawMenu()
-		{
-			StartGameButton.Draw(spriteBatch);
-			OptionButton.Draw(spriteBatch);
-			ExitButton.Draw(spriteBatch);
 		}
 
 		public override void MovePaddle(int currentXPos, int newXPos)
@@ -101,8 +100,8 @@ namespace Breakout.Views.Renderers
 			int monitorWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 			int monitorHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 
-			position.X = monitorWidth / 2 - screenWidth / 2;
-			position.Y = monitorHeight / 2 - screenHeight / 2;
+			position.X = (int)(monitorWidth * 0.5f - GameInfo.Screen.Width * 0.5f);
+			position.Y = (int)(monitorHeight * 0.3f - GameInfo.Screen.Height * 0.3f);
 
 			EntryPoint.Game.Window.Position = position;
 		}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/Bat.png</SourceFile>
-  <SourceTime>2018-04-21T00:53:15.8215286+07:00</SourceTime>
-  <DestFile>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/bin/Windows/Bat.xnb</DestFile>
-  <DestTime>2018-05-02T11:16:09.9001496+07:00</DestTime>
+  <SourceFile>E:/Program Files/Project/Breakout/Breakout/Content/CreditHover.png</SourceFile>
+  <SourceTime>2018-05-02T12:19:49.0545257+07:00</SourceTime>
+  <DestFile>E:/Program Files/Project/Breakout/Breakout/Content/bin/Windows/CreditHover.xnb</DestFile>
+  <DestTime>2018-05-02T15:36:45.9568532+07:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T22:05:36+07:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

@@ -24,5 +24,8 @@
     <File>E:/Program Files/Project/Breakout/Breakout/Content/StartHover.png</File>
     <File>E:/Program Files/Project/Breakout/Breakout/Content/ExitClicked.png</File>
     <File>E:/Program Files/Project/Breakout/Breakout/Content/Paddle.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/Credit.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/CreditClicked.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout/Content/CreditHover.png</File>
   </SourceFiles>
 </SourceFileCollection>

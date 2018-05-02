@@ -1,4 +1,5 @@
 ﻿using Breakout.Models.Balls;
+using Breakout.Models.Bases;
 using Breakout.Models.Enums;
 using Breakout.Models.Interfaces;
 using Breakout.Models.Paddles;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.PowerUps
 {
-	public class PowerUp : IPowerUp
+	public class PowerUp : Entity
 	{
 		public PowerUpType PowerUpType { get; }
 

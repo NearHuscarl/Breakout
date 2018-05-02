@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block6.png</SourceFile>
+  <SourceFile>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/Block6.png</SourceFile>
   <SourceTime>2018-04-22T03:04:47.9835068+07:00</SourceTime>
-  <DestFile>E:/Program Files/Project/MonogameTutorial/Breakout/Content/bin/Windows/Block6.xnb</DestFile>
-  <DestTime>2018-04-22T13:06:14.3264549+07:00</DestTime>
+  <DestFile>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/bin/Windows/Block6.xnb</DestFile>
+  <DestTime>2018-05-02T11:16:10.4724136+07:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T22:05:36+07:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

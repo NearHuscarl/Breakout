@@ -9,7 +9,7 @@ namespace Breakout.Utilities
 {
 	public static class RandomMath
 	{
-		private static Random random;
+		private static Random random = new Random();
 		public static Random Random
 		{
 			get
@@ -18,9 +18,19 @@ namespace Breakout.Utilities
 			}
 		}
 
+		public static int RandomBetween(int minValue, int maxValue)
+		{
+			return random.Next(minValue, maxValue);
+		}
+
 		public static float RandomBetween(float minValue, float maxValue)
 		{
 			return minValue + (float)random.NextDouble() * (maxValue - minValue);
+		}
+
+		public static double RandomBetween(double minValue, double maxValue)
+		{
+			return minValue + random.NextDouble() * (maxValue - minValue);
 		}
 
 		public static Vector2 RandomDirection()

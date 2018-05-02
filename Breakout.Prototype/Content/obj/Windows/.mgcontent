@@ -4,15 +4,15 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Ball.png</File>
-    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Bat.png</File>
-    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Font.spritefont</File>
-    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block1.png</File>
-    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block2.png</File>
-    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block3.png</File>
-    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block4.png</File>
-    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block5.png</File>
-    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block6.png</File>
-    <File>E:/Program Files/Project/MonogameTutorial/Breakout/Content/Block7.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/Ball.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/Bat.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/Font.spritefont</File>
+    <File>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/Block1.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/Block2.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/Block3.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/Block4.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/Block5.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/Block6.png</File>
+    <File>E:/Program Files/Project/Breakout/Breakout.Prototype/Content/Block7.png</File>
   </SourceFiles>
 </SourceFileCollection>

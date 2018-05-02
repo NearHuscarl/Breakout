@@ -1,4 +1,5 @@
 ﻿using Breakout.Controllers;
+using Breakout.Models.Meta;
 using Breakout.Views.Renderers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,7 +17,7 @@ namespace Breakout
 		public SpriteBatch SpriteBatch;
 		public MonoGameRenderer renderer;
 
-		public double Elapsed;
+		public double Elapsed { get; private set; }
 
 		public BreakoutGame()
 		{
@@ -32,12 +33,10 @@ namespace Breakout
 		protected override void Initialize()
 		{
 			StateMachine.Initialize();
-			StateMachine.CurrentState = StateMachine.States["MenuState"];
-			// StateMachine.CurrentState.Update();
-			// StateMachine.ChangeState();
+			StateMachine.CurrentState = StateMachine.States["InitialState"];
+			StateMachine.CurrentState.Update();
 
 			base.Initialize();
-
 		}
 
 		protected override void LoadContent()

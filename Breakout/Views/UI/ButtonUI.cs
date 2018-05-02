@@ -8,16 +8,14 @@ using System.Threading.Tasks;
 
 namespace Breakout.Views.UI
 {
-	public class Button
+	public class ButtonUI : Sprite
 	{
-		public Sprite Sprite { get; set; }
 		private Texture2D hoverImage;
 		private Texture2D clickedImage;
 		private Texture2D inactiveImage;
 
-		public Button(Sprite sprite, Texture2D hoverImage, Texture2D clickedImage, Texture2D inactiveImage)
+		public ButtonUI(Texture2D inactiveImage, Texture2D hoverImage, Texture2D clickedImage) : base(inactiveImage)
 		{
-			this.Sprite = sprite;
 			this.hoverImage = hoverImage;
 			this.clickedImage = clickedImage;
 			this.inactiveImage = inactiveImage;
@@ -25,22 +23,17 @@ namespace Breakout.Views.UI
 
 		public void ChangeToHoverImage()
 		{
-			Sprite.Texture = hoverImage;
+			this.Texture = hoverImage;
 		}
 
 		public void ChangeToClickedImage()
 		{
-			Sprite.Texture = clickedImage;
+			this.Texture = clickedImage;
 		}
 
 		public void ChangeToInactiveImage()
 		{
-			Sprite.Texture = inactiveImage;
-		}
-
-		public void Draw(SpriteBatch spriteBatch)
-		{
-			spriteBatch.Draw(Sprite.Texture, Sprite.Rectangle, Color.White);
+			this.Texture = inactiveImage;
 		}
 	}
 }

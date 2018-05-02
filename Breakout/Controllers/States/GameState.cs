@@ -1,4 +1,5 @@
-﻿using Breakout.Views.Renderers;
+﻿using Breakout.Models;
+using Breakout.Views.Renderers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,35 @@ namespace Breakout.Controllers.States
 	{
 		public override void Update()
 		{
+			foreach (var ball in Scene.Balls)
+			{
+				if (ball.IsHittingLeftWall() || ball.IsHittingRightWall())
+					ball.Direction.X = -ball.Direction.X;
 
+				if (ball.IsHittingRoof())
+					ball.Direction.Y = -ball.Direction.Y;
+
+				if (ball.IsOffBottom())
+				{
+					Scene.IsPlaying = false;
+					GameOver();
+				}
+
+				foreach (var block in Scene.Blocks)
+				{
+
+				}
+			}
 		}
 
-		public void Draw(MonoGameRenderer renderer)
+		private static void GameOver()
 		{
+			StateMachine.ChangeState("PauseState");
+		}
 
+		public override void Draw(MonoGameRenderer renderer)
+		{
+			renderer.DrawGame();
 		}
 
 		// private void MoveBall()
@@ -25,7 +49,7 @@ namespace Breakout.Controllers.States
 		// 	// delete block and have a chance to spawn PowerUp
 		// 	if (BallUI.IsOffBottom(screenHeight))
 		// 	{
-				
+
 		// 	}
 		// }
 	}

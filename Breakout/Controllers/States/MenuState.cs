@@ -1,4 +1,6 @@
-﻿using Breakout.Views.Renderers;
+﻿using Breakout.Models;
+using Breakout.Models.Bases;
+using Breakout.Views.Renderers;
 using Breakout.Views.UI;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -13,12 +15,12 @@ namespace Breakout.Controllers.States
 	{
 		private delegate void ButtonClickEventHandler();
 
-		private void StartGame()
+		private void LoadGame()
 		{
-			StateMachine.ChangeState("InitialState");
+			StateMachine.ChangeState("LoadingState");
 		}
 
-		private void OpenSetting()
+		private void OpenCredit()
 		{
 
 		}
@@ -30,32 +32,35 @@ namespace Breakout.Controllers.States
 
 		public override void Update()
 		{
-			HandleStartGameButton(StartGame);
-			HandleSettingButton(OpenSetting);
+			HandleStartGameButton(LoadGame);
+			HandleSettingButton(OpenCredit);
 			HandleExitButton(ExitGame);
 		}
 
 		private void HandleStartGameButton(ButtonClickEventHandler eventHandler)
 		{
-			Button startGameButton = EntryPoint.Game.renderer.StartGameButton;
-			HandleButton(startGameButton, StartGame);
+			ButtonUI startButton = EntryPoint.Game.renderer.StartButton;
+			Button startButtonModel = Scene.StartButton;
+			HandleButton(startButton, startButtonModel, LoadGame);
 		}
 
 		private void HandleSettingButton(ButtonClickEventHandler eventHandler)
 		{
-			Button optionButton = EntryPoint.Game.renderer.OptionButton;
-			HandleButton(optionButton, OpenSetting);
+			ButtonUI optionButton = EntryPoint.Game.renderer.CreditButton;
+			Button optionButtonModel = Scene.CreditButton;
+			HandleButton(optionButton, optionButtonModel, OpenCredit);
 		}
 
 		private void HandleExitButton(ButtonClickEventHandler eventHandler)
 		{
-			Button exitButton = EntryPoint.Game.renderer.ExitButton;
-			HandleButton(exitButton, ExitGame);
+			ButtonUI exitButton = EntryPoint.Game.renderer.ExitButton;
+			Button exitButtonModel = Scene.ExitButton;
+			HandleButton(exitButton, exitButtonModel, ExitGame);
 		}
 
-		private void HandleButton(Button button, ButtonClickEventHandler eventHandler)
+		private void HandleButton(ButtonUI button, Button buttonModel,  ButtonClickEventHandler eventHandler)
 		{
-			bool isMouseOverButton = button.Sprite.Rectangle.Contains(Mouse.GetState().X, Mouse.GetState().Y);
+			bool isMouseOverButton = buttonModel.Rectangle.Contains(Mouse.GetState().X, Mouse.GetState().Y);
 
 			if (isMouseOverButton)
 			{

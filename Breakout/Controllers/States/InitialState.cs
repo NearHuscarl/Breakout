@@ -1,4 +1,8 @@
-﻿using Breakout.Views.Renderers;
+﻿using Breakout.Models;
+using Breakout.Models.Meta;
+using Breakout.Views;
+using Breakout.Views.Renderers;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +15,20 @@ namespace Breakout.Controllers.States
 	{
 		public override void Update()
 		{
+			Size screenSize = new Size()
+			{
+				Width = EntryPoint.Game.graphics.PreferredBackBufferWidth,
+				Height = EntryPoint.Game.graphics.PreferredBackBufferHeight,
+			};
 
+			GameInfo.Initialize(screenSize);
+			Scene.InitializeMenu();
+			OpenMenu();
+		}
+
+		private static void OpenMenu()
+		{
+			StateMachine.ChangeState("MenuState");
 		}
 	}
 }

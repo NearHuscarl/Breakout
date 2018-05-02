@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 
 namespace Breakout.Views.UI
 {
-	public class Background
+	public class Background : Sprite
 	{
-		private Texture2D texture;
-
-		public Background(Texture2D texture)
+		public Background(Texture2D texture) : base(texture)
 		{
-			this.texture = texture;
+
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(texture, Vector2.Zero, Color.White);
+			spriteBatch.Draw(this.Texture, Vector2.Zero, Color.White);
 		}
 	}
 }

@@ -12,33 +12,38 @@ namespace Breakout.Controllers
 		public static State CurrentState;
 		public static Dictionary<string, State> States = new Dictionary<string, State>();
 
+		private static InitialState initialState;
 		private static MenuState menuState;
 		private static CreditState creditState;
-		private static InitialState initialState;
+		private static LoadingState loadingState;
 		private static GameState gameState;
 		private static PauseState pauseState;
 
 		public static void Initialize()
 		{
-			menuState = new MenuState();
 			initialState = new InitialState();
+			menuState = new MenuState();
+			creditState = new CreditState();
+			loadingState = new LoadingState();
 			gameState = new GameState();
 			pauseState = new PauseState();
 
+			States.Add("InitialState", initialState);
 			States.Add("MenuState", menuState);
 			States.Add("CreditState", creditState);
-			States.Add("InitialState", initialState);
+			States.Add("LoadingState", loadingState);
 			States.Add("GameState", gameState);
 			States.Add("PauseState", pauseState);
 		}
 
 		public static void ChangeState(string nextState)
 		{
-			// MenuState
-			// MenuState -> InitialState (load game)
-			// InitalState -> GameState (start game)
-			// GameState -> PauseState (pause)
-			// GameState -> InitialState (restart)
+			// InitialState -> MenuState (init game)
+			// MenuState -> LoadingState (load game)
+			// LoadingState -> PauseState (start game)
+			// PauseState -> GameState (play game)
+			// GameState -> PauseState (pause/gameover)
+			// GameState -> LoadingState (restart)
 			// GameState -> MenuState (abort)
 			CurrentState = States[nextState];
 		}

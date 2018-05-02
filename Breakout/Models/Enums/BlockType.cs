@@ -8,12 +8,12 @@ namespace Breakout.Models.Enums
 {
 	public enum BlockType
 	{
-		Red, // strongest, more chance to spawn PowerUp
+		Red = 1, // strongest, more chance to spawn PowerUp
 		Orange,
 		Yellow,
 		Green,
 		Blue,
 		Cyan,
-		Magenta, // weakest, lease chance to spawn (bad) PowerUp
+		Magenta, // weakest, least chance to spawn PowerUp
 	}
 }

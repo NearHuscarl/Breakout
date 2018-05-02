@@ -31,13 +31,13 @@ namespace Breakout.Models.PowerUps
 
 		private static void DoubleBall(List<Ball> balls)
 		{
-			balls.Add(new Ball());
+			//balls.Add(new Ball());
 		}
 
 		private static void TripleBall(List<Ball> balls)
 		{
-			balls.Add(new Ball());
-			balls.Add(new Ball());
+			//balls.Add(new Ball());
+			//balls.Add(new Ball());
 		}
 
 		private static void IncreaseBallSize(List<Ball> balls)
@@ -62,12 +62,12 @@ namespace Breakout.Models.PowerUps
 
 		private static void MakeBallFaster(List<Ball> balls)
 		{
-			ModifyBalls(balls, ball => ball.Velocity += 2);
+			//ModifyBalls(balls, ball => ball.Velocity += 2);
 		}
 
 		private static void MakeBallSlower(List<Ball> balls)
 		{
-			ModifyBalls(balls, ball => ball.Velocity -= 2);
+			//ModifyBalls(balls, ball => ball.Velocity -= 2);
 		}
 
 		private static void ModifyBalls(List<Ball> balls, Action<Ball> modification)

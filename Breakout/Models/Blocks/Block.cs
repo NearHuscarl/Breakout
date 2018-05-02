@@ -1,4 +1,5 @@
-﻿using Breakout.Models.Enums;
+﻿using Breakout.Models.Bases;
+using Breakout.Models.Enums;
 using Breakout.Models.Interfaces;
 using Breakout.Models.PowerUps;
 using Breakout.Utilities;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Blocks
 {
-	public class Block : IBlock
+	public class Block : Entity
 	{
 		private int health;
 
@@ -33,17 +34,16 @@ namespace Breakout.Models.Blocks
 			}
 		}
 
-		public BlockType BlockType { get; }
+		public BlockType Type { get; set;  }
 		public bool IsBroken { get; private set; } = false;
-		public Vector2 Position { get; set; }
 
 		private readonly int powerUpSpawnChance;
 
-		public Block(BlockType blockType)
+		public Block(BlockType type, int width, int height, Vector2 position) : base(width, height, position)
 		{
-			BlockType = blockType;
-			Health = BlockInfo.Health[blockType];
-			powerUpSpawnChance = BlockInfo.PowerUpSpawnChance[blockType];
+			this.Type = type;
+			this.Health = BlockInfo.Health[Type];
+			this.powerUpSpawnChance = BlockInfo.PowerUpSpawnChance[Type];
 		}
 
 		public PowerUp SpawnPowerUp()
