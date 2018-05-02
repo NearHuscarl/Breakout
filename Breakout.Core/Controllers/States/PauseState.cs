@@ -21,7 +21,6 @@ namespace Breakout.Controllers.States
 
 		private static void PlayGame()
 		{
-			Scene.IsPlaying = true;
 			StateMachine.ChangeState("GameState");
 		}
 

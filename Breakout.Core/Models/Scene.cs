@@ -16,8 +16,6 @@ namespace Breakout.Models
 {
 	public static class Scene
 	{
-		public static bool IsPlaying { get; set; }
-
 		public static Button StartButton;
 		public static Button CreditButton;
 		public static Button ExitButton;

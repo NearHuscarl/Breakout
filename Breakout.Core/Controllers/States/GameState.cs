@@ -21,10 +21,7 @@ namespace Breakout.Controllers.States
 					ball.Direction.Y = -ball.Direction.Y;
 
 				if (ball.IsOffBottom())
-				{
-					Scene.IsPlaying = false;
 					GameOver();
-				}
 
 				foreach (var block in Scene.Blocks)
 				{
