@@ -18,6 +18,7 @@ namespace Breakout.Controllers
 		private static LoadingState loadingState;
 		private static GameState gameState;
 		private static PauseState pauseState;
+		private static ConfirmState confirmState;
 
 		public static void Initialize()
 		{
@@ -27,6 +28,7 @@ namespace Breakout.Controllers
 			loadingState = new LoadingState();
 			gameState = new GameState();
 			pauseState = new PauseState();
+			confirmState = new ConfirmState();
 
 			States.Add("InitialState", initialState);
 			States.Add("MenuState", menuState);
@@ -34,6 +36,7 @@ namespace Breakout.Controllers
 			States.Add("LoadingState", loadingState);
 			States.Add("GameState", gameState);
 			States.Add("PauseState", pauseState);
+			States.Add("ConfirmState", confirmState);
 		}
 
 		public static void ChangeState(string nextState)
@@ -43,8 +46,9 @@ namespace Breakout.Controllers
 			// LoadingState -> PauseState (start game)
 			// PauseState -> GameState (play game)
 			// GameState -> PauseState (pause/gameover)
-			// GameState -> LoadingState (restart)
-			// GameState -> MenuState (abort)
+			// GameState -> ConfirmState (confirm restart/abort)
+			// ConfirmState -> LoadingState (restart)
+			// ConfirmState -> MenuState (abort)
 			CurrentState = States[nextState];
 		}
 	}

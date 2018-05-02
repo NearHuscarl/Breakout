@@ -44,6 +44,7 @@
     <Compile Include="Controllers\BreakoutGame.cs" />
     <Compile Include="Controllers\EntryPoint.cs" />
     <Compile Include="Controllers\StateMachine.cs" />
+    <Compile Include="Controllers\States\ConfirmState.cs" />
     <Compile Include="Controllers\States\GameState.cs" />
     <Compile Include="Controllers\States\InitialState.cs" />
     <Compile Include="Controllers\States\LoadingState.cs" />
