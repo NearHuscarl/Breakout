@@ -54,8 +54,9 @@
     <Compile Include="Controllers\States\ReadyState.cs" />
     <Compile Include="Controllers\States\State.cs" />
     <Compile Include="Models\Balls\Ball.cs" />
-    <Compile Include="Models\Bases\MovingObject.cs" />
+    <Compile Include="Models\Bases\DynamicObject.cs" />
     <Compile Include="Models\Bases\GameObject.cs" />
+    <Compile Include="Models\Bases\OctilinearObject.cs" />
     <Compile Include="Models\Blocks\BlockInfo.cs" />
     <Compile Include="Models\Bases\Button.cs" />
     <Compile Include="Models\Meta\GameInfo.cs" />

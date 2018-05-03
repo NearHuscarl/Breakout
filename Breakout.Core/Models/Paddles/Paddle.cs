@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Paddles
 {
-	public class Paddle : MovingObject
+	public class Paddle : DynamicObject
 	{
 		public int Length
 		{

@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Bases
 {
-	public abstract class MovingObject : GameObject
+	public abstract class DynamicObject : GameObject
 	{
 		public Vector2 Direction;
 		public float Velocity { get; set; }
 
-		public MovingObject()
+		public DynamicObject()
 		{
 
 		}
 
-		public MovingObject(int width, int height)
+		public DynamicObject(int width, int height)
 		{
 			this.Width = width;
 			this.Height = height;
 		}
 
-		public MovingObject(int width, int height, Vector2 position)
+		public DynamicObject(int width, int height, Vector2 position)
 		{
 			this.Width = width;
 			this.Height = height;

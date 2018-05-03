@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Blocks
 {
-	public class Block : MovingObject
+	public class Block : DynamicObject
 	{
 		private int health;
 

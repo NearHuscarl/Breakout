@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Balls
 {
-	public class Ball : MovingObject
+	public class Ball : OctilinearObject
 	{
 		public float Radius
 		{
@@ -34,31 +34,17 @@ namespace Breakout.Models.Balls
 			this.Position = new Vector2()
 			{
 				X = GameInfo.Screen.Width / 2 - Width / 2,
-				Y = GameInfo.Screen.Height * 0.8f,
+				Y = GameInfo.Screen.Height * 0.7f,
 			};
 
-			this.Velocity = 250f;
+			this.Velocity = 320f;
 		}
 
 		public void ResetPosition()
 		{
-			var direction = RandomMath.RandomBetween(0, 4);
+			var angle = RandomMath.RandomBetween(0, 360);
 
-			switch (direction)
-			{
-				case 0:
-					Direction = new Vector2(1, 1);
-					break;
-				case 1:
-					Direction = new Vector2(1, -1);
-					break;
-				case 2:
-					Direction = new Vector2(-1, -1);
-					break;
-				case 3:
-					Direction = new Vector2(-1, 1);
-					break;
-			}
+			ChangeDirection(angle);
 		}
 
 		public bool IsOffBottom()
@@ -103,7 +89,7 @@ namespace Breakout.Models.Balls
 				Direction.Y = -Direction.Y;
 		}
 
-		public void HandleCollision(MovingObject entity)
+		public void HandleCollision(DynamicObject entity)
 		{
 			if (Direction.X > 0 && IsTouchingLeft(entity))
 				Direction.X = -Direction.X;
