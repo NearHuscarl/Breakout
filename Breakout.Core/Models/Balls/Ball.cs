@@ -1,6 +1,7 @@
 ﻿using Breakout.Models.Bases;
 using Breakout.Models.Interfaces;
 using Breakout.Models.Meta;
+using Breakout.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Balls
 {
-	public class Ball : Entity
+	public class Ball : MovingObject
 	{
 		public float Radius
 		{
@@ -25,7 +26,6 @@ namespace Breakout.Models.Balls
 			}
 		}
 		public int Strength { get; set; }
-		public Vector2 Direction;
 
 		public Ball(float radius, int strength, float velocity)
 		{
@@ -36,6 +36,29 @@ namespace Breakout.Models.Balls
 				X = GameInfo.Screen.Width / 2 - Width / 2,
 				Y = GameInfo.Screen.Height * 0.8f,
 			};
+
+			this.Velocity = 250f;
+		}
+
+		public void ResetPosition()
+		{
+			var direction = RandomMath.RandomBetween(0, 4);
+
+			switch (direction)
+			{
+				case 0:
+					Direction = new Vector2(1, 1);
+					break;
+				case 1:
+					Direction = new Vector2(1, -1);
+					break;
+				case 2:
+					Direction = new Vector2(-1, -1);
+					break;
+				case 3:
+					Direction = new Vector2(-1, 1);
+					break;
+			}
 		}
 
 		public bool IsOffBottom()
@@ -47,7 +70,7 @@ namespace Breakout.Models.Balls
 			return false;
 		}
 
-		public bool IsHittingLeftWall()
+		private bool IsHittingLeftWall()
 		{
 			if (Position.X <= 0)
 				return true;
@@ -55,7 +78,7 @@ namespace Breakout.Models.Balls
 			return false;
 		}
 
-		public bool IsHittingRightWall()
+		private bool IsHittingRightWall()
 		{
 			if (Position.X + Width >= GameInfo.Screen.Width)
 				return true;
@@ -63,12 +86,41 @@ namespace Breakout.Models.Balls
 			return false;
 		}
 
-		public bool IsHittingRoof()
+		private bool IsHittingRoof()
 		{
 			if (Position.Y <= 0)
 				return true;
 
 			return false;
+		}
+
+		public void HandleWallCollision()
+		{
+			if (this.IsHittingLeftWall() || this.IsHittingRightWall())
+				Direction.X = -Direction.X;
+
+			if (this.IsHittingRoof())
+				Direction.Y = -Direction.Y;
+		}
+
+		public void HandleCollision(MovingObject entity)
+		{
+			if (Direction.X > 0 && IsTouchingLeft(entity))
+				Direction.X = -Direction.X;
+
+			if (Direction.X < 0 && IsTouchingRight(entity))
+				Direction.X = -Direction.X;
+
+			if (Direction.Y > 0 && IsTouchingTop(entity))
+				Direction.Y = -Direction.Y;
+
+			if (Direction.Y < 0 && IsTouchingBottom(entity))
+				Direction.Y = -Direction.Y;
+		}
+
+		public void UpdateMovement(float elapsed)
+		{
+			Position += Direction * Velocity * elapsed;
 		}
 	}
 }

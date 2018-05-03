@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Paddles
 {
-	public class Paddle : Entity
+	public class Paddle : MovingObject
 	{
 		public int Length
 		{
@@ -25,8 +25,6 @@ namespace Breakout.Models.Paddles
 			}
 		}
 
-		public float Velocity { get; set; }
-
 		public Paddle(int width, int height) : base(width, height)
 		{
 			this.Length = width;
@@ -36,6 +34,24 @@ namespace Breakout.Models.Paddles
 				X = GameInfo.Screen.Width / 2 - Width / 2,
 				Y = GameInfo.Screen.Height - Height - 10,
 			};
+
+			this.Velocity = 800f;
+		}
+
+		public void MoveLeft(float elapsed)
+		{
+			MoveHorizontally(-this.Velocity * elapsed);
+		}
+
+		public void MoveRight(float elapsed)
+		{
+			MoveHorizontally(this.Velocity * elapsed);
+		}
+
+		private void MoveHorizontally(float offset)
+		{
+			Position.X += offset;
+			Position.X = MathHelper.Clamp(Position.X, 0, GameInfo.Screen.Width - Width);
 		}
 
 		public void ModifyLength(int offset)

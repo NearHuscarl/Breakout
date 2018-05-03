@@ -51,9 +51,10 @@
     <Compile Include="Controllers\States\MenuState.cs" />
     <Compile Include="Controllers\States\PauseState.cs" />
     <Compile Include="Controllers\States\CreditState.cs" />
+    <Compile Include="Controllers\States\ReadyState.cs" />
     <Compile Include="Controllers\States\State.cs" />
     <Compile Include="Models\Balls\Ball.cs" />
-    <Compile Include="Models\Bases\Entity.cs" />
+    <Compile Include="Models\Bases\MovingObject.cs" />
     <Compile Include="Models\Bases\GameObject.cs" />
     <Compile Include="Models\Blocks\BlockInfo.cs" />
     <Compile Include="Models\Bases\Button.cs" />

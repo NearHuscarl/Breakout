@@ -17,7 +17,7 @@ namespace Breakout
 		public SpriteBatch SpriteBatch;
 		public MonoGameRenderer renderer;
 
-		public double Elapsed { get; private set; }
+		public float Elapsed { get; private set; }
 
 		public BreakoutGame()
 		{
@@ -52,7 +52,7 @@ namespace Breakout
 			// if (Keyboard.GetState().IsKeyDown(Keys.Escape))
 			// 	Exit();
 
-			Elapsed = gameTime.ElapsedGameTime.TotalSeconds;
+			Elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 			StateMachine.CurrentState.Update();
 

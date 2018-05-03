@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.PowerUps
 {
-	public class PowerUp : Entity
+	public class PowerUp : MovingObject
 	{
 		public PowerUpType PowerUpType { get; }
 

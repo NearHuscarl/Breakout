@@ -1,5 +1,6 @@
 ﻿using Breakout.Models;
 using Breakout.Views.Renderers;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,42 +13,41 @@ namespace Breakout.Controllers.States
 	{
 		public override void Update()
 		{
+			if (Keyboard.GetState().IsKeyDown(Keys.P))
+				PauseGame();
+
+			if (Keyboard.GetState().IsKeyDown(Keys.Left))
+				Scene.Paddle.MoveLeft(EntryPoint.Game.Elapsed);
+
+			else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+				Scene.Paddle.MoveRight(EntryPoint.Game.Elapsed);
+
 			foreach (var ball in Scene.Balls)
 			{
-				if (ball.IsHittingLeftWall() || ball.IsHittingRightWall())
-					ball.Direction.X = -ball.Direction.X;
-
-				if (ball.IsHittingRoof())
-					ball.Direction.Y = -ball.Direction.Y;
-
 				if (ball.IsOffBottom())
 					GameOver();
 
-				foreach (var block in Scene.Blocks)
-				{
+				ball.HandleWallCollision();
+				ball.HandleCollision(Scene.Paddle);
 
-				}
+				Scene.Blocks.ForEach(block => ball.HandleCollision(block));
+				ball.UpdateMovement(EntryPoint.Game.Elapsed);
 			}
+		}
+
+		private static void PauseGame()
+		{
+			StateMachine.ChangeState("PauseState");
 		}
 
 		private static void GameOver()
 		{
-			StateMachine.ChangeState("PauseState");
+			StateMachine.ChangeState("ReadyState");
 		}
 
 		public override void Draw(MonoGameRenderer renderer)
 		{
 			renderer.DrawGame();
 		}
-
-		// private void MoveBall()
-		// {
-		// 	// if ball hit block. reduce health, if block's health is 0
-		// 	// delete block and have a chance to spawn PowerUp
-		// 	if (BallUI.IsOffBottom(screenHeight))
-		// 	{
-
-		// 	}
-		// }
 	}
 }
