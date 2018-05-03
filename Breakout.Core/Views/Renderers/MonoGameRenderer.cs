@@ -28,10 +28,6 @@ namespace Breakout.Views.Renderers
 		public Sprite BlockUI;
 		public Dictionary<BlockType, Sprite> Blocks;
 
-		private float ballVelocity;
-		private float paddleVelocity;
-		public bool IsPlaying; // for pause hotkey or on restarting
-
 		private Background background;
 
 		public Font Score; // score for every block hit
@@ -53,10 +49,6 @@ namespace Breakout.Views.Renderers
 			BlockUI = UIFactory.CreateBlock(content);
 			Blocks = UIFactory.CreateBlocks(content);
 
-			ballVelocity = 3f;
-			paddleVelocity = 10f;
-			IsPlaying = false;
-
 			Score = UIFactory.CreateScoreFont(font);
 			Live = UIFactory.CreateLiveFont(font);
 			BlockLeft = UIFactory.CreateBlockLeftFont(font);
@@ -76,10 +68,12 @@ namespace Breakout.Views.Renderers
 			background.Draw(spriteBatch);
 
 			PaddleUI.Draw(spriteBatch, Scene.Paddle);
-			BallUI.Draw(spriteBatch, Scene.Balls[0]);
 
-			for (int i = 0; i <= Scene.Blocks.Count - 1; i++)
-				Blocks[Scene.Blocks[i].Type].Draw(spriteBatch, Scene.Blocks[i]);
+			foreach (var ball in Scene.Balls)
+				BallUI.Draw(spriteBatch, ball);
+
+			foreach (var block in Scene.Blocks)
+				Blocks[block.Type].Draw(spriteBatch, block);
 
 			Score.Draw(spriteBatch);
 			Live.Draw(spriteBatch);
