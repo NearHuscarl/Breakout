@@ -28,7 +28,7 @@ namespace Breakout.Controllers.States
 					GameOver();
 
 				ball.HandleWallCollision();
-				ball.HandleCollision(Scene.Paddle);
+				ball.HandlePaddleCollision(Scene.Paddle);
 
 				Scene.Blocks.ForEach(block => ball.HandleCollision(block));
 				ball.UpdateMovement(EntryPoint.Game.Elapsed);

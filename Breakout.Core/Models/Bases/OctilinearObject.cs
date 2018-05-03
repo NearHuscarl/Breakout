@@ -12,14 +12,25 @@ namespace Breakout.Models.Bases
 	/// </summary>
 	public class OctilinearObject : DynamicObject
 	{
-		private float rotation;
+		public float Angle
+		{
+			get
+			{
+				float radian = (float)Math.Atan2(-Direction.Y, Direction.X);
+				float degree = radian * (180f / (float)Math.PI);
+
+				return degree;
+			}
+		}
 
 		public void ChangeDirection(float angle)
 		{
+			float radian = MathHelper.ToRadians(-angle);
+
 			Direction = new Vector2()
 			{
-				X = (float)Math.Cos(MathHelper.ToRadians(rotation + angle)),
-				Y = (float)Math.Sin(MathHelper.ToRadians(rotation + angle)),
+				X = (float)Math.Cos(radian),
+				Y = (float)Math.Sin(radian),
 			};
 		}
 	}

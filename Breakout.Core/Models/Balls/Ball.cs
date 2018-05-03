@@ -1,6 +1,7 @@
 ﻿using Breakout.Models.Bases;
 using Breakout.Models.Interfaces;
 using Breakout.Models.Meta;
+using Breakout.Models.Paddles;
 using Breakout.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -89,19 +90,69 @@ namespace Breakout.Models.Balls
 				Direction.Y = -Direction.Y;
 		}
 
+		private void ReflectHorizontally()
+		{
+			Direction.X = -Direction.X;
+			ChangeDirection(Angle + RandomMath.RandomBetween(-4f, 4f));
+		}
+
+		private void ReflectVertically()
+		{
+			Direction.Y = -Direction.Y;
+			ChangeDirection(Angle + RandomMath.RandomBetween(-4f, 4f));
+		}
+
 		public void HandleCollision(DynamicObject entity)
 		{
 			if (Direction.X > 0 && IsTouchingLeft(entity))
-				Direction.X = -Direction.X;
+				ReflectHorizontally();
 
 			if (Direction.X < 0 && IsTouchingRight(entity))
-				Direction.X = -Direction.X;
+				ReflectHorizontally();
 
 			if (Direction.Y > 0 && IsTouchingTop(entity))
-				Direction.Y = -Direction.Y;
+				ReflectVertically();
 
 			if (Direction.Y < 0 && IsTouchingBottom(entity))
-				Direction.Y = -Direction.Y;
+				ReflectVertically();
+		}
+
+		/// <summary>
+		/// When ball hits paddle, it will not reflect back normally like when
+		/// it's hitting wall or block. But instead, it will simply bound back
+		/// on the left side if it hits the left of the paddle and vice versa
+		///
+		///
+		///               ┌──── ballCenterXPos
+		/// 1             │                0                             -1 --> percentOffset
+		///              .--.              | - 90 degree
+		///             /    \             |
+		///             \    /             |
+		/// 180 degree   '--'              |                              0 degree
+		/// +------------------------------|-+----------------------------+
+		/// |                              |                              | --> Paddle Object
+		/// +------------------------------|------------------------------+
+		///
+		///                                │
+		///                                └──── paddleCenterXPos
+		/// </summary>
+		/// <param name="paddle"></param>
+		public void HandlePaddleCollision(Paddle paddle)
+		{
+			if (IsTouchingTop(paddle))
+			{
+				float ballCenterXPos = this.Position.X + this.Width / 2;
+				float paddleCenterXPos = paddle.Position.X + paddle.Width / 2;
+				float percentOffset = (paddleCenterXPos - ballCenterXPos) * 1 / (paddle.Width / 2);
+
+				ChangeDirection(90 + percentOffset * 90);
+			}
+
+			else if (Direction.Y > 0 && IsTouchingLeft(paddle))
+				ReflectHorizontally();
+
+			else if (Direction.X < 0 && IsTouchingRight(paddle))
+				ReflectHorizontally();
 		}
 
 		public void UpdateMovement(float elapsed)
