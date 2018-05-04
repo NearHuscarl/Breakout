@@ -1,4 +1,5 @@
-﻿using Breakout.Models.Enums;
+﻿using Breakout.Extensions;
+using Breakout.Models.Enums;
 using Breakout.Views.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -23,9 +24,9 @@ namespace Breakout.Views
 
 		public static ButtonUI CreateStartButton(ContentManager content)
 		{
-			Texture2D startTexture = content.Load<Texture2D>("Start");
-			Texture2D startHoverTexture = content.Load<Texture2D>("StartHover");
-			Texture2D startClickedTexture = content.Load<Texture2D>("StartClicked");
+			Texture2D startTexture = content.Load<Texture2D>("Buttons/Start");
+			Texture2D startHoverTexture = content.Load<Texture2D>("Buttons/StartHover");
+			Texture2D startClickedTexture = content.Load<Texture2D>("Buttons/StartClicked");
 
 			ButtonUI button = new ButtonUI(startTexture, startHoverTexture, startClickedTexture);
 			return button;
@@ -33,9 +34,9 @@ namespace Breakout.Views
 
 		public static ButtonUI CreateCreditButton(ContentManager content)
 		{
-			Texture2D optionTexture = content.Load<Texture2D>("Credit");
-			Texture2D optionHoverTexture = content.Load<Texture2D>("CreditHover");
-			Texture2D optionClickedTexture = content.Load<Texture2D>("CreditClicked");
+			Texture2D optionTexture = content.Load<Texture2D>("Buttons/Credit");
+			Texture2D optionHoverTexture = content.Load<Texture2D>("Buttons/CreditHover");
+			Texture2D optionClickedTexture = content.Load<Texture2D>("Buttons/CreditClicked");
 
 			ButtonUI button = new ButtonUI(optionTexture, optionHoverTexture, optionClickedTexture);
 			return button;
@@ -43,9 +44,9 @@ namespace Breakout.Views
 
 		public static ButtonUI CreateExitButton(ContentManager content)
 		{
-			Texture2D exitTexture = content.Load<Texture2D>("Exit");
-			Texture2D exitHoverTexture = content.Load<Texture2D>("ExitHover");
-			Texture2D exitClickedTexture = content.Load<Texture2D>("ExitClicked");
+			Texture2D exitTexture = content.Load<Texture2D>("Buttons/Exit");
+			Texture2D exitHoverTexture = content.Load<Texture2D>("Buttons/ExitHover");
+			Texture2D exitClickedTexture = content.Load<Texture2D>("Buttons/ExitClicked");
 
 			ButtonUI button = new ButtonUI(exitTexture, exitHoverTexture, exitClickedTexture);
 			return button;
@@ -67,72 +68,105 @@ namespace Breakout.Views
 			return ball;
 		}
 
-		public static Sprite CreateBlock(ContentManager content, int number=1)
+		public static Dictionary<BlockType, BlockUI> CreateBlocks(ContentManager content)
 		{
-			Texture2D blockTexture = content.Load<Texture2D>("Block" + number.ToString());
+			Texture2D[] magentaBlockTextures = new Texture2D[1];
+			Texture2D[] cyanBlockTextures = new Texture2D[2];
+			Texture2D[] blueBlockTextures = new Texture2D[3];
+			Texture2D[] yellowBlockTextures = new Texture2D[4];
+			Texture2D[] orangeBlockTextures = new Texture2D[5];
+			Texture2D[] redBlockTextures = new Texture2D[1];
 
-			Sprite block = new Sprite(blockTexture);
-			return block;
-		}
+			magentaBlockTextures[0] = content.Load<Texture2D>("Blocks/Magenta1");
 
-		public static Dictionary<BlockType, Sprite> CreateBlocks(ContentManager content)
-		{
-			Dictionary<BlockType, Sprite> blocks = new Dictionary<BlockType, Sprite>();
+			cyanBlockTextures[0] = content.Load<Texture2D>("Blocks/Cyan1");
+			cyanBlockTextures[1] = content.Load<Texture2D>("Blocks/Cyan2");
 
-			foreach (BlockType blockType in Enum.GetValues(typeof(BlockType)))
+			blueBlockTextures[0] = content.Load<Texture2D>("Blocks/Blue1");
+			blueBlockTextures[1] = content.Load<Texture2D>("Blocks/Blue2");
+			blueBlockTextures[2] = content.Load<Texture2D>("Blocks/Blue3");
+
+			yellowBlockTextures[0] = content.Load<Texture2D>("Blocks/Yellow1");
+			yellowBlockTextures[1] = content.Load<Texture2D>("Blocks/Yellow2");
+			yellowBlockTextures[2] = content.Load<Texture2D>("Blocks/Yellow3");
+			yellowBlockTextures[3] = content.Load<Texture2D>("Blocks/Yellow4");
+
+			orangeBlockTextures[0] = content.Load<Texture2D>("Blocks/Orange1");
+			orangeBlockTextures[1] = content.Load<Texture2D>("Blocks/Orange2");
+			orangeBlockTextures[2] = content.Load<Texture2D>("Blocks/Orange3");
+			orangeBlockTextures[3] = content.Load<Texture2D>("Blocks/Orange4");
+			orangeBlockTextures[4] = content.Load<Texture2D>("Blocks/Orange5");
+
+			redBlockTextures[0] = content.Load<Texture2D>("Blocks/Red");
+
+			BlockUI magentaBlock = new BlockUI(magentaBlockTextures);
+			BlockUI cyanBlock = new BlockUI(cyanBlockTextures);
+			BlockUI blueBlock = new BlockUI(blueBlockTextures);
+			BlockUI yellowBlock = new BlockUI(yellowBlockTextures);
+			BlockUI orangeBlock = new BlockUI(orangeBlockTextures);
+			BlockUI redBlock = new BlockUI(redBlockTextures);
+
+			Dictionary<BlockType, BlockUI> blocks = new Dictionary<BlockType, BlockUI>()
 			{
-				int blockNumber = ((int)blockType);
-				Texture2D blockSprite = content.Load<Texture2D>("Block" + blockNumber.ToString());
-				Sprite block = new Sprite(blockSprite);
-
-				blocks.Add(blockType, block);
-			}
+				{ BlockType.Magenta, magentaBlock },
+				{ BlockType.Cyan, cyanBlock },
+				{ BlockType.Blue, blueBlock },
+				{ BlockType.Yellow, yellowBlock },
+				{ BlockType.Orange, orangeBlock },
+				{ BlockType.Red, redBlock },
+			};
 
 			return blocks;
 		}
 
+		public static FlashingBlockUI CreateFlashingBlock(ContentManager content, string color1, string color2)
+		{
+			Texture2D blockTexture = content.Load<Texture2D>("Blocks/Green");
+
+			FlashingBlockUI block = new FlashingBlockUI(blockTexture,
+				color1.ToColor(),
+				color2.ToColor());
+
+			return block;
+		}
+
 		public static Font CreateScoreFont(SpriteFont font)
 		{
-			string initialScore = "0";
 			Vector2 position = new Vector2(10, 10); // TODO: use screenWidth and screenHeight
 
-			Font scoreFont = new Font(font, initialScore, position, Color.Red);
+			Font scoreFont = new Font(font, "Score: {0}", position, Color.Red);
 			return scoreFont;
 		}
 
 		public static Font CreateLiveFont(SpriteFont font)
 		{
-			string initialLives = "3";
 			Vector2 position = new Vector2(10, 30); // TODO: use screenWidth and screenHeight
 
-			Font scoreFont = new Font(font, initialLives, position, Color.Green);
+			Font scoreFont = new Font(font, "Lives: {0}", position, Color.Green);
 			return scoreFont;
 		}
 
 		public static Font CreateComboFont(SpriteFont font)
 		{
-			string initialCombo = "0";
 			Vector2 position = new Vector2(10, 50); // TODO: use screenWidth and screenHeight
 
-			Font scoreFont = new Font(font, initialCombo, position, Color.Red);
+			Font scoreFont = new Font(font, "Combo: {0}", position, Color.Red);
 			return scoreFont;
 		}
 
 		public static Font CreateMaxComboFont(SpriteFont font)
 		{
-			string initialMaxCombo = "0";
 			Vector2 position = new Vector2(10, 70); // TODO: use screenWidth and screenHeight
 
-			Font scoreFont = new Font(font, initialMaxCombo, position, Color.Red);
+			Font scoreFont = new Font(font, "Max Combo: {0}", position, Color.Red);
 			return scoreFont;
 		}
 
 		public static Font CreateBlockLeftFont(SpriteFont font)
 		{
-			string initialBlocks = "0";
 			Vector2 position = new Vector2(10, 90); // TODO: use screenWidth and screenHeight
 
-			Font scoreFont = new Font(font, initialBlocks, position, Color.Red);
+			Font scoreFont = new Font(font, "Block Left: {0}", position, Color.Red);
 			return scoreFont;
 		}
 	}

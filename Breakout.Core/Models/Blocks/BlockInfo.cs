@@ -11,13 +11,13 @@ namespace Breakout.Models.Blocks
 	{
 		public static Dictionary<BlockType, int> Health = new Dictionary<BlockType, int>()
 		{
-			{ BlockType.Red, 100 },
-			{ BlockType.Orange, 90 },
-			{ BlockType.Yellow, 80 },
-			{ BlockType.Green, 70 },
-			{ BlockType.Blue, 60 },
-			{ BlockType.Cyan, 50 },
-			{ BlockType.Magenta, 40 },
+			{ BlockType.Red, 10 }, // One hit, make ball faster
+			{ BlockType.Orange, 50 }, // Hardest block, 5 hits
+			{ BlockType.Yellow, 40 },
+			{ BlockType.Green, 10 }, // One hit, blow up surrounding when hit
+			{ BlockType.Blue, 30 },
+			{ BlockType.Cyan, 20 },
+			{ BlockType.Magenta, 10 }, // Weakest Block, 1 hit
 		};
 
 		public static Dictionary<BlockType, int> PowerUpSpawnChance = new Dictionary<BlockType, int>()

@@ -18,7 +18,7 @@ namespace Breakout.Controllers.States
 		private static void StartGame()
 		{
 			EntryPoint.Game.IsMouseVisible = false;
-			StateMachine.ChangeState("ReadyState");
+			StateMachine.ChangeState("PauseState");
 		}
 	}
 }

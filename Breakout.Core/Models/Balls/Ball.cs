@@ -43,7 +43,8 @@ namespace Breakout.Models.Balls
 
 		public void ResetPosition()
 		{
-			var angle = RandomMath.RandomBetween(0, 360);
+			var angle = RandomMath.RandomBoolean() ?
+				RandomMath.RandomBetween(45, 135) : RandomMath.RandomBetween(225, 315);
 
 			ChangeDirection(angle);
 		}
@@ -102,39 +103,52 @@ namespace Breakout.Models.Balls
 			ChangeDirection(Angle + RandomMath.RandomBetween(-4f, 4f));
 		}
 
-		public void HandleCollision(DynamicObject entity)
+		public void HandleCollision(DynamicObject obj)
 		{
-			if (Direction.X > 0 && IsTouchingLeft(entity))
+			if (Direction.X > 0 && IsTouchingLeft(obj))
+			{
 				ReflectHorizontally();
+				obj.Hit();
+			}
 
-			if (Direction.X < 0 && IsTouchingRight(entity))
+			if (Direction.X < 0 && IsTouchingRight(obj))
+			{
 				ReflectHorizontally();
+				obj.Hit();
+			}
 
-			if (Direction.Y > 0 && IsTouchingTop(entity))
+			if (Direction.Y > 0 && IsTouchingTop(obj))
+			{
 				ReflectVertically();
+				obj.Hit();
+			}
 
-			if (Direction.Y < 0 && IsTouchingBottom(entity))
+			if (Direction.Y < 0 && IsTouchingBottom(obj))
+			{
 				ReflectVertically();
+				obj.Hit();
+			}
 		}
 
 		/// <summary>
 		/// When ball hits paddle, it will not reflect back normally like when
 		/// it's hitting wall or block. But instead, it will simply bound back
-		/// on the left side if it hits the left of the paddle and vice versa
-		///
-		///
-		///               ┌──── ballCenterXPos
-		/// 1             │                0                             -1 --> percentOffset
-		///              .--.              | - 90 degree
-		///             /    \             |
-		///             \    /             |
-		/// 180 degree   '--'              |                              0 degree
-		/// +------------------------------|-+----------------------------+
-		/// |                              |                              | --> Paddle Object
-		/// +------------------------------|------------------------------+
-		///
-		///                                │
-		///                                └──── paddleCenterXPos
+		/// on the left side if it hits the left side of the paddle and vice versa
+		///           __
+		///          |\      |
+		///            \     |
+		///             \   ╲|╱
+		///   1          \   │               0                             -1 --> percentOffset
+		///               \.-|-.             | - 90 degree
+		///               /\ |  \            |
+		///               \ \|  /            |
+		///   180 degree   '-.-'             |                              0 degree
+		///   +--------------│---------------|-+----------------------------+
+		///   |              │               |                              | --> Paddle Object
+		///   +--------------│---------------|------------------------------+
+		///                  │               │
+		/// ballCenterXPos ──┘               │
+		///                                  └──── paddleCenterXPos
 		/// </summary>
 		/// <param name="paddle"></param>
 		public void HandlePaddleCollision(Paddle paddle)
@@ -153,6 +167,9 @@ namespace Breakout.Models.Balls
 
 			else if (Direction.X < 0 && IsTouchingRight(paddle))
 				ReflectHorizontally();
+
+			else if (Direction.Y < 0 && IsTouchingBottom(paddle))
+				ReflectVertically();
 		}
 
 		public void UpdateMovement(float elapsed)

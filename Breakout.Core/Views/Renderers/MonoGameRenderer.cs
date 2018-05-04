@@ -25,8 +25,8 @@ namespace Breakout.Views.Renderers
 
 		public Sprite PaddleUI;
 		public Sprite BallUI;
-		public Sprite BlockUI;
-		public Dictionary<BlockType, Sprite> Blocks;
+		public Dictionary<BlockType, BlockUI> Blocks;
+		public FlashingBlockUI GreenBlock;
 
 		private Background background;
 
@@ -46,8 +46,9 @@ namespace Breakout.Views.Renderers
 
 			PaddleUI = UIFactory.CreatePaddle(content);
 			BallUI = UIFactory.CreateBall(content);
-			BlockUI = UIFactory.CreateBlock(content);
+
 			Blocks = UIFactory.CreateBlocks(content);
+			GreenBlock = UIFactory.CreateFlashingBlock(content, "#2ECC71", "#27AE60");
 
 			Score = UIFactory.CreateScoreFont(font);
 			Live = UIFactory.CreateLiveFont(font);
@@ -73,18 +74,18 @@ namespace Breakout.Views.Renderers
 				BallUI.Draw(spriteBatch, ball);
 
 			foreach (var block in Scene.Blocks)
-				Blocks[block.Type].Draw(spriteBatch, block);
+			{
+				if (block.Type == BlockType.Green)
+					GreenBlock.Draw(spriteBatch, block, EntryPoint.Game.Elapsed);
+				else
+					Blocks[block.Type].Draw(spriteBatch, block);
+			}
 
-			Score.Draw(spriteBatch);
-			Live.Draw(spriteBatch);
-			BlockLeft.Draw(spriteBatch);
-			CurrentCombo.Draw(spriteBatch);
-			HighestCombo.Draw(spriteBatch);
-		}
-
-		public override void MovePaddle(int currentXPos, int newXPos)
-		{
-			throw new NotImplementedException();
+			Score.Draw(spriteBatch, Scene.Player.Score);
+			Live.Draw(spriteBatch, Scene.Player.Live);
+			BlockLeft.Draw(spriteBatch, Scene.BlockLeft);
+			CurrentCombo.Draw(spriteBatch, Scene.Player.CurrentCombo);
+			HighestCombo.Draw(spriteBatch, Scene.Player.HighestCombo);
 		}
 
 		public void CenterScreen()

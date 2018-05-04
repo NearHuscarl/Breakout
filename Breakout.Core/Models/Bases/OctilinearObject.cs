@@ -8,10 +8,13 @@ using System.Threading.Tasks;
 namespace Breakout.Models.Bases
 {
 	/// <summary>
-	/// Game Objects that can move orthogonal and diagonal
+	/// Game Objects that can move orthogonally and diagonally
 	/// </summary>
 	public class OctilinearObject : DynamicObject
 	{
+		/// <summary>
+		/// Current angle in degree of OctilinearObject
+		/// </summary>
 		public float Angle
 		{
 			get

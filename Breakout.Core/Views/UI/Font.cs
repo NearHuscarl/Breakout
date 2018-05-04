@@ -15,17 +15,17 @@ namespace Breakout.Views.UI
 		private Color color;
 		public string Text;
 
-		public Font(SpriteFont font, string content, Vector2 position, Color color)
+		public Font(SpriteFont font, string text, Vector2 position, Color color)
 		{
 			this.font = font;
-			this.Text = content;
+			this.Text = text;
 			this.position = position;
 			this.color = color;
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
+		public void Draw(SpriteBatch spriteBatch, int content)
 		{
-			spriteBatch.DrawString(font, Text, position, color);
+			spriteBatch.DrawString(font, string.Format(Text, content.ToString()), position, color);
 		}
 	}
 }

@@ -11,6 +11,5 @@ namespace Breakout.Views.Renderers
 	{
 		public abstract void DrawGame();
 		public abstract void DrawMenu();
-		public abstract void MovePaddle(int currentPosition, int newPosition);
 	}
 }

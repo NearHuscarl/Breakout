@@ -30,6 +30,15 @@ namespace Breakout.Models.Bases
 			this.Position = position;
 		}
 
+		/// <summary>
+		/// Method to describe certain action when this object is hit with another
+		/// Dynamic Object
+		/// </summary>
+		public virtual void Hit()
+		{
+
+		}
+
 		#region Collision
 
 		protected bool IsTouchingLeft(GameObject obj)

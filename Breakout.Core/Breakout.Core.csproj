@@ -51,8 +51,9 @@
     <Compile Include="Controllers\States\MenuState.cs" />
     <Compile Include="Controllers\States\PauseState.cs" />
     <Compile Include="Controllers\States\CreditState.cs" />
-    <Compile Include="Controllers\States\ReadyState.cs" />
+    <Compile Include="Controllers\States\ResettingState.cs" />
     <Compile Include="Controllers\States\State.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Models\Balls\Ball.cs" />
     <Compile Include="Models\Bases\DynamicObject.cs" />
     <Compile Include="Models\Bases\GameObject.cs" />
@@ -67,19 +68,22 @@
     <Compile Include="Models\Enums\BlockType.cs" />
     <Compile Include="Models\Enums\PowerUpType.cs" />
     <Compile Include="Models\Input.cs" />
-    <Compile Include="Models\Player\Player.cs" />
+    <Compile Include="Models\Players\Player.cs" />
     <Compile Include="Models\PowerUps\PowerUp.cs" />
     <Compile Include="Models\PowerUps\PowerUpBehaviour.cs" />
     <Compile Include="Models\PowerUps\PowerUpGenerator.cs" />
     <Compile Include="Models\Scene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\GeometryMath.cs" />
+    <Compile Include="Utilities\InputHelper.cs" />
     <Compile Include="Utilities\RandomMath.cs" />
     <Compile Include="Views\Renderers\AbstractRenderer.cs" />
     <Compile Include="Views\Renderers\MonoGameRenderer.cs" />
     <Compile Include="Views\UIFactory.cs" />
     <Compile Include="Views\UI\Background.cs" />
+    <Compile Include="Views\UI\BlockUI.cs" />
     <Compile Include="Views\UI\ButtonUI.cs" />
+    <Compile Include="Views\UI\FlashingBlockUI.cs" />
     <Compile Include="Views\UI\Font.cs" />
     <Compile Include="Views\UI\Sprite.cs" />
   </ItemGroup>

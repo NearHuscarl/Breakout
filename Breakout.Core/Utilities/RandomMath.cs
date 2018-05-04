@@ -18,6 +18,11 @@ namespace Breakout.Utilities
 			}
 		}
 
+		public static bool RandomBoolean()
+		{
+			return random.Next(1, 3) == 1 ? true : false;
+		}
+
 		public static int RandomBetween(int minValue, int maxValue)
 		{
 			return random.Next(minValue, maxValue);

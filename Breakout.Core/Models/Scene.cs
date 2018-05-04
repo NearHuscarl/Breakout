@@ -4,6 +4,7 @@ using Breakout.Models.Blocks;
 using Breakout.Models.Enums;
 using Breakout.Models.Meta;
 using Breakout.Models.Paddles;
+using Breakout.Models.Players;
 using Breakout.Utilities;
 using Microsoft.Xna.Framework;
 using System;
@@ -16,6 +17,8 @@ namespace Breakout.Models
 {
 	public static class Scene
 	{
+		private static float deltaTime;
+
 		public static Button StartButton;
 		public static Button CreditButton;
 		public static Button ExitButton;
@@ -23,6 +26,10 @@ namespace Breakout.Models
 		public static Paddle Paddle { get; set; }
 		public static List<Ball> Balls { get; set; }
 		public static List<Block> Blocks { get; set; }
+
+		public static Player Player { get; set; }
+
+		public static int BlockLeft;
 
 		public static void Initialize()
 		{
@@ -39,16 +46,37 @@ namespace Breakout.Models
 
 		public static void InitializeGame()
 		{
-			Paddle = new Paddle(width: 100, height: 17);
-			Balls = new List<Ball>()
-			{
-				new Ball(radius: 8, strength: 5, velocity: 6f),
-			};
+			Player = new Player();
+			Balls = new List<Ball>();
 
+			InitializePaddle();
+			InitializeBall();
 			InitializeBlocks();
+			BlockLeft = Blocks.Count;
 		}
 
-		public static void InitializeBlocks()
+		public static void Reset()
+		{
+			InitializePaddle();
+			InitializeBall();
+		}
+
+		private static void InitializePaddle()
+		{
+			Paddle = new Paddle(width: 100, height: 17);
+		}
+
+		private static void InitializeBall()
+		{
+			Ball ball = new Ball(radius: 8, strength: 5, velocity: 6f);
+
+			ball.ResetPosition();
+
+			Balls.Clear();
+			Balls.Add(ball);
+		}
+
+		private static void InitializeBlocks()
 		{
 			int blockWidth = 30;
 			int blockHeight = 30;
@@ -68,6 +96,38 @@ namespace Breakout.Models
 					Blocks.Add(newBlock);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Update physics and stuff in the whole game
+		/// </summary>
+		public static void Step(float elapsed)
+		{
+			deltaTime = elapsed;
+
+			foreach (var ball in Balls.ToList())
+				HandleBall(ball);
+
+			foreach (var block in Blocks.ToList())
+				HandleBlock(block);
+		}
+
+		private static void HandleBall(Ball ball)
+		{
+			if (ball.IsOffBottom())
+				Balls.Remove(ball);
+
+			ball.HandleWallCollision();
+			ball.HandlePaddleCollision(Paddle);
+
+			Blocks.ForEach(block => ball.HandleCollision(block));
+			ball.UpdateMovement(deltaTime);
+		}
+
+		private static void HandleBlock(Block block)
+		{
+			if (block.IsBroken)
+				Blocks.Remove(block);
 		}
 	}
 }

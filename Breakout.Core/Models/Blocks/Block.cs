@@ -58,7 +58,7 @@ namespace Breakout.Models.Blocks
 			}
 		}
 
-		public void Hit()
+		public override void Hit()
 		{
 			Health -= 10;
 		}

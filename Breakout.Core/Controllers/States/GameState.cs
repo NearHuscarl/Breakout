@@ -1,4 +1,6 @@
 ﻿using Breakout.Models;
+using Breakout.Models.Balls;
+using Breakout.Utilities;
 using Breakout.Views.Renderers;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -13,25 +15,25 @@ namespace Breakout.Controllers.States
 	{
 		public override void Update()
 		{
-			if (Keyboard.GetState().IsKeyDown(Keys.P))
+			InputHelper.GetInput();
+
+			if (InputHelper.IsKeyDown(Keys.P))
 				PauseGame();
 
-			if (Keyboard.GetState().IsKeyDown(Keys.Left))
+			if (InputHelper.IsKeyDown(Keys.Left))
 				Scene.Paddle.MoveLeft(EntryPoint.Game.Elapsed);
 
-			else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+			else if (InputHelper.IsKeyDown(Keys.Right))
 				Scene.Paddle.MoveRight(EntryPoint.Game.Elapsed);
 
-			foreach (var ball in Scene.Balls)
+			Scene.Step(EntryPoint.Game.Elapsed);
+
+			if (Scene.Balls.Count == 0)
 			{
-				if (ball.IsOffBottom())
+				if (Scene.Player.Live == 0)
 					GameOver();
-
-				ball.HandleWallCollision();
-				ball.HandlePaddleCollision(Scene.Paddle);
-
-				Scene.Blocks.ForEach(block => ball.HandleCollision(block));
-				ball.UpdateMovement(EntryPoint.Game.Elapsed);
+				else
+					ResetGame();
 			}
 		}
 
@@ -40,9 +42,16 @@ namespace Breakout.Controllers.States
 			StateMachine.ChangeState("PauseState");
 		}
 
+		private static void ResetGame()
+		{
+			Scene.Player.Live--;
+			Scene.Reset();
+			StateMachine.ChangeState("PauseState");
+		}
+
 		private static void GameOver()
 		{
-			StateMachine.ChangeState("ReadyState");
+			StateMachine.ChangeState("MenuState");
 		}
 
 		public override void Draw(MonoGameRenderer renderer)

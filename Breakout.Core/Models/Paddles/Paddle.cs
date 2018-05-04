@@ -32,7 +32,7 @@ namespace Breakout.Models.Paddles
 			this.Position = new Vector2()
 			{
 				X = GameInfo.Screen.Width / 2 - Width / 2,
-				Y = GameInfo.Screen.Height - Height - 10,
+				Y = GameInfo.Screen.Height - Height - 30,
 			};
 
 			this.Velocity = 800f;
