@@ -1,7 +1,6 @@
 ﻿using Breakout.Models.Balls;
 using Breakout.Models.Bases;
 using Breakout.Models.Enums;
-using Breakout.Models.Interfaces;
 using Breakout.Models.Paddles;
 using System;
 using System.Collections.Generic;

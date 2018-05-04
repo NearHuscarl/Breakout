@@ -1,5 +1,4 @@
 ﻿using Breakout.Models.Bases;
-using Breakout.Models.Interfaces;
 using Breakout.Models.Meta;
 using Breakout.Models.Paddles;
 using Breakout.Utilities;
@@ -103,31 +102,45 @@ namespace Breakout.Models.Balls
 			ChangeDirection(Angle + RandomMath.RandomBetween(-4f, 4f));
 		}
 
-		public void HandleCollision(DynamicObject obj)
+		/// <summary>
+		/// Solve collision between ball and another object. Return true
+		/// if collision happens, false if not
+		/// </summary>
+		/// <param name="obj">object to check collision with</param>
+		/// <returns>Determite if ball hit object</returns>
+		public bool HandleCollision(DynamicObject obj)
 		{
+			bool isCollided = false;
+
 			if (Direction.X > 0 && IsTouchingLeft(obj))
 			{
 				ReflectHorizontally();
 				obj.Hit();
+				isCollided = true;
 			}
 
 			if (Direction.X < 0 && IsTouchingRight(obj))
 			{
 				ReflectHorizontally();
 				obj.Hit();
+				isCollided = true;
 			}
 
 			if (Direction.Y > 0 && IsTouchingTop(obj))
 			{
 				ReflectVertically();
 				obj.Hit();
+				isCollided = true;
 			}
 
 			if (Direction.Y < 0 && IsTouchingBottom(obj))
 			{
 				ReflectVertically();
 				obj.Hit();
+				isCollided = true;
 			}
+
+			return isCollided;
 		}
 
 		/// <summary>

@@ -1,5 +1,4 @@
 ﻿using Breakout.Models.Bases;
-using Breakout.Models.Interfaces;
 using Breakout.Models.Meta;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

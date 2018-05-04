@@ -1,10 +1,11 @@
 ﻿using Breakout.Models.Balls;
-using Breakout.Models.Bases;
 using Breakout.Models.Blocks;
+using Breakout.Models.Buttons;
 using Breakout.Models.Enums;
 using Breakout.Models.Meta;
 using Breakout.Models.Paddles;
 using Breakout.Models.Players;
+using Breakout.Models.Scores;
 using Breakout.Utilities;
 using Microsoft.Xna.Framework;
 using System;
@@ -19,9 +20,9 @@ namespace Breakout.Models
 	{
 		private static float deltaTime;
 
-		public static Button StartButton;
-		public static Button CreditButton;
-		public static Button ExitButton;
+		public static Button StartButton { get; set; }
+		public static Button CreditButton { get; set; }
+		public static Button ExitButton { get; set; }
 
 		public static Paddle Paddle { get; set; }
 		public static List<Ball> Balls { get; set; }
@@ -29,7 +30,7 @@ namespace Breakout.Models
 
 		public static Player Player { get; set; }
 
-		public static int BlockLeft;
+		public static int BlockLeft { get; set; }
 
 		public static void Initialize()
 		{
@@ -120,14 +121,27 @@ namespace Breakout.Models
 			ball.HandleWallCollision();
 			ball.HandlePaddleCollision(Paddle);
 
-			Blocks.ForEach(block => ball.HandleCollision(block));
+			foreach (var block in Blocks)
+			{
+				if (ball.HandleCollision(block))
+					Player.Score.AddScore(160);
+			}
+
 			ball.UpdateMovement(deltaTime);
 		}
 
 		private static void HandleBlock(Block block)
 		{
 			if (block.IsBroken)
+			{
 				Blocks.Remove(block);
+				BlockLeft--;
+			}
+		}
+
+		public static void CleanUp()
+		{
+			Player.Score.StopRecording();
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using Breakout.Models.Meta;
+﻿using Breakout.Models.Bases;
+using Breakout.Models.Meta;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Models.Bases
+namespace Breakout.Models.Buttons
 {
 	public class Button : GameObject
 	{

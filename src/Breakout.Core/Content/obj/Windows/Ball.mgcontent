@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>E:/Program Files/Project/Breakout/src/Breakout.Core/Content/Ball.png</SourceFile>
-  <SourceTime>2018-04-26T18:30:46.5097265+07:00</SourceTime>
+  <SourceTime>2018-05-04T17:20:24.0786407+07:00</SourceTime>
   <DestFile>E:/Program Files/Project/Breakout/src/Breakout.Core/Content/bin/Windows/Ball.xnb</DestFile>
-  <DestTime>2018-05-04T15:51:39.3997164+07:00</DestTime>
+  <DestTime>2018-05-04T17:20:28.6334959+07:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T22:05:36+07:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

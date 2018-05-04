@@ -1,5 +1,6 @@
 ﻿using Breakout.Models;
-using Breakout.Models.Bases;
+using Breakout.Models.Buttons;
+using Breakout.Utilities;
 using Breakout.Views.Renderers;
 using Breakout.Views.UI;
 using Microsoft.Xna.Framework.Input;
@@ -27,13 +28,16 @@ namespace Breakout.Controllers.States
 
 		private void ExitGame()
 		{
+			Scene.CleanUp();
 			EntryPoint.Game.Exit();
 		}
 
 		public override void Update()
 		{
+			InputHelper.GetInput();
+
 			HandleStartGameButton(LoadGame);
-			HandleSettingButton(OpenCredit);
+			HandleCreditButton(OpenCredit);
 			HandleExitButton(ExitGame);
 		}
 
@@ -41,40 +45,41 @@ namespace Breakout.Controllers.States
 		{
 			ButtonUI startButton = EntryPoint.Game.renderer.StartButton;
 			Button startButtonModel = Scene.StartButton;
-			HandleButton(startButton, startButtonModel, LoadGame);
+			HandleButton(startButton, startButtonModel, eventHandler);
 		}
 
-		private void HandleSettingButton(ButtonClickEventHandler eventHandler)
+		private void HandleCreditButton(ButtonClickEventHandler eventHandler)
 		{
-			ButtonUI optionButton = EntryPoint.Game.renderer.CreditButton;
-			Button optionButtonModel = Scene.CreditButton;
-			HandleButton(optionButton, optionButtonModel, OpenCredit);
+			ButtonUI creditButton = EntryPoint.Game.renderer.CreditButton;
+			Button creditButtonModel = Scene.CreditButton;
+			HandleButton(creditButton, creditButtonModel, eventHandler);
 		}
 
 		private void HandleExitButton(ButtonClickEventHandler eventHandler)
 		{
 			ButtonUI exitButton = EntryPoint.Game.renderer.ExitButton;
 			Button exitButtonModel = Scene.ExitButton;
-			HandleButton(exitButton, exitButtonModel, ExitGame);
+			HandleButton(exitButton, exitButtonModel, eventHandler);
 		}
 
-		private void HandleButton(ButtonUI button, Button buttonModel,  ButtonClickEventHandler eventHandler)
+		private void HandleButton(ButtonUI button, Button buttonModel, ButtonClickEventHandler eventHandler)
 		{
-			bool isMouseOverButton = buttonModel.Rectangle.Contains(Mouse.GetState().X, Mouse.GetState().Y);
+			bool isMouseOverButton = buttonModel.Rectangle.Contains(InputHelper.GetMousePosition());
 
-			if (isMouseOverButton)
-			{
-				button.ChangeToHoverImage();
-			}
-			else
+			if (!isMouseOverButton)
 			{
 				button.ChangeToInactiveImage();
+				return;
 			}
 
-			if (Mouse.GetState().LeftButton == ButtonState.Pressed && isMouseOverButton)
-			{
+			if (InputHelper.IsMouseHold(MouseButtons.LeftButton))
+				button.ChangeToClickedImage();
+
+			else if (InputHelper.IsMouseRelease(MouseButtons.LeftButton))
 				eventHandler.Invoke();
-			}
+
+			else
+				button.ChangeToHoverImage();
 		}
 
 		public override void Draw(MonoGameRenderer renderer)

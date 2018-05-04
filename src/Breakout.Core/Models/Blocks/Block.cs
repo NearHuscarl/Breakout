@@ -1,6 +1,5 @@
 ﻿using Breakout.Models.Bases;
 using Breakout.Models.Enums;
-using Breakout.Models.Interfaces;
 using Breakout.Models.PowerUps;
 using Breakout.Utilities;
 using Microsoft.Xna.Framework;

@@ -30,7 +30,7 @@ namespace Breakout.Views.Renderers
 
 		private Background background;
 
-		public Font Score; // score for every block hit
+		public Font Score;
 		public Font Live;
 		public Font BlockLeft;
 		public Font CurrentCombo;
@@ -81,7 +81,7 @@ namespace Breakout.Views.Renderers
 					Blocks[block.Type].Draw(spriteBatch, block);
 			}
 
-			Score.Draw(spriteBatch, Scene.Player.Score);
+			Score.Draw(spriteBatch, Scene.Player.Score.Get());
 			Live.Draw(spriteBatch, Scene.Player.Live);
 			BlockLeft.Draw(spriteBatch, Scene.BlockLeft);
 			CurrentCombo.Draw(spriteBatch, Scene.Player.CurrentCombo);

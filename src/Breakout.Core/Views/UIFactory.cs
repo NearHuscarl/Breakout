@@ -34,11 +34,11 @@ namespace Breakout.Views
 
 		public static ButtonUI CreateCreditButton(ContentManager content)
 		{
-			Texture2D optionTexture = content.Load<Texture2D>("Buttons/Credit");
-			Texture2D optionHoverTexture = content.Load<Texture2D>("Buttons/CreditHover");
-			Texture2D optionClickedTexture = content.Load<Texture2D>("Buttons/CreditClicked");
+			Texture2D creditTexture = content.Load<Texture2D>("Buttons/Credit");
+			Texture2D creditHoverTexture = content.Load<Texture2D>("Buttons/CreditHover");
+			Texture2D creditClickedTexture = content.Load<Texture2D>("Buttons/CreditClicked");
 
-			ButtonUI button = new ButtonUI(optionTexture, optionHoverTexture, optionClickedTexture);
+			ButtonUI button = new ButtonUI(creditTexture, creditHoverTexture, creditClickedTexture);
 			return button;
 		}
 
