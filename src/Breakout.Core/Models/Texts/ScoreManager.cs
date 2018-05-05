@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Breakout.Models.Scores
+namespace Breakout.Models.Texts
 {
-	public class ScoreManager
+	public class ScoreManager : Text
 	{
 		private int currentScore { get; set; } = 0;
 		private int scoreToUpdate { get; set; } = 0;
@@ -17,7 +18,12 @@ namespace Breakout.Models.Scores
 		private Thread t1;
 		private bool isDone = false;
 
-		public ScoreManager()
+		public ScoreManager() : base(0, "Score: ")
+		{
+			Awake();
+		}
+
+		public ScoreManager(Vector2 position) : base(0, "Score: ", position)
 		{
 			Awake();
 		}
@@ -51,9 +57,12 @@ namespace Breakout.Models.Scores
 			}
 		}
 
-		public int Get()
+		public override string Content
 		{
-			return scoreToUpdate;
+			get
+			{
+				return scoreToUpdate.ToString();
+			}
 		}
 
 		public void AddScore(int point)

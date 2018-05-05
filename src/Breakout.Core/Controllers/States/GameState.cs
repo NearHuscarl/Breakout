@@ -44,7 +44,7 @@ namespace Breakout.Controllers.States
 
 		private static void ResetGame()
 		{
-			Scene.Player.Live--;
+			Scene.Player.Live.Take(1);
 			Scene.Reset();
 			StateMachine.ChangeState("PauseState");
 		}

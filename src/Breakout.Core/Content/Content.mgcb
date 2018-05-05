@@ -193,13 +193,6 @@
 /processorParam:TextureFormat=Color
 /build:Buttons/StartHover.png
 
-#begin Font.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Font.spritefont
-
 #begin Blocks/Green.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -403,4 +396,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Blocks/Yellow4.png
+
+#begin Fonts/Font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Font.spritefont
 

@@ -15,7 +15,7 @@ namespace Breakout.Controllers.States
 	{
 		public override void Update()
 		{
-			Size screenSize = new Size()
+			Shape screenSize = new Shape()
 			{
 				Width = EntryPoint.Game.graphics.PreferredBackBufferWidth,
 				Height = EntryPoint.Game.graphics.PreferredBackBufferHeight,

@@ -60,9 +60,11 @@
     <Compile Include="Models\Bases\OctilinearObject.cs" />
     <Compile Include="Models\Blocks\BlockInfo.cs" />
     <Compile Include="Models\Buttons\Button.cs" />
+    <Compile Include="Models\Meta\FontShape.cs" />
     <Compile Include="Models\Meta\GameInfo.cs" />
+    <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\Players\IPlayer.cs" />
-    <Compile Include="Models\Meta\Size.cs" />
+    <Compile Include="Models\Meta\Shape.cs" />
     <Compile Include="Models\Paddles\Paddle.cs" />
     <Compile Include="Models\Blocks\Block.cs" />
     <Compile Include="Models\Enums\BlockType.cs" />
@@ -73,11 +75,13 @@
     <Compile Include="Models\PowerUps\PowerUpBehaviour.cs" />
     <Compile Include="Models\PowerUps\PowerUpGenerator.cs" />
     <Compile Include="Models\Scene.cs" />
-    <Compile Include="Models\Scores\ScoreManager.cs" />
+    <Compile Include="Models\Texts\ScoreManager.cs" />
+    <Compile Include="Models\Texts\Text.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\GeometryMath.cs" />
     <Compile Include="Utilities\InputHelper.cs" />
     <Compile Include="Utilities\RandomMath.cs" />
+    <Compile Include="Views\Enums\Alignment.cs" />
     <Compile Include="Views\Renderers\AbstractRenderer.cs" />
     <Compile Include="Views\Renderers\MonoGameRenderer.cs" />
     <Compile Include="Views\UIFactory.cs" />

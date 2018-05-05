@@ -1,4 +1,4 @@
-﻿using Breakout.Models.Scores;
+﻿using Breakout.Models.Texts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +9,9 @@ namespace Breakout.Models.Players
 {
 	public interface IPlayer
 	{
-		int Live { get; set; }
+		Text Live { get; set; }
 		ScoreManager Score { get; set; }
-		int CurrentCombo { get; set; }
-		int HighestCombo { get; set; }
+		Text CurrentCombo { get; set; }
+		Text HighestCombo { get; set; }
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using Breakout.Models;
 using Breakout.Models.Enums;
 using Breakout.Models.Meta;
+using Breakout.Views.Enums;
 using Breakout.Views.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -17,7 +18,7 @@ namespace Breakout.Views.Renderers
 	{
 		private ContentManager content = EntryPoint.Game.Content;
 		private SpriteBatch spriteBatch = EntryPoint.Game.SpriteBatch;
-		private SpriteFont font = EntryPoint.Game.Content.Load<SpriteFont>("Font");
+		private SpriteFont font = EntryPoint.Game.Content.Load<SpriteFont>("Fonts/Font");
 
 		public ButtonUI StartButton;
 		public ButtonUI CreditButton;
@@ -30,11 +31,9 @@ namespace Breakout.Views.Renderers
 
 		private Background background;
 
-		public Font Score;
-		public Font Live;
-		public Font BlockLeft;
-		public Font CurrentCombo;
-		public Font HighestCombo;
+		public Font RedFont;
+		public Font GreenFont;
+		public Font YellowFont;
 
 		public MonoGameRenderer()
 		{
@@ -50,11 +49,9 @@ namespace Breakout.Views.Renderers
 			Blocks = UIFactory.CreateBlocks(content);
 			GreenBlock = UIFactory.CreateFlashingBlock(content, "#2ECC71", "#27AE60");
 
-			Score = UIFactory.CreateScoreFont(font);
-			Live = UIFactory.CreateLiveFont(font);
-			BlockLeft = UIFactory.CreateBlockLeftFont(font);
-			CurrentCombo = UIFactory.CreateComboFont(font);
-			HighestCombo = UIFactory.CreateMaxComboFont(font);
+			RedFont = UIFactory.CreateRedFont(font);
+			GreenFont = UIFactory.CreateGreenFont(font);
+			YellowFont = UIFactory.CreateYellowFont(font);
 		}
 
 		public override void DrawMenu()
@@ -81,11 +78,15 @@ namespace Breakout.Views.Renderers
 					Blocks[block.Type].Draw(spriteBatch, block);
 			}
 
-			Score.Draw(spriteBatch, Scene.Player.Score.Get());
-			Live.Draw(spriteBatch, Scene.Player.Live);
-			BlockLeft.Draw(spriteBatch, Scene.BlockLeft);
-			CurrentCombo.Draw(spriteBatch, Scene.Player.CurrentCombo);
-			HighestCombo.Draw(spriteBatch, Scene.Player.HighestCombo);
+			RedFont.Draw(spriteBatch, Scene.Player.Score, Alignment.Center);
+			GreenFont.Draw(spriteBatch, Scene.Player.Live, Alignment.Left);
+			YellowFont.Draw(spriteBatch, Scene.BlockLeft, Alignment.Right);
+
+			RedFont.Draw(spriteBatch, Scene.Player.CurrentCombo,
+				Alignment.Left, offsetText: Scene.Player.Live.FullText);
+
+			RedFont.Draw(spriteBatch, Scene.Player.HighestCombo,
+				Alignment.Left, offsetText: Scene.Player.Live.FullText + Scene.Player.CurrentCombo.FullText);
 		}
 
 		public void CenterScreen()

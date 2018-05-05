@@ -31,7 +31,7 @@ namespace Breakout.Views.UI
 		}
 
 		/// <summary>
-		/// Transform color gradually from startColor to endColor back and forth
+		/// Transform color gradually from startColor to endColor and go backward
 		/// </summary>
 		private Color TransformColor(float deltaTime)
 		{

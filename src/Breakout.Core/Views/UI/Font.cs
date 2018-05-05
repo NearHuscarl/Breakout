@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Breakout.Models.Meta;
+using Breakout.Models.Texts;
+using Breakout.Views.Enums;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -11,21 +14,29 @@ namespace Breakout.Views.UI
 	public class Font
 	{
 		private SpriteFont font;
-		private Vector2 position;
 		private Color color;
-		public string Text;
 
-		public Font(SpriteFont font, string text, Vector2 position, Color color)
+		public Font(SpriteFont font, Color color)
 		{
 			this.font = font;
-			this.Text = text;
-			this.position = position;
 			this.color = color;
 		}
 
-		public void Draw(SpriteBatch spriteBatch, int content)
+		public void Draw(SpriteBatch spriteBatch, Text text, Alignment alignment, string offsetText="")
 		{
-			spriteBatch.DrawString(font, string.Format(Text, content.ToString()), position, color);
+			float contentLength = font.MeasureString(text.FullText).X;
+			float offsetLength = font.MeasureString(offsetText).X;
+
+			if (alignment == Alignment.Left)
+				text.Position.X = 5 + offsetLength;
+
+			else if (alignment == Alignment.Right)
+				text.Position.X = GameInfo.Screen.Width - contentLength - offsetLength;
+
+			else // (alignment == Alignment.Center)
+				text.Position.X = GameInfo.Screen.Width / 2 - contentLength / 2;
+
+			spriteBatch.DrawString(font, text.FullText, text.Position, color);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Breakout.Extensions;
 using Breakout.Models.Enums;
+using Breakout.Models.Meta;
 using Breakout.Views.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -130,44 +131,19 @@ namespace Breakout.Views
 			return block;
 		}
 
-		public static Font CreateScoreFont(SpriteFont font)
+		public static Font CreateRedFont(SpriteFont font)
 		{
-			Vector2 position = new Vector2(10, 10); // TODO: use screenWidth and screenHeight
-
-			Font scoreFont = new Font(font, "Score: {0}", position, Color.Red);
-			return scoreFont;
+			return new Font(font, GameInfo.Theme["LightRed"]);
 		}
 
-		public static Font CreateLiveFont(SpriteFont font)
+		public static Font CreateGreenFont(SpriteFont font)
 		{
-			Vector2 position = new Vector2(10, 30); // TODO: use screenWidth and screenHeight
-
-			Font scoreFont = new Font(font, "Lives: {0}", position, Color.Green);
-			return scoreFont;
+			return new Font(font, GameInfo.Theme["LightGreen"]);
 		}
 
-		public static Font CreateComboFont(SpriteFont font)
+		public static Font CreateYellowFont(SpriteFont font)
 		{
-			Vector2 position = new Vector2(10, 50); // TODO: use screenWidth and screenHeight
-
-			Font scoreFont = new Font(font, "Combo: {0}", position, Color.Red);
-			return scoreFont;
-		}
-
-		public static Font CreateMaxComboFont(SpriteFont font)
-		{
-			Vector2 position = new Vector2(10, 70); // TODO: use screenWidth and screenHeight
-
-			Font scoreFont = new Font(font, "Max Combo: {0}", position, Color.Red);
-			return scoreFont;
-		}
-
-		public static Font CreateBlockLeftFont(SpriteFont font)
-		{
-			Vector2 position = new Vector2(10, 90); // TODO: use screenWidth and screenHeight
-
-			Font scoreFont = new Font(font, "Block Left: {0}", position, Color.Red);
-			return scoreFont;
+			return new Font(font, GameInfo.Theme["Yellow"]);
 		}
 	}
 }
