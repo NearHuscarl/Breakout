@@ -3,4 +3,7 @@
 
 Debug/
 Release/
+
+# Mono Content
+obj/
 bin/
