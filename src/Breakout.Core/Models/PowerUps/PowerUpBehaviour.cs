@@ -11,7 +11,7 @@ namespace Breakout.Models.PowerUps
 {
 	public static class PowerUpBehaviour
 	{
-		public static Dictionary<PowerUpType, Action<List<Ball>>> Balls = new Dictionary<PowerUpType, Action<List<Ball>>>()
+		public static Dictionary<PowerUpType, Action<List<Ball>>> BallPowerUp = new Dictionary<PowerUpType, Action<List<Ball>>>()
 		{
 			{ PowerUpType.Double, DoubleBall },
 			{ PowerUpType.Triple, TripleBall },
@@ -23,10 +23,28 @@ namespace Breakout.Models.PowerUps
 			{ PowerUpType.Slower, MakeBallSlower },
 		};
 
-		public static Dictionary<PowerUpType, Action<Paddle>> Paddle = new Dictionary<PowerUpType, Action<Paddle>>()
+		public static Dictionary<PowerUpType, Action<List<Ball>>> BallPowerDown = new Dictionary<PowerUpType, Action<List<Ball>>>()
+		{
+			{ PowerUpType.Double, DoNothing },
+			{ PowerUpType.Triple, DoNothing },
+			{ PowerUpType.Bigger, DecreaseBallSize },
+			{ PowerUpType.Smaller, IncreaseBallSize },
+			{ PowerUpType.Stronger, WeakenBall },
+			{ PowerUpType.Weaker, StrengthenBall },
+			{ PowerUpType.Faster, MakeBallSlower },
+			{ PowerUpType.Slower, MakeBallFaster },
+		};
+
+		public static Dictionary<PowerUpType, Action<Paddle>> PaddlePowerUp = new Dictionary<PowerUpType, Action<Paddle>>()
 		{
 			{ PowerUpType.Longer, IncreasePaddleLength },
 			{ PowerUpType.Shorter, DecreasePaddleLength },
+		};
+
+		public static Dictionary<PowerUpType, Action<Paddle>> PaddlePowerDown = new Dictionary<PowerUpType, Action<Paddle>>()
+		{
+			{ PowerUpType.Longer, DecreasePaddleLength },
+			{ PowerUpType.Shorter, IncreasePaddleLength },
 		};
 
 		private static void DoubleBall(List<Ball> balls)
@@ -62,12 +80,12 @@ namespace Breakout.Models.PowerUps
 
 		private static void MakeBallFaster(List<Ball> balls)
 		{
-			//ModifyBalls(balls, ball => ball.Velocity += 2);
+			ModifyBalls(balls, ball => ball.Velocity += 100);
 		}
 
 		private static void MakeBallSlower(List<Ball> balls)
 		{
-			//ModifyBalls(balls, ball => ball.Velocity -= 2);
+			ModifyBalls(balls, ball => ball.Velocity -= 100);
 		}
 
 		private static void ModifyBalls(List<Ball> balls, Action<Ball> modification)
@@ -86,6 +104,16 @@ namespace Breakout.Models.PowerUps
 		private static void DecreasePaddleLength(Paddle paddle)
 		{
 			paddle.Length -= 2;
+		}
+
+		private static void DoNothing(List<Ball> balls)
+		{
+
+		}
+
+		private static void DoNothing(Paddle paddle)
+		{
+
 		}
 	}
 }

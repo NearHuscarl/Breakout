@@ -1,4 +1,5 @@
 ﻿using Breakout.Models;
+using Breakout.Models.IO;
 using Breakout.Models.Meta;
 using Breakout.Views;
 using Breakout.Views.Renderers;
@@ -22,7 +23,10 @@ namespace Breakout.Controllers.States
 			};
 
 			GameInfo.Initialize(screenSize);
+
+			Input.SetDefaultInput();
 			Scene.InitializeMenu();
+
 			OpenMenu();
 		}
 

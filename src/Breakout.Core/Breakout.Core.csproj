@@ -53,6 +53,7 @@
     <Compile Include="Controllers\States\CreditState.cs" />
     <Compile Include="Controllers\States\ResettingState.cs" />
     <Compile Include="Controllers\States\State.cs" />
+    <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Models\Balls\Ball.cs" />
     <Compile Include="Models\Bases\DynamicObject.cs" />
@@ -69,16 +70,16 @@
     <Compile Include="Models\Blocks\Block.cs" />
     <Compile Include="Models\Enums\BlockType.cs" />
     <Compile Include="Models\Enums\PowerUpType.cs" />
-    <Compile Include="Models\Input.cs" />
+    <Compile Include="Models\IO\Input.cs" />
     <Compile Include="Models\Players\Player.cs" />
     <Compile Include="Models\PowerUps\PowerUp.cs" />
     <Compile Include="Models\PowerUps\PowerUpBehaviour.cs" />
     <Compile Include="Models\PowerUps\PowerUpGenerator.cs" />
+    <Compile Include="Models\PowerUps\PowerUpPackage.cs" />
     <Compile Include="Models\Scene.cs" />
     <Compile Include="Models\Texts\ScoreManager.cs" />
     <Compile Include="Models\Texts\Text.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\GeometryMath.cs" />
     <Compile Include="Utilities\InputHelper.cs" />
     <Compile Include="Utilities\RandomMath.cs" />
     <Compile Include="Views\Enums\Alignment.cs" />

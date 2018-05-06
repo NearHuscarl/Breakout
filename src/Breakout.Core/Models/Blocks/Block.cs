@@ -45,16 +45,15 @@ namespace Breakout.Models.Blocks
 			this.powerUpSpawnChance = BlockInfo.PowerUpSpawnChance[Type];
 		}
 
-		public PowerUp SpawnPowerUp()
+		public PowerUpPackage SpawnPowerUpPackage()
 		{
 			if (RandomMath.RandomPercent(powerUpSpawnChance))
 			{
-				return PowerUpGenerator.GenerateRandomPowerUp();
+				PowerUp powerUp = PowerUpGenerator.GenerateRandomPowerUp();
+				return ModelFactory.CreatePowerUpPackage(powerUp, this.Position);
 			}
-			else
-			{
-				return null;
-			}
+
+			return null;
 		}
 
 		public override void Hit()

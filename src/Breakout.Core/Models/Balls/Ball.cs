@@ -14,6 +14,7 @@ namespace Breakout.Models.Balls
 {
 	public class Ball : OctilinearObject
 	{
+		public float MaxVelocity { get; set; }
 		public float Radius
 		{
 			get
@@ -38,6 +39,7 @@ namespace Breakout.Models.Balls
 			};
 
 			this.Velocity = 320f;
+			this.MaxVelocity = 520f;
 		}
 
 		public void ResetPosition()
@@ -46,39 +48,6 @@ namespace Breakout.Models.Balls
 				RandomMath.RandomBetween(45, 135) : RandomMath.RandomBetween(225, 315);
 
 			ChangeDirection(angle);
-		}
-
-		public bool IsOffBottom()
-		{
-			if (this.Position.Y + this.Height > GameInfo.Screen.Height)
-			{
-				return true;
-			}
-			return false;
-		}
-
-		private bool IsHittingLeftWall()
-		{
-			if (Position.X <= 0)
-				return true;
-
-			return false;
-		}
-
-		private bool IsHittingRightWall()
-		{
-			if (Position.X + Width >= GameInfo.Screen.Width)
-				return true;
-
-			return false;
-		}
-
-		private bool IsHittingRoof()
-		{
-			if (Position.Y <= 0)
-				return true;
-
-			return false;
 		}
 
 		public void HandleWallCollision()
@@ -185,9 +154,9 @@ namespace Breakout.Models.Balls
 				ReflectVertically();
 		}
 
-		public void UpdateMovement(float elapsed)
+		public override void UpdateMovement(float elapsed)
 		{
-			Position += Direction * Velocity * elapsed;
+			Position += Direction * MathHelper.Clamp(Velocity, 0, MaxVelocity) * elapsed;
 		}
 	}
 }

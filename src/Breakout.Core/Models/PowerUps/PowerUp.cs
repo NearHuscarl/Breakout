@@ -10,36 +10,78 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.PowerUps
 {
+	public enum Target
+	{
+		Ball,
+		Paddle,
+	}
+
 	public class PowerUp : DynamicObject
 	{
-		public PowerUpType PowerUpType { get; }
+		#region Properties
 
-		public PowerUp(PowerUpType powerUpType)
+		public PowerUpType PowerUpType { get; private set;  }
+
+		/// <summary>
+		/// when timer hits zero, powerup stop and destroy itself
+		/// </summary>
+		public float Timer { get; set; }
+
+		public bool Active
 		{
-			PowerUpType = powerUpType;
+			get
+			{
+				if (Timer <= 0)
+					return false;
+
+				return true;
+			}
 		}
 
-		public void ModifyAbility<T>(T entity)
+		public Target Target
 		{
-			List<Ball> balls = entity as List<Ball>;
+			get
+			{
+				if (PowerUpBehaviour.BallPowerUp.ContainsKey(PowerUpType))
+					return Target.Ball;
+
+				return Target.Paddle;
+			}
+		}
+
+		#endregion
+
+		// the thing that power-up can affect
+		private List<Ball> balls;
+		private Paddle paddle;
+
+		public PowerUp(PowerUpType type)
+		{
+			PowerUpType = type;
+			Timer = 20f;
+		}
+
+		public void Activate(List<Ball> balls)
+		{
+			this.balls = balls;
+
+			PowerUpBehaviour.BallPowerUp[PowerUpType].Invoke(balls);
+		}
+
+		public void Activate(Paddle paddle)
+		{
+			this.paddle = paddle;
+
+			PowerUpBehaviour.PaddlePowerUp[PowerUpType].Invoke(paddle);
+		}
+
+		public void Deactivate()
+		{
+			if (paddle != null)
+				PowerUpBehaviour.PaddlePowerDown[PowerUpType].Invoke(paddle);
 
 			if (balls != null)
-			{
-				var BallModification = PowerUpBehaviour.Balls[PowerUpType];
-
-				BallModification.Invoke(balls);
-				return;
-			}
-
-			Paddle paddle = entity as Paddle;
-
-			if (paddle != null)
-			{
-				var PaddleModification = PowerUpBehaviour.Paddle[PowerUpType];
-
-				PaddleModification.Invoke(paddle);
-				return;
-			}
+				PowerUpBehaviour.BallPowerDown[PowerUpType].Invoke(balls);
 		}
 	}
 }

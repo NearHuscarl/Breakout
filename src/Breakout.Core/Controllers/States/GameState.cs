@@ -1,5 +1,6 @@
 ﻿using Breakout.Models;
 using Breakout.Models.Balls;
+using Breakout.Models.IO;
 using Breakout.Utilities;
 using Breakout.Views.Renderers;
 using Microsoft.Xna.Framework.Input;
@@ -17,13 +18,13 @@ namespace Breakout.Controllers.States
 		{
 			InputHelper.GetInput();
 
-			if (InputHelper.IsKeyDown(Keys.P))
+			if (InputHelper.IsKeyDown(Input.PauseGame))
 				PauseGame();
 
-			if (InputHelper.IsKeyDown(Keys.Left))
+			if (InputHelper.IsKeyDown(Input.MovePaddleLeft))
 				Scene.Paddle.MoveLeft(EntryPoint.Game.Elapsed);
 
-			else if (InputHelper.IsKeyDown(Keys.Right))
+			else if (InputHelper.IsKeyDown(Input.MovePaddleRight))
 				Scene.Paddle.MoveRight(EntryPoint.Game.Elapsed);
 
 			Scene.Step(EntryPoint.Game.Elapsed);
@@ -51,7 +52,7 @@ namespace Breakout.Controllers.States
 
 		private static void GameOver()
 		{
-			StateMachine.ChangeState("MenuState");
+			StateMachine.ChangeState("MenuState"); // TODO: Prompt asking to continue or not
 		}
 
 		public override void Draw(MonoGameRenderer renderer)

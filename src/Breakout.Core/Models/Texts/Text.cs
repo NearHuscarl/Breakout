@@ -50,7 +50,7 @@ namespace Breakout.Models.Texts
 		/// Add an amount of numeric value
 		/// </summary>
 		/// <param name="amount"></param>
-		public void Get(int amount)
+		public void Add(int amount)
 		{
 			Content = (Int32.Parse(Content) + amount).ToString();
 		}

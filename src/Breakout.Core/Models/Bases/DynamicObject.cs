@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Breakout.Models.Meta;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,48 @@ namespace Breakout.Models.Bases
 
 		}
 
+		/// <summary>
+		/// Move to new position based on current Direction and Velocity
+		/// </summary>
+		/// <param name="elapsed"></param>
+		public virtual void UpdateMovement(float elapsed)
+		{
+			Position += Direction * Velocity * elapsed;
+		}
+
+		public bool IsOffBottom()
+		{
+			if (this.Position.Y + this.Height > GameInfo.Screen.Height)
+			{
+				return true;
+			}
+			return false;
+		}
+
+		public bool IsHittingLeftWall()
+		{
+			if (Position.X <= 0)
+				return true;
+
+			return false;
+		}
+
+		public bool IsHittingRightWall()
+		{
+			if (Position.X + Width >= GameInfo.Screen.Width)
+				return true;
+
+			return false;
+		}
+
+		public bool IsHittingRoof()
+		{
+			if (Position.Y <= 0)
+				return true;
+
+			return false;
+		}
+
 		#region Collision
 
 		protected bool IsTouchingLeft(GameObject obj)
@@ -71,6 +114,14 @@ namespace Breakout.Models.Bases
 				this.Rectangle.Bottom > obj.Rectangle.Bottom &&
 				this.Rectangle.Right > obj.Rectangle.Left &&
 				this.Rectangle.Left < obj.Rectangle.Right;
+		}
+
+		public bool IsTouching(GameObject obj)
+		{
+			return IsTouchingLeft(obj) ||
+				IsTouchingRight(obj) ||
+				IsTouchingTop(obj) ||
+				IsTouchingBottom(obj);
 		}
 
 		#endregion

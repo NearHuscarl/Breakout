@@ -5,6 +5,7 @@ using Breakout.Models.Enums;
 using Breakout.Models.Meta;
 using Breakout.Models.Paddles;
 using Breakout.Models.Players;
+using Breakout.Models.PowerUps;
 using Breakout.Models.Texts;
 using Breakout.Utilities;
 using Microsoft.Xna.Framework;
@@ -97,6 +98,11 @@ namespace Breakout.Models
 			};
 
 			return blockLeftText;
+		}
+
+		public static PowerUpPackage CreatePowerUpPackage(PowerUp powerUp, Vector2 position)
+		{
+			return new PowerUpPackage(powerUp, width: 20, height: 20, position: position);
 		}
 
 		public static List<Block> CreateBlocks()
