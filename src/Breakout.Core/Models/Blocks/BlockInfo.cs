@@ -18,6 +18,9 @@ namespace Breakout.Models.Blocks
 			{ BlockType.Blue, 30 },
 			{ BlockType.Cyan, 20 },
 			{ BlockType.Magenta, 10 }, // Weakest Block, 1 hit
+			{ BlockType.Black, 100 },
+			{ BlockType.Gray, 80 },
+			{ BlockType.None, 0 },
 		};
 
 		public static Dictionary<BlockType, int> PowerUpSpawnChance = new Dictionary<BlockType, int>()
@@ -29,6 +32,9 @@ namespace Breakout.Models.Blocks
 			{ BlockType.Blue, 8 },
 			{ BlockType.Cyan, 5 },
 			{ BlockType.Magenta, 2 },
+			{ BlockType.Black, 0 },
+			{ BlockType.Gray, 0 },
+			{ BlockType.None, 0 },
 		};
 	}
 }

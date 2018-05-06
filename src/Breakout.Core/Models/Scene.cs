@@ -114,16 +114,9 @@ namespace Breakout.Models
 			if (block.IsBroken)
 			{
 				if (block.Type == BlockType.Red)
-				{
-					PowerUp powerUp = new PowerUp(PowerUpType.Faster);
+					PowerUps.Add(new PowerUp(PowerUpType.Faster, Balls));
 
-					powerUp.Activate(Balls);
-					PowerUps.Add(powerUp);
-				}
-				else
-				{
-					Packages.AddIfNotNull(block.SpawnPowerUpPackage());
-				}
+				Packages.AddIfNotNull(block.SpawnPowerUpPackage());
 
 				Blocks.Remove(block);
 				BlockLeft.Take(1);
@@ -147,7 +140,7 @@ namespace Breakout.Models
 			{
 				PowerUp powerUp = package.GetPowerUp();
 
-				if (powerUp.Target == Target.Ball)
+				if (powerUp.Target == PowerUpTarget.Ball)
 					powerUp.Activate(Balls);
 				else
 					powerUp.Activate(Paddle);

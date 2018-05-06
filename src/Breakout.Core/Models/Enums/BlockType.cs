@@ -15,5 +15,8 @@ namespace Breakout.Models.Enums
 		Blue,
 		Cyan,
 		Magenta, // weakest, least chance to spawn PowerUp
+		Gray,
+		Black,
+		None,
 	}
 }

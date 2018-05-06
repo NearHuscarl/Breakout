@@ -61,6 +61,8 @@
     <Compile Include="Models\Bases\OctilinearObject.cs" />
     <Compile Include="Models\Blocks\BlockInfo.cs" />
     <Compile Include="Models\Buttons\Button.cs" />
+    <Compile Include="Models\Maps\Map.cs" />
+    <Compile Include="Models\Maps\MapManager.cs" />
     <Compile Include="Models\Meta\FontShape.cs" />
     <Compile Include="Models\Meta\GameInfo.cs" />
     <Compile Include="Models\ModelFactory.cs" />
@@ -97,6 +99,9 @@
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -107,10 +112,20 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>set map_path="$(SolutionDir)..\tool"
+
+if not exist "$(TargetDir)maps" (
+   mkdir "$(TargetDir)maps"
+)
+
+copy %25map_path%25\*.json "$(TargetDir)maps"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

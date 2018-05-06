@@ -71,41 +71,23 @@ namespace Breakout.Views
 
 		public static Dictionary<BlockType, BlockUI> CreateBlocks(ContentManager content)
 		{
-			Texture2D[] magentaBlockTextures = new Texture2D[1];
-			Texture2D[] cyanBlockTextures = new Texture2D[2];
-			Texture2D[] blueBlockTextures = new Texture2D[3];
-			Texture2D[] yellowBlockTextures = new Texture2D[4];
-			Texture2D[] orangeBlockTextures = new Texture2D[5];
-			Texture2D[] redBlockTextures = new Texture2D[1];
+			Texture2D magentaBlockTexture = content.Load<Texture2D>("Blocks/Magenta");
+			Texture2D cyanBlockTexture = content.Load<Texture2D>("Blocks/Cyan");
+			Texture2D blueBlockTexture = content.Load<Texture2D>("Blocks/Blue");
+			Texture2D yellowBlockTexture = content.Load<Texture2D>("Blocks/Yellow");
+			Texture2D orangeBlockTexture = content.Load<Texture2D>("Blocks/Orange");
+			Texture2D redBlockTexture = content.Load<Texture2D>("Blocks/Red");
+			Texture2D grayBlockTexture = content.Load<Texture2D>("Blocks/Gray");
+			Texture2D blackBlockTexture = content.Load<Texture2D>("Blocks/Black");
 
-			magentaBlockTextures[0] = content.Load<Texture2D>("Blocks/Magenta1");
-
-			cyanBlockTextures[0] = content.Load<Texture2D>("Blocks/Cyan1");
-			cyanBlockTextures[1] = content.Load<Texture2D>("Blocks/Cyan2");
-
-			blueBlockTextures[0] = content.Load<Texture2D>("Blocks/Blue1");
-			blueBlockTextures[1] = content.Load<Texture2D>("Blocks/Blue2");
-			blueBlockTextures[2] = content.Load<Texture2D>("Blocks/Blue3");
-
-			yellowBlockTextures[0] = content.Load<Texture2D>("Blocks/Yellow1");
-			yellowBlockTextures[1] = content.Load<Texture2D>("Blocks/Yellow2");
-			yellowBlockTextures[2] = content.Load<Texture2D>("Blocks/Yellow3");
-			yellowBlockTextures[3] = content.Load<Texture2D>("Blocks/Yellow4");
-
-			orangeBlockTextures[0] = content.Load<Texture2D>("Blocks/Orange1");
-			orangeBlockTextures[1] = content.Load<Texture2D>("Blocks/Orange2");
-			orangeBlockTextures[2] = content.Load<Texture2D>("Blocks/Orange3");
-			orangeBlockTextures[3] = content.Load<Texture2D>("Blocks/Orange4");
-			orangeBlockTextures[4] = content.Load<Texture2D>("Blocks/Orange5");
-
-			redBlockTextures[0] = content.Load<Texture2D>("Blocks/Red");
-
-			BlockUI magentaBlock = new BlockUI(magentaBlockTextures);
-			BlockUI cyanBlock = new BlockUI(cyanBlockTextures);
-			BlockUI blueBlock = new BlockUI(blueBlockTextures);
-			BlockUI yellowBlock = new BlockUI(yellowBlockTextures);
-			BlockUI orangeBlock = new BlockUI(orangeBlockTextures);
-			BlockUI redBlock = new BlockUI(redBlockTextures);
+			BlockUI magentaBlock = new BlockUI(magentaBlockTexture, GameInfo.Theme["LightRed"], GameInfo.Theme["Red"]);
+			BlockUI cyanBlock = new BlockUI(cyanBlockTexture, GameInfo.Theme["LightCyan"], GameInfo.Theme["Cyan"]);
+			BlockUI blueBlock = new BlockUI(blueBlockTexture, GameInfo.Theme["LightBlue"], GameInfo.Theme["Blue"]);
+			BlockUI yellowBlock = new BlockUI(yellowBlockTexture, GameInfo.Theme["LightYellow"], GameInfo.Theme["Yellow"]);
+			BlockUI orangeBlock = new BlockUI(orangeBlockTexture, GameInfo.Theme["LightOrange"], GameInfo.Theme["Orange"]);
+			BlockUI redBlock = new BlockUI(redBlockTexture, GameInfo.Theme["LightRed"], GameInfo.Theme["Red"]);
+			BlockUI grayBlock = new BlockUI(grayBlockTexture, GameInfo.Theme["Gray"], GameInfo.Theme["DarkGray"]);
+			BlockUI blackBlock = new BlockUI(blackBlockTexture, GameInfo.Theme["Dark"], GameInfo.Theme["Black"]);
 
 			Dictionary<BlockType, BlockUI> blocks = new Dictionary<BlockType, BlockUI>()
 			{
@@ -115,6 +97,8 @@ namespace Breakout.Views
 				{ BlockType.Yellow, yellowBlock },
 				{ BlockType.Orange, orangeBlock },
 				{ BlockType.Red, redBlock },
+				{ BlockType.Gray, grayBlock },
+				{ BlockType.Black, blackBlock },
 			};
 
 			return blocks;

@@ -2,6 +2,7 @@
 using Breakout.Models.Blocks;
 using Breakout.Models.Buttons;
 using Breakout.Models.Enums;
+using Breakout.Models.Maps;
 using Breakout.Models.Meta;
 using Breakout.Models.Paddles;
 using Breakout.Models.Players;
@@ -107,20 +108,38 @@ namespace Breakout.Models
 
 		public static List<Block> CreateBlocks()
 		{
-			int blockWidth = 30;
-			int blockHeight = 30;
+			MapManager.LoadMap("mario");
+
+			int blockWidth = 20;
+			int blockHeight = 20;
+
+			int mapWidth = MapManager.CurrentMap.Matrix[0].Count * blockWidth;
+			int mapHeight = MapManager.CurrentMap.Matrix.Count * blockHeight;
+
+			Vector2 mapEntryPosition = new Vector2()
+			{
+				X = GameInfo.Screen.Width / 2 - mapWidth / 2,
+				Y = blockWidth * 1,
+			};
+
 			List<Block> blocks = new List<Block>();
 
-			// TODO: design level
-			for (int w = 0; w * blockWidth < GameInfo.Screen.Width; w++)
+			for (int r = 1; mapEntryPosition.Y + r * blockHeight <= mapEntryPosition.Y + mapHeight; r++)
 			{
-				for (int h = 0; h * blockHeight < GameInfo.Screen.Height / 2; h++)
+				for (int c = 1; mapEntryPosition.X + c * blockWidth <= mapEntryPosition.X + mapWidth; c++)
 				{
-					int x = blockWidth * w;
-					int y = blockHeight* h;
-					BlockType blockType = RandomMath.RandomEnum<BlockType>();
+					BlockType blockType = MapManager.BlockMap[MapManager.CurrentMap.Matrix[r-1][c-1]];
 
-					Block newBlock = new Block(blockType, width: 30, height: 30, position: new Vector2(x, y));
+					if (blockType == BlockType.None)
+						continue;
+
+					float x = mapEntryPosition.X + c * blockWidth - c; // Make border of blocks overlap each other
+					float y = mapEntryPosition.Y + r * blockHeight - r;
+
+					Block newBlock = new Block(blockType,
+						width: blockWidth,
+						height: blockHeight,
+						position: new Vector2(x, y));
 
 					blocks.Add(newBlock);
 				}

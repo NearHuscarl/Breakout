@@ -21,7 +21,13 @@ namespace Breakout.Controllers.States
 			if (InputHelper.IsKeyDown(Input.PauseGame))
 				PauseGame();
 
-			if (InputHelper.IsKeyDown(Input.MovePaddleLeft))
+			else if (InputHelper.IsNewKeyPress(Input.MovePaddleLeft))
+				Scene.Paddle.DriftLeft(EntryPoint.Game.Elapsed);
+
+			else if (InputHelper.IsNewKeyPress(Input.MovePaddleRight))
+				Scene.Paddle.DriftRight(EntryPoint.Game.Elapsed);
+
+			else if (InputHelper.IsKeyDown(Input.MovePaddleLeft))
 				Scene.Paddle.MoveLeft(EntryPoint.Game.Elapsed);
 
 			else if (InputHelper.IsKeyDown(Input.MovePaddleRight))

@@ -37,20 +37,35 @@ namespace Breakout.Models.Paddles
 			this.Velocity = 800f;
 		}
 
+		public void DriftLeft(float elapsed)
+		{
+			Direction = new Vector2(-1, 0);
+			MoveHorizontally(0.1f * elapsed);
+		}
+
+		public void DriftRight(float elapsed)
+		{
+			Direction = new Vector2(1, 0);
+			MoveHorizontally(0.1f * elapsed);
+		}
+
 		public void MoveLeft(float elapsed)
 		{
-			MoveHorizontally(-this.Velocity * elapsed);
+			Direction = new Vector2(-1, 0);
+			MoveHorizontally(elapsed);
 		}
 
 		public void MoveRight(float elapsed)
 		{
-			MoveHorizontally(this.Velocity * elapsed);
+			Direction = new Vector2(1, 0);
+			MoveHorizontally(elapsed);
 		}
 
-		private void MoveHorizontally(float offset)
+		private void MoveHorizontally(float elapsed)
 		{
-			Position.X += offset;
+			Position += Direction * Velocity * elapsed;
 			Position.X = MathHelper.Clamp(Position.X, 0, GameInfo.Screen.Width - Width);
+			Direction = Vector2.Zero;
 		}
 
 		public void ModifyLength(int offset)

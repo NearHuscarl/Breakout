@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.PowerUps
 {
-	public enum Target
+	public enum PowerUpTarget
 	{
 		Ball,
 		Paddle,
@@ -38,20 +38,20 @@ namespace Breakout.Models.PowerUps
 			}
 		}
 
-		public Target Target
+		public PowerUpTarget Target
 		{
 			get
 			{
 				if (PowerUpBehaviour.BallPowerUp.ContainsKey(PowerUpType))
-					return Target.Ball;
+					return PowerUpTarget.Ball;
 
-				return Target.Paddle;
+				return PowerUpTarget.Paddle;
 			}
 		}
 
 		#endregion
 
-		// the thing that power-up can affect
+		// the things that power-up can affect
 		private List<Ball> balls;
 		private Paddle paddle;
 
@@ -59,6 +59,24 @@ namespace Breakout.Models.PowerUps
 		{
 			PowerUpType = type;
 			Timer = 20f;
+		}
+
+		public PowerUp(PowerUpType type, List<Ball> balls)
+		{
+			this.balls = balls;
+			this.PowerUpType = type;
+			this.Timer = 20f;
+
+			Activate(balls);
+		}
+
+		public PowerUp(PowerUpType type, Paddle paddle)
+		{
+			this.paddle = paddle;
+			this.PowerUpType = type;
+			this.Timer = 20f;
+
+			Activate(paddle);
 		}
 
 		public void Activate(List<Ball> balls)

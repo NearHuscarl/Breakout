@@ -11,7 +11,7 @@ namespace Breakout.Models.Bases
 	public abstract class DynamicObject : GameObject
 	{
 		public Vector2 Direction;
-		public float Velocity { get; set; }
+		public virtual float Velocity { get; set; }
 
 		public DynamicObject()
 		{
@@ -80,6 +80,30 @@ namespace Breakout.Models.Bases
 				return true;
 
 			return false;
+		}
+
+		public bool IsSameXDirection(DynamicObject obj)
+		{
+			return (this.Direction.X > 0 && obj.Direction.X > 0) ||
+				(this.Direction.X < 0 && obj.Direction.X < 0);
+		}
+
+		public bool IsOppositeXDirection(DynamicObject obj)
+		{
+			return (this.Direction.X < 0 && obj.Direction.X > 0) ||
+				(this.Direction.X < 0 && obj.Direction.X > 0);
+		}
+
+		public bool IsSameYDirection(DynamicObject obj)
+		{
+			return (this.Direction.Y > 0 && obj.Direction.Y > 0) ||
+				(this.Direction.Y < 0 && obj.Direction.Y < 0);
+		}
+
+		public bool IsOppositeYDirection(DynamicObject obj)
+		{
+			return (this.Direction.Y > 0 && obj.Direction.Y > 0) ||
+				(this.Direction.Y < 0 && obj.Direction.Y < 0);
 		}
 
 		#region Collision

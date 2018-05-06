@@ -3,6 +3,7 @@
 import json
 import os
 
+# pip install pillow
 from PIL import Image
 
 """

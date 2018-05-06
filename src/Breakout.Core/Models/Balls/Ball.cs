@@ -14,7 +14,32 @@ namespace Breakout.Models.Balls
 {
 	public class Ball : OctilinearObject
 	{
+		private float velocity;
+
 		public float MaxVelocity { get; set; }
+		public float MinVelocity { get; set; }
+
+		public override float Velocity
+		{
+			set
+			{
+				float diff = CurrentVelocity - Velocity;
+
+				velocity = value;
+				CurrentVelocity = velocity + diff;
+			}
+			get
+			{
+				return velocity;
+			}
+		}
+
+		/// <summary>
+		/// Ball + Paddle velocity. If not equal to this.Velocity
+		/// It will gradually move toward this.Velocity
+		/// </summary>
+		public float CurrentVelocity { get; set; }
+
 		public float Radius
 		{
 			get
@@ -38,7 +63,9 @@ namespace Breakout.Models.Balls
 				Y = GameInfo.Screen.Height * 0.7f,
 			};
 
+			this.MinVelocity = 120f;
 			this.Velocity = 320f;
+			this.CurrentVelocity = Velocity;
 			this.MaxVelocity = 520f;
 		}
 
@@ -120,7 +147,7 @@ namespace Breakout.Models.Balls
 		///          |\      |
 		///            \     |
 		///             \   ╲|╱
-		///   1          \   │               0                             -1 --> percentOffset
+		///   0          \   │              0.5                             1 --> paddle contact
 		///               \.-|-.             | - 90 degree
 		///               /\ |  \            |
 		///               \ \|  /            |
@@ -128,20 +155,20 @@ namespace Breakout.Models.Balls
 		///   +--------------│---------------|-+----------------------------+
 		///   |              │               |                              | --> Paddle Object
 		///   +--------------│---------------|------------------------------+
-		///                  │               │
-		/// ballCenterXPos ──┘               │
-		///                                  └──── paddleCenterXPos
+		///                  │
+		///  collisionPosX ──┘
+		///
 		/// </summary>
 		/// <param name="paddle"></param>
 		public void HandlePaddleCollision(Paddle paddle)
 		{
 			if (IsTouchingTop(paddle))
 			{
-				float ballCenterXPos = this.Position.X + this.Width / 2;
-				float paddleCenterXPos = paddle.Position.X + paddle.Width / 2;
-				float percentOffset = (paddleCenterXPos - ballCenterXPos) * 1 / (paddle.Width / 2);
+				float collisionPosX = this.Position.X + this.Width / 2;
+				float paddleContact = (collisionPosX - paddle.Position.X) / paddle.Width;
+				float ballReturnedAngle = MathHelper.Lerp(180, 0, paddleContact);
 
-				ChangeDirection(90 + percentOffset * 90);
+				ChangeDirection(ballReturnedAngle);
 			}
 
 			else if (Direction.Y > 0 && IsTouchingLeft(paddle))
@@ -152,11 +179,24 @@ namespace Breakout.Models.Balls
 
 			else if (Direction.Y < 0 && IsTouchingBottom(paddle))
 				ReflectVertically();
+
+
+			if (this.IsSameXDirection(paddle))
+				CurrentVelocity += paddle.Velocity;
+
+			if (this.IsOppositeXDirection(paddle))
+				CurrentVelocity -= paddle.Velocity;
 		}
 
 		public override void UpdateMovement(float elapsed)
 		{
-			Position += Direction * MathHelper.Clamp(Velocity, 0, MaxVelocity) * elapsed;
+			if (CurrentVelocity > Velocity)
+				CurrentVelocity--;
+
+			if (CurrentVelocity < Velocity)
+				CurrentVelocity++;
+
+			Position += Direction * MathHelper.Clamp(CurrentVelocity, MinVelocity, MaxVelocity) * elapsed;
 		}
 	}
 }

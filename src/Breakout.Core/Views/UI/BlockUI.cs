@@ -11,28 +11,28 @@ namespace Breakout.Views.UI
 {
 	public class BlockUI : Sprite
 	{
-		private Texture2D[] textures;
+		private Color fullColor;
+		private Color emptyColor;
 
-		public BlockUI(params Texture2D[] textures)
+		public BlockUI(Texture2D texture, Color fullColor, Color emptyColor) : base(texture)
 		{
-			this.textures = textures;
-			this.Texture = textures[textures.Length - 1];
+			this.fullColor = fullColor;
+			this.emptyColor = emptyColor;
 		}
 
 		public void Draw(SpriteBatch spriteBatch, Block block)
 		{
-			if (block.Health > 40)
-				this.Texture = textures[4];
-			else if (block.Health > 30)
-				this.Texture = textures[3];
-			else if (block.Health > 20)
-				this.Texture = textures[2];
-			else if (block.Health > 10)
-				this.Texture = textures[1];
-			else // <= 10
-				this.Texture = textures[0];
+			Color color = GetColorBasedOnHealth(block);
 
-			spriteBatch.Draw(this.Texture, block.Position, Color.White);
+			spriteBatch.Draw(this.Texture, block.Position, color);
+		}
+
+		private Color GetColorBasedOnHealth(Block block)
+		{
+			int maxHealth = BlockInfo.Health[block.Type];
+			float colorAmount = block.Health * 1f / maxHealth;
+
+			return Color.Lerp(emptyColor, fullColor, colorAmount);
 		}
 	}
 }
