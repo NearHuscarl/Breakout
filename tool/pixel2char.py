@@ -8,57 +8,86 @@ from PIL import Image
 
 """
 This script convert pixel from image to character:
-	0: black
-	1: dark
-	2: dark gray
-	3: gray
-	4: light gray
-	5: white
+	0:  black
+	1:  dark
+	f0: flashing black
 
-	C: cyan
-	c: light cyan
+	2:  gray
+	3:  light gray
+	f2: flashing gray
 
-	G: green
-	g: light green
+	4:  silver
+	5:  white
 
-	B: blue
-	b: light blue
+	C:  cyan
+	c:  light cyan
+	fc: flashing cyan
 
-	M: magenta
-	m: light magenta
+	G:  green
+	g:  light green
+	fg: flashing green
 
-	Y: yellow
-	y: light yellow
+	B:  blue
+	b:  light blue
+	fb: flashing blue
 
-	O: orange
-	o: light orange
+	M:  magenta
+	m:  light magenta
+	fm: flashing magenta
 
-	R: red
-	r: light red
+	Y:  yellow
+	y:  light yellow
+	fy: flashing yellow
+
+	O:  orange
+	o:  light orange
+	fo: flashing orange
+
+	R:  red
+	r:  light red
+	fr: flashing orange
 """
 
 
 COLORMAP = {
 		"#2c3e50": "0",
 		"#34495e": "1",
+		"#000000": "f0",
+
 		"#7f8c8d": "2",
 		"#95a5a6": "3",
+		"#808080": "f2",
+
 		"#bdc3c7": "4",
 		"#ecf0f1": "5",
+
 		"#16a085": "C",
 		"#1abc9c": "c",
+		"#00FFFF": "fc",
+
 		"#27ae60": "G",
 		"#2ecc71": "g",
+		"#008000": "fg",
+
 		"#2980b9": "B",
 		"#3498db": "b",
+		"#0000FF": "fb",
+
 		"#8e44ad": "M",
 		"#9b59b6": "m",
+		"#FF00FF": "fm",
+
 		"#f39c12": "Y",
 		"#f1c40f": "y",
+		"#FFFF00": "fy",
+
 		"#d35400": "O",
 		"#e67e22": "o",
+		"#FFA500": "fo",
+
 		"#c0392b": "R",
 		"#e74c3c": "r",
+		"#FF0000": "fr",
 		}
 
 def chunk_list(a, n):

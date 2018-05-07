@@ -1,6 +1,7 @@
 ﻿using Breakout.Extensions;
 using Breakout.Models.Enums;
 using Breakout.Models.Meta;
+using Breakout.Views.Enums;
 using Breakout.Views.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -15,12 +16,19 @@ namespace Breakout.Views
 {
 	public static class UIFactory
 	{
-		public static Background CreateBackground(ContentManager content)
+		public static Dictionary<Stage, Background> CreateBackground(ContentManager content)
 		{
-			Texture2D backgroundTexture = content.Load<Texture2D>("Background");
-			Background background = new Background(backgroundTexture);
+			Texture2D menuBgTexture = content.Load<Texture2D>("Backgrounds/MenuBackground");
+			Texture2D level1BgTexture = content.Load<Texture2D>("Backgrounds/Level1_Background");
 
-			return background;
+			Background menuBackground = new Background(menuBgTexture);
+			Background lvl1Background = new Background(level1BgTexture);
+
+			return new Dictionary<Stage, Background>()
+			{
+				{ Stage.Menu, menuBackground },
+				{ Stage.Level1, lvl1Background },
+			};
 		}
 
 		public static ButtonUI CreateStartButton(ContentManager content)
@@ -71,48 +79,85 @@ namespace Breakout.Views
 
 		public static Dictionary<BlockType, BlockUI> CreateBlocks(ContentManager content)
 		{
-			Texture2D magentaBlockTexture = content.Load<Texture2D>("Blocks/Magenta");
-			Texture2D cyanBlockTexture = content.Load<Texture2D>("Blocks/Cyan");
-			Texture2D blueBlockTexture = content.Load<Texture2D>("Blocks/Blue");
-			Texture2D yellowBlockTexture = content.Load<Texture2D>("Blocks/Yellow");
-			Texture2D orangeBlockTexture = content.Load<Texture2D>("Blocks/Orange");
 			Texture2D redBlockTexture = content.Load<Texture2D>("Blocks/Red");
+			Texture2D orangeBlockTexture = content.Load<Texture2D>("Blocks/Orange");
+			Texture2D yellowBlockTexture = content.Load<Texture2D>("Blocks/Yellow");
+			Texture2D greenTexture = content.Load<Texture2D>("Blocks/Green");
+			Texture2D blueBlockTexture = content.Load<Texture2D>("Blocks/Blue");
+			Texture2D cyanBlockTexture = content.Load<Texture2D>("Blocks/Cyan");
+			Texture2D magentaBlockTexture = content.Load<Texture2D>("Blocks/Magenta");
 			Texture2D grayBlockTexture = content.Load<Texture2D>("Blocks/Gray");
 			Texture2D blackBlockTexture = content.Load<Texture2D>("Blocks/Black");
 
-			BlockUI magentaBlock = new BlockUI(magentaBlockTexture, GameInfo.Theme["LightRed"], GameInfo.Theme["Red"]);
-			BlockUI cyanBlock = new BlockUI(cyanBlockTexture, GameInfo.Theme["LightCyan"], GameInfo.Theme["Cyan"]);
-			BlockUI blueBlock = new BlockUI(blueBlockTexture, GameInfo.Theme["LightBlue"], GameInfo.Theme["Blue"]);
-			BlockUI yellowBlock = new BlockUI(yellowBlockTexture, GameInfo.Theme["LightYellow"], GameInfo.Theme["Yellow"]);
-			BlockUI orangeBlock = new BlockUI(orangeBlockTexture, GameInfo.Theme["LightOrange"], GameInfo.Theme["Orange"]);
 			BlockUI redBlock = new BlockUI(redBlockTexture, GameInfo.Theme["LightRed"], GameInfo.Theme["Red"]);
-			BlockUI grayBlock = new BlockUI(grayBlockTexture, GameInfo.Theme["Gray"], GameInfo.Theme["DarkGray"]);
+			BlockUI orangeBlock = new BlockUI(orangeBlockTexture, GameInfo.Theme["LightOrange"], GameInfo.Theme["Orange"]);
+			BlockUI yellowBlock = new BlockUI(yellowBlockTexture, GameInfo.Theme["LightYellow"], GameInfo.Theme["Yellow"]);
+			BlockUI greenBlock = new BlockUI(yellowBlockTexture, GameInfo.Theme["LightGreen"], GameInfo.Theme["Green"]);
+			BlockUI blueBlock = new BlockUI(blueBlockTexture, GameInfo.Theme["LightBlue"], GameInfo.Theme["Blue"]);
+			BlockUI cyanBlock = new BlockUI(cyanBlockTexture, GameInfo.Theme["LightCyan"], GameInfo.Theme["Cyan"]);
+			BlockUI magentaBlock = new BlockUI(magentaBlockTexture, GameInfo.Theme["LightMagenta"], GameInfo.Theme["Magenta"]);
+			BlockUI grayBlock = new BlockUI(grayBlockTexture, GameInfo.Theme["LightGray"], GameInfo.Theme["Gray"]);
 			BlockUI blackBlock = new BlockUI(blackBlockTexture, GameInfo.Theme["Dark"], GameInfo.Theme["Black"]);
 
-			Dictionary<BlockType, BlockUI> blocks = new Dictionary<BlockType, BlockUI>()
+			return new Dictionary<BlockType, BlockUI>()
 			{
-				{ BlockType.Magenta, magentaBlock },
-				{ BlockType.Cyan, cyanBlock },
-				{ BlockType.Blue, blueBlock },
-				{ BlockType.Yellow, yellowBlock },
-				{ BlockType.Orange, orangeBlock },
 				{ BlockType.Red, redBlock },
+				{ BlockType.Orange, orangeBlock },
+				{ BlockType.Yellow, yellowBlock },
+				{ BlockType.Green, greenBlock },
+				{ BlockType.Blue, blueBlock },
+				{ BlockType.Cyan, cyanBlock },
+				{ BlockType.Magenta, magentaBlock },
 				{ BlockType.Gray, grayBlock },
 				{ BlockType.Black, blackBlock },
-			};
 
-			return blocks;
+				{ BlockType.LightRed, redBlock },
+				{ BlockType.LightOrange, orangeBlock },
+				{ BlockType.LightYellow, yellowBlock },
+				{ BlockType.LightGreen, greenBlock },
+				{ BlockType.LightBlue, blueBlock },
+				{ BlockType.LightCyan, cyanBlock },
+				{ BlockType.LightMagenta, magentaBlock },
+				{ BlockType.LightGray, grayBlock },
+				{ BlockType.Dark, blackBlock },
+			};
 		}
 
-		public static FlashingBlockUI CreateFlashingBlock(ContentManager content, string color1, string color2)
+		public static Dictionary<BlockType, FlashingBlockUI> CreateFlashingBlocks(ContentManager content)
 		{
-			Texture2D blockTexture = content.Load<Texture2D>("Blocks/Green");
+			Texture2D redBlockTexture = content.Load<Texture2D>("Blocks/Red");
+			Texture2D orangeBlockTexture = content.Load<Texture2D>("Blocks/Orange");
+			Texture2D yellowBlockTexture = content.Load<Texture2D>("Blocks/Yellow");
+			Texture2D greenTexture = content.Load<Texture2D>("Blocks/Green");
+			Texture2D blueBlockTexture = content.Load<Texture2D>("Blocks/Blue");
+			Texture2D cyanBlockTexture = content.Load<Texture2D>("Blocks/Cyan");
+			Texture2D magentaBlockTexture = content.Load<Texture2D>("Blocks/Magenta");
+			Texture2D grayBlockTexture = content.Load<Texture2D>("Blocks/Gray");
+			Texture2D blackBlockTexture = content.Load<Texture2D>("Blocks/Black");
 
-			FlashingBlockUI block = new FlashingBlockUI(blockTexture,
-				color1.ToColor(),
-				color2.ToColor());
+			FlashingBlockUI redBlock = new FlashingBlockUI(redBlockTexture, GameInfo.Theme["LightRed"], GameInfo.Theme["Red"]);
+			FlashingBlockUI orangeBlock = new FlashingBlockUI(orangeBlockTexture, GameInfo.Theme["LightOrange"], GameInfo.Theme["Orange"]);
+			FlashingBlockUI yellowBlock = new FlashingBlockUI(yellowBlockTexture, GameInfo.Theme["LightYellow"], GameInfo.Theme["Yellow"]);
+			FlashingBlockUI greenBlock = new FlashingBlockUI(yellowBlockTexture, GameInfo.Theme["LightGreen"], GameInfo.Theme["Green"]);
+			FlashingBlockUI blueBlock = new FlashingBlockUI(blueBlockTexture, GameInfo.Theme["LightBlue"], GameInfo.Theme["Blue"]);
+			FlashingBlockUI cyanBlock = new FlashingBlockUI(cyanBlockTexture, GameInfo.Theme["LightCyan"], GameInfo.Theme["Cyan"]);
+			FlashingBlockUI magentaBlock = new FlashingBlockUI(magentaBlockTexture, GameInfo.Theme["LightMagenta"], GameInfo.Theme["Magenta"]);
+			FlashingBlockUI grayBlock = new FlashingBlockUI(grayBlockTexture, GameInfo.Theme["LightGray"], GameInfo.Theme["Gray"]);
+			FlashingBlockUI blackBlock = new FlashingBlockUI(blackBlockTexture, GameInfo.Theme["Dark"], GameInfo.Theme["Black"]);
 
-			return block;
+			return new Dictionary<BlockType, FlashingBlockUI>()
+			{
+				{ BlockType.FlashingRed, redBlock },
+				{ BlockType.FlashingOrange, orangeBlock },
+				{ BlockType.FlashingYellow, yellowBlock },
+				{ BlockType.FlashingGreen, greenBlock },
+				{ BlockType.FlashingBlue, blueBlock },
+				{ BlockType.FlashingCyan, cyanBlock },
+				{ BlockType.FlashingMagenta, magentaBlock },
+				{ BlockType.FlashingGray, grayBlock },
+				{ BlockType.FlashingBlack, blackBlock },
+
+			};
 		}
 
 		public static Font CreateRedFont(SpriteFont font)

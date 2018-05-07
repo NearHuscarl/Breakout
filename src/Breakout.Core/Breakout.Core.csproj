@@ -85,6 +85,7 @@
     <Compile Include="Utilities\InputHelper.cs" />
     <Compile Include="Utilities\RandomMath.cs" />
     <Compile Include="Views\Enums\Alignment.cs" />
+    <Compile Include="Views\Enums\Stage.cs" />
     <Compile Include="Views\Renderers\AbstractRenderer.cs" />
     <Compile Include="Views\Renderers\MonoGameRenderer.cs" />
     <Compile Include="Views\UIFactory.cs" />

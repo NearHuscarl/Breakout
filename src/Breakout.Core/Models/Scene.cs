@@ -42,6 +42,12 @@ namespace Breakout.Models
 			StartButton = ModelFactory.CreateStartButton();
 			CreditButton = ModelFactory.CreateCreditButton();
 			ExitButton = ModelFactory.CreateExitButton();
+
+			Balls = ModelFactory.CreateRandomBalls();
+			Blocks = ModelFactory.CreateLogo();
+
+			PowerUps = new List<PowerUp>();
+			Packages = new List<PowerUpPackage>();
 		}
 
 		public static void InitializeGame()
@@ -69,15 +75,15 @@ namespace Breakout.Models
 		/// <summary>
 		/// Update physics and behaviour of all entities in the game
 		/// </summary>
-		public static void Step(float elapsed)
+		public static void Step(float elapsed, bool isMenu=false)
 		{
 			deltaTime = elapsed;
 
 			foreach (var ball in Balls.ToList())
-				HandleBall(ball);
+				HandleBall(ball, isMenu);
 
 			foreach (var block in Blocks.ToList())
-				HandleBlock(block);
+				HandleBlock(block, isMenu);
 
 			foreach (var powerUp in PowerUps.ToList())
 				HandlePowerUp(powerUp);
@@ -86,7 +92,29 @@ namespace Breakout.Models
 				HandlePackage(package);
 		}
 
-		private static void HandleBall(Ball ball)
+		private static void HandleBall(Ball ball, bool isMenu)
+		{
+			if (isMenu)
+				HandleBallInMenu(ball);
+			else
+				HandleBallInGame(ball);
+		}
+
+		private static void HandleBallInMenu(Ball ball)
+		{
+			ball.HandleWallCollision(isContained: true);
+
+			foreach (var block in Blocks)
+				ball.HandleCollision(block);
+
+			ball.HandleCollision(StartButton);
+			ball.HandleCollision(CreditButton);
+			ball.HandleCollision(ExitButton);
+
+			ball.UpdateMovement(deltaTime);
+		}
+
+		private static void HandleBallInGame(Ball ball)
 		{
 			if (ball.IsOffBottom())
 				Balls.Remove(ball);
@@ -109,7 +137,7 @@ namespace Breakout.Models
 			ball.UpdateMovement(deltaTime);
 		}
 
-		private static void HandleBlock(Block block)
+		private static void HandleBlock(Block block, bool isMenu)
 		{
 			if (block.IsBroken)
 			{
@@ -119,7 +147,9 @@ namespace Breakout.Models
 				Packages.AddIfNotNull(block.SpawnPowerUpPackage());
 
 				Blocks.Remove(block);
-				BlockLeft.Take(1);
+
+				if (!isMenu)
+					BlockLeft.Take(1);
 			}
 		}
 
@@ -136,7 +166,7 @@ namespace Breakout.Models
 
 		public static void HandlePackage(PowerUpPackage package)
 		{
-			if (package.IsTouching(Paddle))
+			if (Paddle != null && package.IsTouching(Paddle))
 			{
 				PowerUp powerUp = package.GetPowerUp();
 

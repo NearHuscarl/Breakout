@@ -8,6 +8,6 @@ namespace Breakout.Models.Maps
 {
 	public class Map
 	{
-		public List<List<char>> Matrix { get; set; }
+		public List<List<string>> Matrix { get; set; }
 	}
 }

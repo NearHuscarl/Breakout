@@ -3,6 +3,7 @@ using Breakout.Models.IO;
 using Breakout.Models.Meta;
 using Breakout.Views;
 using Breakout.Views.Renderers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,11 @@ namespace Breakout.Controllers.States
 			};
 
 			GameInfo.Initialize(screenSize);
+			ModelFactory.Initialize();
 
 			Input.SetDefaultInput();
+
+			ChangeBackgroundColor(GameInfo.Theme["Dark"]);
 			Scene.InitializeMenu();
 
 			OpenMenu();
@@ -33,6 +37,11 @@ namespace Breakout.Controllers.States
 		private static void OpenMenu()
 		{
 			StateMachine.ChangeState("MenuState");
+		}
+
+		private static void ChangeBackgroundColor(Color color)
+		{
+			EntryPoint.Game.GraphicsDevice.Clear(color);
 		}
 	}
 }

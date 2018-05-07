@@ -19,5 +19,14 @@ namespace Breakout.Models.Bases
 				return new Rectangle((int)Position.X, (int)Position.Y, Width, Height);
 			}
 		}
+
+		/// <summary>
+		/// Method to describe certain action when this object is hit with another
+		/// Dynamic Object
+		/// </summary>
+		public virtual void Hit()
+		{
+
+		}
 	}
 }

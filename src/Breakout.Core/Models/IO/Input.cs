@@ -13,6 +13,7 @@ namespace Breakout.Models.IO
 		public static Keys MovePaddleRight;
 		public static Keys Fire;
 		public static Keys PauseGame;
+		public static Keys PlayGame;
 		public static Keys Exit;
 
 		public static void SetDefaultInput()
@@ -21,6 +22,7 @@ namespace Breakout.Models.IO
 			MovePaddleRight = Keys.Right;
 			Fire = Keys.Space;
 			PauseGame = Keys.P;
+			PlayGame = Keys.Space;
 			Exit = Keys.Escape;
 		}
 	}

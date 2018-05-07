@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Breakout.Models;
+using Breakout.Models.IO;
+using Breakout.Utilities;
 using Breakout.Views.Renderers;
 using Microsoft.Xna.Framework.Input;
 
@@ -13,7 +15,9 @@ namespace Breakout.Controllers.States
 	{
 		public override void Update()
 		{
-			if (Keyboard.GetState().IsKeyDown(Keys.Space))
+			InputHelper.GetInput();
+
+			if (InputHelper.IsKeyDown(Input.PlayGame))
 			{
 				PlayGame();
 			}

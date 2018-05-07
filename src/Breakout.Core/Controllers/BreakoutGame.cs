@@ -49,9 +49,6 @@ namespace Breakout
 
 		protected override void Update(GameTime gameTime)
 		{
-			// if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-			// 	Exit();
-
 			Elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 			StateMachine.CurrentState.Update();
@@ -61,7 +58,7 @@ namespace Breakout
 
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
+			//GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			SpriteBatch.Begin();
 			StateMachine.CurrentState.Draw(renderer);

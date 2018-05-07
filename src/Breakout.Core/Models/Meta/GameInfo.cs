@@ -42,9 +42,9 @@ namespace Breakout.Models.Meta
 			{
 				{ "Black",        "#2c3e50".ToColor() },
 				{ "Dark",         "#34495e".ToColor() },
-				{ "DarkGray",     "#7f8c8d".ToColor() },
-				{ "Gray",         "#95a5a6".ToColor() },
-				{ "LightGray",    "#bdc3c7".ToColor() },
+				{ "Gray",         "#7f8c8d".ToColor() },
+				{ "LightGray",    "#95a5a6".ToColor() },
+				{ "Silver",       "#bdc3c7".ToColor() },
 				{ "White",        "#ecf0f1".ToColor() },
 				{ "Cyan",         "#16a085".ToColor() },
 				{ "LightCyan",    "#1abc9c".ToColor() },

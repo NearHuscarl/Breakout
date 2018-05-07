@@ -39,6 +39,8 @@ namespace Breakout.Controllers.States
 			HandleStartGameButton(LoadGame);
 			HandleCreditButton(OpenCredit);
 			HandleExitButton(ExitGame);
+
+			Scene.Step(EntryPoint.Game.Elapsed, isMenu: true);
 		}
 
 		private void HandleStartGameButton(ButtonClickEventHandler eventHandler)

@@ -1,4 +1,7 @@
-﻿using Breakout.Models.Enums;
+﻿using Breakout.Models.Blocks;
+using Breakout.Models.Enums;
+using Breakout.Models.Meta;
+using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,39 +16,116 @@ namespace Breakout.Models.Maps
 	{
 		private static readonly string mapDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "maps");
 
-		public static readonly Dictionary<char, BlockType> BlockMap = new Dictionary<char, BlockType>()
+		public static readonly Dictionary<string, BlockType> BlockMap = new Dictionary<string, BlockType>()
 		{
-			{ '0', BlockType.Black },
-			{ '1', BlockType.Black },
-			{ '2', BlockType.Gray },
-			{ '3', BlockType.Gray },
-			{ '4', BlockType.None },
-			{ '5', BlockType.None },
-			{ 'C', BlockType.Cyan },
-			{ 'c', BlockType.Cyan },
-			{ 'G', BlockType.Green },
-			{ 'g', BlockType.Green },
-			{ 'B', BlockType.Blue },
-			{ 'b', BlockType.Blue },
-			{ 'M', BlockType.Magenta },
-			{ 'm', BlockType.Magenta },
-			{ 'Y', BlockType.Yellow },
-			{ 'y', BlockType.Yellow },
-			{ 'O', BlockType.Orange },
-			{ 'o', BlockType.Orange },
-			{ 'R', BlockType.Red },
-			{ 'r', BlockType.Red },
+			{ "0", BlockType.Black },
+			{ "2", BlockType.Gray },
+			{ "C", BlockType.Cyan },
+			{ "G", BlockType.Green },
+			{ "B", BlockType.Blue },
+			{ "M", BlockType.Magenta },
+			{ "Y", BlockType.Yellow },
+			{ "O", BlockType.Orange },
+			{ "R", BlockType.Red },
+
+			{ "1", BlockType.Dark },
+			{ "3", BlockType.LightGray },
+			{ "c", BlockType.LightCyan },
+			{ "g", BlockType.LightGreen },
+			{ "b", BlockType.LightBlue },
+			{ "m", BlockType.LightMagenta },
+			{ "y", BlockType.LightYellow },
+			{ "o", BlockType.LightOrange },
+			{ "r", BlockType.LightRed },
+
+			{ "f0", BlockType.FlashingBlack },
+			{ "f2", BlockType.FlashingGray },
+			{ "fc", BlockType.FlashingCyan },
+			{ "fg", BlockType.FlashingGreen },
+			{ "fb", BlockType.FlashingBlue },
+			{ "fm", BlockType.FlashingMagenta },
+			{ "fy", BlockType.FlashingYellow },
+			{ "fo", BlockType.FlashingOrange },
+			{ "fr", BlockType.FlashingRed },
+
+			{ "4", BlockType.None },
+			{ "5", BlockType.None },
 		};
 
-		// 33 x 16
+		public static Map Logo { get; set; } = new Map()
+		{
+			Matrix = new List<List<string>> ()
+			{
+				new List<string> { "r", "r", "r", "5", "5", "o", "o", "o", "5", "5", "y", "y", "y", "5", "5", "5", "g", "5", "5", "5", "b", "5", "5", "b", "5", "m", "m", "m", "m", "5", "1", "5", "5", "1", "5", "2", "2", "2", "2", "2" },
+      		new List<string> { "r", "5", "5", "r", "5", "o", "5", "5", "o", "5", "y", "5", "5", "5", "5", "g", "g", "g", "5", "5", "b", "5", "5", "b", "5", "m", "5", "5", "m", "5", "1", "5", "5", "1", "5", "5", "5", "2", "5", "5" },
+      		new List<string> { "r", "5", "5", "r", "5", "o", "5", "5", "o", "5", "y", "5", "5", "5", "5", "g", "5", "g", "5", "5", "b", "5", "b", "5", "5", "m", "5", "5", "m", "5", "1", "5", "5", "1", "5", "5", "5", "2", "5", "5" },
+      		new List<string> { "r", "5", "5", "r", "5", "o", "5", "o", "5", "5", "y", "5", "5", "5", "5", "g", "5", "g", "5", "5", "b", "5", "b", "5", "5", "m", "5", "5", "m", "5", "1", "5", "5", "1", "5", "5", "5", "2", "5", "5" },
+      		new List<string> { "r", "r", "r", "5", "5", "o", "o", "5", "5", "5", "y", "y", "y", "5", "5", "g", "g", "g", "5", "5", "b", "b", "5", "5", "5", "m", "5", "5", "m", "5", "1", "5", "5", "1", "5", "5", "5", "2", "5", "5" },
+      		new List<string> { "r", "5", "5", "r", "5", "o", "5", "o", "5", "5", "y", "5", "5", "5", "g", "g", "5", "g", "g", "5", "b", "5", "b", "5", "5", "m", "5", "5", "m", "5", "1", "5", "5", "1", "5", "5", "5", "2", "5", "5" },
+      		new List<string> { "r", "5", "5", "r", "5", "o", "5", "5", "o", "5", "y", "5", "5", "5", "g", "5", "5", "5", "g", "5", "b", "5", "b", "5", "5", "m", "5", "5", "m", "5", "1", "5", "5", "1", "5", "5", "5", "2", "5", "5" },
+      		new List<string> { "r", "5", "5", "r", "5", "o", "5", "5", "o", "5", "y", "5", "5", "5", "g", "5", "5", "5", "g", "5", "b", "5", "5", "b", "5", "m", "5", "5", "m", "5", "1", "5", "5", "1", "5", "5", "5", "2", "5", "5" },
+      		new List<string> { "r", "r", "r", "5", "5", "o", "5", "5", "o", "5", "y", "y", "y", "5", "g", "5", "5", "5", "g", "5", "b", "5", "5", "b", "5", "m", "m", "m", "m", "5", "1", "1", "1", "1", "5", "5", "5", "2", "5", "5" },
+			},
+		};
+
+		// 45 x 16
 		public static Map CurrentMap { get; set; }
 
-		public static void LoadMap(string mapName)
+		private static Map LoadMapFile(string mapName)
 		{
 			string mapPath = Path.Combine(mapDir, mapName + ".json");
 			string jsonStr = File.ReadAllText(mapPath);
 
-			CurrentMap = JsonConvert.DeserializeObject<Map>(jsonStr);
+			return JsonConvert.DeserializeObject<Map>(jsonStr);
+		}
+
+		private static List<Block> Matrix2Blocks(Map map, int blockWidth, int blockHeight)
+		{
+			int mapWidth = map.Matrix[0].Count * blockWidth;
+			int mapHeight = map.Matrix.Count * blockHeight;
+
+			Vector2 mapEntryPosition = new Vector2()
+			{
+				X = GameInfo.Screen.Width / 2 - mapWidth / 2,
+				Y = blockWidth * 1,
+			};
+
+			List<Block> blocks = new List<Block>();
+
+			for (int r = 1; mapEntryPosition.Y + r * blockHeight <= mapEntryPosition.Y + mapHeight; r++)
+			{
+				for (int c = 1; mapEntryPosition.X + c * blockWidth <= mapEntryPosition.X + mapWidth; c++)
+				{
+					BlockType blockType = BlockMap[map.Matrix[r - 1][c - 1]];
+
+					if (blockType == BlockType.None)
+						continue;
+
+					float x = mapEntryPosition.X + c * blockWidth - c; // Make border of blocks overlap each other
+					float y = mapEntryPosition.Y + r * blockHeight - r;
+
+					Block newBlock = new Block(blockType,
+						width: blockWidth,
+						height: blockHeight,
+						position: new Vector2(x, y));
+
+					blocks.Add(newBlock);
+				}
+			}
+
+			return blocks;
+		}
+
+		public static List<Block> LoadMap(string mapName, int blockWidth, int blockHeight)
+		{
+			CurrentMap = LoadMapFile(mapName);
+
+			return Matrix2Blocks(CurrentMap, blockWidth, blockHeight);
+		}
+
+		public static List<Block> LoadLogo(int blockWidth, int blockHeight)
+		{
+			return Matrix2Blocks(Logo, blockWidth, blockHeight);
 		}
 	}
 }

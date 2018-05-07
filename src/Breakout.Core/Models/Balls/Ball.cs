@@ -53,15 +53,10 @@ namespace Breakout.Models.Balls
 		}
 		public int Strength { get; set; }
 
-		public Ball(float radius, int strength, float velocity)
+		public Ball(float radius, int strength, float velocity, Vector2 position)
 		{
 			this.Width = this.Height = (int)(radius * 2);
-
-			this.Position = new Vector2()
-			{
-				X = GameInfo.Screen.Width / 2 - Width / 2,
-				Y = GameInfo.Screen.Height * 0.7f,
-			};
+			this.Position = position;
 
 			this.MinVelocity = 120f;
 			this.Velocity = 320f;
@@ -77,12 +72,20 @@ namespace Breakout.Models.Balls
 			ChangeDirection(angle);
 		}
 
-		public void HandleWallCollision()
+		/// <summary>
+		/// isContained is a boolean value. If true the bottom will act as
+		/// a wall and the ball will bounce back. Used for ball in menu
+		/// </summary>
+		/// <param name="isContained"></param>
+		public void HandleWallCollision(bool isContained=false)
 		{
 			if (this.IsHittingLeftWall() || this.IsHittingRightWall())
 				Direction.X = -Direction.X;
 
 			if (this.IsHittingRoof())
+				Direction.Y = -Direction.Y;
+
+			if (this.IsOffBottom() && isContained == true)
 				Direction.Y = -Direction.Y;
 		}
 
@@ -104,7 +107,7 @@ namespace Breakout.Models.Balls
 		/// </summary>
 		/// <param name="obj">object to check collision with</param>
 		/// <returns>Determite if ball hit object</returns>
-		public bool HandleCollision(DynamicObject obj)
+		public bool HandleCollision(GameObject obj)
 		{
 			bool isCollided = false;
 

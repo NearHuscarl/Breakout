@@ -41,7 +41,12 @@ namespace Breakout.Models.Blocks
 		public Block(BlockType type, int width, int height, Vector2 position) : base(width, height, position)
 		{
 			this.Type = type;
-			this.Health = BlockInfo.Health[Type];
+
+			if (BlockInfo.IsLight(type) || BlockInfo.IsFlashing(type))
+				this.Health = BlockInfo.Health[Type];
+			else
+				this.Health = (int)(BlockInfo.Health[Type] * 0.1f); // almost no health
+
 			this.powerUpSpawnChance = BlockInfo.PowerUpSpawnChance[Type];
 		}
 

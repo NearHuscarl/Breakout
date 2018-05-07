@@ -20,35 +20,105 @@ namespace Breakout.Models
 {
 	public static class ModelFactory
 	{
-		public static Button CreateStartButton()
+		private static int paddleWidth;
+		private static int paddleHeight;
+
+		private static int ballRadius;
+		private static int ballStrength;
+		private static float ballVelocity;
+
+		private static int blockWidth;
+		private static int blockHeight;
+
+		private static int packageWidth;
+		private static int packageHeight;
+
+		public static void Initialize()
 		{
-			return new Button(xRatio: 0.5f, yRatio: 0.4f);
+			paddleWidth = 100;
+			paddleHeight = 17;
+
+			ballRadius = 8;
+			ballStrength = 5;
+			ballVelocity = 6f;
+
+			blockWidth = 20;
+			blockHeight = 20;
+
+			packageWidth = 20;
+			packageHeight = 20;
 		}
 
-		public static Button CreateCreditButton()
+		public static Button CreateStartButton()
 		{
 			return new Button(xRatio: 0.5f, yRatio: 0.5f);
 		}
 
-		public static Button CreateExitButton()
+		public static Button CreateCreditButton()
 		{
 			return new Button(xRatio: 0.5f, yRatio: 0.6f);
 		}
 
+		public static Button CreateExitButton()
+		{
+			return new Button(xRatio: 0.5f, yRatio: 0.7f);
+		}
+
 		public static Paddle CreatePaddle()
 		{
-			return new Paddle(width: 100, height: 17);
+			return new Paddle(width: paddleWidth, height: paddleHeight);
 		}
 
 		public static List<Ball> CreateBall()
 		{
-			Ball ball = new Ball(radius: 8, strength: 5, velocity: 6f);
+			Vector2 position = new Vector2()
+			{
+				X = GameInfo.Screen.Width / 2 - ballRadius / 2,
+				Y = GameInfo.Screen.Height * 0.7f,
+			};
+
+			Ball ball = new Ball(
+				radius: ballRadius,
+				strength: ballStrength,
+				velocity: ballVelocity,
+				position: position);
+
 			ball.ResetPosition();
 
 			return new List<Ball>()
 			{
 				ball,
 			};
+		}
+
+		/// <summary>
+		/// Create ball randomly. Used in spawning in menu
+		/// </summary>
+		/// <returns></returns>
+		public static List<Ball> CreateRandomBalls()
+		{
+			List<Ball> balls = new List<Ball>();
+			int numOfBall = RandomMath.RandomBetween(1, 4); // Random spawn 1-3 balls
+
+			foreach (int i in Enumerable.Range(1, numOfBall))
+			{
+				Vector2 position = new Vector2()
+				{
+					X = RandomMath.RandomBetween(0, GameInfo.Screen.Width - ballRadius),
+					Y = RandomMath.RandomBetween(0, GameInfo.Screen.Height - ballRadius),
+				};
+
+				Ball ball = new Ball(
+						radius: ballRadius,
+						strength: ballStrength,
+						velocity: ballVelocity,
+						position: position);
+
+				ball.ChangeDirection(RandomMath.RandomBetween(0, 360));
+				balls.Add(ball);
+			}
+
+			return balls;
 		}
 
 		public static Player CreatePlayer()
@@ -103,49 +173,17 @@ namespace Breakout.Models
 
 		public static PowerUpPackage CreatePowerUpPackage(PowerUp powerUp, Vector2 position)
 		{
-			return new PowerUpPackage(powerUp, width: 20, height: 20, position: position);
+			return new PowerUpPackage(powerUp, width: packageWidth, height: packageHeight, position: position);
+		}
+
+		public static List<Block> CreateLogo()
+		{
+			return MapManager.LoadLogo(blockWidth: blockWidth, blockHeight: blockHeight);
 		}
 
 		public static List<Block> CreateBlocks()
 		{
-			MapManager.LoadMap("mario");
-
-			int blockWidth = 20;
-			int blockHeight = 20;
-
-			int mapWidth = MapManager.CurrentMap.Matrix[0].Count * blockWidth;
-			int mapHeight = MapManager.CurrentMap.Matrix.Count * blockHeight;
-
-			Vector2 mapEntryPosition = new Vector2()
-			{
-				X = GameInfo.Screen.Width / 2 - mapWidth / 2,
-				Y = blockWidth * 1,
-			};
-
-			List<Block> blocks = new List<Block>();
-
-			for (int r = 1; mapEntryPosition.Y + r * blockHeight <= mapEntryPosition.Y + mapHeight; r++)
-			{
-				for (int c = 1; mapEntryPosition.X + c * blockWidth <= mapEntryPosition.X + mapWidth; c++)
-				{
-					BlockType blockType = MapManager.BlockMap[MapManager.CurrentMap.Matrix[r-1][c-1]];
-
-					if (blockType == BlockType.None)
-						continue;
-
-					float x = mapEntryPosition.X + c * blockWidth - c; // Make border of blocks overlap each other
-					float y = mapEntryPosition.Y + r * blockHeight - r;
-
-					Block newBlock = new Block(blockType,
-						width: blockWidth,
-						height: blockHeight,
-						position: new Vector2(x, y));
-
-					blocks.Add(newBlock);
-				}
-			}
-
-			return blocks;
+			return MapManager.LoadMap("mario", blockWidth: blockWidth, blockHeight: blockHeight);
 		}
 	}
 }

@@ -36,9 +36,9 @@ namespace Breakout.Views.UI
 		private Color TransformColor(float deltaTime)
 		{
 			if (start2end)
-				colorAmount += deltaTime / 20;
+				colorAmount += deltaTime;
 			else
-				colorAmount -= deltaTime / 20;
+				colorAmount -= deltaTime;
 
 			if (colorAmount > 1f)
 				start2end = false;

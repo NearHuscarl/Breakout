@@ -32,15 +32,6 @@ namespace Breakout.Models.Bases
 		}
 
 		/// <summary>
-		/// Method to describe certain action when this object is hit with another
-		/// Dynamic Object
-		/// </summary>
-		public virtual void Hit()
-		{
-
-		}
-
-		/// <summary>
 		/// Move to new position based on current Direction and Velocity
 		/// </summary>
 		/// <param name="elapsed"></param>
