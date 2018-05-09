@@ -1,11 +1,5 @@
 #!/bin/env python
 
-import json
-import os
-
-# pip install pillow
-from PIL import Image
-
 """
 This script convert pixel from image to character:
 	0:  black
@@ -48,6 +42,11 @@ This script convert pixel from image to character:
 	fr: flashing orange
 """
 
+import json
+import os
+
+# pip install pillow
+from PIL import Image
 
 COLORMAP = {
 		"#2c3e50": "0",
@@ -90,6 +89,11 @@ COLORMAP = {
 		"#FF0000": "fr",
 		}
 
+MAP_PATH = os.path.join(os.getcwd(), 'maps', '{}')
+
+class ColorNotFoundError(Exception):
+	pass
+
 def chunk_list(a, n):
 	""" chunk list a into n sublists """
 	k, m = divmod(len(a), n)
@@ -101,15 +105,15 @@ def rgb_to_hex(color):
 	return "#%02x%02x%02x" % (*color,)
 
 def ls_png():
-	return [file for file in os.listdir() if file.endswith('.png') and os.path.isfile(file)]
+	return [file for file in os.listdir('maps') if MAP_PATH.format(file).endswith('.png') and os.path.isfile(MAP_PATH.format(file))]
 
 def get_output_path(pngfile):
 	jsonfile = os.path.splitext(pngfile)[0] + '.json'
-	return os.path.join(os.getcwd(), jsonfile)
+	return MAP_PATH.format(jsonfile)
 
 def pixel2char(imgfile):
 	""" convert pixel to char from image in cwd """
-	img = Image.open(imgfile)
+	img = Image.open(MAP_PATH.format(imgfile))
 
 	pixels = list(img.getdata())
 	_, height = img.size
@@ -117,10 +121,15 @@ def pixel2char(imgfile):
 	pixels = chunk_list(pixels, height)
 
 	for row, pixel_row in enumerate(pixels):
+
 		for column, _ in enumerate(pixel_row):
 			pixels[row][column] = rgb_to_hex(pixels[row][column])
+
 			if pixels[row][column] in COLORMAP:
 				pixels[row][column] = COLORMAP[pixels[row][column]]
+			else:
+				raise ColorNotFoundError("Color {} at ({}, {}) cannot be found color dictionary"
+						.format(pixels[row][column], row, column))
 
 	data = {
 			'color': COLORMAP,

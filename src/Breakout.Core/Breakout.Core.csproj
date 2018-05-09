@@ -119,13 +119,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <PropertyGroup>
-    <PostBuildEvent>set map_path="$(SolutionDir)..\tool"
-
-if not exist "$(TargetDir)maps" (
-   mkdir "$(TargetDir)maps"
-)
-
-copy %25map_path%25\*.json "$(TargetDir)maps"</PostBuildEvent>
+    <PostBuildEvent>powershell -ExecutionPolicy RemoteSigned -NoLogo -NonInteractive -Command ".'$(SolutionDir)..\tool\PostBuild.ps1' -SolutionDir '$(SolutionDir)' -TargetDir '$(TargetDir)'"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
