@@ -1,8 +1,10 @@
 ﻿using Breakout.Extensions;
 using Breakout.Models.Balls;
+using Breakout.Models.Bases;
 using Breakout.Models.Blocks;
-using Breakout.Models.Buttons;
+using Breakout.Models.UIComponents;
 using Breakout.Models.Enums;
+using Breakout.Models.Explosions;
 using Breakout.Models.Meta;
 using Breakout.Models.Paddles;
 using Breakout.Models.Players;
@@ -26,6 +28,8 @@ namespace Breakout.Models
 		public static Button CreditButton { get; set; }
 		public static Button ExitButton { get; set; }
 
+		public static GameObject Footer { get; set; }
+
 		public static Paddle Paddle { get; set; }
 		public static List<Ball> Balls { get; set; }
 		public static List<Block> Blocks { get; set; }
@@ -33,9 +37,12 @@ namespace Breakout.Models
 		public static List<PowerUpPackage> Packages { get; set; }
 		public static List<PowerUp> PowerUps { get; set; }
 
+		public static List<Explosion> ExplosiveZones;
 		public static Player Player { get; set; }
 
 		public static Text BlockLeft { get; set; }
+
+		public static bool IsInGame { get; private set; } = false;
 
 		public static void InitializeMenu()
 		{
@@ -48,20 +55,27 @@ namespace Breakout.Models
 
 			PowerUps = new List<PowerUp>();
 			Packages = new List<PowerUpPackage>();
+			ExplosiveZones = new List<Explosion>();
+
+			IsInGame = false;
 		}
 
 		public static void InitializeGame()
 		{
-			Player = ModelFactory.CreatePlayer();
+			Footer = ModelFactory.CreateFooter();
+			Player = ModelFactory.CreatePlayer(Footer);
 
 			Paddle = ModelFactory.CreatePaddle();
 			Balls = ModelFactory.CreateBall();
 
 			Blocks = ModelFactory.CreateBlocks();
-			BlockLeft = ModelFactory.CreateBlockLeftText(Blocks.Count);
+			BlockLeft = ModelFactory.CreateBlockLeftText(Footer, Blocks.Count);
 
 			PowerUps = new List<PowerUp>();
 			Packages = new List<PowerUpPackage>();
+			ExplosiveZones = new List<Explosion>();
+
+			IsInGame = true;
 		}
 
 		public static void Reset()
@@ -75,29 +89,32 @@ namespace Breakout.Models
 		/// <summary>
 		/// Update physics and behaviour of all entities in the game
 		/// </summary>
-		public static void Step(float elapsed, bool isMenu=false)
+		public static void Step(float elapsed)
 		{
 			deltaTime = elapsed;
 
 			foreach (var ball in Balls.ToList())
-				HandleBall(ball, isMenu);
+				HandleBall(ball);
 
 			foreach (var block in Blocks.ToList())
-				HandleBlock(block, isMenu);
+				HandleBlock(block);
+
+			foreach (var package in Packages.ToList())
+				HandlePackage(package);
 
 			foreach (var powerUp in PowerUps.ToList())
 				HandlePowerUp(powerUp);
 
-			foreach (var package in Packages.ToList())
-				HandlePackage(package);
+			foreach (var explosion in ExplosiveZones.ToList())
+				HandleExplosion(explosion);
 		}
 
-		private static void HandleBall(Ball ball, bool isMenu)
+		private static void HandleBall(Ball ball)
 		{
-			if (isMenu)
-				HandleBallInMenu(ball);
-			else
+			if (IsInGame)
 				HandleBallInGame(ball);
+			else
+				HandleBallInMenu(ball);
 		}
 
 		private static void HandleBallInMenu(Ball ball)
@@ -124,43 +141,40 @@ namespace Breakout.Models
 
 			foreach (var block in Blocks)
 			{
-				if (!ball.HandleCollision(block))
-					continue;
-
-				Player.Score.AddScore(160);
-				Player.CurrentCombo.Add(1);
-
-				if (Player.CurrentCombo > Player.HighestCombo)
-					Player.HighestCombo.Add(1);
+				if (ball.HandleCollision(block))
+				{
+					UpdateScores();
+					break;
+				}
 			}
 
 			ball.UpdateMovement(deltaTime);
 		}
 
-		private static void HandleBlock(Block block, bool isMenu)
+		private static void UpdateScores()
+		{
+			Player.Score.AddScore(160);
+			Player.CurrentCombo.Add(1);
+
+			if (Player.CurrentCombo > Player.HighestCombo)
+				Player.HighestCombo.Add(1);
+		}
+
+		private static void HandleBlock(Block block)
 		{
 			if (block.IsBroken)
 			{
-				if (block.Type == BlockType.Red)
+				if (!BlockInfo.IsLight(block.Type))
 					PowerUps.Add(new PowerUp(PowerUpType.Faster, Balls));
 
-				Packages.AddIfNotNull(block.SpawnPowerUpPackage());
+				if (BlockInfo.IsFlashing(block.Type))
+					ExplosiveZones.Add(ModelFactory.CreateExplosion(block.Rectangle));
 
+				Packages.AddIfNotNull(block.SpawnPowerUpPackage());
 				Blocks.Remove(block);
 
-				if (!isMenu)
+				if (IsInGame)
 					BlockLeft.Take(1);
-			}
-		}
-
-		public static void HandlePowerUp(PowerUp powerUp)
-		{
-			powerUp.Timer -= deltaTime;
-
-			if (!powerUp.Active)
-			{
-				powerUp.Deactivate();
-				PowerUps.Remove(powerUp);
 			}
 		}
 
@@ -183,6 +197,33 @@ namespace Breakout.Models
 				Packages.Remove(package);
 
 			package.UpdateMovement(deltaTime);
+		}
+
+		public static void HandlePowerUp(PowerUp powerUp)
+		{
+			powerUp.Timer -= deltaTime;
+
+			if (!powerUp.Active)
+			{
+				powerUp.Deactivate();
+				PowerUps.Remove(powerUp);
+			}
+		}
+
+		public static void HandleExplosion(Explosion explosion)
+		{
+			explosion.Timer -= deltaTime;
+
+			if (!explosion.Active)
+				return;
+
+			foreach (var block in Blocks)
+			{
+				if (block.Rectangle.Intersects(explosion.Rectangle))
+					block.Hit();
+			}
+
+			ExplosiveZones.Remove(explosion);
 		}
 
 		public static void CleanUp()

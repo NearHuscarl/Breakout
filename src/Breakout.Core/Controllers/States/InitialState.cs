@@ -17,13 +17,13 @@ namespace Breakout.Controllers.States
 	{
 		public override void Update()
 		{
-			Shape screenSize = new Shape()
+			GameInfo.Screen = new Shape()
 			{
 				Width = EntryPoint.Game.graphics.PreferredBackBufferWidth,
 				Height = EntryPoint.Game.graphics.PreferredBackBufferHeight,
 			};
 
-			GameInfo.Initialize(screenSize);
+			GameInfo.Initialize();
 			ModelFactory.Initialize();
 
 			Input.SetDefaultInput();

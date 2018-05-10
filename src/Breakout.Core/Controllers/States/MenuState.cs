@@ -1,5 +1,5 @@
 ﻿using Breakout.Models;
-using Breakout.Models.Buttons;
+using Breakout.Models.UIComponents;
 using Breakout.Utilities;
 using Breakout.Views.Renderers;
 using Breakout.Views.UI;
@@ -14,7 +14,7 @@ namespace Breakout.Controllers.States
 {
 	public class MenuState : State
 	{
-		private delegate void ButtonClickEventHandler();
+		private delegate void OnClickEventAction();
 
 		private void LoadGame()
 		{
@@ -36,57 +36,41 @@ namespace Breakout.Controllers.States
 		{
 			InputHelper.GetInput();
 
-			HandleStartGameButton(LoadGame);
-			HandleCreditButton(OpenCredit);
-			HandleExitButton(ExitGame);
+			Button startButton = Scene.StartButton;
+			Button creditButton = Scene.CreditButton;
+			Button exitButton = Scene.ExitButton;
 
-			Scene.Step(EntryPoint.Game.Elapsed, isMenu: true);
+			HandleButton(startButton, LoadGame);
+			HandleButton(creditButton, OpenCredit);
+			HandleButton(exitButton, ExitGame);
+
+			Scene.Step(EntryPoint.Game.Elapsed);
 		}
 
-		private void HandleStartGameButton(ButtonClickEventHandler eventHandler)
+		private void HandleButton(Button button, OnClickEventAction action)
 		{
-			ButtonUI startButton = EntryPoint.Game.renderer.StartButton;
-			Button startButtonModel = Scene.StartButton;
-			HandleButton(startButton, startButtonModel, eventHandler);
-		}
+			bool isMouseOverButton = button.Rectangle.Contains(InputHelper.GetMousePosition());
 
-		private void HandleCreditButton(ButtonClickEventHandler eventHandler)
-		{
-			ButtonUI creditButton = EntryPoint.Game.renderer.CreditButton;
-			Button creditButtonModel = Scene.CreditButton;
-			HandleButton(creditButton, creditButtonModel, eventHandler);
-		}
-
-		private void HandleExitButton(ButtonClickEventHandler eventHandler)
-		{
-			ButtonUI exitButton = EntryPoint.Game.renderer.ExitButton;
-			Button exitButtonModel = Scene.ExitButton;
-			HandleButton(exitButton, exitButtonModel, eventHandler);
-		}
-
-		private void HandleButton(ButtonUI button, Button buttonModel, ButtonClickEventHandler eventHandler)
-		{
-			bool isMouseOverButton = buttonModel.Rectangle.Contains(InputHelper.GetMousePosition());
-
-			if (!isMouseOverButton)
+			if (isMouseOverButton)
 			{
-				button.ChangeToInactiveImage();
-				return;
+				if (InputHelper.IsMouseHold(MouseButtons.LeftButton))
+					button.OnButtonHoldClicked();
+
+				else if (InputHelper.IsMouseRelease(MouseButtons.LeftButton))
+					action.Invoke();
+
+				else
+					button.OnButtonHovered();
 			}
-
-			if (InputHelper.IsMouseHold(MouseButtons.LeftButton))
-				button.ChangeToClickedImage();
-
-			else if (InputHelper.IsMouseRelease(MouseButtons.LeftButton))
-				eventHandler.Invoke();
-
 			else
-				button.ChangeToHoverImage();
+			{
+				button.OnButtonInactive();
+			}
 		}
 
 		public override void Draw(MonoGameRenderer renderer)
 		{
-			renderer.DrawMenu();
+			renderer.DrawMenu(EntryPoint.Game.Elapsed);
 		}
 	}
 }

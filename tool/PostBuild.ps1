@@ -6,17 +6,15 @@
 # Visual Studio PostBuild Command:
 # powershell -ExecutionPolicy RemoteSigned -NoLogo -NonInteractive -Command ".'$(SolutionDir)..\tool\PostBuild.ps1' -SolutionDir '$(SolutionDir)' -TargetDir '$(TargetDir)'"
 
-param(
-   [String] $SolutionDir,
-   [String] $TargetDir)
-
 # param(
-#    [String] $SolutionDir = "$PSScriptRoot\..\src\",
-#    [String] $TargetDir = "$PSScriptRoot\..\src\Breakout.Core\bin\Windows\x86\Debug\")
+#    [String] $SolutionDir,
+#    [String] $TargetDir)
+
+param(
+   [String] $SolutionDir = "$PSScriptRoot\..\src\",
+   [String] $TargetDir = "$PSScriptRoot\..\src\Breakout.Core\bin\Windows\x86\Debug\")
 
 $ErrorActionPreference = "Stop"
-
-Write-Host "PostBuild> Running Post-Build Event..."
 
 # Write-Host $SolutionDir
 # Write-Host $TargetDir
@@ -26,6 +24,8 @@ $MapPath = "${SolutionDir}..\tool\maps"
 $ScriptPath = "${SolutionDir}..\tool"
 $OutputPath = "${TargetDir}maps"
 $Prompt = "PostBuild>"
+
+Write-Host "${Prompt} Running Post-Build Event..."
 
 if (!(Test-Path -Path "$OutputPath"))
 {

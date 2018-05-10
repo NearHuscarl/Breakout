@@ -16,14 +16,6 @@ namespace Breakout.Models.Players
 
 		public Player()
 		{
-			//Score = new ScoreManager();
-			//Live = new Text(3);
-			//CurrentCombo = new Text(0);
-			//HighestCombo = new Text(0);
-		}
-
-		public void IncreaseScore(int amount)
-		{
 
 		}
 	}

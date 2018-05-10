@@ -118,21 +118,21 @@ namespace Breakout.Models.Balls
 				isCollided = true;
 			}
 
-			if (Direction.X < 0 && IsTouchingRight(obj))
+			else if (Direction.X < 0 && IsTouchingRight(obj))
 			{
 				ReflectHorizontally();
 				obj.Hit();
 				isCollided = true;
 			}
 
-			if (Direction.Y > 0 && IsTouchingTop(obj))
+			else if (Direction.Y > 0 && IsTouchingTop(obj))
 			{
 				ReflectVertically();
 				obj.Hit();
 				isCollided = true;
 			}
 
-			if (Direction.Y < 0 && IsTouchingBottom(obj))
+			else if (Direction.Y < 0 && IsTouchingBottom(obj))
 			{
 				ReflectVertically();
 				obj.Hit();
@@ -200,6 +200,7 @@ namespace Breakout.Models.Balls
 				CurrentVelocity++;
 
 			Position += Direction * MathHelper.Clamp(CurrentVelocity, MinVelocity, MaxVelocity) * elapsed;
+			Position.X = MathHelper.Clamp(Position.X, 0, GameInfo.Screen.Width - this.Width);
 		}
 	}
 }

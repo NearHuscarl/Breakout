@@ -9,7 +9,7 @@ namespace Breakout.Views.Renderers
 {
 	public abstract class AbstractRenderer
 	{
-		public abstract void DrawGame();
-		public abstract void DrawMenu();
+		public abstract void DrawGame(float elapsed);
+		public abstract void DrawMenu(float elapsed);
 	}
 }

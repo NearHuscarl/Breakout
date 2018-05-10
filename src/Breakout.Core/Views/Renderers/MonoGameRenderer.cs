@@ -19,7 +19,9 @@ namespace Breakout.Views.Renderers
 	{
 		private ContentManager content = EntryPoint.Game.Content;
 		private SpriteBatch spriteBatch = EntryPoint.Game.SpriteBatch;
-		private SpriteFont font = EntryPoint.Game.Content.Load<SpriteFont>("Fonts/Font");
+
+		private SpriteFont scoreFont = EntryPoint.Game.Content.Load<SpriteFont>("Fonts/ScoreFont");
+		private SpriteFont buttonFont = EntryPoint.Game.Content.Load<SpriteFont>("Fonts/ButtonFont");
 
 		public ButtonUI StartButton;
 		public ButtonUI CreditButton;
@@ -30,6 +32,7 @@ namespace Breakout.Views.Renderers
 		public Dictionary<BlockType, BlockUI> Blocks;
 		public Dictionary<BlockType, FlashingBlockUI> FlashingBlocks;
 
+		private Sprite footer;
 		private Dictionary<Stage, Background> backgrounds;
 
 		public Font RedFont;
@@ -39,10 +42,11 @@ namespace Breakout.Views.Renderers
 		public MonoGameRenderer()
 		{
 			backgrounds = UIFactory.CreateBackground(content);
+			footer = UIFactory.CreateFooter(content);
 
-			StartButton = UIFactory.CreateStartButton(content);
-			CreditButton = UIFactory.CreateCreditButton(content);
-			ExitButton = UIFactory.CreateExitButton(content);
+			StartButton = UIFactory.CreateStartButton(content, buttonFont);
+			CreditButton = UIFactory.CreateCreditButton(content, buttonFont);
+			ExitButton = UIFactory.CreateExitButton(content, buttonFont);
 
 			PaddleUI = UIFactory.CreatePaddle(content);
 			BallUI = UIFactory.CreateBall(content);
@@ -50,12 +54,12 @@ namespace Breakout.Views.Renderers
 			Blocks = UIFactory.CreateBlocks(content);
 			FlashingBlocks = UIFactory.CreateFlashingBlocks(content);
 
-			RedFont = UIFactory.CreateRedFont(font);
-			GreenFont = UIFactory.CreateGreenFont(font);
-			YellowFont = UIFactory.CreateYellowFont(font);
+			RedFont = UIFactory.CreateRedFont(scoreFont);
+			GreenFont = UIFactory.CreateGreenFont(scoreFont);
+			YellowFont = UIFactory.CreateYellowFont(scoreFont);
 		}
 
-		public override void DrawMenu()
+		public override void DrawMenu(float elapsed)
 		{
 			backgrounds[Stage.Menu].Draw(spriteBatch);
 
@@ -64,17 +68,19 @@ namespace Breakout.Views.Renderers
 			ExitButton.Draw(spriteBatch, Scene.ExitButton);
 
 			DrawBalls();
-			DrawBlocks();
+			DrawBlocks(elapsed);
 		}
 
-		public override void DrawGame()
+		public override void DrawGame(float elapsed)
 		{
 			backgrounds[Stage.Level1].Draw(spriteBatch);
 
 			PaddleUI.Draw(spriteBatch, Scene.Paddle);
 
 			DrawBalls();
-			DrawBlocks();
+			DrawBlocks(elapsed);
+
+			footer.Draw(spriteBatch, Scene.Footer);
 
 			RedFont.Draw(spriteBatch, Scene.Player.Score, Alignment.Center);
 			GreenFont.Draw(spriteBatch, Scene.Player.Live, Alignment.Left);
@@ -93,12 +99,15 @@ namespace Breakout.Views.Renderers
 				BallUI.Draw(spriteBatch, ball);
 		}
 
-		private void DrawBlocks()
+		private void DrawBlocks(float elapsed)
 		{
+			foreach (var flashingBlock in FlashingBlocks.Values)
+				flashingBlock.UpdateFlashingColorAmount(elapsed);
+
 			foreach (var block in Scene.Blocks)
 			{
 				if (BlockInfo.IsFlashing(block.Type))
-					FlashingBlocks[block.Type].Draw(spriteBatch, block, EntryPoint.Game.Elapsed);
+					FlashingBlocks[block.Type].Draw(spriteBatch, block);
 				else
 					Blocks[block.Type].Draw(spriteBatch, block);
 			}

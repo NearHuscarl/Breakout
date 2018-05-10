@@ -30,7 +30,7 @@ namespace Breakout.Controllers.States
 
 		public override void Draw(MonoGameRenderer renderer)
 		{
-			renderer.DrawGame();
+			renderer.DrawGame(EntryPoint.Game.Elapsed);
 		}
 	}
 }

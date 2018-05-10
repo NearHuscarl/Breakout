@@ -1,7 +1,8 @@
 ﻿using Breakout.Models.Balls;
+using Breakout.Models.Bases;
 using Breakout.Models.Blocks;
-using Breakout.Models.Buttons;
-using Breakout.Models.Enums;
+using Breakout.Models.UIComponents;
+using Breakout.Models.Explosions;
 using Breakout.Models.Maps;
 using Breakout.Models.Meta;
 using Breakout.Models.Paddles;
@@ -10,16 +11,16 @@ using Breakout.Models.PowerUps;
 using Breakout.Models.Texts;
 using Breakout.Utilities;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Breakout.Models
 {
 	public static class ModelFactory
 	{
+		private static int buttonWidth;
+		private static int buttonHeight;
+
 		private static int paddleWidth;
 		private static int paddleHeight;
 
@@ -33,8 +34,13 @@ namespace Breakout.Models
 		private static int packageWidth;
 		private static int packageHeight;
 
+		private static int explosiveRadius;
+
 		public static void Initialize()
 		{
+			buttonWidth = 150;
+			buttonHeight = 40;
+
 			paddleWidth = 100;
 			paddleHeight = 17;
 
@@ -47,21 +53,23 @@ namespace Breakout.Models
 
 			packageWidth = 20;
 			packageHeight = 20;
-		}
 
-		public static Button CreateStartButton()
+			explosiveRadius = 40;
+	}
+
+	public static Button CreateStartButton()
 		{
-			return new Button(xRatio: 0.5f, yRatio: 0.5f);
+			return new Button(width: buttonWidth, height: buttonHeight, xRatio: 0.5f, yRatio: 0.5f, text: "Start Game");
 		}
 
 		public static Button CreateCreditButton()
 		{
-			return new Button(xRatio: 0.5f, yRatio: 0.6f);
+			return new Button(width: buttonWidth, height: buttonHeight, xRatio: 0.5f, yRatio: 0.6f, text: "About");
 		}
 
 		public static Button CreateExitButton()
 		{
-			return new Button(xRatio: 0.5f, yRatio: 0.7f);
+			return new Button(width: buttonWidth, height: buttonHeight, xRatio: 0.5f, yRatio: 0.7f, text: "Exit Game");
 		}
 
 		public static Paddle CreatePaddle()
@@ -121,7 +129,22 @@ namespace Breakout.Models
 			return balls;
 		}
 
-		public static Player CreatePlayer()
+		public static GameObject CreateFooter()
+		{
+			return new GameObject()
+			{
+				Position = new Vector2()
+				{
+					X = 0,
+					Y = GameInfo.Screen.Height - GameInfo.Font.Height,
+				},
+
+				Width = GameInfo.Screen.Width,
+				Height = GameInfo.Font.Height,
+			};
+		}
+
+		public static Player CreatePlayer(GameObject footer)
 		{
 			Player player = new Player()
 			{
@@ -133,39 +156,39 @@ namespace Breakout.Models
 
 			player.Score.Position = new Vector2()
 			{
-				X = (GameInfo.Footer.Width / 2 - GameInfo.Font.GetLength(player.Score.FullText) / 2),
-				Y = GameInfo.Footer.Y,
+				X = (footer.Width / 2 - GameInfo.Font.GetLength(player.Score.FullText) / 2),
+				Y = footer.Position.Y,
 			};
 
 			player.Live.Position = new Vector2()
 			{
 				X = 5,
-				Y = GameInfo.Footer.Y,
+				Y = footer.Position.Y,
 			};
 
 			player.CurrentCombo.Position = new Vector2()
 			{
 				X = GameInfo.Font.GetLength(player.Live.FullText),
-				Y = GameInfo.Footer.Y,
+				Y = footer.Position.Y,
 			};
 
 			player.HighestCombo.Position = new Vector2()
 			{
 				X = GameInfo.Font.GetLength(player.Live.FullText) + GameInfo.Font.GetLength(player.CurrentCombo.FullText),
-				Y = GameInfo.Footer.Y,
+				Y = footer.Position.Y,
 			};
 
 			return player;
 		}
 
-		public static Text CreateBlockLeftText(int numOfBlocks)
+		public static Text CreateBlockLeftText(GameObject footer, int numOfBlocks)
 		{
 			Text blockLeftText = new Text(text: numOfBlocks, prompt: GameInfo.BlockLeftText);
 
 			blockLeftText.Position = new Vector2()
 			{
 				X = GameInfo.Screen.Width - GameInfo.Font.GetLength(blockLeftText.FullText),
-				Y = GameInfo.Footer.Y,
+				Y = footer.Position.Y,
 			};
 
 			return blockLeftText;
@@ -184,6 +207,26 @@ namespace Breakout.Models
 		public static List<Block> CreateBlocks()
 		{
 			return MapManager.LoadMap("mario", blockWidth: blockWidth, blockHeight: blockHeight);
+		}
+
+		/// <summary>
+		/// Create explosive Rectangle with center position is origin center position and
+		/// radius is width and height
+		/// </summary>
+		/// <param name="radius"></param>
+		/// <param name="origin"></param>
+		/// <returns></returns>
+		public static Explosion CreateExplosion(Rectangle origin)
+		{
+			Rectangle rectangle = new Rectangle()
+			{
+				X = (origin.X + origin.Width / 2 - explosiveRadius / 2),
+				Y = (origin.Y + origin.Height / 2 - explosiveRadius / 2),
+				Width = explosiveRadius,
+				Height = explosiveRadius,
+			};
+
+			return new Explosion(rectangle);
 		}
 	}
 }

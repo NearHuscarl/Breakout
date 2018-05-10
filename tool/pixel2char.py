@@ -44,9 +44,19 @@ This script convert pixel from image to character:
 
 import json
 import os
+import sys
 
-# pip install pillow
-from PIL import Image
+SCRIPT_NAME = os.path.basename(__file__)
+
+def print_prompt(string):
+	print('{}> {}'.format(SCRIPT_NAME, string))
+
+try:
+	# pip install pillow
+	from PIL import Image
+except ImportError:
+	print_prompt('PIL module not found. Aborting...')
+	sys.exit(1)
 
 COLORMAP = {
 		"#2c3e50": "0",
@@ -62,7 +72,7 @@ COLORMAP = {
 
 		"#16a085": "C",
 		"#1abc9c": "c",
-		"#00FFFF": "fc",
+		"#00ffff": "fc",
 
 		"#27ae60": "G",
 		"#2ecc71": "g",
@@ -70,29 +80,35 @@ COLORMAP = {
 
 		"#2980b9": "B",
 		"#3498db": "b",
-		"#0000FF": "fb",
+		"#0000ff": "fb",
 
 		"#8e44ad": "M",
 		"#9b59b6": "m",
-		"#FF00FF": "fm",
+		"#ff00ff": "fm",
 
 		"#f39c12": "Y",
 		"#f1c40f": "y",
-		"#FFFF00": "fy",
+		"#ffff00": "fy",
 
 		"#d35400": "O",
 		"#e67e22": "o",
-		"#FFA500": "fo",
+		"#ffa500": "fo",
 
 		"#c0392b": "R",
 		"#e74c3c": "r",
-		"#FF0000": "fr",
+		"#ff0000": "fr",
 		}
 
-MAP_PATH = os.path.join(os.getcwd(), 'maps', '{}')
+def get_script_path():
+	return os.path.dirname(os.path.realpath(sys.argv[0]))
+
+SCRIPT_DIR = get_script_path()
+MAP_DIR = os.path.join(SCRIPT_DIR, 'maps')
+MAP_PATH = os.path.join(SCRIPT_DIR, 'maps', '{}')
 
 class ColorNotFoundError(Exception):
 	pass
+
 
 def chunk_list(a, n):
 	""" chunk list a into n sublists """
@@ -105,7 +121,7 @@ def rgb_to_hex(color):
 	return "#%02x%02x%02x" % (*color,)
 
 def ls_png():
-	return [file for file in os.listdir('maps') if MAP_PATH.format(file).endswith('.png') and os.path.isfile(MAP_PATH.format(file))]
+	return [file for file in os.listdir(MAP_DIR) if MAP_PATH.format(file).endswith('.png') and os.path.isfile(MAP_PATH.format(file))]
 
 def get_output_path(pngfile):
 	jsonfile = os.path.splitext(pngfile)[0] + '.json'
@@ -125,8 +141,9 @@ def pixel2char(imgfile):
 		for column, _ in enumerate(pixel_row):
 			pixels[row][column] = rgb_to_hex(pixels[row][column])
 
-			if pixels[row][column] in COLORMAP:
+			if pixels[row][column].lower() in COLORMAP:
 				pixels[row][column] = COLORMAP[pixels[row][column]]
+
 			else:
 				raise ColorNotFoundError("Color {} at ({}, {}) cannot be found color dictionary"
 						.format(pixels[row][column], row, column))
@@ -142,7 +159,7 @@ def pixel2char(imgfile):
 def main():
 	""" main function """
 	for file in ls_png():
-		print('convert pixel2char for {}'.format(file))
+		print_prompt('convert pixel2char for {}'.format(file))
 		pixel2char(file)
 
 if __name__ == '__main__':

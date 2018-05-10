@@ -1,4 +1,5 @@
 ﻿using Breakout.Extensions;
+using Breakout.Models;
 using Breakout.Models.Enums;
 using Breakout.Models.Meta;
 using Breakout.Views.Enums;
@@ -31,33 +32,55 @@ namespace Breakout.Views
 			};
 		}
 
-		public static ButtonUI CreateStartButton(ContentManager content)
+		public static Sprite CreateFooter(ContentManager content)
 		{
-			Texture2D startTexture = content.Load<Texture2D>("Buttons/Start");
-			Texture2D startHoverTexture = content.Load<Texture2D>("Buttons/StartHover");
-			Texture2D startClickedTexture = content.Load<Texture2D>("Buttons/StartClicked");
+			Texture2D footerTexture = content.Load<Texture2D>("Backgrounds/Footer");
+			Sprite footer = new Sprite(footerTexture);
 
-			ButtonUI button = new ButtonUI(startTexture, startHoverTexture, startClickedTexture);
+			return footer;
+		}
+
+		private static ButtonUI CreateButton(ContentManager content, SpriteFont font)
+		{
+			Texture2D startTexture = content.Load<Texture2D>("Buttons/Button");
+			Texture2D startHoverTexture = content.Load<Texture2D>("Buttons/ButtonHover");
+			Texture2D startClickedTexture = content.Load<Texture2D>("Buttons/ButtonClicked");
+
+			Color fgColor = GameInfo.Theme["White"];
+
+			return new ButtonUI(font, startTexture, startHoverTexture, startClickedTexture, fgColor);
+		}
+
+		public static ButtonUI CreateStartButton(ContentManager content, SpriteFont font)
+		{
+			ButtonUI button = CreateButton(content, font);
+
+			Scene.StartButton.ButtonHovered += button.OnButtonHovered;
+			Scene.StartButton.ButtonHoldClicked += button.OnButtonHoldClicked;
+			Scene.StartButton.ButtonInactive += button.OnButtonInactive;
+
 			return button;
 		}
 
-		public static ButtonUI CreateCreditButton(ContentManager content)
+		public static ButtonUI CreateCreditButton(ContentManager content, SpriteFont font)
 		{
-			Texture2D creditTexture = content.Load<Texture2D>("Buttons/Credit");
-			Texture2D creditHoverTexture = content.Load<Texture2D>("Buttons/CreditHover");
-			Texture2D creditClickedTexture = content.Load<Texture2D>("Buttons/CreditClicked");
+			ButtonUI button = CreateButton(content, font);
 
-			ButtonUI button = new ButtonUI(creditTexture, creditHoverTexture, creditClickedTexture);
+			Scene.CreditButton.ButtonHovered += button.OnButtonHovered;
+			Scene.CreditButton.ButtonHoldClicked += button.OnButtonHoldClicked;
+			Scene.CreditButton.ButtonInactive += button.OnButtonInactive;
+
 			return button;
 		}
 
-		public static ButtonUI CreateExitButton(ContentManager content)
+		public static ButtonUI CreateExitButton(ContentManager content, SpriteFont font)
 		{
-			Texture2D exitTexture = content.Load<Texture2D>("Buttons/Exit");
-			Texture2D exitHoverTexture = content.Load<Texture2D>("Buttons/ExitHover");
-			Texture2D exitClickedTexture = content.Load<Texture2D>("Buttons/ExitClicked");
+			ButtonUI button = CreateButton(content, font);
 
-			ButtonUI button = new ButtonUI(exitTexture, exitHoverTexture, exitClickedTexture);
+			Scene.ExitButton.ButtonHovered += button.OnButtonHovered;
+			Scene.ExitButton.ButtonHoldClicked += button.OnButtonHoldClicked;
+			Scene.ExitButton.ButtonInactive += button.OnButtonInactive;
+
 			return button;
 		}
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Bases
 {
-	public abstract class GameObject
+	public class GameObject
 	{
 		public int Width { get; set; }
 		public int Height { get; set; }
