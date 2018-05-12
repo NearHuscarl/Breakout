@@ -16,7 +16,7 @@ namespace Breakout.Models.PowerUps
 		Paddle,
 	}
 
-	public class PowerUp : DynamicObject
+	public class PowerUp : RectangleObject
 	{
 		#region Properties
 

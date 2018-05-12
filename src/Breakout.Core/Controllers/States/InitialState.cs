@@ -1,6 +1,5 @@
 ﻿using Breakout.Models;
 using Breakout.Models.IO;
-using Breakout.Models.Meta;
 using Breakout.Views;
 using Breakout.Views.Renderers;
 using Microsoft.Xna.Framework;
@@ -17,26 +16,20 @@ namespace Breakout.Controllers.States
 	{
 		public override void Update()
 		{
-			GameInfo.Screen = new Shape()
+			base.Update();
+
+			GameInfo.Screen = new Rectangle()
 			{
 				Width = EntryPoint.Game.graphics.PreferredBackBufferWidth,
 				Height = EntryPoint.Game.graphics.PreferredBackBufferHeight,
 			};
 
 			GameInfo.Initialize();
-			ModelFactory.Initialize();
-
 			Input.SetDefaultInput();
 
 			ChangeBackgroundColor(GameInfo.Theme["Dark"]);
-			Scene.InitializeMenu();
 
-			OpenMenu();
-		}
-
-		private static void OpenMenu()
-		{
-			StateMachine.ChangeState("MenuState");
+			StateMachine.OpenMenu();
 		}
 
 		private static void ChangeBackgroundColor(Color color)

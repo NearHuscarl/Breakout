@@ -1,7 +1,8 @@
 ﻿using Breakout.Models;
 using Breakout.Models.Blocks;
 using Breakout.Models.Enums;
-using Breakout.Models.Meta;
+using Breakout.Models.UIComponents;
+using Breakout.Models.Windows;
 using Breakout.Views.Enums;
 using Breakout.Views.UI;
 using Microsoft.Xna.Framework;
@@ -17,15 +18,15 @@ namespace Breakout.Views.Renderers
 {
 	public class MonoGameRenderer : AbstractRenderer
 	{
+		private float deltaTime;
+
 		private ContentManager content = EntryPoint.Game.Content;
 		private SpriteBatch spriteBatch = EntryPoint.Game.SpriteBatch;
 
 		private SpriteFont scoreFont = EntryPoint.Game.Content.Load<SpriteFont>("Fonts/ScoreFont");
 		private SpriteFont buttonFont = EntryPoint.Game.Content.Load<SpriteFont>("Fonts/ButtonFont");
 
-		public ButtonUI StartButton;
-		public ButtonUI CreditButton;
-		public ButtonUI ExitButton;
+		private Cursor cursor;
 
 		public Sprite PaddleUI;
 		public Sprite BallUI;
@@ -35,18 +36,28 @@ namespace Breakout.Views.Renderers
 		private Sprite footer;
 		private Dictionary<Stage, Background> backgrounds;
 
+		private ScreenUI gameScreen;
+		private MessageBoxUI messageBox;
+
 		public Font RedFont;
 		public Font GreenFont;
 		public Font YellowFont;
 
+		public ButtonUI ButtonUI;
+
+		public MessageBox ExitMsgBox;
+
 		public MonoGameRenderer()
 		{
+			cursor = UIFactory.CreateCursor(content);
+
 			backgrounds = UIFactory.CreateBackground(content);
 			footer = UIFactory.CreateFooter(content);
 
-			StartButton = UIFactory.CreateStartButton(content, buttonFont);
-			CreditButton = UIFactory.CreateCreditButton(content, buttonFont);
-			ExitButton = UIFactory.CreateExitButton(content, buttonFont);
+			ButtonUI = UIFactory.CreateButton(content, buttonFont);
+
+			gameScreen = UIFactory.CreateScreen(content, buttonFont);
+			messageBox = UIFactory.CreateMessageBox(content, buttonFont);
 
 			PaddleUI = UIFactory.CreatePaddle(content);
 			BallUI = UIFactory.CreateBall(content);
@@ -63,23 +74,25 @@ namespace Breakout.Views.Renderers
 		{
 			backgrounds[Stage.Menu].Draw(spriteBatch);
 
-			StartButton.Draw(spriteBatch, Scene.StartButton);
-			CreditButton.Draw(spriteBatch, Scene.CreditButton);
-			ExitButton.Draw(spriteBatch, Scene.ExitButton);
+			foreach (var button in Scene.Buttons.Values)
+				ButtonUI.Draw(spriteBatch, button);
 
-			DrawBalls();
+			DrawBall();
 			DrawBlocks(elapsed);
+
+			cursor.Draw(spriteBatch);
 		}
 
 		public override void DrawGame(float elapsed)
 		{
+			deltaTime = elapsed;
+
 			backgrounds[Stage.Level1].Draw(spriteBatch);
 
 			PaddleUI.Draw(spriteBatch, Scene.Paddle);
 
-			DrawBalls();
-			DrawBlocks(elapsed);
-
+			DrawBall();
+			DrawBlocks(deltaTime);
 			footer.Draw(spriteBatch, Scene.Footer);
 
 			RedFont.Draw(spriteBatch, Scene.Player.Score, Alignment.Center);
@@ -93,7 +106,7 @@ namespace Breakout.Views.Renderers
 				Alignment.Left, offsetText: Scene.Player.Live.FullText + Scene.Player.CurrentCombo.FullText);
 		}
 
-		private void DrawBalls()
+		private void DrawBall()
 		{
 			foreach (var ball in Scene.Balls)
 				BallUI.Draw(spriteBatch, ball);
@@ -111,6 +124,42 @@ namespace Breakout.Views.Renderers
 				else
 					Blocks[block.Type].Draw(spriteBatch, block);
 			}
+		}
+
+		public override void DrawExitPrompt()
+		{
+			MessageBox exitPrompt = WindowManager.CurrentScreen as MessageBox;
+
+			if (exitPrompt == null)
+				return;
+
+			if (Scene.IsInGame)
+				DrawGame(deltaTime);
+			else
+				DrawMenu(deltaTime);
+
+			messageBox.Draw(spriteBatch, exitPrompt);
+
+			ButtonUI.Draw(spriteBatch, exitPrompt.YesButton);
+			ButtonUI.Draw(spriteBatch, exitPrompt.NoButton);
+
+			cursor.Draw(spriteBatch);
+		}
+
+		public override void DrawAbout()
+		{
+			AboutScreen aboutScreen = WindowManager.CurrentScreen as AboutScreen;
+
+			if (aboutScreen == null)
+				return;
+
+			DrawMenu(deltaTime);
+
+			gameScreen.Draw(spriteBatch, aboutScreen);
+			ButtonUI.Draw(spriteBatch, aboutScreen.OpenCodeButton);
+			ButtonUI.Draw(spriteBatch, aboutScreen.CancelButton);
+
+			cursor.Draw(spriteBatch);
 		}
 
 		public void CenterScreen()

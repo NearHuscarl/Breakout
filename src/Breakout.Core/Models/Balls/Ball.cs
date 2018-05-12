@@ -1,5 +1,4 @@
 ﻿using Breakout.Models.Bases;
-using Breakout.Models.Meta;
 using Breakout.Models.Paddles;
 using Breakout.Utilities;
 using Microsoft.Xna.Framework;
@@ -12,9 +11,11 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Balls
 {
-	public class Ball : OctilinearObject
+	public class Ball : CircleObject
 	{
 		private float velocity;
+
+		#region Properties
 
 		public float MaxVelocity { get; set; }
 		public float MinVelocity { get; set; }
@@ -40,28 +41,31 @@ namespace Breakout.Models.Balls
 		/// </summary>
 		public float CurrentVelocity { get; set; }
 
-		public float Radius
+		public int Strength { get; set; }
+
+		public float Angle
 		{
 			get
 			{
-				return Width / 2;
-			}
-			set
-			{
-				this.Width = this.Height = (int)(value * 2);
+				Vector2 invertedYDir = new Vector2(Direction.X, -Direction.Y);
+
+				return GeometryMath.Vector2Angle(invertedYDir);
 			}
 		}
-		public int Strength { get; set; }
 
-		public Ball(float radius, int strength, float velocity, Vector2 position)
+		#endregion
+
+		public Ball(int radius, int strength, float velocity, Vector2 position) : base(radius, position)
 		{
-			this.Width = this.Height = (int)(radius * 2);
+			this.Radius = radius;
+			this.Width = this.Height = (Radius * 2);
 			this.Position = position;
 
 			this.MinVelocity = 120f;
 			this.Velocity = 320f;
-			this.CurrentVelocity = Velocity;
 			this.MaxVelocity = 520f;
+
+			this.CurrentVelocity = Velocity;
 		}
 
 		public void ResetPosition()
@@ -107,7 +111,7 @@ namespace Breakout.Models.Balls
 		/// </summary>
 		/// <param name="obj">object to check collision with</param>
 		/// <returns>Determite if ball hit object</returns>
-		public bool HandleCollision(GameObject obj)
+		public bool HandleCollision(RectangleObject obj)
 		{
 			bool isCollided = false;
 
@@ -200,6 +204,8 @@ namespace Breakout.Models.Balls
 				CurrentVelocity++;
 
 			Position += Direction * MathHelper.Clamp(CurrentVelocity, MinVelocity, MaxVelocity) * elapsed;
+
+			// Fix a bug when ball stuck at wall border when both paddle and wall jam the ball at 2 edges
 			Position.X = MathHelper.Clamp(Position.X, 0, GameInfo.Screen.Width - this.Width);
 		}
 	}

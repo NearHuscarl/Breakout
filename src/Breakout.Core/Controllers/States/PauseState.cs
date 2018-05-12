@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Breakout.Models;
 using Breakout.Models.IO;
+using Breakout.Models.Windows;
 using Breakout.Utilities;
 using Breakout.Views.Renderers;
 using Microsoft.Xna.Framework.Input;
@@ -15,17 +16,14 @@ namespace Breakout.Controllers.States
 	{
 		public override void Update()
 		{
-			InputHelper.GetInput();
+			base.Update();
 
-			if (InputHelper.IsKeyDown(Input.PlayGame))
+			if (InputHelper.IsNewKeyPress(Input.PlayGame))
 			{
-				PlayGame();
+				StateMachine.PlayGame();
 			}
-		}
-
-		private static void PlayGame()
-		{
-			StateMachine.ChangeState("GameState");
+			else if (InputHelper.IsNewKeyPress(Input.Exit))
+				StateMachine.ExitGame();
 		}
 
 		public override void Draw(MonoGameRenderer renderer)

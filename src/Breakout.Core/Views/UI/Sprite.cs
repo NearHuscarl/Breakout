@@ -1,11 +1,6 @@
 ﻿using Breakout.Models.Bases;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Breakout.Views.UI
 {
@@ -23,9 +18,14 @@ namespace Breakout.Views.UI
 			Texture = texture;
 		}
 
-		public void Draw(SpriteBatch spriteBatch, GameObject model)
+		public virtual void Draw(SpriteBatch spriteBatch, GameObject model)
 		{
 			spriteBatch.Draw(this.Texture, model.Position, Color.White);
+		}
+
+		public virtual void Draw(SpriteBatch spriteBatch, Rectangle rectangle)
+		{
+			spriteBatch.Draw(this.Texture, rectangle, Color.White);
 		}
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using Breakout.Models.Bases;
-using Breakout.Models.Meta;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Paddles
 {
-	public class Paddle : DynamicObject
+	public class Paddle : RectangleObject
 	{
 		public int Length
 		{

@@ -1,6 +1,7 @@
 ﻿using Breakout.Models;
 using Breakout.Models.Balls;
 using Breakout.Models.IO;
+using Breakout.Models.Windows;
 using Breakout.Utilities;
 using Breakout.Views.Renderers;
 using Microsoft.Xna.Framework.Input;
@@ -16,10 +17,10 @@ namespace Breakout.Controllers.States
 	{
 		public override void Update()
 		{
-			InputHelper.GetInput();
+			base.Update();
 
 			if (InputHelper.IsKeyDown(Input.PauseGame))
-				PauseGame();
+				StateMachine.PauseGame();
 
 			else if (InputHelper.IsNewKeyPress(Input.MovePaddleLeft))
 				Scene.Paddle.DriftLeft(EntryPoint.Game.Elapsed);
@@ -33,32 +34,18 @@ namespace Breakout.Controllers.States
 			else if (InputHelper.IsKeyDown(Input.MovePaddleRight))
 				Scene.Paddle.MoveRight(EntryPoint.Game.Elapsed);
 
+			else if (InputHelper.IsNewKeyPress(Input.Exit))
+				StateMachine.ExitGame();
+
 			Scene.Step(EntryPoint.Game.Elapsed);
 
 			if (Scene.Balls.Count == 0)
 			{
 				if (Scene.Player.Live == 0)
-					GameOver();
+					StateMachine.GameOver();
 				else
-					ResetGame();
+					StateMachine.ResetGame();
 			}
-		}
-
-		private static void PauseGame()
-		{
-			StateMachine.ChangeState("PauseState");
-		}
-
-		private static void ResetGame()
-		{
-			Scene.Player.Live.Take(1);
-			Scene.Reset();
-			StateMachine.ChangeState("PauseState");
-		}
-
-		private static void GameOver()
-		{
-			StateMachine.ChangeState("MenuState"); // TODO: Prompt asking to continue or not
 		}
 
 		public override void Draw(MonoGameRenderer renderer)

@@ -11,14 +11,10 @@ namespace Breakout.Controllers.States
 	{
 		public override void Update()
 		{
-			Scene.InitializeGame();
-			StartGame();
-		}
+			base.Update();
 
-		private static void StartGame()
-		{
-			EntryPoint.Game.IsMouseVisible = false;
-			StateMachine.ChangeState("PauseState");
+			Scene.InitializeGame();
+			StateMachine.StartGame();
 		}
 	}
 }

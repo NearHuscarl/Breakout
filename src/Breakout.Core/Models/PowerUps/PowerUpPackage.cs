@@ -9,7 +9,7 @@ namespace Breakout.Models.PowerUps
 	/// <summary>
 	/// Package contain power-up
 	/// </summary>
-	public class PowerUpPackage : DynamicObject
+	public class PowerUpPackage : RectangleObject
 	{
 		public PowerUp PowerUp { get; private set; }
 

@@ -1,10 +1,8 @@
 ﻿using Breakout.Models.Balls;
 using Breakout.Models.Bases;
 using Breakout.Models.Blocks;
-using Breakout.Models.UIComponents;
 using Breakout.Models.Explosions;
 using Breakout.Models.Maps;
-using Breakout.Models.Meta;
 using Breakout.Models.Paddles;
 using Breakout.Models.Players;
 using Breakout.Models.PowerUps;
@@ -18,77 +16,35 @@ namespace Breakout.Models
 {
 	public static class ModelFactory
 	{
-		private static int buttonWidth;
-		private static int buttonHeight;
-
-		private static int paddleWidth;
-		private static int paddleHeight;
-
-		private static int ballRadius;
-		private static int ballStrength;
-		private static float ballVelocity;
-
-		private static int blockWidth;
-		private static int blockHeight;
-
-		private static int packageWidth;
-		private static int packageHeight;
-
-		private static int explosiveRadius;
-
-		public static void Initialize()
+		public static Rectangle CreateFooter()
 		{
-			buttonWidth = 150;
-			buttonHeight = 40;
+			return new Rectangle()
+			{
+				X = 0,
+				Y = GameInfo.Screen.Height - GameInfo.ScoreFont.Height,
 
-			paddleWidth = 100;
-			paddleHeight = 17;
-
-			ballRadius = 8;
-			ballStrength = 5;
-			ballVelocity = 6f;
-
-			blockWidth = 20;
-			blockHeight = 20;
-
-			packageWidth = 20;
-			packageHeight = 20;
-
-			explosiveRadius = 40;
-	}
-
-	public static Button CreateStartButton()
-		{
-			return new Button(width: buttonWidth, height: buttonHeight, xRatio: 0.5f, yRatio: 0.5f, text: "Start Game");
-		}
-
-		public static Button CreateCreditButton()
-		{
-			return new Button(width: buttonWidth, height: buttonHeight, xRatio: 0.5f, yRatio: 0.6f, text: "About");
-		}
-
-		public static Button CreateExitButton()
-		{
-			return new Button(width: buttonWidth, height: buttonHeight, xRatio: 0.5f, yRatio: 0.7f, text: "Exit Game");
+				Width = GameInfo.Screen.Width,
+				Height = GameInfo.ScoreFont.Height,
+			};
 		}
 
 		public static Paddle CreatePaddle()
 		{
-			return new Paddle(width: paddleWidth, height: paddleHeight);
+			return new Paddle(width: GameInfo.PaddleWidth, height: GameInfo.PaddleHeight);
 		}
 
 		public static List<Ball> CreateBall()
 		{
 			Vector2 position = new Vector2()
 			{
-				X = GameInfo.Screen.Width / 2 - ballRadius / 2,
+				X = GameInfo.Screen.Width / 2 - GameInfo.BallRadius / 2,
 				Y = GameInfo.Screen.Height * 0.7f,
 			};
 
 			Ball ball = new Ball(
-				radius: ballRadius,
-				strength: ballStrength,
-				velocity: ballVelocity,
+				radius: GameInfo.BallRadius,
+				strength: GameInfo.BallStrength,
+				velocity: GameInfo.BallVelocity,
 				position: position);
 
 			ball.ResetPosition();
@@ -112,14 +68,14 @@ namespace Breakout.Models
 			{
 				Vector2 position = new Vector2()
 				{
-					X = RandomMath.RandomBetween(0, GameInfo.Screen.Width - ballRadius),
-					Y = RandomMath.RandomBetween(0, GameInfo.Screen.Height - ballRadius),
+					X = RandomMath.RandomBetween(0, GameInfo.Screen.Width - GameInfo.BallRadius * 2),
+					Y = RandomMath.RandomBetween(0, GameInfo.Screen.Height - GameInfo.BallRadius * 2),
 				};
 
 				Ball ball = new Ball(
-						radius: ballRadius,
-						strength: ballStrength,
-						velocity: ballVelocity,
+						radius: GameInfo.BallRadius,
+						strength: GameInfo.BallStrength,
+						velocity: GameInfo.BallVelocity,
 						position: position);
 
 				ball.ChangeDirection(RandomMath.RandomBetween(0, 360));
@@ -129,22 +85,7 @@ namespace Breakout.Models
 			return balls;
 		}
 
-		public static GameObject CreateFooter()
-		{
-			return new GameObject()
-			{
-				Position = new Vector2()
-				{
-					X = 0,
-					Y = GameInfo.Screen.Height - GameInfo.Font.Height,
-				},
-
-				Width = GameInfo.Screen.Width,
-				Height = GameInfo.Font.Height,
-			};
-		}
-
-		public static Player CreatePlayer(GameObject footer)
+		public static Player CreatePlayer(Rectangle footer)
 		{
 			Player player = new Player()
 			{
@@ -156,39 +97,39 @@ namespace Breakout.Models
 
 			player.Score.Position = new Vector2()
 			{
-				X = (footer.Width / 2 - GameInfo.Font.GetLength(player.Score.FullText) / 2),
-				Y = footer.Position.Y,
+				X = (footer.Width / 2 - GameInfo.ScoreFont.GetLength(player.Score.FullText) / 2),
+				Y = footer.Y,
 			};
 
 			player.Live.Position = new Vector2()
 			{
 				X = 5,
-				Y = footer.Position.Y,
+				Y = footer.Y,
 			};
 
 			player.CurrentCombo.Position = new Vector2()
 			{
-				X = GameInfo.Font.GetLength(player.Live.FullText),
-				Y = footer.Position.Y,
+				X = GameInfo.ScoreFont.GetLength(player.Live.FullText),
+				Y = footer.Y,
 			};
 
 			player.HighestCombo.Position = new Vector2()
 			{
-				X = GameInfo.Font.GetLength(player.Live.FullText) + GameInfo.Font.GetLength(player.CurrentCombo.FullText),
-				Y = footer.Position.Y,
+				X = GameInfo.ScoreFont.GetLength(player.Live.FullText) + GameInfo.ScoreFont.GetLength(player.CurrentCombo.FullText),
+				Y = footer.Y,
 			};
 
 			return player;
 		}
 
-		public static Text CreateBlockLeftText(GameObject footer, int numOfBlocks)
+		public static Text CreateBlockLeftText(Rectangle footer, int numOfBlocks)
 		{
 			Text blockLeftText = new Text(text: numOfBlocks, prompt: GameInfo.BlockLeftText);
 
 			blockLeftText.Position = new Vector2()
 			{
-				X = GameInfo.Screen.Width - GameInfo.Font.GetLength(blockLeftText.FullText),
-				Y = footer.Position.Y,
+				X = GameInfo.Screen.Width - GameInfo.ScoreFont.GetLength(blockLeftText.FullText),
+				Y = footer.Y,
 			};
 
 			return blockLeftText;
@@ -196,17 +137,17 @@ namespace Breakout.Models
 
 		public static PowerUpPackage CreatePowerUpPackage(PowerUp powerUp, Vector2 position)
 		{
-			return new PowerUpPackage(powerUp, width: packageWidth, height: packageHeight, position: position);
+			return new PowerUpPackage(powerUp, width: GameInfo.PackageWidth, height: GameInfo.PackageHeight, position: position);
 		}
 
 		public static List<Block> CreateLogo()
 		{
-			return MapManager.LoadLogo(blockWidth: blockWidth, blockHeight: blockHeight);
+			return MapManager.LoadLogo(blockWidth: GameInfo.BlockWidth, blockHeight: GameInfo.BlockHeight);
 		}
 
 		public static List<Block> CreateBlocks()
 		{
-			return MapManager.LoadMap("mario", blockWidth: blockWidth, blockHeight: blockHeight);
+			return MapManager.LoadMap("mario", blockWidth: GameInfo.BlockWidth, blockHeight: GameInfo.BlockHeight);
 		}
 
 		/// <summary>
@@ -220,10 +161,10 @@ namespace Breakout.Models
 		{
 			Rectangle rectangle = new Rectangle()
 			{
-				X = (origin.X + origin.Width / 2 - explosiveRadius / 2),
-				Y = (origin.Y + origin.Height / 2 - explosiveRadius / 2),
-				Width = explosiveRadius,
-				Height = explosiveRadius,
+				X = (origin.X + origin.Width / 2 - GameInfo.ExplosiveRadius / 2),
+				Y = (origin.Y + origin.Height / 2 - GameInfo.ExplosiveRadius / 2),
+				Width = GameInfo.ExplosiveRadius,
+				Height = GameInfo.ExplosiveRadius,
 			};
 
 			return new Explosion(rectangle);

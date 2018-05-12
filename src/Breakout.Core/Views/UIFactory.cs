@@ -1,7 +1,7 @@
 ﻿using Breakout.Extensions;
 using Breakout.Models;
 using Breakout.Models.Enums;
-using Breakout.Models.Meta;
+using Breakout.Models.UIComponents;
 using Breakout.Views.Enums;
 using Breakout.Views.UI;
 using Microsoft.Xna.Framework;
@@ -17,6 +17,14 @@ namespace Breakout.Views
 {
 	public static class UIFactory
 	{
+		public static Cursor CreateCursor(ContentManager content)
+		{
+			Texture2D cursorTexture = content.Load<Texture2D>("Cursor");
+			Cursor cursor = new Cursor(cursorTexture);
+
+			return cursor;
+		}
+
 		public static Dictionary<Stage, Background> CreateBackground(ContentManager content)
 		{
 			Texture2D menuBgTexture = content.Load<Texture2D>("Backgrounds/MenuBackground");
@@ -32,6 +40,22 @@ namespace Breakout.Views
 			};
 		}
 
+		public static ScreenUI CreateScreen(ContentManager content, SpriteFont font)
+		{
+			Texture2D screenTexture = content.Load<Texture2D>("Windows/Screen");
+			ScreenUI messageBox = new ScreenUI(screenTexture, font, GameInfo.Theme["White"]);
+
+			return messageBox;
+		}
+
+		public static MessageBoxUI CreateMessageBox(ContentManager content, SpriteFont font)
+		{
+			Texture2D screenTexture = content.Load<Texture2D>("Windows/MessageBox");
+			MessageBoxUI messageBox = new MessageBoxUI(screenTexture, font, GameInfo.Theme["White"]);
+
+			return messageBox;
+		}
+
 		public static Sprite CreateFooter(ContentManager content)
 		{
 			Texture2D footerTexture = content.Load<Texture2D>("Backgrounds/Footer");
@@ -40,7 +64,7 @@ namespace Breakout.Views
 			return footer;
 		}
 
-		private static ButtonUI CreateButton(ContentManager content, SpriteFont font)
+		public static ButtonUI CreateButton(ContentManager content, SpriteFont font)
 		{
 			Texture2D startTexture = content.Load<Texture2D>("Buttons/Button");
 			Texture2D startHoverTexture = content.Load<Texture2D>("Buttons/ButtonHover");
@@ -48,40 +72,7 @@ namespace Breakout.Views
 
 			Color fgColor = GameInfo.Theme["White"];
 
-			return new ButtonUI(font, startTexture, startHoverTexture, startClickedTexture, fgColor);
-		}
-
-		public static ButtonUI CreateStartButton(ContentManager content, SpriteFont font)
-		{
-			ButtonUI button = CreateButton(content, font);
-
-			Scene.StartButton.ButtonHovered += button.OnButtonHovered;
-			Scene.StartButton.ButtonHoldClicked += button.OnButtonHoldClicked;
-			Scene.StartButton.ButtonInactive += button.OnButtonInactive;
-
-			return button;
-		}
-
-		public static ButtonUI CreateCreditButton(ContentManager content, SpriteFont font)
-		{
-			ButtonUI button = CreateButton(content, font);
-
-			Scene.CreditButton.ButtonHovered += button.OnButtonHovered;
-			Scene.CreditButton.ButtonHoldClicked += button.OnButtonHoldClicked;
-			Scene.CreditButton.ButtonInactive += button.OnButtonInactive;
-
-			return button;
-		}
-
-		public static ButtonUI CreateExitButton(ContentManager content, SpriteFont font)
-		{
-			ButtonUI button = CreateButton(content, font);
-
-			Scene.ExitButton.ButtonHovered += button.OnButtonHovered;
-			Scene.ExitButton.ButtonHoldClicked += button.OnButtonHoldClicked;
-			Scene.ExitButton.ButtonInactive += button.OnButtonInactive;
-
-			return button;
+			return new ButtonUI(startTexture, startHoverTexture, startClickedTexture, font, fgColor);
 		}
 
 		public static Sprite CreatePaddle(ContentManager content)

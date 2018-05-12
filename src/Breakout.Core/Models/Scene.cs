@@ -5,7 +5,6 @@ using Breakout.Models.Blocks;
 using Breakout.Models.UIComponents;
 using Breakout.Models.Enums;
 using Breakout.Models.Explosions;
-using Breakout.Models.Meta;
 using Breakout.Models.Paddles;
 using Breakout.Models.Players;
 using Breakout.Models.PowerUps;
@@ -24,11 +23,9 @@ namespace Breakout.Models
 	{
 		private static float deltaTime;
 
-		public static Button StartButton { get; set; }
-		public static Button CreditButton { get; set; }
-		public static Button ExitButton { get; set; }
+		public static Dictionary<string, Button> Buttons { get; set; }
 
-		public static GameObject Footer { get; set; }
+		public static Rectangle Footer { get; set; }
 
 		public static Paddle Paddle { get; set; }
 		public static List<Ball> Balls { get; set; }
@@ -46,9 +43,12 @@ namespace Breakout.Models
 
 		public static void InitializeMenu()
 		{
-			StartButton = ModelFactory.CreateStartButton();
-			CreditButton = ModelFactory.CreateCreditButton();
-			ExitButton = ModelFactory.CreateExitButton();
+			Buttons = new Dictionary<string, Button>()
+			{
+				{ "Start", WindowFactory.CreateStartButton() },
+				{ "About", WindowFactory.CreateAboutButton() },
+				{ "Exit", WindowFactory.CreateExitButton() },
+			};
 
 			Balls = ModelFactory.CreateRandomBalls();
 			Blocks = ModelFactory.CreateLogo();
@@ -124,9 +124,8 @@ namespace Breakout.Models
 			foreach (var block in Blocks)
 				ball.HandleCollision(block);
 
-			ball.HandleCollision(StartButton);
-			ball.HandleCollision(CreditButton);
-			ball.HandleCollision(ExitButton);
+			foreach (var button in Buttons.Values)
+				ball.HandleCollision(button);
 
 			ball.UpdateMovement(deltaTime);
 		}

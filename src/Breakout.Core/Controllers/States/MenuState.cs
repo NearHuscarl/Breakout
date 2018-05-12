@@ -14,58 +14,19 @@ namespace Breakout.Controllers.States
 {
 	public class MenuState : State
 	{
-		private delegate void OnClickEventAction();
-
-		private void LoadGame()
-		{
-			StateMachine.ChangeState("LoadingState");
-		}
-
-		private void OpenCredit()
-		{
-
-		}
-
-		private void ExitGame()
-		{
-			Scene.CleanUp();
-			EntryPoint.Game.Exit();
-		}
-
 		public override void Update()
 		{
-			InputHelper.GetInput();
+			base.Update();
 
-			Button startButton = Scene.StartButton;
-			Button creditButton = Scene.CreditButton;
-			Button exitButton = Scene.ExitButton;
+			Button startButton = Scene.Buttons["Start"];
+			Button aboutButton = Scene.Buttons["About"];
+			Button exitButton = Scene.Buttons["Exit"];
 
-			HandleButton(startButton, LoadGame);
-			HandleButton(creditButton, OpenCredit);
-			HandleButton(exitButton, ExitGame);
+			HandleButton(startButton, StateMachine.LoadGame);
+			HandleButton(aboutButton, StateMachine.OpenAbout);
+			HandleButton(exitButton, StateMachine.ExitApp);
 
 			Scene.Step(EntryPoint.Game.Elapsed);
-		}
-
-		private void HandleButton(Button button, OnClickEventAction action)
-		{
-			bool isMouseOverButton = button.Rectangle.Contains(InputHelper.GetMousePosition());
-
-			if (isMouseOverButton)
-			{
-				if (InputHelper.IsMouseHold(MouseButtons.LeftButton))
-					button.OnButtonHoldClicked();
-
-				else if (InputHelper.IsMouseRelease(MouseButtons.LeftButton))
-					action.Invoke();
-
-				else
-					button.OnButtonHovered();
-			}
-			else
-			{
-				button.OnButtonInactive();
-			}
 		}
 
 		public override void Draw(MonoGameRenderer renderer)

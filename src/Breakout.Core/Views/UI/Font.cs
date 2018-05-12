@@ -1,4 +1,4 @@
-﻿using Breakout.Models.Meta;
+﻿using Breakout.Models;
 using Breakout.Models.Texts;
 using Breakout.Views.Enums;
 using Microsoft.Xna.Framework;

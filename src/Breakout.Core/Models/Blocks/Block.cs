@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Blocks
 {
-	public class Block : DynamicObject
+	public class Block : RectangleObject
 	{
 		private int health;
 

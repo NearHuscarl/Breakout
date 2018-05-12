@@ -1,5 +1,4 @@
 ﻿using Breakout.Controllers;
-using Breakout.Models.Meta;
 using Breakout.Views.Renderers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -24,10 +23,10 @@ namespace Breakout
 			graphics = new GraphicsDeviceManager(this);
 
 			Content.RootDirectory = "Content";
-			IsMouseVisible = true;
+			IsMouseVisible = false; // We will use custom cursor
 
-			graphics.PreferredBackBufferHeight = 600;
 			graphics.PreferredBackBufferWidth = 1000;
+			graphics.PreferredBackBufferHeight = 600;
 		}
 
 		protected override void Initialize()
