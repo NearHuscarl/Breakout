@@ -44,5 +44,38 @@ namespace Breakout.Controllers.States
 				button.State = ButtonState.Inactive;
 			}
 		}
+
+		protected void HandleCheckBox(CheckBox checkbox)
+		{
+			bool isMouseOverButton = checkbox.Rectangle.Contains(InputHelper.GetMousePosition());
+
+			if (!isMouseOverButton)
+				return;
+
+			if (InputHelper.IsMouseRelease(MouseButtons.LeftButton))
+				checkbox.Toggle();
+		}
+
+		protected void HandleRadioGroup(RadioGroup radios)
+		{
+			foreach (var radio in radios.RadioButtons)
+			{
+				if (IsRadioButtonClicked(radio.Value))
+				{
+					radios.Check(radio.Value.Text);
+					break;
+				}
+			}
+		}
+
+		private bool IsRadioButtonClicked(RadioButton radio)
+		{
+			bool isMouseOverButton = radio.Rectangle.Contains(InputHelper.GetMousePosition());
+
+			if (isMouseOverButton && InputHelper.IsMouseRelease(MouseButtons.LeftButton))
+				return true;
+
+			return false;
+		}
 	}
 }

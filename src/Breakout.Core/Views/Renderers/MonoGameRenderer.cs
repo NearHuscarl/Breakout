@@ -5,6 +5,8 @@ using Breakout.Models.UIComponents;
 using Breakout.Models.Windows;
 using Breakout.Views.Enums;
 using Breakout.Views.UI;
+using Breakout.Views.UI.Blocks;
+using Breakout.Views.UI.Buttons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,16 +24,16 @@ namespace Breakout.Views.Renderers
 
 		private ContentManager content = EntryPoint.Game.Content;
 		private SpriteBatch spriteBatch = EntryPoint.Game.SpriteBatch;
+		private Scene scene = EntryPoint.Game.Scene;
 
 		private SpriteFont scoreFont = EntryPoint.Game.Content.Load<SpriteFont>("Fonts/ScoreFont");
 		private SpriteFont buttonFont = EntryPoint.Game.Content.Load<SpriteFont>("Fonts/ButtonFont");
 
 		private Cursor cursor;
 
-		public Sprite PaddleUI;
+		public PaddleUI PaddleUI;
 		public Sprite BallUI;
-		public Dictionary<BlockType, BlockUI> Blocks;
-		public Dictionary<BlockType, FlashingBlockUI> FlashingBlocks;
+		public Dictionary<GameColor, BlockUI> Blocks;
 
 		private Sprite footer;
 		private Dictionary<Stage, Background> backgrounds;
@@ -44,6 +46,8 @@ namespace Breakout.Views.Renderers
 		public Font YellowFont;
 
 		public ButtonUI ButtonUI;
+		public CheckBoxUI CheckBoxUI;
+		public CheckBoxUI RadioBtnUI;
 
 		public MessageBox ExitMsgBox;
 
@@ -55,6 +59,8 @@ namespace Breakout.Views.Renderers
 			footer = UIFactory.CreateFooter(content);
 
 			ButtonUI = UIFactory.CreateButton(content, buttonFont);
+			CheckBoxUI = UIFactory.CreateCheckBox(content, buttonFont);
+			RadioBtnUI = UIFactory.CreateRadioButton(content, buttonFont);
 
 			gameScreen = UIFactory.CreateScreen(content, buttonFont);
 			messageBox = UIFactory.CreateMessageBox(content, buttonFont);
@@ -63,7 +69,6 @@ namespace Breakout.Views.Renderers
 			BallUI = UIFactory.CreateBall(content);
 
 			Blocks = UIFactory.CreateBlocks(content);
-			FlashingBlocks = UIFactory.CreateFlashingBlocks(content);
 
 			RedFont = UIFactory.CreateRedFont(scoreFont);
 			GreenFont = UIFactory.CreateGreenFont(scoreFont);
@@ -74,7 +79,7 @@ namespace Breakout.Views.Renderers
 		{
 			backgrounds[Stage.Menu].Draw(spriteBatch);
 
-			foreach (var button in Scene.Buttons.Values)
+			foreach (var button in scene.Buttons.Values)
 				ButtonUI.Draw(spriteBatch, button);
 
 			DrawBall();
@@ -89,41 +94,36 @@ namespace Breakout.Views.Renderers
 
 			backgrounds[Stage.Level1].Draw(spriteBatch);
 
-			PaddleUI.Draw(spriteBatch, Scene.Paddle);
+			PaddleUI.Draw(spriteBatch, scene.Paddle);
 
 			DrawBall();
 			DrawBlocks(deltaTime);
-			footer.Draw(spriteBatch, Scene.Footer);
+			footer.Draw(spriteBatch, scene.Footer);
 
-			RedFont.Draw(spriteBatch, Scene.Player.Score, Alignment.Center);
-			GreenFont.Draw(spriteBatch, Scene.Player.Live, Alignment.Left);
-			YellowFont.Draw(spriteBatch, Scene.BlockLeft, Alignment.Right);
+			RedFont.Draw(spriteBatch, scene.Player.Score, Alignment.Center);
+			GreenFont.Draw(spriteBatch, scene.Player.Live, Alignment.Left);
+			YellowFont.Draw(spriteBatch, scene.BlockLeft, Alignment.Right);
 
-			RedFont.Draw(spriteBatch, Scene.Player.CurrentCombo,
-				Alignment.Left, offsetText: Scene.Player.Live.FullText);
+			RedFont.Draw(spriteBatch, scene.Player.CurrentCombo,
+				Alignment.Left, offsetText: scene.Player.Live.FullText);
 
-			RedFont.Draw(spriteBatch, Scene.Player.HighestCombo,
-				Alignment.Left, offsetText: Scene.Player.Live.FullText + Scene.Player.CurrentCombo.FullText);
+			RedFont.Draw(spriteBatch, scene.Player.HighestCombo,
+				Alignment.Left, offsetText: scene.Player.Live.FullText + scene.Player.CurrentCombo.FullText);
 		}
 
 		private void DrawBall()
 		{
-			foreach (var ball in Scene.Balls)
+			foreach (var ball in scene.Balls)
 				BallUI.Draw(spriteBatch, ball);
 		}
 
 		private void DrawBlocks(float elapsed)
 		{
-			foreach (var flashingBlock in FlashingBlocks.Values)
-				flashingBlock.UpdateFlashingColorAmount(elapsed);
+			foreach (var block in Blocks.Values)
+				block.UpdateColor(elapsed);
 
-			foreach (var block in Scene.Blocks)
-			{
-				if (BlockInfo.IsFlashing(block.Type))
-					FlashingBlocks[block.Type].Draw(spriteBatch, block);
-				else
-					Blocks[block.Type].Draw(spriteBatch, block);
-			}
+			foreach (var block in scene.Blocks)
+				Blocks[block.Color].Draw(spriteBatch, block);
 		}
 
 		public override void DrawExitPrompt()
@@ -133,7 +133,7 @@ namespace Breakout.Views.Renderers
 			if (exitPrompt == null)
 				return;
 
-			if (Scene.IsInGame)
+			if (scene.IsInGame)
 				DrawGame(deltaTime);
 			else
 				DrawMenu(deltaTime);
@@ -158,6 +158,26 @@ namespace Breakout.Views.Renderers
 			gameScreen.Draw(spriteBatch, aboutScreen);
 			ButtonUI.Draw(spriteBatch, aboutScreen.OpenCodeButton);
 			ButtonUI.Draw(spriteBatch, aboutScreen.CancelButton);
+
+			cursor.Draw(spriteBatch);
+		}
+
+		public override void DrawSetting()
+		{
+			SettingScreen settingScreen = WindowManager.CurrentScreen as SettingScreen;
+
+			if (settingScreen == null)
+				return;
+
+			DrawMenu(deltaTime);
+
+			gameScreen.Draw(spriteBatch, settingScreen);
+			ButtonUI.Draw(spriteBatch, settingScreen.ApplyButton);
+			ButtonUI.Draw(spriteBatch, settingScreen.CancelButton);
+			CheckBoxUI.Draw(spriteBatch, settingScreen.Mute);
+
+			foreach (var radio in settingScreen.Difficulties.RadioButtons)
+				RadioBtnUI.Draw(spriteBatch, radio.Value);
 
 			cursor.Draw(spriteBatch);
 		}

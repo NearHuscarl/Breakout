@@ -1,4 +1,6 @@
 ﻿using Breakout.Models.Bases;
+using Breakout.Models.Enums;
+using Breakout.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,29 +13,35 @@ namespace Breakout.Models.Paddles
 {
 	public class Paddle : RectangleObject
 	{
-		public int Length
+		private static readonly Dictionary<PaddleLength, int> lengthDict = new Dictionary<PaddleLength, int>()
+		{
+			{ PaddleLength.ExtraShort, 80 },
+			{ PaddleLength.Short, 100 },
+			{ PaddleLength.Medium, 120 },
+			{ PaddleLength.Long, 150 },
+		};
+
+		public PaddleLength Length { get; private set; }
+
+		public override int Width
 		{
 			get
 			{
-				return this.Width;
-			}
-			set
-			{
-				this.Width = value;
+				return lengthDict[Length];
 			}
 		}
 
-		public Paddle(int width, int height) : base(width, height)
+		public Paddle(PaddleLength length, int height, float velocity) : base(lengthDict[length], height)
 		{
-			this.Length = width;
+			Length = length;
 
-			this.Position = new Vector2()
+			Position = new Vector2()
 			{
 				X = GameInfo.Screen.Width / 2 - Width / 2,
 				Y = GameInfo.Screen.Height - Height - 30,
 			};
 
-			this.Velocity = 800f;
+			Velocity = velocity;
 		}
 
 		public void DriftLeft(float elapsed)
@@ -69,7 +77,12 @@ namespace Breakout.Models.Paddles
 
 		public void ModifyLength(int offset)
 		{
-			Length += offset;
+			Width += offset;
+		}
+
+		public override void Hit()
+		{
+			AudioManager.PlaySound("HitPaddle");
 		}
 	}
 }

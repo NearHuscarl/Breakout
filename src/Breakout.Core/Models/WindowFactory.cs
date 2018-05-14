@@ -11,14 +11,19 @@ namespace Breakout.Models
 			return new Button(width: GameInfo.ButtonWidth, height: GameInfo.ButtonHeight, xRatio: 0.5f, yRatio: 0.5f, text: "Start Game");
 		}
 
+		public static Button CreateSettingButton()
+		{
+			return new Button(width: GameInfo.ButtonWidth, height: GameInfo.ButtonHeight, xRatio: 0.5f, yRatio: 0.6f, text: "Setting");
+		}
+
 		public static Button CreateAboutButton()
 		{
-			return new Button(width: GameInfo.ButtonWidth, height: GameInfo.ButtonHeight, xRatio: 0.5f, yRatio: 0.6f, text: "About");
+			return new Button(width: GameInfo.ButtonWidth, height: GameInfo.ButtonHeight, xRatio: 0.5f, yRatio: 0.7f, text: "About");
 		}
 
 		public static Button CreateExitButton()
 		{
-			return new Button(width: GameInfo.ButtonWidth, height: GameInfo.ButtonHeight, xRatio: 0.5f, yRatio: 0.7f, text: "Exit Game");
+			return new Button(width: GameInfo.ButtonWidth, height: GameInfo.ButtonHeight, xRatio: 0.5f, yRatio: 0.8f, text: "Exit Game");
 		}
 
 		public static Button CreateYesButton(MessageBox msgBox)
@@ -49,6 +54,16 @@ namespace Breakout.Models
 		public static Button CreateButton(Vector2 position, string text)
 		{
 			return new Button(width: GameInfo.ButtonWidth, height: GameInfo.ButtonHeight, position: position, text: text);
+		}
+
+		public static CheckBox CreateCheckBox(Vector2 position, string text, bool initialValue=false)
+		{
+			return new CheckBox(width: GameInfo.CheckBoxWidth, height: GameInfo.CheckBoxHeight, position: position, text: text, initialValue: initialValue);
+		}
+
+		public static RadioButton CreateRadioButton(Vector2 position, string text, bool initialValue=false)
+		{
+			return new RadioButton(width: GameInfo.RadioButtonWidth, height: GameInfo.RadioButtonHeight, position: position, text: text, initialValue: initialValue);
 		}
 	}
 }

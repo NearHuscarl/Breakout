@@ -1,6 +1,7 @@
 ﻿using Breakout.Models.Balls;
 using Breakout.Models.Bases;
 using Breakout.Models.Blocks;
+using Breakout.Models.Enums;
 using Breakout.Models.Explosions;
 using Breakout.Models.Maps;
 using Breakout.Models.Paddles;
@@ -30,7 +31,10 @@ namespace Breakout.Models
 
 		public static Paddle CreatePaddle()
 		{
-			return new Paddle(width: GameInfo.PaddleWidth, height: GameInfo.PaddleHeight);
+			return new Paddle(
+				length: GameInfo.PaddleLength,
+				height: GameInfo.PaddleHeight,
+				velocity: GameInfo.PaddleVelocity);
 		}
 
 		public static List<Ball> CreateBall()
@@ -142,12 +146,23 @@ namespace Breakout.Models
 
 		public static List<Block> CreateLogo()
 		{
-			return MapManager.LoadLogo(blockWidth: GameInfo.BlockWidth, blockHeight: GameInfo.BlockHeight);
+			return MapManager.LoadLogo();
+		}
+
+		public static Block CreateBlock(BlockType blockType, Vector2 position)
+		{
+			if (BlockInfo.IsFlashing(blockType))
+				return new FlashingBlock(EntryPoint.Game.Scene, position, blockType);
+
+			else if (BlockInfo.IsLight(blockType))
+				return new LightBlock(EntryPoint.Game.Scene, position, blockType);
+
+			return new NormalBlock(EntryPoint.Game.Scene, position, blockType);
 		}
 
 		public static List<Block> CreateBlocks()
 		{
-			return MapManager.LoadMap("mario", blockWidth: GameInfo.BlockWidth, blockHeight: GameInfo.BlockHeight);
+			return MapManager.LoadMap("quick");
 		}
 
 		/// <summary>

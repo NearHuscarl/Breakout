@@ -98,12 +98,12 @@ namespace Breakout.Models.PowerUps
 
 		private static void IncreasePaddleLength(Paddle paddle)
 		{
-			paddle.Length += 2;
+			paddle.Width += 2;
 		}
 
 		private static void DecreasePaddleLength(Paddle paddle)
 		{
-			paddle.Length -= 2;
+			paddle.Width -= 2;
 		}
 
 		private static void DoNothing(List<Ball> balls)

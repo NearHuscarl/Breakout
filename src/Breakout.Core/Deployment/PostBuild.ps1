@@ -4,15 +4,15 @@
 # Move all json map files to $(TargetDir)maps\
 #
 # Visual Studio PostBuild Command:
-# powershell -ExecutionPolicy RemoteSigned -NoLogo -NonInteractive -Command ".'$(SolutionDir)..\tool\PostBuild.ps1' -SolutionDir '$(SolutionDir)' -TargetDir '$(TargetDir)'"
+# powershell -ExecutionPolicy RemoteSigned -NoLogo -NonInteractive -Command ".'$(ProjectDir)Deployment\PostBuild.ps1' -SolutionDir '$(SolutionDir)' -TargetDir '$(TargetDir)'"
 
 # param(
 #    [String] $SolutionDir,
 #    [String] $TargetDir)
 
 param(
-   [String] $SolutionDir = "$PSScriptRoot\..\src\",
-   [String] $TargetDir = "$PSScriptRoot\..\src\Breakout.Core\bin\Windows\x86\Debug\")
+   [String] $SolutionDir = "..\..\",
+   [String] $TargetDir = "..\bin\Windows\x86\Debug\")
 
 $ErrorActionPreference = "Stop"
 

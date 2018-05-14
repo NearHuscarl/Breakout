@@ -13,7 +13,7 @@ namespace Breakout.Controllers.States
 		{
 			base.Update();
 
-			Scene.InitializeGame();
+			EntryPoint.Game.Scene.InitializeGame();
 			StateMachine.StartGame();
 		}
 	}

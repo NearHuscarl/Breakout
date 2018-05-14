@@ -5,28 +5,27 @@ namespace Breakout.Models.UIComponents
 {
 	public class RadioGroup
 	{
-		public List<RadioButton> RadioButtons { get; set; }
-		private RadioButton activeRadioButton;
-
-		public void HandleInput()
+		public Dictionary<string, RadioButton> RadioButtons { get; set; }
+		
+		public RadioGroup(RadioButton[] radios)
 		{
+			RadioButtons = new Dictionary<string, RadioButton>();
+
+			foreach (var radio in radios)
+				RadioButtons.Add(radio.Text, radio);
+		}
+
+		public void Check(string name)
+		{
+			if (!RadioButtons.ContainsKey(name))
+				return;
+
 			foreach (var radio in RadioButtons)
 			{
-				if (!radio.Rectangle.Contains(InputHelper.GetMousePosition()))
-					continue;
-
-				if (InputHelper.IsMouseRelease(MouseButtons.LeftButton))
-				{
-					radio.OnRadioButtonChecked();
-					activeRadioButton = radio;
-					break;
-				}
-			}
-
-			foreach(var radio in RadioButtons)
-			{
-				if (radio != activeRadioButton)
-					radio.OnRadioButtonUnchecked();
+				if (radio.Key == name)
+					radio.Value.Check();
+				else
+					radio.Value.UnCheck();
 			}
 		}
 	}

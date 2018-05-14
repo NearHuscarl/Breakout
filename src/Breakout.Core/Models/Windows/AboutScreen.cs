@@ -6,8 +6,8 @@ namespace Breakout.Models.Windows
 {
 	public class AboutScreen : GameScreen
 	{
-		public Button CancelButton { get; set; }
 		public Button OpenCodeButton { get; set; }
+		public Button CancelButton { get; set; }
 
 		public AboutScreen()
 		{
@@ -19,7 +19,7 @@ namespace Breakout.Models.Windows
 			builder.AppendLine();
 			builder.AppendLine("License: BSD 3-Clauses");
 			builder.AppendLine();
-			builder.AppendLine("Version: 0.0.8");
+			builder.AppendLine($"Version: {GameInfo.CurrentVersion}");
 
 			Text = builder.ToString();
 
@@ -38,8 +38,8 @@ namespace Breakout.Models.Windows
 				Y = Position.Y + Height * 0.75f,
 			};
 
-			CancelButton = WindowFactory.CreateButton(cancelPosition, "Cancel");
 			OpenCodeButton = WindowFactory.CreateButton(openCodePosition, "Source Code");
+			CancelButton = WindowFactory.CreateButton(cancelPosition, "Cancel");
 		}
 	}
 }

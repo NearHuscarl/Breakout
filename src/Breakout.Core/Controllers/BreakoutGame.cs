@@ -1,4 +1,5 @@
 ﻿using Breakout.Controllers;
+using Breakout.Models;
 using Breakout.Views.Renderers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,25 +13,28 @@ namespace Breakout
 {
 	public class BreakoutGame : Game
 	{
-		public GraphicsDeviceManager graphics;
+		public GraphicsDeviceManager Graphics;
 		public SpriteBatch SpriteBatch;
-		public MonoGameRenderer renderer;
+		public MonoGameRenderer Renderer;
+		public Scene Scene;
 
 		public float Elapsed { get; private set; }
 
 		public BreakoutGame()
 		{
-			graphics = new GraphicsDeviceManager(this);
+			Graphics = new GraphicsDeviceManager(this);
 
 			Content.RootDirectory = "Content";
 			IsMouseVisible = false; // We will use custom cursor
 
-			graphics.PreferredBackBufferWidth = 1000;
-			graphics.PreferredBackBufferHeight = 600;
+			Graphics.PreferredBackBufferWidth = 1000;
+			Graphics.PreferredBackBufferHeight = 600;
 		}
 
 		protected override void Initialize()
 		{
+			Scene = new Scene();
+
 			StateMachine.Initialize();
 			StateMachine.CurrentState = StateMachine.States["InitialState"];
 			StateMachine.CurrentState.Update();
@@ -41,9 +45,9 @@ namespace Breakout
 		protected override void LoadContent()
 		{
 			SpriteBatch = new SpriteBatch(GraphicsDevice);
-			renderer = new MonoGameRenderer();
+			Renderer = new MonoGameRenderer();
 
-			renderer.CenterScreen();
+			Renderer.CenterScreen();
 		}
 
 		protected override void Update(GameTime gameTime)
@@ -57,10 +61,10 @@ namespace Breakout
 
 		protected override void Draw(GameTime gameTime)
 		{
-			//GraphicsDevice.Clear(Color.CornflowerBlue);
+			// GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			SpriteBatch.Begin();
-			StateMachine.CurrentState.Draw(renderer);
+			StateMachine.CurrentState.Draw(Renderer);
 			SpriteBatch.End();
 
 			base.Draw(gameTime);

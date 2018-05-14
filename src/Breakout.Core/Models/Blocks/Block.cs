@@ -1,19 +1,16 @@
-﻿using Breakout.Models.Bases;
+﻿using Breakout.Extensions;
+using Breakout.Models.Bases;
 using Breakout.Models.Enums;
 using Breakout.Models.PowerUps;
 using Breakout.Utilities;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Breakout.Models.Blocks
 {
-	public class Block : RectangleObject
+	public abstract class Block : RectangleObject
 	{
+		public GameColor Color { get; private set; }
+
 		private int health;
 
 		public int Health
@@ -22,7 +19,7 @@ namespace Breakout.Models.Blocks
 			{
 				return health;
 			}
-			private set
+			protected set
 			{
 				health = value;
 
@@ -32,25 +29,24 @@ namespace Breakout.Models.Blocks
 				}
 			}
 		}
+		public int MaxHealth { get; private set; }
 
-		public BlockType Type { get; set;  }
 		public bool IsBroken { get; private set; } = false;
 
-		private readonly int powerUpSpawnChance;
+		protected readonly int powerUpSpawnChance;
 
-		public Block(BlockType type, int width, int height, Vector2 position) : base(width, height, position)
+		protected Scene scene;
+
+		public Block(Scene scene, Vector2 position, BlockType blockType) : base(GameInfo.BlockWidth, GameInfo.BlockHeight, position)
 		{
-			this.Type = type;
-
-			if (BlockInfo.IsLight(type) || BlockInfo.IsFlashing(type))
-				this.Health = BlockInfo.Health[Type];
-			else
-				this.Health = (int)(BlockInfo.Health[Type] * 0.1f); // almost no health
-
-			this.powerUpSpawnChance = BlockInfo.PowerUpSpawnChance[Type];
+			this.scene = scene;
+			this.Color = BlockInfo.Color[blockType];
+			this.MaxHealth = BlockInfo.Health[blockType];
+			this.Health = this.MaxHealth;
+			this.powerUpSpawnChance = BlockInfo.PowerUpSpawnChance[blockType];
 		}
 
-		public PowerUpPackage SpawnPowerUpPackage()
+		private PowerUpPackage SpawnPowerUpPackage()
 		{
 			if (RandomMath.RandomPercent(powerUpSpawnChance))
 			{
@@ -64,6 +60,11 @@ namespace Breakout.Models.Blocks
 		public override void Hit()
 		{
 			Health -= 10;
+		}
+
+		public virtual void OnDestroy()
+		{
+			scene.Packages.AddIfNotNull(this.SpawnPowerUpPackage());
 		}
 	}
 }

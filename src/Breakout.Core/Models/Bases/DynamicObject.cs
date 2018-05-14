@@ -3,9 +3,10 @@ using Microsoft.Xna.Framework;
 
 namespace Breakout.Models.Bases
 {
-	public class DynamicObject : GameObject
+	public abstract class DynamicObject : GameObject
 	{
 		public Vector2 Direction;
+
 		public virtual float Velocity { get; set; }
 
 		public void ChangeDirection(float angle)

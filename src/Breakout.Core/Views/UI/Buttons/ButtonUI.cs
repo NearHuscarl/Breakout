@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Views.UI
+namespace Breakout.Views.UI.Buttons
 {
 	public class ButtonUI : Sprite
 	{

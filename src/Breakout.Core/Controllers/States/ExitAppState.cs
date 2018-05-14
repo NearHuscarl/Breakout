@@ -24,7 +24,7 @@ namespace Breakout.Controllers.States
 			HandleButton(yesButton, StateMachine.Exit);
 			HandleButton(noButton, StateMachine.ChangeToPreviousState);
 
-			Scene.Step(EntryPoint.Game.Elapsed);
+			EntryPoint.Game.Scene.Step(EntryPoint.Game.Elapsed);
 		}
 
 		public override void Draw(MonoGameRenderer renderer)

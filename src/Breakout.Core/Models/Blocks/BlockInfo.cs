@@ -1,4 +1,5 @@
 ﻿using Breakout.Models.Enums;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,6 +79,41 @@ namespace Breakout.Models.Blocks
 			{ BlockType.FlashingBlack, 10 },
 
 			{ BlockType.None, 0 },
+		};
+
+		public static Dictionary<BlockType, GameColor> Color = new Dictionary<BlockType, GameColor>()
+		{
+			{ BlockType.Red, GameColor.Red },
+			{ BlockType.Orange, GameColor.Orange },
+			{ BlockType.Yellow, GameColor.Yellow },
+			{ BlockType.Green, GameColor.Green },
+			{ BlockType.Blue, GameColor.Blue },
+			{ BlockType.Cyan, GameColor.Cyan },
+			{ BlockType.Magenta, GameColor.Magenta },
+			{ BlockType.Gray, GameColor.Gray },
+			{ BlockType.Black, GameColor.Black },
+
+			{ BlockType.LightRed, GameColor.Red },
+			{ BlockType.LightOrange, GameColor.Orange },
+			{ BlockType.LightYellow, GameColor.Yellow },
+			{ BlockType.LightGreen, GameColor.Green },
+			{ BlockType.LightBlue, GameColor.Blue },
+			{ BlockType.LightCyan, GameColor.Cyan },
+			{ BlockType.LightMagenta, GameColor.Magenta },
+			{ BlockType.LightGray, GameColor.Gray },
+			{ BlockType.Dark, GameColor.Black },
+
+			{ BlockType.FlashingRed, GameColor.Red },
+			{ BlockType.FlashingOrange, GameColor.Orange },
+			{ BlockType.FlashingYellow, GameColor.Yellow },
+			{ BlockType.FlashingGreen, GameColor.Green },
+			{ BlockType.FlashingBlue, GameColor.Blue },
+			{ BlockType.FlashingCyan, GameColor.Cyan },
+			{ BlockType.FlashingMagenta, GameColor.Magenta },
+			{ BlockType.FlashingGray, GameColor.Gray },
+			{ BlockType.FlashingBlack, GameColor.Black },
+
+			{ BlockType.None, GameColor.None },
 		};
 
 		public static bool IsLight(BlockType blockType)

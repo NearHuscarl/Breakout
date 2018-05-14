@@ -19,13 +19,13 @@ namespace Breakout.Controllers.States
 
 			AboutScreen aboutScreen= (AboutScreen)WindowManager.CurrentScreen;
 
-			Button cancelButton = aboutScreen.CancelButton;
 			Button openCodeButton = aboutScreen.OpenCodeButton;
+			Button cancelButton = aboutScreen.CancelButton;
 
-			HandleButton(cancelButton, StateMachine.ChangeToPreviousState);
 			HandleButton(openCodeButton, OpenSourceCode);
+			HandleButton(cancelButton, StateMachine.ChangeToPreviousState);
 
-			Scene.Step(EntryPoint.Game.Elapsed);
+			EntryPoint.Game.Scene.Step(EntryPoint.Game.Elapsed);
 		}
 
 		private void OpenSourceCode()

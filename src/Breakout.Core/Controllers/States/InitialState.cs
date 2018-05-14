@@ -1,5 +1,6 @@
 ﻿using Breakout.Models;
 using Breakout.Models.IO;
+using Breakout.Utilities;
 using Breakout.Views;
 using Breakout.Views.Renderers;
 using Microsoft.Xna.Framework;
@@ -20,12 +21,15 @@ namespace Breakout.Controllers.States
 
 			GameInfo.Screen = new Rectangle()
 			{
-				Width = EntryPoint.Game.graphics.PreferredBackBufferWidth,
-				Height = EntryPoint.Game.graphics.PreferredBackBufferHeight,
+				Width = EntryPoint.Game.Graphics.PreferredBackBufferWidth,
+				Height = EntryPoint.Game.Graphics.PreferredBackBufferHeight,
 			};
 
 			GameInfo.Initialize();
+
 			Input.SetDefaultInput();
+
+			AudioManager.LoadSound(EntryPoint.Game.Content, GameInfo.Sounds);
 
 			ChangeBackgroundColor(GameInfo.Theme["Dark"]);
 

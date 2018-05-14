@@ -12,6 +12,7 @@ namespace Breakout.Views.Renderers
 		public abstract void DrawGame(float elapsed);
 		public abstract void DrawMenu(float elapsed);
 		public abstract void DrawExitPrompt();
+		public abstract void DrawSetting();
 		public abstract void DrawAbout();
 	}
 }

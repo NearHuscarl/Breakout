@@ -19,33 +19,34 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models
 {
-	public static class Scene
+	public class Scene
 	{
-		private static float deltaTime;
+		private float deltaTime;
 
-		public static Dictionary<string, Button> Buttons { get; set; }
+		public Dictionary<string, Button> Buttons { get; set; }
 
-		public static Rectangle Footer { get; set; }
+		public Rectangle Footer { get; set; }
 
-		public static Paddle Paddle { get; set; }
-		public static List<Ball> Balls { get; set; }
-		public static List<Block> Blocks { get; set; }
+		public Paddle Paddle { get; set; }
+		public List<Ball> Balls { get; set; }
+		public List<Block> Blocks { get; set; }
 
-		public static List<PowerUpPackage> Packages { get; set; }
-		public static List<PowerUp> PowerUps { get; set; }
+		public List<PowerUpPackage> Packages { get; set; }
+		public List<PowerUp> PowerUps { get; set; }
 
-		public static List<Explosion> ExplosiveZones;
-		public static Player Player { get; set; }
+		public List<Explosion> ExplosiveZones;
+		public Player Player { get; set; }
 
-		public static Text BlockLeft { get; set; }
+		public Text BlockLeft { get; set; }
 
-		public static bool IsInGame { get; private set; } = false;
+		public bool IsInGame { get; private set; } = false;
 
-		public static void InitializeMenu()
+		public void InitializeMenu()
 		{
 			Buttons = new Dictionary<string, Button>()
 			{
 				{ "Start", WindowFactory.CreateStartButton() },
+				{ "Setting", WindowFactory.CreateSettingButton() },
 				{ "About", WindowFactory.CreateAboutButton() },
 				{ "Exit", WindowFactory.CreateExitButton() },
 			};
@@ -60,7 +61,7 @@ namespace Breakout.Models
 			IsInGame = false;
 		}
 
-		public static void InitializeGame()
+		public void InitializeGame()
 		{
 			Footer = ModelFactory.CreateFooter();
 			Player = ModelFactory.CreatePlayer(Footer);
@@ -78,7 +79,7 @@ namespace Breakout.Models
 			IsInGame = true;
 		}
 
-		public static void Reset()
+		public void Reset()
 		{
 			Player.CurrentCombo.Content = "0";
 
@@ -89,7 +90,7 @@ namespace Breakout.Models
 		/// <summary>
 		/// Update physics and behaviour of all entities in the game
 		/// </summary>
-		public static void Step(float elapsed)
+		public void Step(float elapsed)
 		{
 			deltaTime = elapsed;
 
@@ -109,7 +110,7 @@ namespace Breakout.Models
 				HandleExplosion(explosion);
 		}
 
-		private static void HandleBall(Ball ball)
+		private void HandleBall(Ball ball)
 		{
 			if (IsInGame)
 				HandleBallInGame(ball);
@@ -117,7 +118,7 @@ namespace Breakout.Models
 				HandleBallInMenu(ball);
 		}
 
-		private static void HandleBallInMenu(Ball ball)
+		private void HandleBallInMenu(Ball ball)
 		{
 			ball.HandleWallCollision(isContained: true);
 
@@ -130,7 +131,7 @@ namespace Breakout.Models
 			ball.UpdateMovement(deltaTime);
 		}
 
-		private static void HandleBallInGame(Ball ball)
+		private void HandleBallInGame(Ball ball)
 		{
 			if (ball.IsOffBottom())
 				Balls.Remove(ball);
@@ -150,7 +151,7 @@ namespace Breakout.Models
 			ball.UpdateMovement(deltaTime);
 		}
 
-		private static void UpdateScores()
+		private void UpdateScores()
 		{
 			Player.Score.AddScore(160);
 			Player.CurrentCombo.Add(1);
@@ -159,17 +160,11 @@ namespace Breakout.Models
 				Player.HighestCombo.Add(1);
 		}
 
-		private static void HandleBlock(Block block)
+		private void HandleBlock(Block block)
 		{
 			if (block.IsBroken)
 			{
-				if (!BlockInfo.IsLight(block.Type))
-					PowerUps.Add(new PowerUp(PowerUpType.Faster, Balls));
-
-				if (BlockInfo.IsFlashing(block.Type))
-					ExplosiveZones.Add(ModelFactory.CreateExplosion(block.Rectangle));
-
-				Packages.AddIfNotNull(block.SpawnPowerUpPackage());
+				block.OnDestroy();
 				Blocks.Remove(block);
 
 				if (IsInGame)
@@ -177,7 +172,7 @@ namespace Breakout.Models
 			}
 		}
 
-		public static void HandlePackage(PowerUpPackage package)
+		public void HandlePackage(PowerUpPackage package)
 		{
 			if (Paddle != null && package.IsTouching(Paddle))
 			{
@@ -198,7 +193,7 @@ namespace Breakout.Models
 			package.UpdateMovement(deltaTime);
 		}
 
-		public static void HandlePowerUp(PowerUp powerUp)
+		public void HandlePowerUp(PowerUp powerUp)
 		{
 			powerUp.Timer -= deltaTime;
 
@@ -209,7 +204,7 @@ namespace Breakout.Models
 			}
 		}
 
-		public static void HandleExplosion(Explosion explosion)
+		public void HandleExplosion(Explosion explosion)
 		{
 			explosion.Timer -= deltaTime;
 
@@ -225,7 +220,7 @@ namespace Breakout.Models
 			ExplosiveZones.Remove(explosion);
 		}
 
-		public static void CleanUp()
+		public void CleanUp()
 		{
 			if (Player != null)
 				Player.Score.StopRecording();

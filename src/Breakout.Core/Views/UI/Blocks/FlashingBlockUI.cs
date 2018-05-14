@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Views.UI
+namespace Breakout.Views.UI.Blocks
 {
 	public class FlashingBlockUI : Sprite
 	{

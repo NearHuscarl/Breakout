@@ -1,9 +1,11 @@
 ﻿using Breakout.Extensions;
+using Breakout.Models.Enums;
 using Breakout.Models.Shapes;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,9 +18,22 @@ namespace Breakout.Models
 		public static FontShape ScoreFont;
 		public static FontShape MenuFont;
 
+		public static Difficulty Difficulty { get; set; }
+		public static bool IsMute { get; set; }
+
 		public static Dictionary<string, Color> Theme;
+		public static string[] Sounds { get; private set; }
 
 		public static string SourceCodeURL { get; private set; }
+
+		public static string CurrentVersion
+		{
+			get
+			{
+				Version version = Assembly.GetExecutingAssembly().GetName().Version;
+				return $"{version.Major}.{version.Minor}.{version.Build}";
+			}
+		}
 
 		public static string ScoreText { get; private set; }
 		public static string LiveText { get; private set; }
@@ -29,12 +44,51 @@ namespace Breakout.Models
 		public static int ButtonWidth { get; private set; }
 		public static int ButtonHeight { get; private set; }
 
-		public static int PaddleWidth { get; private set; }
+		public static int CheckBoxWidth { get; private set; }
+		public static int CheckBoxHeight { get; private set; }
+
+		public static int RadioButtonWidth { get; private set; }
+		public static int RadioButtonHeight { get; private set; }
+
+		public static float PaddleVelocity
+		{
+			get
+			{
+				if (Difficulty == Difficulty.Hard)
+					return 1000f;
+
+				return 800f;
+			}
+		}
+
+		public static PaddleLength PaddleLength
+		{
+			get
+			{
+				if (Difficulty == Difficulty.Easy)
+					return PaddleLength.Long;
+
+				if (Difficulty == Difficulty.Normal)
+					return PaddleLength.Medium;
+
+				return PaddleLength.Short;
+			}
+		}
+
 		public static int PaddleHeight { get; private set; }
 
 		public static int BallRadius { get; private set; }
 		public static int BallStrength { get; private set; }
-		public static float BallVelocity { get; private set; }
+		public static float BallVelocity
+		{
+			get
+			{
+				if (Difficulty == Difficulty.Hard)
+					return 400f;
+
+				return 320f;
+			}
+		}
 
 		public static int BlockWidth { get; private set; }
 		public static int BlockHeight { get; private set; }
@@ -48,6 +102,9 @@ namespace Breakout.Models
 		{
 			ScoreFont = new FontShape(width: 6, height: 18);
 			MenuFont = new FontShape(width: 9, height: 20);
+
+			Difficulty = Difficulty.Normal;
+			IsMute = false;
 
 			ScoreText = "Score: ";
 			LiveText = "Lives: ";
@@ -81,17 +138,39 @@ namespace Breakout.Models
 				{ "White",        "#ecf0f1".ToColor() },
 			};
 
+			Sounds = new string[]
+			{
+				"ButtonHovered",
+				"ButtonClicked",
+				"ButtonChecked",
+
+				"HitFlashingBlock",
+				"HitLightBlock",
+				"HitNormalBlock",
+				"HitPowerUp",
+				"HitWall",
+				"HitPaddle",
+				"AddScore",
+				"LoseLive",
+				"Win",
+
+				"Interrupt",
+			};
+
 			SourceCodeURL = "https://github.com/NearHuscarl/Breakout";
 
 			ButtonWidth = 150;
 			ButtonHeight = 40;
 
-			PaddleWidth = 100;
+			CheckBoxWidth = CheckBoxHeight = 40;
+
+			RadioButtonWidth = 72;
+			RadioButtonHeight = 40;
+
 			PaddleHeight = 17;
 
 			BallRadius = 8;
 			BallStrength = 5;
-			BallVelocity = 6f;
 
 			BlockWidth = 20;
 			BlockHeight = 20;

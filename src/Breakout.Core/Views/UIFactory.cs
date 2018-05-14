@@ -4,6 +4,8 @@ using Breakout.Models.Enums;
 using Breakout.Models.UIComponents;
 using Breakout.Views.Enums;
 using Breakout.Views.UI;
+using Breakout.Views.UI.Blocks;
+using Breakout.Views.UI.Buttons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -66,21 +68,43 @@ namespace Breakout.Views
 
 		public static ButtonUI CreateButton(ContentManager content, SpriteFont font)
 		{
-			Texture2D startTexture = content.Load<Texture2D>("Buttons/Button");
-			Texture2D startHoverTexture = content.Load<Texture2D>("Buttons/ButtonHover");
-			Texture2D startClickedTexture = content.Load<Texture2D>("Buttons/ButtonClicked");
+			Texture2D buttonTexture = content.Load<Texture2D>("Buttons/Button");
+			Texture2D buttonHoveredTexture = content.Load<Texture2D>("Buttons/ButtonHover");
+			Texture2D buttonClickedTexture = content.Load<Texture2D>("Buttons/ButtonClicked");
 
 			Color fgColor = GameInfo.Theme["White"];
 
-			return new ButtonUI(startTexture, startHoverTexture, startClickedTexture, font, fgColor);
+			return new ButtonUI(buttonTexture, buttonHoveredTexture, buttonClickedTexture, font, fgColor);
 		}
 
-		public static Sprite CreatePaddle(ContentManager content)
+		public static CheckBoxUI CreateCheckBox(ContentManager content, SpriteFont font)
 		{
-			Texture2D paddleTexture = content.Load<Texture2D>("Paddle");
-			Sprite paddle = new Sprite(paddleTexture);
+			Texture2D checkedTexture = content.Load<Texture2D>("Buttons/CheckBoxChecked");
+			Texture2D uncheckedTexture = content.Load<Texture2D>("Buttons/CheckBoxUnchecked");
 
-			return paddle;
+			Color fgColor = GameInfo.Theme["White"];
+
+			return new CheckBoxUI(checkedTexture, uncheckedTexture, font, fgColor);
+		}
+
+		public static CheckBoxUI CreateRadioButton(ContentManager content, SpriteFont font)
+		{
+			Texture2D checkedTexture = content.Load<Texture2D>("Buttons/RadioButtonChecked");
+			Texture2D uncheckedTexture = content.Load<Texture2D>("Buttons/RadioButtonUnchecked");
+
+			Color fgColor = GameInfo.Theme["White"];
+
+			return new CheckBoxUI(checkedTexture, uncheckedTexture, font, fgColor);
+		}
+
+		public static PaddleUI CreatePaddle(ContentManager content)
+		{
+			Texture2D longPaddleTexture = content.Load<Texture2D>("Paddles/LongPaddle");
+			Texture2D mediumPaddleTexture = content.Load<Texture2D>("Paddles/MediumPaddle");
+			Texture2D shortPaddleTexture = content.Load<Texture2D>("Paddles/ShortPaddle");
+			Texture2D extraShortPaddleTexture = content.Load<Texture2D>("Paddles/ExtraShortPaddle");
+
+			return new PaddleUI(extraShortPaddleTexture, shortPaddleTexture, mediumPaddleTexture, longPaddleTexture);
 		}
 
 		public static Sprite CreateBall(ContentManager content)
@@ -91,7 +115,7 @@ namespace Breakout.Views
 			return ball;
 		}
 
-		public static Dictionary<BlockType, BlockUI> CreateBlocks(ContentManager content)
+		public static Dictionary<GameColor, BlockUI> CreateBlocks(ContentManager content)
 		{
 			Texture2D redBlockTexture = content.Load<Texture2D>("Blocks/Red");
 			Texture2D orangeBlockTexture = content.Load<Texture2D>("Blocks/Orange");
@@ -113,64 +137,17 @@ namespace Breakout.Views
 			BlockUI grayBlock = new BlockUI(grayBlockTexture, GameInfo.Theme["LightGray"], GameInfo.Theme["Gray"]);
 			BlockUI blackBlock = new BlockUI(blackBlockTexture, GameInfo.Theme["Dark"], GameInfo.Theme["Black"]);
 
-			return new Dictionary<BlockType, BlockUI>()
+			return new Dictionary<GameColor, BlockUI>()
 			{
-				{ BlockType.Red, redBlock },
-				{ BlockType.Orange, orangeBlock },
-				{ BlockType.Yellow, yellowBlock },
-				{ BlockType.Green, greenBlock },
-				{ BlockType.Blue, blueBlock },
-				{ BlockType.Cyan, cyanBlock },
-				{ BlockType.Magenta, magentaBlock },
-				{ BlockType.Gray, grayBlock },
-				{ BlockType.Black, blackBlock },
-
-				{ BlockType.LightRed, redBlock },
-				{ BlockType.LightOrange, orangeBlock },
-				{ BlockType.LightYellow, yellowBlock },
-				{ BlockType.LightGreen, greenBlock },
-				{ BlockType.LightBlue, blueBlock },
-				{ BlockType.LightCyan, cyanBlock },
-				{ BlockType.LightMagenta, magentaBlock },
-				{ BlockType.LightGray, grayBlock },
-				{ BlockType.Dark, blackBlock },
-			};
-		}
-
-		public static Dictionary<BlockType, FlashingBlockUI> CreateFlashingBlocks(ContentManager content)
-		{
-			Texture2D redBlockTexture = content.Load<Texture2D>("Blocks/Red");
-			Texture2D orangeBlockTexture = content.Load<Texture2D>("Blocks/Orange");
-			Texture2D yellowBlockTexture = content.Load<Texture2D>("Blocks/Yellow");
-			Texture2D greenTexture = content.Load<Texture2D>("Blocks/Green");
-			Texture2D blueBlockTexture = content.Load<Texture2D>("Blocks/Blue");
-			Texture2D cyanBlockTexture = content.Load<Texture2D>("Blocks/Cyan");
-			Texture2D magentaBlockTexture = content.Load<Texture2D>("Blocks/Magenta");
-			Texture2D grayBlockTexture = content.Load<Texture2D>("Blocks/Gray");
-			Texture2D blackBlockTexture = content.Load<Texture2D>("Blocks/Black");
-
-			FlashingBlockUI redBlock = new FlashingBlockUI(redBlockTexture, GameInfo.Theme["LightRed"], GameInfo.Theme["Red"]);
-			FlashingBlockUI orangeBlock = new FlashingBlockUI(orangeBlockTexture, GameInfo.Theme["LightOrange"], GameInfo.Theme["Orange"]);
-			FlashingBlockUI yellowBlock = new FlashingBlockUI(yellowBlockTexture, GameInfo.Theme["LightYellow"], GameInfo.Theme["Yellow"]);
-			FlashingBlockUI greenBlock = new FlashingBlockUI(yellowBlockTexture, GameInfo.Theme["LightGreen"], GameInfo.Theme["Green"]);
-			FlashingBlockUI blueBlock = new FlashingBlockUI(blueBlockTexture, GameInfo.Theme["LightBlue"], GameInfo.Theme["Blue"]);
-			FlashingBlockUI cyanBlock = new FlashingBlockUI(cyanBlockTexture, GameInfo.Theme["LightCyan"], GameInfo.Theme["Cyan"]);
-			FlashingBlockUI magentaBlock = new FlashingBlockUI(magentaBlockTexture, GameInfo.Theme["LightMagenta"], GameInfo.Theme["Magenta"]);
-			FlashingBlockUI grayBlock = new FlashingBlockUI(grayBlockTexture, GameInfo.Theme["LightGray"], GameInfo.Theme["Gray"]);
-			FlashingBlockUI blackBlock = new FlashingBlockUI(blackBlockTexture, GameInfo.Theme["Dark"], GameInfo.Theme["Black"]);
-
-			return new Dictionary<BlockType, FlashingBlockUI>()
-			{
-				{ BlockType.FlashingRed, redBlock },
-				{ BlockType.FlashingOrange, orangeBlock },
-				{ BlockType.FlashingYellow, yellowBlock },
-				{ BlockType.FlashingGreen, greenBlock },
-				{ BlockType.FlashingBlue, blueBlock },
-				{ BlockType.FlashingCyan, cyanBlock },
-				{ BlockType.FlashingMagenta, magentaBlock },
-				{ BlockType.FlashingGray, grayBlock },
-				{ BlockType.FlashingBlack, blackBlock },
-
+				{ GameColor.Red, redBlock },
+				{ GameColor.Orange, orangeBlock },
+				{ GameColor.Yellow, yellowBlock },
+				{ GameColor.Green, greenBlock },
+				{ GameColor.Blue, blueBlock },
+				{ GameColor.Cyan, cyanBlock },
+				{ GameColor.Magenta, magentaBlock },
+				{ GameColor.Gray, grayBlock },
+				{ GameColor.Black, blackBlock },
 			};
 		}
 

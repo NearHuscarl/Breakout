@@ -21,6 +21,11 @@ namespace Breakout.Models.Windows
 			CurrentScreen = new AboutScreen();
 		}
 
+		public static void OpenSetting()
+		{
+			CurrentScreen = new SettingScreen();
+		}
+
 		public static void CloseWindow()
 		{
 			CurrentScreen = null;

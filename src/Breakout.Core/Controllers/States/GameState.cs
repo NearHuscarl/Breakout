@@ -23,25 +23,25 @@ namespace Breakout.Controllers.States
 				StateMachine.PauseGame();
 
 			else if (InputHelper.IsNewKeyPress(Input.MovePaddleLeft))
-				Scene.Paddle.DriftLeft(EntryPoint.Game.Elapsed);
+				EntryPoint.Game.Scene.Paddle.DriftLeft(EntryPoint.Game.Elapsed);
 
 			else if (InputHelper.IsNewKeyPress(Input.MovePaddleRight))
-				Scene.Paddle.DriftRight(EntryPoint.Game.Elapsed);
+				EntryPoint.Game.Scene.Paddle.DriftRight(EntryPoint.Game.Elapsed);
 
 			else if (InputHelper.IsKeyDown(Input.MovePaddleLeft))
-				Scene.Paddle.MoveLeft(EntryPoint.Game.Elapsed);
+				EntryPoint.Game.Scene.Paddle.MoveLeft(EntryPoint.Game.Elapsed);
 
 			else if (InputHelper.IsKeyDown(Input.MovePaddleRight))
-				Scene.Paddle.MoveRight(EntryPoint.Game.Elapsed);
+				EntryPoint.Game.Scene.Paddle.MoveRight(EntryPoint.Game.Elapsed);
 
 			else if (InputHelper.IsNewKeyPress(Input.Exit))
 				StateMachine.ExitGame();
 
-			Scene.Step(EntryPoint.Game.Elapsed);
+			EntryPoint.Game.Scene.Step(EntryPoint.Game.Elapsed);
 
-			if (Scene.Balls.Count == 0)
+			if (EntryPoint.Game.Scene.Balls.Count == 0)
 			{
-				if (Scene.Player.Live == 0)
+				if (EntryPoint.Game.Scene.Player.Live == 0)
 					StateMachine.GameOver();
 				else
 					StateMachine.ResetGame();

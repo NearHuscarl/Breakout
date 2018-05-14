@@ -61,9 +61,9 @@ namespace Breakout.Models.Balls
 			this.Width = this.Height = (Radius * 2);
 			this.Position = position;
 
-			this.MinVelocity = 120f;
-			this.Velocity = 320f;
-			this.MaxVelocity = 520f;
+			this.Velocity = velocity;
+			this.MinVelocity = velocity - 200;
+			this.MaxVelocity = velocity + 200;
 
 			this.CurrentVelocity = Velocity;
 		}
@@ -84,13 +84,16 @@ namespace Breakout.Models.Balls
 		public void HandleWallCollision(bool isContained=false)
 		{
 			if (this.IsHittingLeftWall() || this.IsHittingRightWall())
+			{
 				Direction.X = -Direction.X;
+				AudioManager.PlaySound("HitWall");
+			}
 
-			if (this.IsHittingRoof())
+			if (this.IsHittingRoof() || (this.IsOffBottom() && isContained == true))
+			{
 				Direction.Y = -Direction.Y;
-
-			if (this.IsOffBottom() && isContained == true)
-				Direction.Y = -Direction.Y;
+				AudioManager.PlaySound("HitWall");
+			}
 		}
 
 		private void ReflectHorizontally()
@@ -176,16 +179,17 @@ namespace Breakout.Models.Balls
 				float ballReturnedAngle = MathHelper.Lerp(180, 0, paddleContact);
 
 				ChangeDirection(ballReturnedAngle);
+				paddle.Hit();
 			}
 
-			else if (Direction.Y > 0 && IsTouchingLeft(paddle))
+			else if (Direction.Y > 0 && IsTouchingLeft(paddle) || Direction.X < 0 && IsTouchingRight(paddle))
+			{
+				paddle.Hit();
 				ReflectHorizontally();
+			}
 
-			else if (Direction.X < 0 && IsTouchingRight(paddle))
-				ReflectHorizontally();
-
-			else if (Direction.Y < 0 && IsTouchingBottom(paddle))
-				ReflectVertically();
+			//else if (Direction.Y < 0 && IsTouchingBottom(paddle))
+			//	ReflectVertically();
 
 
 			if (this.IsSameXDirection(paddle))

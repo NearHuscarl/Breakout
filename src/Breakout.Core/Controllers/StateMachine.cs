@@ -1,6 +1,7 @@
 ﻿using Breakout.Controllers.States;
 using Breakout.Models;
 using Breakout.Models.Windows;
+using Breakout.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace Breakout.Controllers
 
 		private static InitialState initialState;
 		private static MenuState menuState;
+		private static SettingState settingState;
 		private static AboutState aboutState;
 		private static LoadingState loadingState;
-		private static ResettingState resettingState;
 		private static GameState gameState;
 		private static PauseState pauseState;
 		private static ExitGameState exitGameState;
@@ -30,9 +31,9 @@ namespace Breakout.Controllers
 		{
 			initialState = new InitialState();
 			menuState = new MenuState();
+			settingState = new SettingState();
 			aboutState = new AboutState();
 			loadingState = new LoadingState();
-			resettingState = new ResettingState();
 			gameState = new GameState();
 			pauseState = new PauseState();
 			exitGameState = new ExitGameState();
@@ -40,9 +41,9 @@ namespace Breakout.Controllers
 
 			States.Add("InitialState", initialState);
 			States.Add("MenuState", menuState);
+			States.Add("SettingState", settingState);
 			States.Add("AboutState", aboutState);
 			States.Add("LoadingState", loadingState);
-			States.Add("ResettingState", resettingState);
 			States.Add("GameState", gameState);
 			States.Add("PauseState", pauseState);
 			States.Add("ExitGameState", exitGameState);
@@ -101,7 +102,7 @@ namespace Breakout.Controllers
 
 		public static void OpenMenu()
 		{
-			Scene.InitializeMenu();
+			EntryPoint.Game.Scene.InitializeMenu();
 			ChangeState("MenuState");
 		}
 
@@ -109,6 +110,12 @@ namespace Breakout.Controllers
 		{
 			WindowManager.OpenAbout();
 			ChangeState("AboutState");
+		}
+
+		public static void OpenSetting()
+		{
+			WindowManager.OpenSetting();
+			ChangeState("SettingState");
 		}
 
 		public static void LoadGame()
@@ -128,8 +135,10 @@ namespace Breakout.Controllers
 
 		public static void ResetGame()
 		{
-			Scene.Player.Live.Take(1);
-			Scene.Reset();
+			AudioManager.PlaySound("LoseLive");
+			EntryPoint.Game.Scene.Player.Live.Take(1);
+			EntryPoint.Game.Scene.Reset();
+
 			ChangeState("PauseState");
 		}
 
@@ -140,14 +149,14 @@ namespace Breakout.Controllers
 
 		public static void Exit()
 		{
-			Scene.CleanUp();
+			EntryPoint.Game.Scene.CleanUp();
 			EntryPoint.Game.Exit();
 		}
 
 		public static void ExitToMenu()
 		{
-			Scene.CleanUp();
-			Scene.InitializeMenu();
+			EntryPoint.Game.Scene.CleanUp();
+			EntryPoint.Game.Scene.InitializeMenu();
 			ChangeState("MenuState");
 		}
 
@@ -164,13 +173,17 @@ namespace Breakout.Controllers
 
 		public static void ExitGame()
 		{
+			AudioManager.PlaySound("Interrupt");
 			WindowManager.OpenExitGamePrompt();
+
 			ChangeState("ExitGameState");
 		}
 
 		public static void ExitApp()
 		{
+			AudioManager.PlaySound("Interrupt");
 			WindowManager.OpenExitAppPrompt();
+
 			ChangeState("ExitAppState");
 		}
 

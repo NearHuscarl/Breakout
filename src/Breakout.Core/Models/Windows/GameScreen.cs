@@ -9,12 +9,12 @@ namespace Breakout.Models.Windows
 	/// </summary>
 	public class GameScreen : GameObject
 	{
-		public string Title { get; set; }
-		public string Text { get; set; }
+		public string Title { get; set; } = "";
+		public string Text { get; set; } = "";
 
 		public GameScreen()
 		{
-			Resize(width: 700, height: 400);
+			Resize(width: 550, height: 400);
 		}
 
 		protected void Resize(int width, int height)

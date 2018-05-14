@@ -18,15 +18,17 @@ namespace Breakout.Controllers.States
 		{
 			base.Update();
 
-			Button startButton = Scene.Buttons["Start"];
-			Button aboutButton = Scene.Buttons["About"];
-			Button exitButton = Scene.Buttons["Exit"];
+			Button startButton = EntryPoint.Game.Scene.Buttons["Start"];
+			Button settingButton = EntryPoint.Game.Scene.Buttons["Setting"];
+			Button aboutButton = EntryPoint.Game.Scene.Buttons["About"];
+			Button exitButton = EntryPoint.Game.Scene.Buttons["Exit"];
 
 			HandleButton(startButton, StateMachine.LoadGame);
+			HandleButton(settingButton, StateMachine.OpenSetting);
 			HandleButton(aboutButton, StateMachine.OpenAbout);
 			HandleButton(exitButton, StateMachine.ExitApp);
 
-			Scene.Step(EntryPoint.Game.Elapsed);
+			EntryPoint.Game.Scene.Step(EntryPoint.Game.Elapsed);
 		}
 
 		public override void Draw(MonoGameRenderer renderer)

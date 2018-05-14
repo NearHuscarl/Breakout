@@ -78,35 +78,32 @@ namespace Breakout.Models.Maps
 			return JsonConvert.DeserializeObject<Map>(jsonStr);
 		}
 
-		private static List<Block> Matrix2Blocks(Map map, int blockWidth, int blockHeight)
+		private static List<Block> Matrix2Blocks(Map map)
 		{
-			int mapWidth = map.Matrix[0].Count * blockWidth;
-			int mapHeight = map.Matrix.Count * blockHeight;
+			int mapWidth = map.Matrix[0].Count * GameInfo.BlockWidth;
+			int mapHeight = map.Matrix.Count * GameInfo.BlockHeight;
 
 			Vector2 mapEntryPosition = new Vector2()
 			{
 				X = GameInfo.Screen.Width / 2 - mapWidth / 2,
-				Y = blockWidth * 1,
+				Y = GameInfo.BlockWidth * 1,
 			};
 
 			List<Block> blocks = new List<Block>();
 
-			for (int r = 1; mapEntryPosition.Y + r * blockHeight <= mapEntryPosition.Y + mapHeight; r++)
+			for (int r = 1; mapEntryPosition.Y + r * GameInfo.BlockHeight <= mapEntryPosition.Y + mapHeight; r++)
 			{
-				for (int c = 1; mapEntryPosition.X + c * blockWidth <= mapEntryPosition.X + mapWidth; c++)
+				for (int c = 1; mapEntryPosition.X + c * GameInfo.BlockWidth <= mapEntryPosition.X + mapWidth; c++)
 				{
 					BlockType blockType = BlockMap[map.Matrix[r - 1][c - 1]];
 
 					if (blockType == BlockType.None)
 						continue;
 
-					float x = mapEntryPosition.X + c * blockWidth - c; // Make border of blocks overlap each other
-					float y = mapEntryPosition.Y + r * blockHeight - r;
+					float x = mapEntryPosition.X + c * GameInfo.BlockWidth - c; // Make border of blocks overlap each other
+					float y = mapEntryPosition.Y + r * GameInfo.BlockHeight - r;
 
-					Block newBlock = new Block(blockType,
-						width: blockWidth,
-						height: blockHeight,
-						position: new Vector2(x, y));
+					Block newBlock = ModelFactory.CreateBlock(blockType, new Vector2(x, y));
 
 					blocks.Add(newBlock);
 				}
@@ -115,16 +112,16 @@ namespace Breakout.Models.Maps
 			return blocks;
 		}
 
-		public static List<Block> LoadMap(string mapName, int blockWidth, int blockHeight)
+		public static List<Block> LoadMap(string mapName)
 		{
 			CurrentMap = LoadMapFile(mapName);
 
-			return Matrix2Blocks(CurrentMap, blockWidth, blockHeight);
+			return Matrix2Blocks(CurrentMap);
 		}
 
-		public static List<Block> LoadLogo(int blockWidth, int blockHeight)
+		public static List<Block> LoadLogo()
 		{
-			return Matrix2Blocks(Logo, blockWidth, blockHeight);
+			return Matrix2Blocks(Logo);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Breakout.Models.Bases;
 using Breakout.Models.Enums;
+using Breakout.Utilities;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,39 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.UIComponents
 {
-	public class Button : RectangleObject
+	public class Button : RectangleObject, IButton
 	{
-		public ButtonState State { get; set; }
-		public string Text { get; set; }
+		private ButtonState state;
+
+		public ButtonState State
+		{
+			get { return state; }
+
+			set
+			{
+				if (state == value)
+					return;
+
+				switch (state)
+				{
+					case ButtonState.Hovered:
+						State = ButtonState.Hovered;
+						AudioManager.PlaySound("ButtonHovered");
+						break;
+
+					case ButtonState.Clicked:
+						State = ButtonState.Clicked;
+						AudioManager.PlaySound("ButtonClicked");
+						break;
+
+					case ButtonState.Inactive:
+						State = ButtonState.Inactive;
+						break;
+				}
+			}
+		}
+
+		public string Text { get; private set; }
 
 		public Button(int width, int height, float xRatio, float yRatio, string text)
 		{
@@ -27,6 +57,7 @@ namespace Breakout.Models.UIComponents
 
 			Text = text;
 		}
+
 		public Button(int width, int height, Vector2 position, string text)
 		{
 			Width = width;

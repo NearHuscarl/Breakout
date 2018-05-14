@@ -7,20 +7,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Views.UI
+namespace Breakout.Views.UI.Blocks
 {
-	public class BlockUI : Sprite
+	public class FlatBlockUI : Sprite
 	{
 		private Color fullColor;
 		private Color emptyColor;
 
-		public BlockUI(Texture2D texture, Color fullColor, Color emptyColor) : base(texture)
+		public FlatBlockUI(Texture2D texture, Color fullColor, Color emptyColor) : base(texture)
 		{
 			this.fullColor = fullColor;
 			this.emptyColor = emptyColor;
 		}
 
 		public void Draw(SpriteBatch spriteBatch, Block block)
+		{
+			DrawBlockBasedOnHealth(spriteBatch, block);
+		}
+
+		private void DrawBlockBasedOnHealth(SpriteBatch spriteBatch, Block block)
 		{
 			Color color = GetColorBasedOnHealth(block);
 
@@ -29,8 +34,7 @@ namespace Breakout.Views.UI
 
 		private Color GetColorBasedOnHealth(Block block)
 		{
-			int maxHealth = BlockInfo.Health[block.Type];
-			float colorAmount = block.Health * 1f / maxHealth;
+			float colorAmount = block.Health * 1f / block.MaxHealth;
 
 			return Color.Lerp(emptyColor, fullColor, colorAmount);
 		}
