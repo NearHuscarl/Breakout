@@ -13,18 +13,19 @@ namespace Breakout.Models
 {
 	public static class GameInfo
 	{
+		public static string Author { get; private set; }
+		public static string License { get; private set; }
+		public static string SourceCodeURL { get; private set; }
+
 		public static Rectangle Screen;
 
 		public static FontShape ScoreFont;
 		public static FontShape MenuFont;
 
 		public static Difficulty Difficulty { get; set; }
-		public static bool IsMute { get; set; }
 
 		public static Dictionary<string, Color> Theme;
 		public static string[] Sounds { get; private set; }
-
-		public static string SourceCodeURL { get; private set; }
 
 		public static string CurrentVersion
 		{
@@ -35,20 +36,13 @@ namespace Breakout.Models
 			}
 		}
 
+		public static SpriteInfo SpriteInfo { get; private set; }
+
 		public static string ScoreText { get; private set; }
 		public static string LiveText { get; private set; }
 		public static string CurrentComboText { get; private set; }
 		public static string HighestComboText { get; private set; }
 		public static string BlockLeftText { get; private set; }
-
-		public static int ButtonWidth { get; private set; }
-		public static int ButtonHeight { get; private set; }
-
-		public static int CheckBoxWidth { get; private set; }
-		public static int CheckBoxHeight { get; private set; }
-
-		public static int RadioButtonWidth { get; private set; }
-		public static int RadioButtonHeight { get; private set; }
 
 		public static float PaddleVelocity
 		{
@@ -75,9 +69,6 @@ namespace Breakout.Models
 			}
 		}
 
-		public static int PaddleHeight { get; private set; }
-
-		public static int BallRadius { get; private set; }
 		public static int BallStrength { get; private set; }
 		public static float BallVelocity
 		{
@@ -90,21 +81,20 @@ namespace Breakout.Models
 			}
 		}
 
-		public static int BlockWidth { get; private set; }
-		public static int BlockHeight { get; private set; }
-
-		public static int PackageWidth { get; private set; }
-		public static int PackageHeight { get; private set; }
-
 		public static int ExplosiveRadius { get; private set; }
 
 		public static void Initialize()
 		{
+			Author = "Near Huscarl";
+			License = "BSD 3-Clauses";
+			SourceCodeURL = "https://github.com/NearHuscarl/Breakout";
+
 			ScoreFont = new FontShape(width: 6, height: 18);
 			MenuFont = new FontShape(width: 9, height: 20);
 
 			Difficulty = Difficulty.Normal;
-			IsMute = false;
+
+			SpriteInfo = new SpriteInfo();
 
 			ScoreText = "Score: ";
 			LiveText = "Lives: ";
@@ -150,6 +140,7 @@ namespace Breakout.Models
 				"HitPowerUp",
 				"HitWall",
 				"HitPaddle",
+				"PaddleHitWall",
 				"AddScore",
 				"LoseLive",
 				"Win",
@@ -157,26 +148,7 @@ namespace Breakout.Models
 				"Interrupt",
 			};
 
-			SourceCodeURL = "https://github.com/NearHuscarl/Breakout";
-
-			ButtonWidth = 150;
-			ButtonHeight = 40;
-
-			CheckBoxWidth = CheckBoxHeight = 40;
-
-			RadioButtonWidth = 72;
-			RadioButtonHeight = 40;
-
-			PaddleHeight = 17;
-
-			BallRadius = 8;
 			BallStrength = 5;
-
-			BlockWidth = 20;
-			BlockHeight = 20;
-
-			PackageWidth = 20;
-			PackageHeight = 20;
 
 			ExplosiveRadius = 40;
 		}

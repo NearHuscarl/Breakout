@@ -7,7 +7,7 @@ using Breakout.Models.Maps;
 using Breakout.Models.Paddles;
 using Breakout.Models.Players;
 using Breakout.Models.PowerUps;
-using Breakout.Models.Texts;
+using Breakout.Models.Scores;
 using Breakout.Utilities;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -17,23 +17,23 @@ namespace Breakout.Models
 {
 	public static class ModelFactory
 	{
-		public static Rectangle CreateFooter()
-		{
-			return new Rectangle()
-			{
-				X = 0,
-				Y = GameInfo.Screen.Height - GameInfo.ScoreFont.Height,
+		//public static Rectangle CreateFooter()
+		//{
+		//	return new Rectangle()
+		//	{
+		//		X = 0,
+		//		Y = GameInfo.Screen.Height - GameInfo.ScoreFont.Height,
 
-				Width = GameInfo.Screen.Width,
-				Height = GameInfo.ScoreFont.Height,
-			};
-		}
+		//		Width = GameInfo.Screen.Width,
+		//		Height = GameInfo.ScoreFont.Height,
+		//	};
+		//}
 
 		public static Paddle CreatePaddle()
 		{
 			return new Paddle(
 				length: GameInfo.PaddleLength,
-				height: GameInfo.PaddleHeight,
+				height: SpriteInfo.PaddleHeight,
 				velocity: GameInfo.PaddleVelocity);
 		}
 
@@ -41,12 +41,12 @@ namespace Breakout.Models
 		{
 			Vector2 position = new Vector2()
 			{
-				X = GameInfo.Screen.Width / 2 - GameInfo.BallRadius / 2,
+				X = GameInfo.Screen.Width / 2 - SpriteInfo.BallRadius / 2,
 				Y = GameInfo.Screen.Height * 0.7f,
 			};
 
 			Ball ball = new Ball(
-				radius: GameInfo.BallRadius,
+				radius: SpriteInfo.BallRadius,
 				strength: GameInfo.BallStrength,
 				velocity: GameInfo.BallVelocity,
 				position: position);
@@ -72,12 +72,12 @@ namespace Breakout.Models
 			{
 				Vector2 position = new Vector2()
 				{
-					X = RandomMath.RandomBetween(0, GameInfo.Screen.Width - GameInfo.BallRadius * 2),
-					Y = RandomMath.RandomBetween(0, GameInfo.Screen.Height - GameInfo.BallRadius * 2),
+					X = RandomMath.RandomBetween(0, GameInfo.Screen.Width - SpriteInfo.BallRadius * 2),
+					Y = RandomMath.RandomBetween(0, GameInfo.Screen.Height - SpriteInfo.BallRadius * 2),
 				};
 
 				Ball ball = new Ball(
-						radius: GameInfo.BallRadius,
+						radius: SpriteInfo.BallRadius,
 						strength: GameInfo.BallStrength,
 						velocity: GameInfo.BallVelocity,
 						position: position);
@@ -89,80 +89,78 @@ namespace Breakout.Models
 			return balls;
 		}
 
-		public static Player CreatePlayer(Rectangle footer)
+		public static Player CreatePlayer()
 		{
 			Player player = new Player()
 			{
-				Score = new ScoreManager(),
-				Live = new Text(text: 3, prompt: GameInfo.LiveText),
-				CurrentCombo = new Text(text: 0, prompt: GameInfo.CurrentComboText),
-				HighestCombo = new Text(text: 0, prompt: GameInfo.HighestComboText),
+				Score = new DynamicScore(),
+				Live = new Score(GameInfo.LiveText, 3),
+				CurrentCombo = new Score(GameInfo.CurrentComboText, 0),
+				HighestCombo = new Score(GameInfo.HighestComboText, 0),
 			};
 
-			player.Score.Position = new Vector2()
-			{
-				X = (footer.Width / 2 - GameInfo.ScoreFont.GetLength(player.Score.FullText) / 2),
-				Y = footer.Y,
-			};
+			//player.Score.Position = new Vector2()
+			//{
+			//	X = (footer.Width / 2 - GameInfo.ScoreFont.GetLength(player.Score.FullText) / 2),
+			//	Y = footer.Y,
+			//};
 
-			player.Live.Position = new Vector2()
-			{
-				X = 5,
-				Y = footer.Y,
-			};
+			//player.Live.Position = new Vector2()
+			//{
+			//	X = 5,
+			//	Y = footer.Y,
+			//};
 
-			player.CurrentCombo.Position = new Vector2()
-			{
-				X = GameInfo.ScoreFont.GetLength(player.Live.FullText),
-				Y = footer.Y,
-			};
+			//player.CurrentCombo.Position = new Vector2()
+			//{
+			//	X = GameInfo.ScoreFont.GetLength(player.Live.FullText),
+			//	Y = footer.Y,
+			//};
 
-			player.HighestCombo.Position = new Vector2()
-			{
-				X = GameInfo.ScoreFont.GetLength(player.Live.FullText) + GameInfo.ScoreFont.GetLength(player.CurrentCombo.FullText),
-				Y = footer.Y,
-			};
+			//player.HighestCombo.Position = new Vector2()
+			//{
+			//	X = GameInfo.ScoreFont.GetLength(player.Live.FullText) + GameInfo.ScoreFont.GetLength(player.CurrentCombo.FullText),
+			//	Y = footer.Y,
+			//};
 
 			return player;
 		}
 
-		public static Text CreateBlockLeftText(Rectangle footer, int numOfBlocks)
-		{
-			Text blockLeftText = new Text(text: numOfBlocks, prompt: GameInfo.BlockLeftText);
-
-			blockLeftText.Position = new Vector2()
-			{
-				X = GameInfo.Screen.Width - GameInfo.ScoreFont.GetLength(blockLeftText.FullText),
-				Y = footer.Y,
-			};
-
-			return blockLeftText;
-		}
-
 		public static PowerUpPackage CreatePowerUpPackage(PowerUp powerUp, Vector2 position)
 		{
-			return new PowerUpPackage(powerUp, width: GameInfo.PackageWidth, height: GameInfo.PackageHeight, position: position);
+			return new PowerUpPackage(powerUp, width: SpriteInfo.PackageWidth, height: SpriteInfo.PackageHeight, position: position);
 		}
 
-		public static List<Block> CreateLogo()
+		public static Map CreateLogo()
 		{
 			return MapManager.LoadLogo();
 		}
 
 		public static Block CreateBlock(BlockType blockType, Vector2 position)
 		{
+			if (blockType == BlockType.None)
+				return null;
+
 			if (BlockInfo.IsFlashing(blockType))
-				return new FlashingBlock(EntryPoint.Game.Scene, position, blockType);
+				return new FlashingBlock(EntryPoint.Game.Scene, SpriteInfo.BlockWidth, SpriteInfo.BlockHeight, position, blockType);
 
 			else if (BlockInfo.IsLight(blockType))
-				return new LightBlock(EntryPoint.Game.Scene, position, blockType);
+				return new LightBlock(EntryPoint.Game.Scene, SpriteInfo.BlockWidth, SpriteInfo.BlockHeight, position, blockType);
 
-			return new NormalBlock(EntryPoint.Game.Scene, position, blockType);
+			return new NormalBlock(EntryPoint.Game.Scene, SpriteInfo.BlockWidth, SpriteInfo.BlockHeight, position, blockType);
 		}
 
-		public static List<Block> CreateBlocks()
+		public static GameObject CreateSkeletonBlock(BlockType blockType, Vector2 position)
 		{
-			return MapManager.LoadMap("quick");
+			if (blockType == BlockType.Skeleton)
+				return new GameObject(SpriteInfo.BlockWidth, SpriteInfo.BlockHeight, position);
+
+			return null;
+		}
+
+		public static Map CreateBlocks()
+		{
+			return MapManager.LoadMap("mario");
 		}
 
 		/// <summary>

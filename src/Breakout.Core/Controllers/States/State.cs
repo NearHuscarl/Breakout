@@ -1,12 +1,8 @@
-﻿using Breakout.Models.Enums;
-using Breakout.Models.UIComponents;
-using Breakout.Utilities;
+﻿using Breakout.Utilities;
+using Breakout.Views;
 using Breakout.Views.Renderers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Breakout.Views.Screens;
+using Breakout.Views.Windows;
 
 namespace Breakout.Controllers.States
 {
@@ -17,6 +13,11 @@ namespace Breakout.Controllers.States
 		public virtual void Update()
 		{
 			InputHelper.GetInput();
+		}
+
+		public virtual void AddScreen()
+		{
+
 		}
 
 		public virtual void Draw(MonoGameRenderer renderer)
@@ -31,17 +32,21 @@ namespace Breakout.Controllers.States
 			if (isMouseOverButton)
 			{
 				if (InputHelper.IsMouseHold(MouseButtons.LeftButton))
-					button.State = ButtonState.Clicked;
-
+				{
+					button.OnButtonClicked();
+				}
 				else if (InputHelper.IsMouseRelease(MouseButtons.LeftButton))
+				{
 					action.Invoke();
-
+				}
 				else
-					button.State = ButtonState.Hovered;
+				{
+					button.OnButtonHovered();
+				}
 			}
 			else
 			{
-				button.State = ButtonState.Inactive;
+				button.OnButtonInactive();
 			}
 		}
 
@@ -50,19 +55,23 @@ namespace Breakout.Controllers.States
 			bool isMouseOverButton = checkbox.Rectangle.Contains(InputHelper.GetMousePosition());
 
 			if (!isMouseOverButton)
+			{
 				return;
+			}
 
 			if (InputHelper.IsMouseRelease(MouseButtons.LeftButton))
+			{
 				checkbox.Toggle();
+			}
 		}
 
-		protected void HandleRadioGroup(RadioGroup radios)
+		protected void HandleRadioGroup(RadioGroup radioGroup)
 		{
-			foreach (var radio in radios.RadioButtons)
+			foreach (var radioButton in radioGroup.RadioButtons)
 			{
-				if (IsRadioButtonClicked(radio.Value))
+				if (IsRadioButtonClicked(radioButton))
 				{
-					radios.Check(radio.Value.Text);
+					radioGroup.Check(radioButton);
 					break;
 				}
 			}
@@ -73,7 +82,9 @@ namespace Breakout.Controllers.States
 			bool isMouseOverButton = radio.Rectangle.Contains(InputHelper.GetMousePosition());
 
 			if (isMouseOverButton && InputHelper.IsMouseRelease(MouseButtons.LeftButton))
+			{
 				return true;
+			}
 
 			return false;
 		}

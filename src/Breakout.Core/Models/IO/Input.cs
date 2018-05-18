@@ -14,6 +14,7 @@ namespace Breakout.Models.IO
 		public static Keys Fire;
 		public static Keys PauseGame;
 		public static Keys PlayGame;
+		public static Keys Confirm;
 		public static Keys Exit;
 
 		public static void SetDefaultInput()
@@ -23,6 +24,7 @@ namespace Breakout.Models.IO
 			Fire = Keys.Space;
 			PauseGame = Keys.P;
 			PlayGame = Keys.Space;
+			Confirm = Keys.Enter;
 			Exit = Keys.Escape;
 		}
 	}

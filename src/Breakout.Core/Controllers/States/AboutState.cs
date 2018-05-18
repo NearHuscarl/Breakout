@@ -1,23 +1,35 @@
 ﻿using Breakout.Models;
-using Breakout.Models.UIComponents;
-using Breakout.Models.Windows;
+using Breakout.Models.IO;
 using Breakout.Utilities;
+using Breakout.Views;
 using Breakout.Views.Renderers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Breakout.Views.Screens;
+using Breakout.Views.Windows;
 
 namespace Breakout.Controllers.States
 {
 	public class AboutState : State
 	{
+		private AboutScreen aboutScreen;
+
+		public override void AddScreen()
+		{
+			foreach (var screen in WindowManager.Screens)
+			{
+				if (screen is AboutScreen)
+				{
+					aboutScreen = (AboutScreen)screen;
+					return;
+				}
+			}
+		}
+
 		public override void Update()
 		{
 			base.Update();
 
-			AboutScreen aboutScreen= (AboutScreen)WindowManager.CurrentScreen;
+			if (InputHelper.IsNewKeyPress(Input.Exit))
+				StateMachine.ChangeToPreviousState();
 
 			Button openCodeButton = aboutScreen.OpenCodeButton;
 			Button cancelButton = aboutScreen.CancelButton;
@@ -25,7 +37,7 @@ namespace Breakout.Controllers.States
 			HandleButton(openCodeButton, OpenSourceCode);
 			HandleButton(cancelButton, StateMachine.ChangeToPreviousState);
 
-			EntryPoint.Game.Scene.Step(EntryPoint.Game.Elapsed);
+			StateMachine.Scene.Step(EntryPoint.Game.Elapsed);
 		}
 
 		private void OpenSourceCode()
@@ -35,7 +47,7 @@ namespace Breakout.Controllers.States
 
 		public override void Draw(MonoGameRenderer renderer)
 		{
-			renderer.DrawAbout();
+			renderer.DrawMenu(EntryPoint.Game.Elapsed);
 		}
 	}
 }

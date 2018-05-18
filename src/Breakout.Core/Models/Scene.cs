@@ -1,35 +1,25 @@
-﻿using Breakout.Extensions;
-using Breakout.Models.Balls;
-using Breakout.Models.Bases;
+﻿using Breakout.Models.Balls;
 using Breakout.Models.Blocks;
-using Breakout.Models.UIComponents;
-using Breakout.Models.Enums;
 using Breakout.Models.Explosions;
 using Breakout.Models.Paddles;
 using Breakout.Models.Players;
 using Breakout.Models.PowerUps;
-using Breakout.Models.Texts;
-using Breakout.Utilities;
+using Breakout.Models.Scores;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Breakout.Models.Maps;
 
 namespace Breakout.Models
 {
-	public class Scene
+	public class Scene : GameComponent
 	{
 		private float deltaTime;
 
-		public Dictionary<string, Button> Buttons { get; set; }
-
-		public Rectangle Footer { get; set; }
-
 		public Paddle Paddle { get; set; }
+
+		public Map Map { get; set; }
 		public List<Ball> Balls { get; set; }
-		public List<Block> Blocks { get; set; }
 
 		public List<PowerUpPackage> Packages { get; set; }
 		public List<PowerUp> PowerUps { get; set; }
@@ -37,22 +27,21 @@ namespace Breakout.Models
 		public List<Explosion> ExplosiveZones;
 		public Player Player { get; set; }
 
-		public Text BlockLeft { get; set; }
+		public Score BlockLeft { get; set; }
 
 		public bool IsInGame { get; private set; } = false;
 
+		public Scene(Game game) : base(game)
+		{
+
+		}
+
 		public void InitializeMenu()
 		{
-			Buttons = new Dictionary<string, Button>()
-			{
-				{ "Start", WindowFactory.CreateStartButton() },
-				{ "Setting", WindowFactory.CreateSettingButton() },
-				{ "About", WindowFactory.CreateAboutButton() },
-				{ "Exit", WindowFactory.CreateExitButton() },
-			};
+			EntryPoint.Game.Scene.CleanUp();
 
 			Balls = ModelFactory.CreateRandomBalls();
-			Blocks = ModelFactory.CreateLogo();
+			Map = ModelFactory.CreateLogo();
 
 			PowerUps = new List<PowerUp>();
 			Packages = new List<PowerUpPackage>();
@@ -63,14 +52,13 @@ namespace Breakout.Models
 
 		public void InitializeGame()
 		{
-			Footer = ModelFactory.CreateFooter();
-			Player = ModelFactory.CreatePlayer(Footer);
+			Player = ModelFactory.CreatePlayer();
 
 			Paddle = ModelFactory.CreatePaddle();
 			Balls = ModelFactory.CreateBall();
 
-			Blocks = ModelFactory.CreateBlocks();
-			BlockLeft = ModelFactory.CreateBlockLeftText(Footer, Blocks.Count);
+			Map = ModelFactory.CreateBlocks();
+			BlockLeft = new Score(GameInfo.BlockLeftText, Map.Layer1.Count);
 
 			PowerUps = new List<PowerUp>();
 			Packages = new List<PowerUpPackage>();
@@ -81,7 +69,7 @@ namespace Breakout.Models
 
 		public void Reset()
 		{
-			Player.CurrentCombo.Content = "0";
+			Player.CurrentCombo.Set(0);
 
 			Paddle = ModelFactory.CreatePaddle();
 			Balls = ModelFactory.CreateBall();
@@ -97,7 +85,7 @@ namespace Breakout.Models
 			foreach (var ball in Balls.ToList())
 				HandleBall(ball);
 
-			foreach (var block in Blocks.ToList())
+			foreach (var block in Map.Layer1.ToList())
 				HandleBlock(block);
 
 			foreach (var package in Packages.ToList())
@@ -122,11 +110,8 @@ namespace Breakout.Models
 		{
 			ball.HandleWallCollision(isContained: true);
 
-			foreach (var block in Blocks)
+			foreach (var block in Map.Layer1)
 				ball.HandleCollision(block);
-
-			foreach (var button in Buttons.Values)
-				ball.HandleCollision(button);
 
 			ball.UpdateMovement(deltaTime);
 		}
@@ -139,7 +124,7 @@ namespace Breakout.Models
 			ball.HandleWallCollision();
 			ball.HandlePaddleCollision(Paddle);
 
-			foreach (var block in Blocks)
+			foreach (var block in Map.Layer1)
 			{
 				if (ball.HandleCollision(block))
 				{
@@ -157,7 +142,9 @@ namespace Breakout.Models
 			Player.CurrentCombo.Add(1);
 
 			if (Player.CurrentCombo > Player.HighestCombo)
+			{
 				Player.HighestCombo.Add(1);
+			}
 		}
 
 		private void HandleBlock(Block block)
@@ -165,7 +152,7 @@ namespace Breakout.Models
 			if (block.IsBroken)
 			{
 				block.OnDestroy();
-				Blocks.Remove(block);
+				Map.Layer1.Remove(block);
 
 				if (IsInGame)
 					BlockLeft.Take(1);
@@ -211,7 +198,7 @@ namespace Breakout.Models
 			if (!explosion.Active)
 				return;
 
-			foreach (var block in Blocks)
+			foreach (var block in Map.Layer1)
 			{
 				if (block.Rectangle.Intersects(explosion.Rectangle))
 					block.Hit();
@@ -225,5 +212,24 @@ namespace Breakout.Models
 			if (Player != null)
 				Player.Score.StopRecording();
 		}
+
+		#region Instance Disposal Methods
+
+		/// <summary>
+		/// Clean up the component when it is disposing.
+		/// </summary>
+		protected override void Dispose(bool disposing)
+		{
+			try
+			{
+				CleanUp();
+			}
+			finally
+			{
+				base.Dispose(disposing);
+			}
+		}
+
+		#endregion
 	}
 }

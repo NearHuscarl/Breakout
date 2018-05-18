@@ -10,110 +10,59 @@ namespace Breakout.Models.Blocks
 {
 	public static class BlockInfo
 	{
-		public static Dictionary<BlockType, int> Health = new Dictionary<BlockType, int>()
+		public struct BlockAtrributes
 		{
-			{ BlockType.Red, 10 }, // One hit, make ball faster
-			{ BlockType.Orange, 60 }, // Hardest block, 5 hits
-			{ BlockType.Yellow, 50 },
-			{ BlockType.Green, 40 },
-			{ BlockType.Blue, 30 },
-			{ BlockType.Cyan, 20 },
-			{ BlockType.Magenta, 10 }, // Weakest Block, 1 hit
-			{ BlockType.Gray, 80 },
-			{ BlockType.Black, 100 },
+			public int Health;
+			public int PowerUpChance;
+			public GameColor Color;
 
-			{ BlockType.LightRed, 10 },
-			{ BlockType.LightOrange, 60 },
-			{ BlockType.LightYellow, 50 },
-			{ BlockType.LightGreen, 40 },
-			{ BlockType.LightBlue, 30 },
-			{ BlockType.LightCyan, 20 },
-			{ BlockType.LightMagenta, 10 },
-			{ BlockType.LightGray, 80 },
-			{ BlockType.Dark, 100 },
+			private static BlockAtrributes emptyAttributes = new BlockAtrributes(0, 0, GameColor.None);
+
+			public static BlockAtrributes Empty { get { return emptyAttributes; } }
+
+			public BlockAtrributes(int health, int powerUpChance, GameColor color)
+			{
+				Health = health;
+				PowerUpChance = powerUpChance;
+				Color = color;
+			}
+		}
+
+		public static Dictionary<BlockType, BlockAtrributes> Attributes = new Dictionary<BlockType, BlockAtrributes>()
+		{
+			{ BlockType.Red,     new BlockAtrributes(health: 10, powerUpChance: 30, color: GameColor.Red) },
+			{ BlockType.Orange,  new BlockAtrributes(health: 60, powerUpChance: 20, color: GameColor.Orange) },
+			{ BlockType.Yellow,  new BlockAtrributes(health: 50, powerUpChance: 15, color: GameColor.Yellow) },
+			{ BlockType.Green,   new BlockAtrributes(health: 40, powerUpChance: 10, color: GameColor.Green) },
+			{ BlockType.Blue,    new BlockAtrributes(health: 30, powerUpChance:  8, color: GameColor.Blue) },
+			{ BlockType.Cyan,    new BlockAtrributes(health: 20, powerUpChance:  5, color: GameColor.Cyan) },
+			{ BlockType.Magenta, new BlockAtrributes(health: 10, powerUpChance:  2, color: GameColor.Magenta) },
+			{ BlockType.Gray,    new BlockAtrributes(health: 80, powerUpChance:  0, color: GameColor.Gray) },
+			{ BlockType.Black,   new BlockAtrributes(health: 90, powerUpChance:  0, color: GameColor.Black) },
+
+			{ BlockType.LightRed,     new BlockAtrributes(health: 10, powerUpChance: 30, color: GameColor.Red) },
+			{ BlockType.LightOrange,  new BlockAtrributes(health: 60, powerUpChance: 20, color: GameColor.Orange) },
+			{ BlockType.LightYellow,  new BlockAtrributes(health: 50, powerUpChance: 15, color: GameColor.Yellow) },
+			{ BlockType.LightGreen,   new BlockAtrributes(health: 40, powerUpChance: 10, color: GameColor.Green) },
+			{ BlockType.LightBlue,    new BlockAtrributes(health: 30, powerUpChance:  8, color: GameColor.Blue) },
+			{ BlockType.LightCyan,    new BlockAtrributes(health: 20, powerUpChance:  5, color: GameColor.Cyan) },
+			{ BlockType.LightMagenta, new BlockAtrributes(health: 10, powerUpChance:  2, color: GameColor.Magenta) },
+			{ BlockType.LightGray,    new BlockAtrributes(health: 80, powerUpChance:  0, color: GameColor.Gray) },
+			{ BlockType.Dark,         new BlockAtrributes(health: 90, powerUpChance:  0, color: GameColor.Black) },
 
 			 // One hit, blow up surrounding when hit
-			{ BlockType.FlashingRed, 1 },
-			{ BlockType.FlashingOrange, 1 },
-			{ BlockType.FlashingYellow, 1 },
-			{ BlockType.FlashingGreen, 1 },
-			{ BlockType.FlashingBlue, 1 },
-			{ BlockType.FlashingCyan, 1 },
-			{ BlockType.FlashingMagenta, 1 },
-			{ BlockType.FlashingGray, 1 },
-			{ BlockType.FlashingBlack, 1 },
+			{ BlockType.FlashingRed,     new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Red) },
+			{ BlockType.FlashingOrange,  new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Orange) },
+			{ BlockType.FlashingYellow,  new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Yellow) },
+			{ BlockType.FlashingGreen,   new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Green) },
+			{ BlockType.FlashingBlue,    new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Blue) },
+			{ BlockType.FlashingCyan,    new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Cyan) },
+			{ BlockType.FlashingMagenta, new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Magenta) },
+			{ BlockType.FlashingGray,    new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Gray) },
+			{ BlockType.FlashingBlack,   new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Black) },
 
-			{ BlockType.None, 0 },
-		};
-
-		public static Dictionary<BlockType, int> PowerUpSpawnChance = new Dictionary<BlockType, int>()
-		{
-			{ BlockType.Red, 30 },
-			{ BlockType.Orange, 20 },
-			{ BlockType.Yellow, 15 },
-			{ BlockType.Green, 10 },
-			{ BlockType.Blue, 8 },
-			{ BlockType.Cyan, 5 },
-			{ BlockType.Magenta, 2 },
-			{ BlockType.Gray, 0 },
-			{ BlockType.Black, 0 },
-
-			{ BlockType.LightRed, 30 },
-			{ BlockType.LightOrange, 20 },
-			{ BlockType.LightYellow, 15 },
-			{ BlockType.LightGreen, 10 },
-			{ BlockType.LightBlue, 8 },
-			{ BlockType.LightCyan, 5 },
-			{ BlockType.LightMagenta, 2 },
-			{ BlockType.LightGray, 0 },
-			{ BlockType.Dark, 0 },
-
-			{ BlockType.FlashingRed, 10 },
-			{ BlockType.FlashingOrange, 10 },
-			{ BlockType.FlashingYellow, 10 },
-			{ BlockType.FlashingGreen, 10 },
-			{ BlockType.FlashingBlue, 10 },
-			{ BlockType.FlashingCyan, 10 },
-			{ BlockType.FlashingMagenta, 10 },
-			{ BlockType.FlashingGray, 10 },
-			{ BlockType.FlashingBlack, 10 },
-
-			{ BlockType.None, 0 },
-		};
-
-		public static Dictionary<BlockType, GameColor> Color = new Dictionary<BlockType, GameColor>()
-		{
-			{ BlockType.Red, GameColor.Red },
-			{ BlockType.Orange, GameColor.Orange },
-			{ BlockType.Yellow, GameColor.Yellow },
-			{ BlockType.Green, GameColor.Green },
-			{ BlockType.Blue, GameColor.Blue },
-			{ BlockType.Cyan, GameColor.Cyan },
-			{ BlockType.Magenta, GameColor.Magenta },
-			{ BlockType.Gray, GameColor.Gray },
-			{ BlockType.Black, GameColor.Black },
-
-			{ BlockType.LightRed, GameColor.Red },
-			{ BlockType.LightOrange, GameColor.Orange },
-			{ BlockType.LightYellow, GameColor.Yellow },
-			{ BlockType.LightGreen, GameColor.Green },
-			{ BlockType.LightBlue, GameColor.Blue },
-			{ BlockType.LightCyan, GameColor.Cyan },
-			{ BlockType.LightMagenta, GameColor.Magenta },
-			{ BlockType.LightGray, GameColor.Gray },
-			{ BlockType.Dark, GameColor.Black },
-
-			{ BlockType.FlashingRed, GameColor.Red },
-			{ BlockType.FlashingOrange, GameColor.Orange },
-			{ BlockType.FlashingYellow, GameColor.Yellow },
-			{ BlockType.FlashingGreen, GameColor.Green },
-			{ BlockType.FlashingBlue, GameColor.Blue },
-			{ BlockType.FlashingCyan, GameColor.Cyan },
-			{ BlockType.FlashingMagenta, GameColor.Magenta },
-			{ BlockType.FlashingGray, GameColor.Gray },
-			{ BlockType.FlashingBlack, GameColor.Black },
-
-			{ BlockType.None, GameColor.None },
+			{ BlockType.Skeleton, BlockAtrributes.Empty },
+			{ BlockType.None, BlockAtrributes.Empty },
 		};
 
 		public static bool IsLight(BlockType blockType)

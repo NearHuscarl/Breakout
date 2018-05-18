@@ -1,21 +1,16 @@
 ﻿using Breakout.Controllers.States;
 using Breakout.Models;
-using Breakout.Models.Windows;
 using Breakout.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Breakout.Views;
 
 namespace Breakout.Controllers
 {
 	public static class StateMachine
 	{
+		public static Scene Scene;
+
 		public static State PreviousState;
 		public static State CurrentState;
-
-		public static Dictionary<string, State> States = new Dictionary<string, State>();
 
 		private static InitialState initialState;
 		private static MenuState menuState;
@@ -27,8 +22,10 @@ namespace Breakout.Controllers
 		private static ExitGameState exitGameState;
 		private static ExitAppState exitAppState;
 
-		public static void Initialize()
+		public static void Initialize(Scene scene)
 		{
+			Scene = scene;
+
 			initialState = new InitialState();
 			menuState = new MenuState();
 			settingState = new SettingState();
@@ -39,15 +36,8 @@ namespace Breakout.Controllers
 			exitGameState = new ExitGameState();
 			exitAppState = new ExitAppState();
 
-			States.Add("InitialState", initialState);
-			States.Add("MenuState", menuState);
-			States.Add("SettingState", settingState);
-			States.Add("AboutState", aboutState);
-			States.Add("LoadingState", loadingState);
-			States.Add("GameState", gameState);
-			States.Add("PauseState", pauseState);
-			States.Add("ExitGameState", exitGameState);
-			States.Add("ExitAppState", exitAppState);
+			CurrentState = initialState;
+			CurrentState.Update();
 		}
 
 		// Prompt to exit window / game (x2)
@@ -77,7 +67,7 @@ namespace Breakout.Controllers
 		//  10. Name Score
 		//  Button: back
 
-		private static void ChangeState(string nextState)
+		private static void ChangeState(State nextState)
 		{
 			// InitialState -> MenuState (init game)
 			// MenuState -> LoadingState (load game)
@@ -89,80 +79,79 @@ namespace Breakout.Controllers
 			// ExitGameState -> LoadingState (restart)
 			// ExitGameState -> MenuState (abort)
 			PreviousState = CurrentState;
-			CurrentState = States[nextState];
+			CurrentState = nextState;
 		}
 
 		public static void ChangeToPreviousState()
 		{
+			WindowManager.CloseWindow();
 			CurrentState = PreviousState;
 			PreviousState = null;
 		}
 
-		#region change state event
+		#region Change State Event
 
 		public static void OpenMenu()
 		{
-			EntryPoint.Game.Scene.InitializeMenu();
-			ChangeState("MenuState");
+			Scene.InitializeMenu();
+
+			WindowManager.OpenMenu();
+			menuState.AddScreen();
+			ChangeState(menuState);
 		}
 
 		public static void OpenAbout()
 		{
 			WindowManager.OpenAbout();
-			ChangeState("AboutState");
+			aboutState.AddScreen();
+			ChangeState(aboutState);
 		}
 
 		public static void OpenSetting()
 		{
 			WindowManager.OpenSetting();
-			ChangeState("SettingState");
+			settingState.AddScreen();
+			ChangeState(settingState);
 		}
 
 		public static void LoadGame()
 		{
-			ChangeState("LoadingState");
+			WindowManager.CloseWindow(); // Close menu window
+			ChangeState(loadingState);
 		}
 
 		public static void StartGame()
 		{
-			ChangeState("PauseState");
+			ChangeState(pauseState);
 		}
 
 		public static void PlayGame()
 		{
-			ChangeState("GameState");
+			ChangeState(gameState);
 		}
 
 		public static void ResetGame()
 		{
 			AudioManager.PlaySound("LoseLive");
-			EntryPoint.Game.Scene.Player.Live.Take(1);
-			EntryPoint.Game.Scene.Reset();
+			Scene.Player.Live.Take(1);
+			Scene.Reset();
 
-			ChangeState("PauseState");
+			ChangeState(pauseState);
 		}
 
 		public static void GameOver()
 		{
-			ChangeState("MenuState"); // TODO: Prompt asking to continue or not
+			OpenMenu(); // TODO: Prompt asking to continue or not
 		}
 
 		public static void Exit()
 		{
-			EntryPoint.Game.Scene.CleanUp();
 			EntryPoint.Game.Exit();
-		}
-
-		public static void ExitToMenu()
-		{
-			EntryPoint.Game.Scene.CleanUp();
-			EntryPoint.Game.Scene.InitializeMenu();
-			ChangeState("MenuState");
 		}
 
 		public static void PauseGame()
 		{
-			ChangeState("PauseState");
+			ChangeState(pauseState);
 		}
 
 		public static void ResumeGame()
@@ -174,17 +163,19 @@ namespace Breakout.Controllers
 		public static void ExitGame()
 		{
 			AudioManager.PlaySound("Interrupt");
-			WindowManager.OpenExitGamePrompt();
 
-			ChangeState("ExitGameState");
+			WindowManager.OpenExitGamePrompt();
+			exitGameState.AddScreen();
+			ChangeState(exitGameState);
 		}
 
 		public static void ExitApp()
 		{
 			AudioManager.PlaySound("Interrupt");
-			WindowManager.OpenExitAppPrompt();
 
-			ChangeState("ExitAppState");
+			WindowManager.OpenExitAppPrompt();
+			exitAppState.AddScreen();
+			ChangeState(exitAppState);
 		}
 
 		#endregion

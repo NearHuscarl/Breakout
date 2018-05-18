@@ -3,11 +3,6 @@ using Breakout.Models;
 using Breakout.Views.Renderers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Breakout
 {
@@ -25,7 +20,7 @@ namespace Breakout
 			Graphics = new GraphicsDeviceManager(this);
 
 			Content.RootDirectory = "Content";
-			IsMouseVisible = false; // We will use custom cursor
+			IsMouseVisible = false; // We will use custom cursor here
 
 			Graphics.PreferredBackBufferWidth = 1000;
 			Graphics.PreferredBackBufferHeight = 600;
@@ -33,11 +28,9 @@ namespace Breakout
 
 		protected override void Initialize()
 		{
-			Scene = new Scene();
+			Scene = new Scene(EntryPoint.Game);
 
-			StateMachine.Initialize();
-			StateMachine.CurrentState = StateMachine.States["InitialState"];
-			StateMachine.CurrentState.Update();
+			StateMachine.Initialize(Scene);
 
 			base.Initialize();
 		}
@@ -45,7 +38,7 @@ namespace Breakout
 		protected override void LoadContent()
 		{
 			SpriteBatch = new SpriteBatch(GraphicsDevice);
-			Renderer = new MonoGameRenderer();
+			Renderer = new MonoGameRenderer(Scene);
 
 			Renderer.CenterScreen();
 		}

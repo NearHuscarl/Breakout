@@ -114,7 +114,7 @@ namespace Breakout.Models.Balls
 		/// </summary>
 		/// <param name="obj">object to check collision with</param>
 		/// <returns>Determite if ball hit object</returns>
-		public bool HandleCollision(RectangleObject obj)
+		public bool HandleCollision(IInteractive obj)
 		{
 			bool isCollided = false;
 

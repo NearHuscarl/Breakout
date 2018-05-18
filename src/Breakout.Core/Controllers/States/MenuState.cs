@@ -1,34 +1,41 @@
-﻿using Breakout.Models;
-using Breakout.Models.UIComponents;
-using Breakout.Utilities;
+﻿using Breakout.Views;
 using Breakout.Views.Renderers;
-using Breakout.Views.UI;
-using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Breakout.Views.Screens;
+using Breakout.Views.Windows;
 
 namespace Breakout.Controllers.States
 {
 	public class MenuState : State
 	{
+		private MenuScreen menuScreen;
+
+		public override void AddScreen()
+		{
+			foreach (var screen in WindowManager.Screens)
+			{
+				if (screen is MenuScreen)
+				{
+					menuScreen = (MenuScreen)screen;
+					return;
+				}
+			}
+		}
+
 		public override void Update()
 		{
 			base.Update();
 
-			Button startButton = EntryPoint.Game.Scene.Buttons["Start"];
-			Button settingButton = EntryPoint.Game.Scene.Buttons["Setting"];
-			Button aboutButton = EntryPoint.Game.Scene.Buttons["About"];
-			Button exitButton = EntryPoint.Game.Scene.Buttons["Exit"];
+			Button startButton = menuScreen.Buttons["Start"];
+			Button settingButton = menuScreen.Buttons["Setting"];
+			Button aboutButton = menuScreen.Buttons["About"];
+			Button exitButton = menuScreen.Buttons["Exit"];
 
 			HandleButton(startButton, StateMachine.LoadGame);
 			HandleButton(settingButton, StateMachine.OpenSetting);
 			HandleButton(aboutButton, StateMachine.OpenAbout);
 			HandleButton(exitButton, StateMachine.ExitApp);
 
-			EntryPoint.Game.Scene.Step(EntryPoint.Game.Elapsed);
+			StateMachine.Scene.Step(EntryPoint.Game.Elapsed);
 		}
 
 		public override void Draw(MonoGameRenderer renderer)

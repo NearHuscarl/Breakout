@@ -7,16 +7,34 @@ namespace Breakout.Utilities
 {
 	public static class AudioManager
 	{
+		private static bool isMute = false;
+
 		private static readonly string soundPath = "Sounds/";
 		private static Dictionary<string, SoundEffectInstance[]> soundLibraries;
 		private static ContentManager content;
 
 		public static float Volume { get; set; }
+		public static float CurrentVolume { get; set; }
 
+		public static bool IsMute
+		{
+			get { return isMute;  }
+
+			set
+			{
+				if (value)
+					CurrentVolume = 0;
+				else
+					CurrentVolume = Volume;
+
+				isMute = value;
+			}
+		}
 		public static void LoadSound(ContentManager content, string[] soundNames)
 		{
 			AudioManager.content = content;
 			AudioManager.Volume = 0.5f;
+			AudioManager.CurrentVolume = Volume;
 
 			soundLibraries = new Dictionary<string, SoundEffectInstance[]>();
 
@@ -51,7 +69,7 @@ namespace Breakout.Utilities
 					return;
 
 				soundInstance.IsLooped = isLooped;
-				soundInstance.Volume = Volume;
+				soundInstance.Volume = CurrentVolume;
 				soundInstance.Play();
 			}
 		}

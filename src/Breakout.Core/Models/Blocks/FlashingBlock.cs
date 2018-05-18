@@ -6,8 +6,8 @@ namespace Breakout.Models.Blocks
 {
 	public class FlashingBlock : Block
 	{
-		public FlashingBlock(Scene scene, Vector2 position, BlockType blockType)
-			: base(scene, position, blockType)
+		public FlashingBlock(Scene scene, int width, int height, Vector2 position, BlockType blockType)
+			: base(scene, width, height, position, blockType)
 		{
 
 		}

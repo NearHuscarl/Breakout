@@ -38,6 +38,7 @@ namespace Breakout.Models.Enums
 		FlashingGray,
 		FlashingBlack,
 
+		Skeleton,
 		None,
 	}
 }

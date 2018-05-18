@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Breakout.Models.Blocks
 {
-	public abstract class Block : RectangleObject
+	public abstract class Block : RectangleObject, IInteractive
 	{
 		public GameColor Color { get; private set; }
 
@@ -37,13 +37,14 @@ namespace Breakout.Models.Blocks
 
 		protected Scene scene;
 
-		public Block(Scene scene, Vector2 position, BlockType blockType) : base(GameInfo.BlockWidth, GameInfo.BlockHeight, position)
+		public Block(Scene scene, int width, int height, Vector2 position, BlockType blockType)
+			: base(width, height, position)
 		{
 			this.scene = scene;
-			this.Color = BlockInfo.Color[blockType];
-			this.MaxHealth = BlockInfo.Health[blockType];
+			this.Color = BlockInfo.Attributes[blockType].Color;
+			this.powerUpSpawnChance = BlockInfo.Attributes[blockType].PowerUpChance;
+			this.MaxHealth = BlockInfo.Attributes[blockType].Health;
 			this.Health = this.MaxHealth;
-			this.powerUpSpawnChance = BlockInfo.PowerUpSpawnChance[blockType];
 		}
 
 		private PowerUpPackage SpawnPowerUpPackage()
@@ -57,7 +58,7 @@ namespace Breakout.Models.Blocks
 			return null;
 		}
 
-		public override void Hit()
+		public virtual void Hit()
 		{
 			Health -= 10;
 		}

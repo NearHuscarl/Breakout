@@ -30,7 +30,7 @@ Write-Host "${Prompt} Running Post-Build Event..."
 if (!(Test-Path -Path "$OutputPath"))
 {
 	Write-Host "${Prompt} ${OutputPath} not exists. Creating new one"
-	New-Item -ItemType directory -Path $OutputPath 
+	New-Item -ItemType directory -Path $OutputPath
 }
 
 # you shall have python

@@ -1,20 +1,13 @@
 ﻿using Breakout.Models;
-using Breakout.Models.Blocks;
 using Breakout.Models.Enums;
-using Breakout.Models.UIComponents;
-using Breakout.Models.Windows;
 using Breakout.Views.Enums;
-using Breakout.Views.UI;
-using Breakout.Views.UI.Blocks;
-using Breakout.Views.UI.Buttons;
+using Breakout.Views.Sprites;
+using Breakout.Views.Sprites.Blocks;
+using Breakout.Views.UIComponents;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Breakout.Views.Renderers
 {
@@ -24,68 +17,43 @@ namespace Breakout.Views.Renderers
 
 		private ContentManager content = EntryPoint.Game.Content;
 		private SpriteBatch spriteBatch = EntryPoint.Game.SpriteBatch;
-		private Scene scene = EntryPoint.Game.Scene;
-
-		private SpriteFont scoreFont = EntryPoint.Game.Content.Load<SpriteFont>("Fonts/ScoreFont");
-		private SpriteFont buttonFont = EntryPoint.Game.Content.Load<SpriteFont>("Fonts/ButtonFont");
+		private Scene scene;
 
 		private Cursor cursor;
 
 		public PaddleUI PaddleUI;
-		public Sprite BallUI;
+		public GameSprite BallUI;
 		public Dictionary<GameColor, BlockUI> Blocks;
+		private GameSprite skeletonBlock;
 
-		private Sprite footer;
+		private ScoreBar scoreBar;
 		private Dictionary<Stage, Background> backgrounds;
 
-		private ScreenUI gameScreen;
-		private MessageBoxUI messageBox;
-
-		public Font RedFont;
-		public Font GreenFont;
-		public Font YellowFont;
-
-		public ButtonUI ButtonUI;
-		public CheckBoxUI CheckBoxUI;
-		public CheckBoxUI RadioBtnUI;
-
-		public MessageBox ExitMsgBox;
-
-		public MonoGameRenderer()
+		public MonoGameRenderer(Scene scene)
 		{
-			cursor = UIFactory.CreateCursor(content);
+			this.scene = scene;
 
-			backgrounds = UIFactory.CreateBackground(content);
-			footer = UIFactory.CreateFooter(content);
+			cursor = SpriteFactory.CreateCursor(content);
 
-			ButtonUI = UIFactory.CreateButton(content, buttonFont);
-			CheckBoxUI = UIFactory.CreateCheckBox(content, buttonFont);
-			RadioBtnUI = UIFactory.CreateRadioButton(content, buttonFont);
+			backgrounds = SpriteFactory.CreateBackground(content);
+			scoreBar = new ScoreBar(scene);
 
-			gameScreen = UIFactory.CreateScreen(content, buttonFont);
-			messageBox = UIFactory.CreateMessageBox(content, buttonFont);
+			PaddleUI = SpriteFactory.CreatePaddle(content);
+			BallUI = SpriteFactory.CreateBall(content);
 
-			PaddleUI = UIFactory.CreatePaddle(content);
-			BallUI = UIFactory.CreateBall(content);
-
-			Blocks = UIFactory.CreateBlocks(content);
-
-			RedFont = UIFactory.CreateRedFont(scoreFont);
-			GreenFont = UIFactory.CreateGreenFont(scoreFont);
-			YellowFont = UIFactory.CreateYellowFont(scoreFont);
+			Blocks = SpriteFactory.CreateBlocks(content);
+			skeletonBlock = SpriteFactory.CreateSkeletonBlock(content);
 		}
 
 		public override void DrawMenu(float elapsed)
 		{
 			backgrounds[Stage.Menu].Draw(spriteBatch);
 
-			foreach (var button in scene.Buttons.Values)
-				ButtonUI.Draw(spriteBatch, button);
-
-			DrawBall();
-			DrawBlocks(elapsed);
+			DrawBallAndBlocks(elapsed);
 
 			cursor.Draw(spriteBatch);
+
+			DrawScreens();
 		}
 
 		public override void DrawGame(float elapsed)
@@ -96,90 +64,39 @@ namespace Breakout.Views.Renderers
 
 			PaddleUI.Draw(spriteBatch, scene.Paddle);
 
-			DrawBall();
-			DrawBlocks(deltaTime);
-			footer.Draw(spriteBatch, scene.Footer);
+			DrawBallAndBlocks(deltaTime);
 
-			RedFont.Draw(spriteBatch, scene.Player.Score, Alignment.Center);
-			GreenFont.Draw(spriteBatch, scene.Player.Live, Alignment.Left);
-			YellowFont.Draw(spriteBatch, scene.BlockLeft, Alignment.Right);
+			scoreBar.Draw(spriteBatch);
 
-			RedFont.Draw(spriteBatch, scene.Player.CurrentCombo,
-				Alignment.Left, offsetText: scene.Player.Live.FullText);
-
-			RedFont.Draw(spriteBatch, scene.Player.HighestCombo,
-				Alignment.Left, offsetText: scene.Player.Live.FullText + scene.Player.CurrentCombo.FullText);
+			DrawScreens();
 		}
 
-		private void DrawBall()
-		{
-			foreach (var ball in scene.Balls)
-				BallUI.Draw(spriteBatch, ball);
-		}
-
-		private void DrawBlocks(float elapsed)
+		private void DrawBallAndBlocks(float elapsed)
 		{
 			foreach (var block in Blocks.Values)
 				block.UpdateColor(elapsed);
 
-			foreach (var block in scene.Blocks)
+			foreach (var block in scene.Map.Layer0)
+				skeletonBlock.Draw(spriteBatch, block);
+
+			foreach (var ball in scene.Balls)
+				BallUI.Draw(spriteBatch, ball);
+
+			foreach (var block in scene.Map.Layer1)
 				Blocks[block.Color].Draw(spriteBatch, block);
 		}
 
-		public override void DrawExitPrompt()
+		public override void DrawScreens()
 		{
-			MessageBox exitPrompt = WindowManager.CurrentScreen as MessageBox;
+			foreach (var screen in WindowManager.Screens)
+			{
+				screen.Draw(spriteBatch);
+			}
 
-			if (exitPrompt == null)
-				return;
-
-			if (scene.IsInGame)
-				DrawGame(deltaTime);
-			else
-				DrawMenu(deltaTime);
-
-			messageBox.Draw(spriteBatch, exitPrompt);
-
-			ButtonUI.Draw(spriteBatch, exitPrompt.YesButton);
-			ButtonUI.Draw(spriteBatch, exitPrompt.NoButton);
-
-			cursor.Draw(spriteBatch);
-		}
-
-		public override void DrawAbout()
-		{
-			AboutScreen aboutScreen = WindowManager.CurrentScreen as AboutScreen;
-
-			if (aboutScreen == null)
-				return;
-
-			DrawMenu(deltaTime);
-
-			gameScreen.Draw(spriteBatch, aboutScreen);
-			ButtonUI.Draw(spriteBatch, aboutScreen.OpenCodeButton);
-			ButtonUI.Draw(spriteBatch, aboutScreen.CancelButton);
-
-			cursor.Draw(spriteBatch);
-		}
-
-		public override void DrawSetting()
-		{
-			SettingScreen settingScreen = WindowManager.CurrentScreen as SettingScreen;
-
-			if (settingScreen == null)
-				return;
-
-			DrawMenu(deltaTime);
-
-			gameScreen.Draw(spriteBatch, settingScreen);
-			ButtonUI.Draw(spriteBatch, settingScreen.ApplyButton);
-			ButtonUI.Draw(spriteBatch, settingScreen.CancelButton);
-			CheckBoxUI.Draw(spriteBatch, settingScreen.Mute);
-
-			foreach (var radio in settingScreen.Difficulties.RadioButtons)
-				RadioBtnUI.Draw(spriteBatch, radio.Value);
-
-			cursor.Draw(spriteBatch);
+			if (WindowManager.Screens.Count > 0)
+			{
+				cursor.Draw(spriteBatch);
+			}
 		}
 
 		public void CenterScreen()

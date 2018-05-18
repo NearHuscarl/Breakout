@@ -1,52 +1,67 @@
 ﻿using Breakout.Extensions;
 using Breakout.Models;
 using Breakout.Models.Enums;
-using Breakout.Models.UIComponents;
-using Breakout.Models.Windows;
+using Breakout.Models.IO;
+using Breakout.Utilities;
+using Breakout.Views;
 using Breakout.Views.Renderers;
-using System;
+using Breakout.Views.Screens;
+using Breakout.Views.Windows;
 using System.Linq;
 
 namespace Breakout.Controllers.States
 {
 	public class SettingState : State
 	{
+		private SettingScreen settingScreen;
+
+		public override void AddScreen()
+		{
+			foreach (var screen in WindowManager.Screens)
+			{
+				if (screen is SettingScreen)
+				{
+					settingScreen = (SettingScreen)screen;
+					return;
+				}
+			}
+		}
+
 		public override void Update()
 		{
 			base.Update();
 
-			SettingScreen settingScreen = (SettingScreen)WindowManager.CurrentScreen;
+			if (InputHelper.IsNewKeyPress(Input.Exit))
+				StateMachine.ChangeToPreviousState();
 
 			Button applyButton = settingScreen.ApplyButton;
 			Button cancelButton = settingScreen.CancelButton;
-			CheckBox muteCheckBox = settingScreen.Mute;
-			RadioGroup difficultyRadios = settingScreen.Difficulties;
+			CheckBox muteCheckBox = settingScreen.MuteCheckbox;
+			RadioGroup difficultyRadios = settingScreen.DifficultiesRadioGroup;
 
 			HandleButton(applyButton, ApplyChange);
 			HandleButton(cancelButton, StateMachine.ChangeToPreviousState);
 			HandleCheckBox(muteCheckBox);
 			HandleRadioGroup(difficultyRadios);
 
-			EntryPoint.Game.Scene.Step(EntryPoint.Game.Elapsed);
+			StateMachine.Scene.Step(EntryPoint.Game.Elapsed);
 		}
 
 		private void ApplyChange()
 		{
-			SettingScreen settingScreen = (SettingScreen)WindowManager.CurrentScreen;
-
-			var difficulty = (from option in settingScreen.Difficulties.RadioButtons.Values
-								  where option.Checked
+			var difficulty = (from option in settingScreen.DifficultiesRadioGroup.RadioButtons
+								  where option.IsChecked
 								  select option.Text).FirstOrDefault();
 
 			GameInfo.Difficulty = EnumExtension.ParseEnum<Difficulty>(difficulty);
-			GameInfo.IsMute = settingScreen.Mute.Checked;
+			AudioManager.IsMute = settingScreen.MuteCheckbox.IsChecked;
 
 			StateMachine.ChangeToPreviousState();
 		}
 
 		public override void Draw(MonoGameRenderer renderer)
 		{
-			renderer.DrawSetting();
+			renderer.DrawMenu(EntryPoint.Game.Elapsed);
 		}
 	}
 }

@@ -24,16 +24,40 @@ namespace Breakout.Models.Bases
 			Position += Direction * Velocity * elapsed;
 		}
 
-		/// <summary>
-		/// Method to describe certain action when this object is hit with another
-		/// Dynamic Object
-		/// </summary>
-		public virtual void Hit()
-		{
+		#region Is Hitting Edges
 
+		public bool IsOffBottom(Vector2 position)
+		{
+			if (position.Y + this.Height > GameInfo.Screen.Height)
+			{
+				return true;
+			}
+			return false;
 		}
 
-		#region Is Hitting Edges
+		public bool IsHittingLeftWall(Vector2 position)
+		{
+			if (position.X <= 0)
+				return true;
+
+			return false;
+		}
+
+		public bool IsHittingRightWall(Vector2 position)
+		{
+			if (position.X + Width >= GameInfo.Screen.Width)
+				return true;
+
+			return false;
+		}
+
+		public bool IsHittingRoof(Vector2 position)
+		{
+			if (position.Y <= 0)
+				return true;
+
+			return false;
+		}
 
 		public bool IsOffBottom()
 		{

@@ -1,37 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Breakout.Models.IO;
-using Breakout.Models.UIComponents;
-using Breakout.Models.Windows;
+﻿using Breakout.Models.IO;
 using Breakout.Utilities;
+using Breakout.Views;
 using Breakout.Views.Renderers;
+using Breakout.Views.Screens;
+using Breakout.Views.Windows;
 
 namespace Breakout.Controllers.States
 {
 	public class ExitGameState : State
 	{
+		private MessageBox messageBox;
+
+		public override void AddScreen()
+		{
+			foreach (var screen in WindowManager.Screens)
+			{
+				if (screen is MessageBox)
+				{
+					messageBox = (MessageBox)screen;
+					return;
+				}
+			}
+		}
+
 		public override void Update()
 		{
 			base.Update();
 
-			MessageBox exitPrompt = (MessageBox)WindowManager.CurrentScreen;
-
-			Button yesButton = exitPrompt.YesButton;
-			Button noButton = exitPrompt.NoButton;
-
 			if (InputHelper.IsNewKeyPress(Input.Exit))
-				StateMachine.ResumeGame();
+				StateMachine.ChangeToPreviousState();
 
-			HandleButton(yesButton, StateMachine.ExitToMenu);
+			Button yesButton = messageBox.YesButton;
+			Button noButton = messageBox.NoButton;
+
+			HandleButton(yesButton, StateMachine.OpenMenu);
 			HandleButton(noButton, StateMachine.ResumeGame);
 		}
 
 		public override void Draw(MonoGameRenderer renderer)
 		{
-			renderer.DrawExitPrompt();
+			renderer.DrawGame(EntryPoint.Game.Elapsed);
 		}
 	}
 }

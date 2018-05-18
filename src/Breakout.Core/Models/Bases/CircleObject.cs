@@ -25,7 +25,7 @@ namespace Breakout.Models.Bases
 			Position = position;
 		}
 
-		protected bool IsTouchingLeft(RectangleObject obj)
+		protected bool IsTouchingLeft(IInteractive obj)
 		{
 			return this.Circle.Right + this.Direction.X > obj.Rectangle.Left &&
 				this.Circle.Left < obj.Rectangle.Left &&
@@ -33,7 +33,7 @@ namespace Breakout.Models.Bases
 				this.Circle.Top < obj.Rectangle.Bottom;
 		}
 
-		protected bool IsTouchingRight(RectangleObject obj)
+		protected bool IsTouchingRight(IInteractive obj)
 		{
 			return this.Circle.Left + this.Direction.X < obj.Rectangle.Right &&
 				this.Circle.Right > obj.Rectangle.Right &&
@@ -41,7 +41,7 @@ namespace Breakout.Models.Bases
 				this.Circle.Top < obj.Rectangle.Bottom;
 		}
 
-		protected bool IsTouchingTop(RectangleObject obj)
+		protected bool IsTouchingTop(IInteractive obj)
 		{
 			return this.Circle.Bottom + this.Direction.Y > obj.Rectangle.Top &&
 				this.Circle.Top < obj.Rectangle.Top &&
@@ -49,7 +49,7 @@ namespace Breakout.Models.Bases
 				this.Circle.Left < obj.Rectangle.Right;
 		}
 
-		protected bool IsTouchingBottom(RectangleObject obj)
+		protected bool IsTouchingBottom(IInteractive obj)
 		{
 			return this.Circle.Top + this.Direction.Y < obj.Rectangle.Bottom &&
 				this.Circle.Bottom > obj.Rectangle.Bottom &&

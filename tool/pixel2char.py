@@ -2,6 +2,9 @@
 
 """
 This script convert pixel from image to character:
+	x:  skeleton block
+	_:  empty
+
 	0:  black
 	1:  dark
 	f0: flashing black
@@ -58,7 +61,12 @@ except ImportError:
 	print_prompt('PIL module not found. Aborting...')
 	sys.exit(1)
 
-COLORMAP = {
+COL2STR_BG = {
+		"#000000": "x",
+		"#ecf0f1": "_",
+		}
+
+COL2STR = {
 		"#2c3e50": "0",
 		"#34495e": "1",
 		"#000000": "f0",
@@ -110,6 +118,10 @@ class ColorNotFoundError(Exception):
 	pass
 
 
+def get_filename(file):
+	""" get filename and exclude its extension """
+	return os.path.splitext(file)[0]
+
 def chunk_list(a, n):
 	""" chunk list a into n sublists """
 	k, m = divmod(len(a), n)
@@ -120,47 +132,72 @@ def rgb_to_hex(color):
 	color = color[0:3]
 	return "#%02x%02x%02x" % (*color,)
 
+def is_bg(file):
+	""" if image file is background map """
+	return file.endswith('_bg.png')
+
 def ls_png():
-	return [file for file in os.listdir(MAP_DIR) if MAP_PATH.format(file).endswith('.png') and os.path.isfile(MAP_PATH.format(file))]
+	return [file for file in os.listdir(MAP_DIR) if MAP_PATH.format(file).endswith('.png')
+			and not is_bg(file)
+			and os.path.isfile(MAP_PATH.format(file))]
 
 def get_output_path(pngfile):
-	jsonfile = os.path.splitext(pngfile)[0] + '.json'
+	jsonfile = get_filename(pngfile) + '.json'
 	return MAP_PATH.format(jsonfile)
 
-def pixel2char(imgfile):
-	""" convert pixel to char from image in cwd """
+def generate_matrix(imgfile, color_to_str):
+	""" convert pixel to str from image """
 	img = Image.open(MAP_PATH.format(imgfile))
 
 	pixels = list(img.getdata())
 	_, height = img.size
 
-	pixels = chunk_list(pixels, height)
+	matrix = chunk_list(pixels, height)
 
-	for row, pixel_row in enumerate(pixels):
+	for row, pixel_row in enumerate(matrix):
 
 		for column, _ in enumerate(pixel_row):
-			pixels[row][column] = rgb_to_hex(pixels[row][column])
+			matrix[row][column] = rgb_to_hex(matrix[row][column])
 
-			if pixels[row][column].lower() in COLORMAP:
-				pixels[row][column] = COLORMAP[pixels[row][column]]
+			if matrix[row][column].lower() in color_to_str:
+				matrix[row][column] = color_to_str[matrix[row][column]]
 
 			else:
 				raise ColorNotFoundError("Color {} at ({}, {}) cannot be found color dictionary"
-						.format(pixels[row][column], row, column))
+						.format(matrix[row][column], row, column))
 
-	data = {
-			'color': COLORMAP,
-			'matrix': pixels,
-			}
+	return matrix
 
-	with open(get_output_path(imgfile), 'w') as file:
-		json.dump(data, file, indent=3, sort_keys=True)
+def generate_empty_map(matrix):
+	""" generate empty map filled with '_' """
+	return [['_' for _ in range(len(matrix[0]))] for _ in range(len(matrix))]
+
+def generate_map(imgfile):
+	""" convert pixel to char from image in ${cwd}/maps/ """
+	return generate_matrix(imgfile, COL2STR)
+
+def generate_bg_map(imgfile):
+	""" generate the map that one layer below """
+	return generate_matrix(imgfile, COL2STR_BG)
 
 def main():
 	""" main function """
-	for file in ls_png():
-		print_prompt('convert pixel2char for {}'.format(file))
-		pixel2char(file)
+	data = {}
+
+	for png_file in ls_png():
+		print_prompt('convert to json map file from {}'.format(png_file))
+
+		data['name'] = get_filename(png_file)
+		data['layer1'] = generate_map(png_file)
+
+		png_bg_file = get_filename(png_file) + '_bg.png'
+		if os.path.isfile(MAP_PATH.format(png_bg_file)):
+			data['layer0'] = generate_bg_map(png_bg_file)
+		else:
+			data['layer0'] = generate_empty_map(data['layer1'])
+
+		with open(get_output_path(png_file), 'w') as file:
+			json.dump(data, file, indent=3, sort_keys=True)
 
 if __name__ == '__main__':
 	main()

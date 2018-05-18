@@ -11,6 +11,7 @@
 		Magenta,
 		Gray,
 		Black,
+		White,
 
 		None,
 	}

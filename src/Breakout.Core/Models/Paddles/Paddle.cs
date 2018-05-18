@@ -11,14 +11,17 @@ using System.Threading.Tasks;
 
 namespace Breakout.Models.Paddles
 {
-	public class Paddle : RectangleObject
+	public class Paddle : RectangleObject, IInteractive
 	{
+		private Vector2 oldPosition;
+
 		private static readonly Dictionary<PaddleLength, int> lengthDict = new Dictionary<PaddleLength, int>()
 		{
 			{ PaddleLength.ExtraShort, 80 },
 			{ PaddleLength.Short, 100 },
 			{ PaddleLength.Medium, 120 },
-			{ PaddleLength.Long, 150 },
+			{ PaddleLength.Long, 135 },
+			{ PaddleLength.ExtraLong, 150 },
 		};
 
 		public PaddleLength Length { get; private set; }
@@ -70,8 +73,25 @@ namespace Breakout.Models.Paddles
 
 		private void MoveHorizontally(float elapsed)
 		{
+			oldPosition = Position;
 			Position += Direction * Velocity * elapsed;
-			Position.X = MathHelper.Clamp(Position.X, 0, GameInfo.Screen.Width - Width);
+
+			if (this.IsHittingLeftWall())
+			{
+				Position.X = 0;
+
+				if (!this.IsHittingLeftWall(oldPosition))
+					AudioManager.PlaySound("PaddleHitWall");
+			}
+
+			if (this.IsHittingRightWall())
+			{
+				Position.X = GameInfo.Screen.Width - Width;
+
+				if (!this.IsHittingRightWall(oldPosition))
+					AudioManager.PlaySound("PaddleHitWall");
+			}
+
 			Direction = Vector2.Zero;
 		}
 
@@ -80,7 +100,7 @@ namespace Breakout.Models.Paddles
 			Width += offset;
 		}
 
-		public override void Hit()
+		public void Hit()
 		{
 			AudioManager.PlaySound("HitPaddle");
 		}

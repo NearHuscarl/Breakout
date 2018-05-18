@@ -2,6 +2,7 @@
 {
 	public enum PaddleLength
 	{
+		ExtraLong,
 		Long,
 		Medium,
 		Short,

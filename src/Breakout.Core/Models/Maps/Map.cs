@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Breakout.Models.Bases;
+using Breakout.Models.Blocks;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Breakout.Models.Maps
 {
 	public class Map
 	{
-		public List<List<string>> Matrix { get; set; }
+		public List<Block> Layer1 { get; set; }
+		public List<GameObject> Layer0 { get; set; }
 	}
 }
