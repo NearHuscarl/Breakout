@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Breakout.Models.Bases
+namespace Breakout.Core.Models.Bases
 {
 	public interface IInteractive
 	{

@@ -1,4 +1,4 @@
-﻿using Breakout.Models.Enums;
+﻿using Breakout.Core.Models.Enums;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Models.Blocks
+namespace Breakout.Core.Models.Blocks
 {
 	public static class BlockInfo
 	{

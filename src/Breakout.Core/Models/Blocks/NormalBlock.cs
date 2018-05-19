@@ -1,8 +1,8 @@
-﻿using Breakout.Models.Enums;
-using Breakout.Utilities;
+﻿using Breakout.Core.Models.Enums;
+using Breakout.Core.Utilities;
 using Microsoft.Xna.Framework;
 
-namespace Breakout.Models.Blocks
+namespace Breakout.Core.Models.Blocks
 {
 	public class NormalBlock : Block
 	{
@@ -15,7 +15,7 @@ namespace Breakout.Models.Blocks
 		public override void Hit()
 		{
 			base.Hit();
-			AudioManager.PlaySound("HitNormalBlock");
+			AudioManager.PlaySound("HitNormalBlock", percent: scene.Volume);
 		}
 	}
 }

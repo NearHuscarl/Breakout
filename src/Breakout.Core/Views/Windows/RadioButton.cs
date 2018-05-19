@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Breakout.Core.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout.Views.Windows
+namespace Breakout.Core.Views.Windows
 {
 	public class RadioButton : CheckBoxButton
 	{
@@ -13,13 +14,17 @@ namespace Breakout.Views.Windows
 
 		public void Check()
 		{
-			// AudioManager.PlaySound("ButtonChecked");
+			if (this.IsChecked != true)
+				AudioManager.PlaySound("RadioButtonToggle");
+
 			this.IsChecked = true;
 		}
 
 		public void Uncheck()
 		{
-			// AudioManager.PlaySound("ButtonChecked");
+			if (this.IsChecked == true)
+				AudioManager.PlaySound("RadioButtonToggle");
+
 			this.IsChecked = false;
 		}
 	}

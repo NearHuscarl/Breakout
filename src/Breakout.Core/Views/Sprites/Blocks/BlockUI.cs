@@ -1,8 +1,8 @@
-﻿using Breakout.Models.Blocks;
+﻿using Breakout.Core.Models.Blocks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout.Views.Sprites.Blocks
+namespace Breakout.Core.Views.Sprites.Blocks
 {
 	public class BlockUI
 	{

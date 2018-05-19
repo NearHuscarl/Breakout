@@ -1,4 +1,4 @@
-﻿namespace Breakout.Models
+﻿namespace Breakout.Core.Models
 {
 	public class SpriteInfo
 	{

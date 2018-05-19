@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout.Views.Screens
+namespace Breakout.Core.Views.Screens
 {
 	public abstract class Screen
 	{

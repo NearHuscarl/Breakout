@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Utilities
+namespace Breakout.Core.Utilities
 {
-	public enum MouseButtons
+	internal enum MouseButtons
 	{
 		LeftButton,
 		MiddleButton,
@@ -17,7 +17,7 @@ namespace Breakout.Utilities
 		ExtraButton2
 	}
 
-	public static class InputHelper
+	internal static class InputHelper
 	{
 		private static KeyboardState newKeyboardState;
 		private static KeyboardState oldKeyboardState;

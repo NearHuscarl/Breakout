@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Utilities
+namespace Breakout.Core.Utilities
 {
-	public static class FontHelper
+	internal static class FontHelper
 	{
 		/// <summary>
 		/// Adds newline characters to a string so that it fits within a certain size.

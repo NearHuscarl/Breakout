@@ -4,7 +4,7 @@
 # Move all json map files to $(TargetDir)maps\
 #
 # Visual Studio PostBuild Command:
-# powershell -ExecutionPolicy RemoteSigned -NoLogo -NonInteractive -Command ".'$(ProjectDir)Deployment\PostBuild.ps1' -SolutionDir '$(SolutionDir)' -TargetDir '$(TargetDir)'"
+# powershell -ExecutionPolicy RemoteSigned -NoLogo -NonInteractive -Command ".'$(ProjectDir)Deployment\PostBuild.ps1' -SolutionDir '$(SolutionDir)' -ProjectDir '$(ProjectDir)'"
 
 # param(
 #    [String] $SolutionDir,
@@ -12,7 +12,7 @@
 
 param(
    [String] $SolutionDir = "..\..\",
-   [String] $TargetDir = "..\bin\Windows\x86\Debug\")
+   [String] $ProjectDir = "..\")
 
 $ErrorActionPreference = "Stop"
 
@@ -22,7 +22,7 @@ $ErrorActionPreference = "Stop"
 
 $MapPath = "${SolutionDir}..\tool\maps"
 $ScriptPath = "${SolutionDir}..\tool"
-$OutputPath = "${TargetDir}maps"
+$OutputPath = "${ProjectDir}Content\Maps"
 $Prompt = "PostBuild>"
 
 Write-Host "${Prompt} Running Post-Build Event..."

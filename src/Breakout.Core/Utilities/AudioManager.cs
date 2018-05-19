@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 using System.Linq;
 
-namespace Breakout.Utilities
+namespace Breakout.Core.Utilities
 {
-	public static class AudioManager
+	internal static class AudioManager
 	{
 		private static bool isMute = false;
 
@@ -57,7 +57,7 @@ namespace Breakout.Utilities
 		/// </summary>
 		/// <param name="name">The name of the sound to play</param>
 		/// <param name="isLooped">Indicates if the sound should loop</param>
-		public static void PlaySound(string name, bool isLooped = false)
+		public static void PlaySound(string name, bool isLooped = false, float percent = 1f)
 		{
 			if (soundLibraries.ContainsKey(name))
 			{
@@ -69,7 +69,7 @@ namespace Breakout.Utilities
 					return;
 
 				soundInstance.IsLooped = isLooped;
-				soundInstance.Volume = CurrentVolume;
+				soundInstance.Volume = CurrentVolume * percent;
 				soundInstance.Play();
 			}
 		}

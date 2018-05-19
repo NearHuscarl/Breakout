@@ -1,10 +1,10 @@
-﻿using Breakout.Controllers;
-using Breakout.Models;
-using Breakout.Views.Renderers;
+﻿using Breakout.Core.Controllers;
+using Breakout.Core.Models;
+using Breakout.Core.Views.Renderers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout
+namespace Breakout.Core
 {
 	public class BreakoutGame : Game
 	{

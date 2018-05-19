@@ -1,10 +1,10 @@
-﻿using Breakout.Models.Enums;
-using Breakout.Utilities;
+﻿using Breakout.Core.Models.Enums;
+using Breakout.Core.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace Breakout.Views.Windows
+namespace Breakout.Core.Views.Windows
 {
 	public class Button : Control
 	{
@@ -25,7 +25,7 @@ namespace Breakout.Views.Windows
 
 		public Button(Texture2D inactiveImage, Texture2D hoverImage, Texture2D clickedImage, SpriteFont font, Vector2 position, string text)
 		{
-			this.font = font;
+			this.Font = font;
 			this.Position = position;
 			this.Text = text;
 
@@ -66,12 +66,12 @@ namespace Breakout.Views.Windows
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(buttonTextures[State], Position, Color.White);
-			spriteBatch.DrawString(font, Text, GetFontPosition(), ForegroundColor);
+			spriteBatch.DrawString(Font, Text, GetFontPosition(), ForegroundColor);
 		}
 
 		private Vector2 GetFontPosition()
 		{
-			Vector2 textSize = font.MeasureString(Text);
+			Vector2 textSize = Font.MeasureString(Text);
 
 			return new Vector2()
 			{

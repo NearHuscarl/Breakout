@@ -1,6 +1,6 @@
-﻿using Breakout.Models.Bases;
-using Breakout.Models.Enums;
-using Breakout.Utilities;
+﻿using Breakout.Core.Models.Bases;
+using Breakout.Core.Models.Enums;
+using Breakout.Core.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Models.Paddles
+namespace Breakout.Core.Models.Paddles
 {
 	public class Paddle : RectangleObject, IInteractive
 	{
@@ -34,17 +34,18 @@ namespace Breakout.Models.Paddles
 			}
 		}
 
-		public Paddle(PaddleLength length, int height, float velocity) : base(lengthDict[length], height)
+		public Paddle(Scene scene, PaddleLength length, int height, float velocity) : base(lengthDict[length], height)
 		{
-			Length = length;
+			this.scene = scene;
+			this.Length = length;
 
-			Position = new Vector2()
+			this.Position = new Vector2()
 			{
 				X = GameInfo.Screen.Width / 2 - Width / 2,
 				Y = GameInfo.Screen.Height - Height - 30,
 			};
 
-			Velocity = velocity;
+			this.Velocity = velocity;
 		}
 
 		public void DriftLeft(float elapsed)
@@ -81,7 +82,7 @@ namespace Breakout.Models.Paddles
 				Position.X = 0;
 
 				if (!this.IsHittingLeftWall(oldPosition))
-					AudioManager.PlaySound("PaddleHitWall");
+					AudioManager.PlaySound("PaddleHitWall", percent: scene.Volume);
 			}
 
 			if (this.IsHittingRightWall())
@@ -89,7 +90,7 @@ namespace Breakout.Models.Paddles
 				Position.X = GameInfo.Screen.Width - Width;
 
 				if (!this.IsHittingRightWall(oldPosition))
-					AudioManager.PlaySound("PaddleHitWall");
+					AudioManager.PlaySound("PaddleHitWall", percent: scene.Volume);
 			}
 
 			Direction = Vector2.Zero;
@@ -102,7 +103,7 @@ namespace Breakout.Models.Paddles
 
 		public void Hit()
 		{
-			AudioManager.PlaySound("HitPaddle");
+			AudioManager.PlaySound("HitPaddle", percent: scene.Volume);
 		}
 	}
 }

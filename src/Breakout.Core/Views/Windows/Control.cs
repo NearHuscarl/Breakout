@@ -1,12 +1,12 @@
-﻿using Breakout.Models;
+﻿using Breakout.Core.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout.Views.Windows
+namespace Breakout.Core.Views.Windows
 {
 	public abstract class Control
 	{
-		protected SpriteFont font;
+		public SpriteFont Font { get; protected set; }
 
 		public Vector2 Position;
 		public virtual int Width { get; set; }

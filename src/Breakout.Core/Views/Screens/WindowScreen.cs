@@ -1,9 +1,10 @@
-﻿using Breakout.Models;
-using Breakout.Views.Windows;
+﻿using Breakout.Core.Models;
+using Breakout.Core.Views.Loaders;
+using Breakout.Core.Views.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout.Views.Screens
+namespace Breakout.Core.Views.Screens
 {
 	/// <summary>
 	/// A screen is a Rectangle to group buttons and text. It's bigger than
@@ -12,7 +13,7 @@ namespace Breakout.Views.Screens
 	public abstract class WindowScreen : Screen
 	{
 		protected Texture2D background;
-		protected SpriteFont spriteFont;
+		protected SpriteFont defaultFont;
 
 		public Vector2 Position
 		{
@@ -51,16 +52,16 @@ namespace Breakout.Views.Screens
 
 		public WindowScreen()
 		{
-			this.spriteFont = FontLoader.Load("MenuFont");
-			this.Title = new Label(spriteFont, text: "Breakout");
+			this.defaultFont = FontLoader.Load("MenuFont");
+			this.Title = new Label(defaultFont, text: "Breakout");
 		}
 
 		protected Vector2 GetTitlePosition()
 		{
 			return new Vector2()
 			{
-				X = Position.X + Width / 2 - spriteFont.MeasureString(Title.Text).X / 2,
-				Y = Position.Y + spriteFont.MeasureString(Title.Text).Y * 0.1f,
+				X = Position.X + Width / 2 - defaultFont.MeasureString(Title.Text).X / 2,
+				Y = Position.Y + defaultFont.MeasureString(Title.Text).Y * 0.1f,
 			};
 		}
 
@@ -83,6 +84,15 @@ namespace Breakout.Views.Screens
 			float margin = (Height - numOfControls * control.Height) / (numOfControls + 1);
 
 			return Position.Y + margin * controlOrdinalNumber + control.Height * (controlOrdinalNumber - 1);
+		}
+
+		protected void SetTextPosition(Label label, float lineOffset)
+		{
+			label.Position = new Vector2()
+			{
+				X = Position.X + Width / 2 - label.Font.MeasureString(label.Text).X / 2,
+				Y = Position.Y + Margin + label.Font.MeasureString(label.Text).Y + lineOffset,
+			};
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)

@@ -1,9 +1,11 @@
-﻿using Breakout.Controllers.States;
-using Breakout.Models;
-using Breakout.Utilities;
-using Breakout.Views;
+﻿using Breakout.Core.Controllers.Levels;
+using Breakout.Core.Controllers.States;
+using Breakout.Core.Models;
+using Breakout.Core.Utilities;
+using Breakout.Core.Views;
+using Breakout.Core.Views.Loaders;
 
-namespace Breakout.Controllers
+namespace Breakout.Core.Controllers
 {
 	public static class StateMachine
 	{
@@ -16,9 +18,10 @@ namespace Breakout.Controllers
 		private static MenuState menuState;
 		private static SettingState settingState;
 		private static AboutState aboutState;
-		private static LoadingState loadingState;
 		private static GameState gameState;
 		private static PauseState pauseState;
+		private static RestartState restartState;
+		private static WinningState winningState;
 		private static ExitGameState exitGameState;
 		private static ExitAppState exitAppState;
 
@@ -30,9 +33,10 @@ namespace Breakout.Controllers
 			menuState = new MenuState();
 			settingState = new SettingState();
 			aboutState = new AboutState();
-			loadingState = new LoadingState();
 			gameState = new GameState();
 			pauseState = new PauseState();
+			restartState = new RestartState();
+			winningState = new WinningState();
 			exitGameState = new ExitGameState();
 			exitAppState = new ExitAppState();
 
@@ -69,6 +73,15 @@ namespace Breakout.Controllers
 
 		private static void ChangeState(State nextState)
 		{
+			if (WindowManager.Screens.Count > 1)
+			{
+				Scene.IsBackground = true;
+			}
+			else
+			{
+				Scene.IsBackground = false;
+			}
+
 			// InitialState -> MenuState (init game)
 			// MenuState -> LoadingState (load game)
 			// MenuState -> AboutState (about window)
@@ -85,7 +98,7 @@ namespace Breakout.Controllers
 		public static void ChangeToPreviousState()
 		{
 			WindowManager.CloseWindow();
-			CurrentState = PreviousState;
+			ChangeState(PreviousState);
 			PreviousState = null;
 		}
 
@@ -93,23 +106,20 @@ namespace Breakout.Controllers
 
 		public static void OpenMenu()
 		{
-			Scene.InitializeMenu();
+			Scene.InitializeMenu(LevelPicker.Logo);
 
-			WindowManager.OpenMenu();
 			menuState.AddScreen();
 			ChangeState(menuState);
 		}
 
 		public static void OpenAbout()
 		{
-			WindowManager.OpenAbout();
 			aboutState.AddScreen();
 			ChangeState(aboutState);
 		}
 
 		public static void OpenSetting()
 		{
-			WindowManager.OpenSetting();
 			settingState.AddScreen();
 			ChangeState(settingState);
 		}
@@ -117,11 +127,17 @@ namespace Breakout.Controllers
 		public static void LoadGame()
 		{
 			WindowManager.CloseWindow(); // Close menu window
-			ChangeState(loadingState);
+
+			Scene.InitializeGame(LevelPicker.CurrentLevel);
+			ChangeState(pauseState);
 		}
 
-		public static void StartGame()
+		public static void NextLevel()
 		{
+			WindowManager.CloseWindow();
+
+			LevelPicker.NextLevel();
+			Scene.InitializeGame(LevelPicker.CurrentLevel);
 			ChangeState(pauseState);
 		}
 
@@ -133,7 +149,7 @@ namespace Breakout.Controllers
 		public static void ResetGame()
 		{
 			AudioManager.PlaySound("LoseLive");
-			Scene.Player.Live.Take(1);
+			Scene.Player.Live--;
 			Scene.Reset();
 
 			ChangeState(pauseState);
@@ -141,7 +157,15 @@ namespace Breakout.Controllers
 
 		public static void GameOver()
 		{
-			OpenMenu(); // TODO: Prompt asking to continue or not
+			restartState.AddScreen();
+			ChangeState(restartState);
+		}
+
+		public static void WinGame()
+		{
+			//AudioManager.PlaySound("Winning");
+			winningState.AddScreen();
+			ChangeState(winningState);
 		}
 
 		public static void Exit()
@@ -164,7 +188,6 @@ namespace Breakout.Controllers
 		{
 			AudioManager.PlaySound("Interrupt");
 
-			WindowManager.OpenExitGamePrompt();
 			exitGameState.AddScreen();
 			ChangeState(exitGameState);
 		}
@@ -173,7 +196,6 @@ namespace Breakout.Controllers
 		{
 			AudioManager.PlaySound("Interrupt");
 
-			WindowManager.OpenExitAppPrompt();
 			exitAppState.AddScreen();
 			ChangeState(exitAppState);
 		}

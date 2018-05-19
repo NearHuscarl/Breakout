@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout
+namespace Breakout.Core
 {
 	public static class EntryPoint
 	{

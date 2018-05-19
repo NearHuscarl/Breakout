@@ -1,9 +1,6 @@
-﻿using Breakout.Models;
-using Breakout.Views.Windows;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Breakout.Core.Views.Loaders;
 
-namespace Breakout.Views.Screens
+namespace Breakout.Core.Views.Screens
 {
 	/// <summary>
 	/// A screen is a Rectangle to group buttons and text. It's bigger than

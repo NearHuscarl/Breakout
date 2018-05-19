@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Models.Enums
+namespace Breakout.Core.Models.Enums
 {
 	public enum BlockType
 	{

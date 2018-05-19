@@ -1,14 +1,15 @@
-﻿using Breakout.Models;
-using Breakout.Models.Enums;
-using Breakout.Views.Enums;
-using Breakout.Views.Sprites;
-using Breakout.Views.Sprites.Blocks;
-using Breakout.Views.UIComponents;
+﻿using Breakout.Core.Models;
+using Breakout.Core.Models.Enums;
+using Breakout.Core.Views.Enums;
+using Breakout.Core.Views.Loaders;
+using Breakout.Core.Views.Sprites;
+using Breakout.Core.Views.Sprites.Blocks;
+using Breakout.Core.Views.UIComponents;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace Breakout.Views
+namespace Breakout.Core.Views
 {
 	public static class SpriteFactory
 	{

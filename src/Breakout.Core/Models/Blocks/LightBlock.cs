@@ -1,9 +1,9 @@
-﻿using Breakout.Models.Enums;
-using Breakout.Models.PowerUps;
-using Breakout.Utilities;
+﻿using Breakout.Core.Models.Enums;
+using Breakout.Core.Models.PowerUps;
+using Breakout.Core.Utilities;
 using Microsoft.Xna.Framework;
 
-namespace Breakout.Models.Blocks
+namespace Breakout.Core.Models.Blocks
 {
 	public class LightBlock : Block
 	{
@@ -16,7 +16,7 @@ namespace Breakout.Models.Blocks
 		public override void Hit()
 		{
 			base.Hit();
-			AudioManager.PlaySound("HitLightBlock");
+			AudioManager.PlaySound("HitLightBlock", percent: scene.Volume);
 		}
 
 		public override void OnDestroy()

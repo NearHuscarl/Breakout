@@ -1,24 +1,45 @@
-﻿using Breakout.Models.Balls;
-using Breakout.Models.Blocks;
-using Breakout.Models.Explosions;
-using Breakout.Models.Paddles;
-using Breakout.Models.Players;
-using Breakout.Models.PowerUps;
-using Breakout.Models.Scores;
+﻿using Breakout.Core.Models.Balls;
+using Breakout.Core.Models.Blocks;
+using Breakout.Core.Models.Explosions;
+using Breakout.Core.Models.Paddles;
+using Breakout.Core.Models.Players;
+using Breakout.Core.Models.PowerUps;
+using Breakout.Core.Models.Scores;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using Breakout.Models.Maps;
+using Breakout.Core.Models.Maps;
+using Breakout.Pipeline.TiledMap;
+using System;
 
-namespace Breakout.Models
+namespace Breakout.Core.Models
 {
 	public class Scene : GameComponent
 	{
 		private float deltaTime;
 
+		private bool isBackground;
+
+		public bool IsBackground
+		{
+			get { return isBackground; }
+
+			set
+			{
+				if (value)
+					Volume = 0.05f;
+				else
+					Volume = 1f;
+
+				isBackground = value;
+			}
+		}
+
+		public float Volume { get; private set; } = 1f;
+
 		public Paddle Paddle { get; set; }
 
-		public Map Map { get; set; }
+		public BlockMap Map { get; set; }
 		public List<Ball> Balls { get; set; }
 
 		public List<PowerUpPackage> Packages { get; set; }
@@ -27,7 +48,8 @@ namespace Breakout.Models
 		public List<Explosion> ExplosiveZones;
 		public Player Player { get; set; }
 
-		public Score BlockLeft { get; set; }
+		public Timer Timer { get; set; }
+		public int BlockLeft { get; set; }
 
 		public bool IsInGame { get; private set; } = false;
 
@@ -36,12 +58,12 @@ namespace Breakout.Models
 
 		}
 
-		public void InitializeMenu()
+		public void InitializeMenu(TiledMap logo)
 		{
 			EntryPoint.Game.Scene.CleanUp();
 
 			Balls = ModelFactory.CreateRandomBalls();
-			Map = ModelFactory.CreateLogo();
+			Map = MapManager.LoadGameObjects(logo);
 
 			PowerUps = new List<PowerUp>();
 			Packages = new List<PowerUpPackage>();
@@ -50,15 +72,18 @@ namespace Breakout.Models
 			IsInGame = false;
 		}
 
-		public void InitializeGame()
+		public void InitializeGame(TiledMap map)
 		{
+			EntryPoint.Game.Scene.CleanUp();
+
+			Timer = new Timer();
 			Player = ModelFactory.CreatePlayer();
 
 			Paddle = ModelFactory.CreatePaddle();
 			Balls = ModelFactory.CreateBall();
 
-			Map = ModelFactory.CreateBlocks();
-			BlockLeft = new Score(GameInfo.BlockLeftText, Map.Layer1.Count);
+			Map = MapManager.LoadGameObjects(map);
+			BlockLeft = Map.Layer1.Count;
 
 			PowerUps = new List<PowerUp>();
 			Packages = new List<PowerUpPackage>();
@@ -69,7 +94,7 @@ namespace Breakout.Models
 
 		public void Reset()
 		{
-			Player.CurrentCombo.Set(0);
+			Player.CurrentCombo = 0;
 
 			Paddle = ModelFactory.CreatePaddle();
 			Balls = ModelFactory.CreateBall();
@@ -81,6 +106,9 @@ namespace Breakout.Models
 		public void Step(float elapsed)
 		{
 			deltaTime = elapsed;
+
+			if (IsInGame)
+				Timer.Count.Update(deltaTime);
 
 			foreach (var ball in Balls.ToList())
 				HandleBall(ball);
@@ -139,11 +167,11 @@ namespace Breakout.Models
 		private void UpdateScores()
 		{
 			Player.Score.AddScore(160);
-			Player.CurrentCombo.Add(1);
+			Player.CurrentCombo++;
 
 			if (Player.CurrentCombo > Player.HighestCombo)
 			{
-				Player.HighestCombo.Add(1);
+				Player.HighestCombo++;
 			}
 		}
 
@@ -155,7 +183,7 @@ namespace Breakout.Models
 				Map.Layer1.Remove(block);
 
 				if (IsInGame)
-					BlockLeft.Take(1);
+					BlockLeft--;
 			}
 		}
 

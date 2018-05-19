@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Models.IO
+namespace Breakout.Core.Models.IO
 {
 	public static class Input
 	{

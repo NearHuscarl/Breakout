@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Models.Explosions
+namespace Breakout.Core.Models.Explosions
 {
 	public class Explosion
 	{

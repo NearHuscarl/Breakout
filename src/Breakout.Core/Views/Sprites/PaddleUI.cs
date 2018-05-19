@@ -1,10 +1,10 @@
-﻿using Breakout.Models.Enums;
-using Breakout.Models.Paddles;
+﻿using Breakout.Core.Models.Enums;
+using Breakout.Core.Models.Paddles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace Breakout.Views.Sprites
+namespace Breakout.Core.Views.Sprites
 {
 	public class PaddleUI
 	{

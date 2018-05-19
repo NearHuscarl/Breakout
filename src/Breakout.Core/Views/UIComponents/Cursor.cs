@@ -1,8 +1,8 @@
-﻿using Breakout.Utilities;
+﻿using Breakout.Core.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout.Views.UIComponents
+namespace Breakout.Core.Views.UIComponents
 {
 	public class Cursor
 	{

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Breakout.Models.Shapes
+namespace Breakout.Core.Models.Shapes
 {
 	public interface IRectangle
 	{

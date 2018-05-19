@@ -1,6 +1,6 @@
 ﻿using Breakout.Extensions;
-using Breakout.Models.Enums;
-using Breakout.Models.Shapes;
+using Breakout.Core.Models.Enums;
+using Breakout.Core.Models.Shapes;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Models
+namespace Breakout.Core.Models
 {
 	public static class GameInfo
 	{
@@ -37,12 +37,6 @@ namespace Breakout.Models
 		}
 
 		public static SpriteInfo SpriteInfo { get; private set; }
-
-		public static string ScoreText { get; private set; }
-		public static string LiveText { get; private set; }
-		public static string CurrentComboText { get; private set; }
-		public static string HighestComboText { get; private set; }
-		public static string BlockLeftText { get; private set; }
 
 		public static float PaddleVelocity
 		{
@@ -96,12 +90,6 @@ namespace Breakout.Models
 
 			SpriteInfo = new SpriteInfo();
 
-			ScoreText = "Score: ";
-			LiveText = "Lives: ";
-			CurrentComboText = "Combo: ";
-			HighestComboText = "Max Combo: ";
-			BlockLeftText = "Block Left: ";
-
 			Theme = new Dictionary<string, Color>()
 			{
 				{ "Red",          "#c0392b".ToColor() },
@@ -133,6 +121,9 @@ namespace Breakout.Models
 				"ButtonHovered",
 				"ButtonClicked",
 				"ButtonChecked",
+
+				"CheckBoxToggle",
+				"RadioButtonToggle",
 
 				"HitFlashingBlock",
 				"HitLightBlock",

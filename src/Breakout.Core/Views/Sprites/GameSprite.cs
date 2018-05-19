@@ -1,8 +1,8 @@
-﻿using Breakout.Models.Bases;
+﻿using Breakout.Core.Models.Bases;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout.Views.Sprites
+namespace Breakout.Core.Views.Sprites
 {
 	public class GameSprite
 	{

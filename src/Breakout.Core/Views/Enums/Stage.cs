@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Views.Enums
+namespace Breakout.Core.Views.Enums
 {
 	/// <summary>
 	/// Stage to get background from

@@ -1,5 +1,5 @@
-﻿using Breakout.Models.Bases;
-using Breakout.Models.Blocks;
+﻿using Breakout.Core.Models.Bases;
+using Breakout.Core.Models.Blocks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Views.Sprites.Blocks
+namespace Breakout.Core.Views.Sprites.Blocks
 {
 	public class FlashingBlockUI
 	{

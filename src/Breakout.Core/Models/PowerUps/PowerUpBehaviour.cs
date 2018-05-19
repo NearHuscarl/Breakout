@@ -1,13 +1,13 @@
-﻿using Breakout.Models.Balls;
-using Breakout.Models.Enums;
-using Breakout.Models.Paddles;
+﻿using Breakout.Core.Models.Balls;
+using Breakout.Core.Models.Enums;
+using Breakout.Core.Models.Paddles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Models.PowerUps
+namespace Breakout.Core.Models.PowerUps
 {
 	public static class PowerUpBehaviour
 	{

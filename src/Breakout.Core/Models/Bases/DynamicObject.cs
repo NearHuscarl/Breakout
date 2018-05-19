@@ -1,10 +1,12 @@
-﻿using Breakout.Utilities;
+﻿using Breakout.Core.Utilities;
 using Microsoft.Xna.Framework;
 
-namespace Breakout.Models.Bases
+namespace Breakout.Core.Models.Bases
 {
 	public abstract class DynamicObject : GameObject
 	{
+		protected Scene scene;
+
 		public Vector2 Direction;
 
 		public virtual float Velocity { get; set; }

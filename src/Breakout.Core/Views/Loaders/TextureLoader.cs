@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace Breakout.Views
+namespace Breakout.Core.Views.Loaders
 {
 	public static class TextureLoader
 	{
@@ -17,7 +17,8 @@ namespace Breakout.Views
 			{ "MessageBox",           EntryPoint.Game.Content.Load<Texture2D>("Windows/MessageBox") },
 			{ "Screen",               EntryPoint.Game.Content.Load<Texture2D>("Windows/Screen") },
 			{ "ScoreBar",				  EntryPoint.Game.Content.Load<Texture2D>("Backgrounds/Footer") },
-			// { "", EntryPoint.Game.Content.Load<Texture2D>("") },
+			{ "Unstar",               EntryPoint.Game.Content.Load<Texture2D>("Stars/Unstar") },
+			{ "Star",					  EntryPoint.Game.Content.Load<Texture2D>("Stars/Star") },
 			// { "", EntryPoint.Game.Content.Load<Texture2D>("") },
 			// { "", EntryPoint.Game.Content.Load<Texture2D>("") },
 			// { "", EntryPoint.Game.Content.Load<Texture2D>("") },

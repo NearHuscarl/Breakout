@@ -1,4 +1,4 @@
-﻿namespace Breakout.Models.Enums
+﻿namespace Breakout.Core.Models.Enums
 {
 	public enum PaddleLength
 	{

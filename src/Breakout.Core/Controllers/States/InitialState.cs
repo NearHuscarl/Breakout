@@ -1,8 +1,8 @@
-﻿using Breakout.Models;
-using Breakout.Models.IO;
-using Breakout.Utilities;
-using Breakout.Views;
-using Breakout.Views.Renderers;
+﻿using Breakout.Core.Models;
+using Breakout.Core.Models.IO;
+using Breakout.Core.Utilities;
+using Breakout.Core.Views;
+using Breakout.Core.Views.Renderers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Controllers.States
+namespace Breakout.Core.Controllers.States
 {
 	public class InitialState : State
 	{

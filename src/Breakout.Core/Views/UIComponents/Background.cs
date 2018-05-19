@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Views.UIComponents
+namespace Breakout.Core.Views.UIComponents
 {
 	public class Background
 	{

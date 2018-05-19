@@ -10,7 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference:..\..\packages\MonoGame.Extended.1.0.617\lib\portable-net45+win8+wpa81\MonoGame.Extended.dll
+/reference:..\..\Breakout.Pipeline\bin\Debug\Breakout.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -212,13 +212,6 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/ScoreFont.spritefont
-
-#begin Fonts/ButtonFont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/ButtonFont.spritefont
 
 #begin Windows/MessageBox.png
 /importer:TextureImporter
@@ -471,4 +464,79 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Paddles/ExtraLongPaddle.png
+
+#begin Maps/Logo.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Logo.json
+
+#begin Maps/Mario.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Mario.json
+
+#begin Maps/Tank.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Tank.json
+
+#begin Maps/Quick.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Quick.json
+
+#begin Maps/What.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/What.json
+
+#begin Sounds/CheckBoxToggle.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/CheckBoxToggle.mp3
+
+#begin Sounds/RadioButtonToggle.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/RadioButtonToggle.mp3
+
+#begin Fonts/MenuFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/MenuFont.spritefont
+
+#begin Fonts/HeadlineFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/HeadlineFont.spritefont
+
+#begin Stars/Star.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Stars/Star.png
+
+#begin Stars/Unstar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Stars/Unstar.png
 

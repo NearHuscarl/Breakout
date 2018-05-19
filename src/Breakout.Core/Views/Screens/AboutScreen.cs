@@ -1,11 +1,11 @@
-﻿using Breakout.Models;
-using Breakout.Views.Windows;
+﻿using Breakout.Core.Models;
+using Breakout.Core.Views.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Breakout.Views.Screens
+namespace Breakout.Core.Views.Screens
 {
 	public class AboutScreen : BigScreen
 	{
@@ -17,28 +17,13 @@ namespace Breakout.Views.Screens
 		{
 			Title.Text = "About";
 
-			AboutInfo = new Label(spriteFont, GetAboutInfo());
+			AboutInfo = new Label(defaultFont, GetAboutInfo());
 
 			AboutInfo.Position = new Vector2()
 			{
-				X = Position.X + Width / 2 - spriteFont.MeasureString(AboutInfo.Text).X / 2,
+				X = Position.X + Width / 2 - defaultFont.MeasureString(AboutInfo.Text).X / 2,
 				Y = Position.Y + Margin + GetTitlePosition().Y,
 			};
-
-
-			//float margin = (this.Width - 2 * SpriteInfo.ButtonWidth) / 3;
-
-			//Vector2 cancelPosition = new Vector2()
-			//{
-			//	X = Position.X + margin,
-			//	Y = Position.Y + Height * 0.75f,
-			//};
-
-			//Vector2 openCodePosition = new Vector2()
-			//{
-			//	X = Position.X + margin + SpriteInfo.ButtonWidth + margin,
-			//	Y = Position.Y + Height * 0.75f,
-			//};
 
 			OpenCodeButton = WindowFactory.CreateButton(new Vector2(), "Source Code");
 			CancelButton = WindowFactory.CreateButton(new Vector2(), "Cancel");

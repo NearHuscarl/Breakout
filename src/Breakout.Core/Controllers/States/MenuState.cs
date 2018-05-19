@@ -1,9 +1,9 @@
-﻿using Breakout.Views;
-using Breakout.Views.Renderers;
-using Breakout.Views.Screens;
-using Breakout.Views.Windows;
+﻿using Breakout.Core.Views;
+using Breakout.Core.Views.Renderers;
+using Breakout.Core.Views.Screens;
+using Breakout.Core.Views.Windows;
 
-namespace Breakout.Controllers.States
+namespace Breakout.Core.Controllers.States
 {
 	public class MenuState : State
 	{
@@ -11,14 +11,7 @@ namespace Breakout.Controllers.States
 
 		public override void AddScreen()
 		{
-			foreach (var screen in WindowManager.Screens)
-			{
-				if (screen is MenuScreen)
-				{
-					menuScreen = (MenuScreen)screen;
-					return;
-				}
-			}
+			WindowManager.OpenMenu(out menuScreen);
 		}
 
 		public override void Update()

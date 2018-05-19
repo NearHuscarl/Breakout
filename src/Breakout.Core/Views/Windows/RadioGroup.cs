@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace Breakout.Views.Windows
+namespace Breakout.Core.Views.Windows
 {
 	public class RadioGroup
 	{
@@ -9,12 +9,7 @@ namespace Breakout.Views.Windows
 		
 		public RadioGroup(RadioButton[] radios)
 		{
-			RadioButtons = new List<RadioButton>();
-
-			foreach (var radio in radios)
-			{
-				RadioButtons.Add(radio);
-			}
+			RadioButtons = new List<RadioButton>(radios);
 		}
 
 		public void Check(RadioButton checkedRadioButton)

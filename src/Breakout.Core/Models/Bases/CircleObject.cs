@@ -1,7 +1,7 @@
-﻿using Breakout.Models.Shapes;
+﻿using Breakout.Core.Models.Shapes;
 using Microsoft.Xna.Framework;
 
-namespace Breakout.Models.Bases
+namespace Breakout.Core.Models.Bases
 {
 	public class CircleObject : DynamicObject, ICircle
 	{

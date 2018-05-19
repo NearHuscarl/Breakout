@@ -1,17 +1,17 @@
-﻿using Breakout.Models.Scores;
+﻿using Breakout.Core.Models.Scores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Models.Players
+namespace Breakout.Core.Models.Players
 {
 	public interface IPlayer
 	{
-		Score Live { get; set; }
+		int Live { get; set; }
 		DynamicScore Score { get; set; }
-		Score CurrentCombo { get; set; }
-		Score HighestCombo { get; set; }
+		int CurrentCombo { get; set; }
+		int HighestCombo { get; set; }
 	}
 }

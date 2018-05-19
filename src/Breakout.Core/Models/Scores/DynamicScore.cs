@@ -1,17 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace Breakout.Models.Scores
+namespace Breakout.Core.Models.Scores
 {
 	/// <summary>
 	/// Score that increase gradually through time :D
 	/// </summary>
-	public class DynamicScore : Score
+	public class DynamicScore
 	{
 		private int currentScore { get; set; } = 0;
 		private int scoreToUpdate { get; set; } = 0;
@@ -26,7 +22,7 @@ namespace Breakout.Models.Scores
 			Awake();
 		}
 
-		public DynamicScore(Vector2 position) : base("Score: ", 0)
+		public DynamicScore(Vector2 position)
 		{
 			Awake();
 		}
@@ -60,7 +56,7 @@ namespace Breakout.Models.Scores
 			}
 		}
 
-		public override int Count
+		public int Score
 		{
 			get
 			{

@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Breakout.Core.Utilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout.Views.Windows
+namespace Breakout.Core.Views.Windows
 {
 	public class CheckBox : CheckBoxButton
 	{
@@ -13,7 +14,7 @@ namespace Breakout.Views.Windows
 
 		public void Toggle()
 		{
-			// AudioManager.PlaySound("ButtonChecked");
+			AudioManager.PlaySound("CheckBoxToggle");
 			IsChecked = !IsChecked;
 		}
 	}

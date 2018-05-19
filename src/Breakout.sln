@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breakout.Core", "Breakout.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breakout.Prototype", "Breakout.Prototype\Breakout.Prototype.csproj", "{5EE95174-4BC8-45C5-8358-D851989D8633}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breakout.Pipeline", "Breakout.Pipeline\Breakout.Pipeline.csproj", "{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,18 @@ Global
 		{5EE95174-4BC8-45C5-8358-D851989D8633}.Update|Any CPU.ActiveCfg = Update|x86
 		{5EE95174-4BC8-45C5-8358-D851989D8633}.Update|x86.ActiveCfg = Update|x86
 		{5EE95174-4BC8-45C5-8358-D851989D8633}.Update|x86.Build.0 = Update|x86
+		{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}.Debug|x86.Build.0 = Debug|Any CPU
+		{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}.Release|x86.ActiveCfg = Release|Any CPU
+		{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}.Release|x86.Build.0 = Release|Any CPU
+		{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}.Update|Any CPU.ActiveCfg = Release|Any CPU
+		{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}.Update|Any CPU.Build.0 = Release|Any CPU
+		{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}.Update|x86.ActiveCfg = Release|Any CPU
+		{FBDB2AF4-02F2-497A-9F8E-639AA7DC66E7}.Update|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

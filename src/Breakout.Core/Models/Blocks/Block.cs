@@ -1,11 +1,11 @@
 ﻿using Breakout.Extensions;
-using Breakout.Models.Bases;
-using Breakout.Models.Enums;
-using Breakout.Models.PowerUps;
-using Breakout.Utilities;
+using Breakout.Core.Models.Bases;
+using Breakout.Core.Models.Enums;
+using Breakout.Core.Models.PowerUps;
+using Breakout.Core.Utilities;
 using Microsoft.Xna.Framework;
 
-namespace Breakout.Models.Blocks
+namespace Breakout.Core.Models.Blocks
 {
 	public abstract class Block : RectangleObject, IInteractive
 	{
@@ -35,12 +35,11 @@ namespace Breakout.Models.Blocks
 
 		protected readonly int powerUpSpawnChance;
 
-		protected Scene scene;
-
 		public Block(Scene scene, int width, int height, Vector2 position, BlockType blockType)
 			: base(width, height, position)
 		{
 			this.scene = scene;
+
 			this.Color = BlockInfo.Attributes[blockType].Color;
 			this.powerUpSpawnChance = BlockInfo.Attributes[blockType].PowerUpChance;
 			this.MaxHealth = BlockInfo.Attributes[blockType].Health;

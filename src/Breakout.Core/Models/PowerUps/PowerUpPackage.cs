@@ -1,10 +1,10 @@
-﻿using Breakout.Models.Balls;
-using Breakout.Models.Bases;
-using Breakout.Models.Enums;
+﻿using Breakout.Core.Models.Balls;
+using Breakout.Core.Models.Bases;
+using Breakout.Core.Models.Enums;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace Breakout.Models.PowerUps
+namespace Breakout.Core.Models.PowerUps
 {
 	/// <summary>
 	/// Package contain power-up

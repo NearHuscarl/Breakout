@@ -1,19 +1,19 @@
-﻿using Breakout.Models.Balls;
-using Breakout.Models.Bases;
-using Breakout.Models.Blocks;
-using Breakout.Models.Enums;
-using Breakout.Models.Explosions;
-using Breakout.Models.Maps;
-using Breakout.Models.Paddles;
-using Breakout.Models.Players;
-using Breakout.Models.PowerUps;
-using Breakout.Models.Scores;
-using Breakout.Utilities;
+﻿using Breakout.Core.Models.Balls;
+using Breakout.Core.Models.Bases;
+using Breakout.Core.Models.Blocks;
+using Breakout.Core.Models.Enums;
+using Breakout.Core.Models.Explosions;
+using Breakout.Core.Models.Maps;
+using Breakout.Core.Models.Paddles;
+using Breakout.Core.Models.Players;
+using Breakout.Core.Models.PowerUps;
+using Breakout.Core.Models.Scores;
+using Breakout.Core.Utilities;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Breakout.Models
+namespace Breakout.Core.Models
 {
 	public static class ModelFactory
 	{
@@ -32,6 +32,7 @@ namespace Breakout.Models
 		public static Paddle CreatePaddle()
 		{
 			return new Paddle(
+				scene: EntryPoint.Game.Scene,
 				length: GameInfo.PaddleLength,
 				height: SpriteInfo.PaddleHeight,
 				velocity: GameInfo.PaddleVelocity);
@@ -46,6 +47,7 @@ namespace Breakout.Models
 			};
 
 			Ball ball = new Ball(
+				scene: EntryPoint.Game.Scene,
 				radius: SpriteInfo.BallRadius,
 				strength: GameInfo.BallStrength,
 				velocity: GameInfo.BallVelocity,
@@ -77,6 +79,7 @@ namespace Breakout.Models
 				};
 
 				Ball ball = new Ball(
+						scene: EntryPoint.Game.Scene,
 						radius: SpriteInfo.BallRadius,
 						strength: GameInfo.BallStrength,
 						velocity: GameInfo.BallVelocity,
@@ -94,34 +97,10 @@ namespace Breakout.Models
 			Player player = new Player()
 			{
 				Score = new DynamicScore(),
-				Live = new Score(GameInfo.LiveText, 3),
-				CurrentCombo = new Score(GameInfo.CurrentComboText, 0),
-				HighestCombo = new Score(GameInfo.HighestComboText, 0),
+				Live = 3,
+				CurrentCombo = 0,
+				HighestCombo = 0,
 			};
-
-			//player.Score.Position = new Vector2()
-			//{
-			//	X = (footer.Width / 2 - GameInfo.ScoreFont.GetLength(player.Score.FullText) / 2),
-			//	Y = footer.Y,
-			//};
-
-			//player.Live.Position = new Vector2()
-			//{
-			//	X = 5,
-			//	Y = footer.Y,
-			//};
-
-			//player.CurrentCombo.Position = new Vector2()
-			//{
-			//	X = GameInfo.ScoreFont.GetLength(player.Live.FullText),
-			//	Y = footer.Y,
-			//};
-
-			//player.HighestCombo.Position = new Vector2()
-			//{
-			//	X = GameInfo.ScoreFont.GetLength(player.Live.FullText) + GameInfo.ScoreFont.GetLength(player.CurrentCombo.FullText),
-			//	Y = footer.Y,
-			//};
 
 			return player;
 		}
@@ -129,11 +108,6 @@ namespace Breakout.Models
 		public static PowerUpPackage CreatePowerUpPackage(PowerUp powerUp, Vector2 position)
 		{
 			return new PowerUpPackage(powerUp, width: SpriteInfo.PackageWidth, height: SpriteInfo.PackageHeight, position: position);
-		}
-
-		public static Map CreateLogo()
-		{
-			return MapManager.LoadLogo();
 		}
 
 		public static Block CreateBlock(BlockType blockType, Vector2 position)
@@ -156,11 +130,6 @@ namespace Breakout.Models
 				return new GameObject(SpriteInfo.BlockWidth, SpriteInfo.BlockHeight, position);
 
 			return null;
-		}
-
-		public static Map CreateBlocks()
-		{
-			return MapManager.LoadMap("mario");
 		}
 
 		/// <summary>

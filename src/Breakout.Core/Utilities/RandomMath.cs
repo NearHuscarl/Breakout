@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Utilities
+namespace Breakout.Core.Utilities
 {
-	public static class RandomMath
+	internal static class RandomMath
 	{
 		private static Random random = new Random();
 		public static Random Random

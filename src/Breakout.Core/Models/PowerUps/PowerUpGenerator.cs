@@ -1,12 +1,12 @@
-﻿using Breakout.Models.Enums;
-using Breakout.Utilities;
+﻿using Breakout.Core.Models.Enums;
+using Breakout.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Models.PowerUps
+namespace Breakout.Core.Models.PowerUps
 {
 	public static class PowerUpGenerator
 	{

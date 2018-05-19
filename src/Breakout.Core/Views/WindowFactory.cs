@@ -1,8 +1,10 @@
-﻿using Breakout.Views.Windows;
+﻿using Breakout.Core.Views.Loaders;
+using Breakout.Core.Views.UIComponents;
+using Breakout.Core.Views.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout.Views
+namespace Breakout.Core.Views
 {
 	public static class WindowFactory
 	{
@@ -41,7 +43,15 @@ namespace Breakout.Views
 		{
 			SpriteFont labelFont = FontLoader.Load("MenuFont");
 
-			return new Label(labelFont, position, text);
+			return new Label(labelFont, text, position);
+		}
+
+		public static Star CreateStar(Vector2 position)
+		{
+			Texture2D unstarTexture = TextureLoader.Load("Unstar");
+			Texture2D starTexture = TextureLoader.Load("Star");
+
+			return new Star(unstarTexture, starTexture, position);
 		}
 	}
 }

@@ -1,10 +1,10 @@
-﻿using Breakout.Models;
-using Breakout.Views.Windows;
+﻿using Breakout.Core.Models;
+using Breakout.Core.Views.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace Breakout.Views.Screens
+namespace Breakout.Core.Views.Screens
 {
 	public class MenuScreen : Screen
 	{

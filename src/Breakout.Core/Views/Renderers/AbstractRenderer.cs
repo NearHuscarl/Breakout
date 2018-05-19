@@ -1,11 +1,11 @@
-﻿using Breakout.Models;
+﻿using Breakout.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Views.Renderers
+namespace Breakout.Core.Views.Renderers
 {
 	public abstract class AbstractRenderer
 	{

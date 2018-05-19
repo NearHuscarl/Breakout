@@ -1,10 +1,10 @@
-﻿using Breakout.Utilities;
-using Breakout.Views;
-using Breakout.Views.Renderers;
-using Breakout.Views.Screens;
-using Breakout.Views.Windows;
+﻿using Breakout.Core.Utilities;
+using Breakout.Core.Views;
+using Breakout.Core.Views.Renderers;
+using Breakout.Core.Views.Screens;
+using Breakout.Core.Views.Windows;
 
-namespace Breakout.Controllers.States
+namespace Breakout.Core.Controllers.States
 {
 	public abstract class State
 	{

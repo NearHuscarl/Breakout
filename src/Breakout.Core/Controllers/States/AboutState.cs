@@ -1,12 +1,12 @@
-﻿using Breakout.Models;
-using Breakout.Models.IO;
-using Breakout.Utilities;
-using Breakout.Views;
-using Breakout.Views.Renderers;
-using Breakout.Views.Screens;
-using Breakout.Views.Windows;
+﻿using Breakout.Core.Models;
+using Breakout.Core.Models.IO;
+using Breakout.Core.Utilities;
+using Breakout.Core.Views;
+using Breakout.Core.Views.Renderers;
+using Breakout.Core.Views.Screens;
+using Breakout.Core.Views.Windows;
 
-namespace Breakout.Controllers.States
+namespace Breakout.Core.Controllers.States
 {
 	public class AboutState : State
 	{
@@ -14,14 +14,7 @@ namespace Breakout.Controllers.States
 
 		public override void AddScreen()
 		{
-			foreach (var screen in WindowManager.Screens)
-			{
-				if (screen is AboutScreen)
-				{
-					aboutScreen = (AboutScreen)screen;
-					return;
-				}
-			}
+			WindowManager.OpenAbout(out aboutScreen);
 		}
 
 		public override void Update()

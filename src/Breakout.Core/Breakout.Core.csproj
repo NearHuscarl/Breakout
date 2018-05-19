@@ -9,7 +9,7 @@
     <ProjectGuid>{9791095A-7778-4D35-B788-D3DCDE73E3F8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Breakout</RootNamespace>
+    <RootNamespace>Breakout.Core</RootNamespace>
     <AssemblyName>Breakout</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
@@ -46,16 +46,17 @@
   <ItemGroup>
     <Compile Include="Controllers\BreakoutGame.cs" />
     <Compile Include="Controllers\EntryPoint.cs" />
-    <Compile Include="Controllers\Stages\Level.cs" />
+    <Compile Include="Controllers\Levels\Level.cs" />
+    <Compile Include="Controllers\Levels\LevelPicker.cs" />
     <Compile Include="Controllers\StateMachine.cs" />
     <Compile Include="Controllers\States\ExitAppState.cs" />
     <Compile Include="Controllers\States\ExitGameState.cs" />
     <Compile Include="Controllers\States\GameState.cs" />
     <Compile Include="Controllers\States\InitialState.cs" />
-    <Compile Include="Controllers\States\LoadingState.cs" />
     <Compile Include="Controllers\States\MenuState.cs" />
     <Compile Include="Controllers\States\PauseState.cs" />
     <Compile Include="Controllers\States\AboutState.cs" />
+    <Compile Include="Controllers\States\RestartState.cs" />
     <Compile Include="Controllers\States\SettingState.cs" />
     <Compile Include="Controllers\States\State.cs" />
     <Compile Include="Controllers\States\WinningState.cs" />
@@ -72,22 +73,26 @@
     <Compile Include="Models\Enums\Difficulty.cs" />
     <Compile Include="Models\Enums\GameColor.cs" />
     <Compile Include="Models\Enums\PaddleLength.cs" />
-    <Compile Include="Models\Maps\Map.cs" />
+    <Compile Include="Models\Maps\BlockMap.cs" />
+    <Compile Include="Models\Scores\Timer.cs" />
+    <Compile Include="Utilities\DelayedAction.cs" />
+    <Compile Include="Utilities\TiledMapReader.cs" />
     <Compile Include="Models\Shapes\ICircle.cs" />
     <Compile Include="Models\Shapes\IRectangle.cs" />
-    <Compile Include="Views\FontLoader.cs" />
+    <Compile Include="Views\Loaders\FontLoader.cs" />
+    <Compile Include="Views\Loaders\MapLoader.cs" />
     <Compile Include="Views\Screens\Screen.cs" />
     <Compile Include="Views\Screens\WindowScreen.cs" />
     <Compile Include="Views\Screens\MenuScreen.cs" />
+    <Compile Include="Views\Screens\WinningScreen.cs" />
     <Compile Include="Views\UIComponents\ScoreBar.cs" />
-    <Compile Include="Views\TextureLoader.cs" />
+    <Compile Include="Views\Loaders\TextureLoader.cs" />
     <Compile Include="Models\Shapes\Circle.cs" />
     <Compile Include="Models\Bases\CircleObject.cs" />
     <Compile Include="Models\Bases\RectangleObject.cs" />
     <Compile Include="Models\Bases\DynamicObject.cs" />
     <Compile Include="Models\Blocks\BlockInfo.cs" />
     <Compile Include="Models\Explosions\Explosion.cs" />
-    <Compile Include="Models\Maps\MapMatrix.cs" />
     <Compile Include="Models\Maps\MapManager.cs" />
     <Compile Include="Models\Shapes\FontShape.cs" />
     <Compile Include="Models\GameInfo.cs" />
@@ -105,8 +110,8 @@
     <Compile Include="Models\PowerUps\PowerUpPackage.cs" />
     <Compile Include="Models\Scene.cs" />
     <Compile Include="Models\Scores\DynamicScore.cs" />
-    <Compile Include="Models\Scores\Score.cs" />
-    <Compile Include="Views\UIComponents\ScoreUI.cs" />
+    <Compile Include="Views\UIComponents\Star.cs" />
+    <Compile Include="Views\UIComponents\Text.cs" />
     <Compile Include="Views\Windows\CheckBox.cs" />
     <Compile Include="Views\Windows\Control.cs" />
     <Compile Include="Views\Windows\Label.cs" />
@@ -161,12 +166,21 @@
     <None Include="Deployment\PostBuild.ps1" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Breakout.Pipeline\Breakout.Pipeline.csproj">
+      <Project>{fbdb2af4-02f2-497a-9f8e-639aa7dc66e7}</Project>
+      <Name>Breakout.Pipeline</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <PropertyGroup>
-    <PostBuildEvent>powershell -ExecutionPolicy RemoteSigned -NoLogo -NonInteractive -Command ".'$(ProjectDir)Deployment\PostBuild.ps1' -SolutionDir '$(SolutionDir)' -TargetDir '$(TargetDir)'"
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>powershell -ExecutionPolicy RemoteSigned -NoLogo -NonInteractive -Command ".'$(ProjectDir)Deployment\PostBuild.ps1' -SolutionDir '$(SolutionDir)' -ProjectDir '$(ProjectDir)'"
+</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

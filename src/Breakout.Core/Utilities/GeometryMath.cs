@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 
-namespace Breakout.Utilities
+namespace Breakout.Core.Utilities
 {
-	public static class GeometryMath
+	internal static class GeometryMath
 	{
 		public static Vector2 Angle2Vector(float angle)
 		{

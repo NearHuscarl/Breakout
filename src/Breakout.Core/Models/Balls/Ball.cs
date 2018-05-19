@@ -1,6 +1,6 @@
-﻿using Breakout.Models.Bases;
-using Breakout.Models.Paddles;
-using Breakout.Utilities;
+﻿using Breakout.Core.Models.Bases;
+using Breakout.Core.Models.Paddles;
+using Breakout.Core.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Breakout.Models.Balls
+namespace Breakout.Core.Models.Balls
 {
 	public class Ball : CircleObject
 	{
@@ -55,8 +55,10 @@ namespace Breakout.Models.Balls
 
 		#endregion
 
-		public Ball(int radius, int strength, float velocity, Vector2 position) : base(radius, position)
+		public Ball(Scene scene, int radius, int strength, float velocity, Vector2 position) : base(radius, position)
 		{
+			this.scene = scene;
+
 			this.Radius = radius;
 			this.Width = this.Height = (Radius * 2);
 			this.Position = position;
@@ -86,13 +88,13 @@ namespace Breakout.Models.Balls
 			if (this.IsHittingLeftWall() || this.IsHittingRightWall())
 			{
 				Direction.X = -Direction.X;
-				AudioManager.PlaySound("HitWall");
+				AudioManager.PlaySound("HitWall", percent: scene.Volume);
 			}
 
 			if (this.IsHittingRoof() || (this.IsOffBottom() && isContained == true))
 			{
 				Direction.Y = -Direction.Y;
-				AudioManager.PlaySound("HitWall");
+				AudioManager.PlaySound("HitWall", percent: scene.Volume);
 			}
 		}
 

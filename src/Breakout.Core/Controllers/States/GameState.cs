@@ -1,8 +1,8 @@
-﻿using Breakout.Models.IO;
-using Breakout.Utilities;
-using Breakout.Views.Renderers;
+﻿using Breakout.Core.Models.IO;
+using Breakout.Core.Utilities;
+using Breakout.Core.Views.Renderers;
 
-namespace Breakout.Controllers.States
+namespace Breakout.Core.Controllers.States
 {
 	public class GameState : State
 	{
@@ -44,10 +44,19 @@ namespace Breakout.Controllers.States
 
 			if (StateMachine.Scene.Balls.Count == 0)
 			{
-				if (StateMachine.Scene.Player.Live.Count == 0)
+				if (StateMachine.Scene.Player.Live == 0)
+				{
 					StateMachine.GameOver();
+				}
 				else
+				{
 					StateMachine.ResetGame();
+				}
+			}
+
+			if (StateMachine.Scene.BlockLeft == 0)
+			{
+				StateMachine.WinGame();
 			}
 		}
 

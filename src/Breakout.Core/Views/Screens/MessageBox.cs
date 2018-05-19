@@ -1,8 +1,9 @@
-﻿using Breakout.Views.Windows;
+﻿using Breakout.Core.Views.Loaders;
+using Breakout.Core.Views.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout.Views.Screens
+namespace Breakout.Core.Views.Screens
 {
 	public class MessageBox : WindowScreen
 	{
@@ -16,7 +17,7 @@ namespace Breakout.Views.Screens
 			background = TextureLoader.Load("MessageBox");
 
 			Title.Text = title;
-			prompt = new Label(spriteFont, text);
+			prompt = new Label(defaultFont, text);
 
 			YesButton = WindowFactory.CreateButton(new Vector2(), "Yes");
 			NoButton = WindowFactory.CreateButton(new Vector2(), "No");
@@ -34,20 +35,11 @@ namespace Breakout.Views.Screens
 			};
 		}
 
-		private Vector2 GetPromptPosition()
-		{
-			return new Vector2()
-			{
-				X = Position.X + Width / 2 - spriteFont.MeasureString(prompt.Text).X / 2,
-				Y = Position.Y + Margin + spriteFont.MeasureString(prompt.Text).Y * 5,
-			};
-		}
-
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			base.Draw(spriteBatch);
 
-			prompt.Position = GetPromptPosition();
+			SetTextPosition(prompt, 75f);
 			prompt.Draw(spriteBatch);
 
 			YesButton.Draw(spriteBatch);

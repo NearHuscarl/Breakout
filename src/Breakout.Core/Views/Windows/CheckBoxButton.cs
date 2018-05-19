@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace Breakout.Views.Windows
+namespace Breakout.Core.Views.Windows
 {
 	public class CheckBoxButton : Control
 	{
@@ -23,7 +23,7 @@ namespace Breakout.Views.Windows
 
 		public CheckBoxButton(Texture2D checkedImage, Texture2D uncheckedImage, SpriteFont font, Vector2 position, string text, bool initialValue)
 		{
-			this.font = font;
+			this.Font = font;
 			this.Position = position;
 			this.Text = text;
 			this.IsChecked = initialValue;
@@ -38,16 +38,16 @@ namespace Breakout.Views.Windows
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(checkboxTextures[IsChecked], Position, Color.White);
-			spriteBatch.DrawString(font, Text, GetFontPosition(), ForegroundColor);
+			spriteBatch.DrawString(Font, Text, GetFontPosition(), ForegroundColor);
 		}
 
 		private Vector2 GetFontPosition()
 		{
-			Vector2 textSize = font.MeasureString(Text);
+			Vector2 textSize = Font.MeasureString(Text);
 
 			return new Vector2()
 			{
-				X = Position.X + Width + font.LineSpacing * 1.5f,
+				X = Position.X + Width + Font.LineSpacing * 1.5f,
 				Y = Position.Y + Height / 2 - textSize.Y / 2,
 			};
 		}

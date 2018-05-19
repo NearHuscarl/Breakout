@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Breakout.Models.Bases
+namespace Breakout.Core.Models.Bases
 {
 	/// <summary>
 	/// Base class of all game entities

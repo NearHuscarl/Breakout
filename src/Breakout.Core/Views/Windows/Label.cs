@@ -1,29 +1,37 @@
-﻿using Breakout.Models;
+﻿using Breakout.Core.Models;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout.Views.Windows
+namespace Breakout.Core.Views.Windows
 {
 	public class Label : Control
 	{
 		public Label(SpriteFont font, string text)
 		{
-			this.font = font;
+			this.Font = font;
 			this.Text = text;
 		}
 
-		public Label(SpriteFont font, Vector2 position, string text)
+		public Label(SpriteFont font, string text, Vector2 position)
 		{
-			this.font = font;
+			this.Font = font;
 			this.Position = position;
 			this.Text = text;
 
 			ForegroundColor = GameInfo.Theme["White"];
 		}
 
+		public Label(SpriteFont font, string text, Color fgColor)
+		{
+			this.Font = font;
+			this.Text = text;
+
+			ForegroundColor = fgColor;
+		}
+
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.DrawString(font, Text, Position, ForegroundColor);
+			spriteBatch.DrawString(Font, Text, Position, ForegroundColor);
 		}
 	}
 }

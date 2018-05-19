@@ -1,4 +1,4 @@
-﻿namespace Breakout.Models.Shapes
+﻿namespace Breakout.Core.Models.Shapes
 {
 	public struct FontShape
 	{

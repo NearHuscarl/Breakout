@@ -1,11 +1,11 @@
-﻿using Breakout.Models;
-using Breakout.Models.Enums;
-using Breakout.Utilities;
-using Breakout.Views.Windows;
+﻿using Breakout.Core.Models;
+using Breakout.Core.Models.Enums;
+using Breakout.Core.Utilities;
+using Breakout.Core.Views.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Breakout.Views.Screens
+namespace Breakout.Core.Views.Screens
 {
 	public class SettingScreen : BigScreen
 	{

@@ -1,8 +1,8 @@
-﻿using Breakout.Models.IO;
-using Breakout.Utilities;
-using Breakout.Views.Renderers;
+﻿using Breakout.Core.Models.IO;
+using Breakout.Core.Utilities;
+using Breakout.Core.Views.Renderers;
 
-namespace Breakout.Controllers.States
+namespace Breakout.Core.Controllers.States
 {
 	public class PauseState : State
 	{
@@ -11,10 +11,13 @@ namespace Breakout.Controllers.States
 			base.Update();
 
 			if (InputHelper.IsNewKeyPress(Input.PlayGame))
+			{
 				StateMachine.PlayGame();
-
+			}
 			else if (InputHelper.IsNewKeyPress(Input.Exit))
+			{
 				StateMachine.ExitGame();
+			}
 		}
 
 		public override void Draw(MonoGameRenderer renderer)
