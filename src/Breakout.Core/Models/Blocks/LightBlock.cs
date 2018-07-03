@@ -1,6 +1,6 @@
 ﻿using Breakout.Core.Models.Enums;
 using Breakout.Core.Models.PowerUps;
-using Breakout.Core.Utilities;
+using Breakout.Core.Utilities.Audio;
 using Microsoft.Xna.Framework;
 
 namespace Breakout.Core.Models.Blocks

@@ -2,8 +2,8 @@
 using Breakout.Core.Models.Bases;
 using Breakout.Core.Models.Enums;
 using Breakout.Core.Models.PowerUps;
-using Breakout.Core.Utilities;
 using Microsoft.Xna.Framework;
+using Breakout.Core.Utilities.GameMath;
 
 namespace Breakout.Core.Models.Blocks
 {

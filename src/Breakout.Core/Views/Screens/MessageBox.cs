@@ -1,4 +1,6 @@
-﻿using Breakout.Core.Views.Loaders;
+﻿using Breakout.Core.Utilities.Helper;
+using Breakout.Core.Views.Enums;
+using Breakout.Core.Views.Loaders;
 using Breakout.Core.Views.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,10 +19,12 @@ namespace Breakout.Core.Views.Screens
 			background = TextureLoader.Load("MessageBox");
 
 			Title.Text = title;
+
+			text = FontHelper.BreakTextIntoLines(text, 50, 3);
 			prompt = new Label(defaultFont, text);
 
-			YesButton = WindowFactory.CreateButton(new Vector2(), "Yes");
-			NoButton = WindowFactory.CreateButton(new Vector2(), "No");
+			YesButton = WindowFactory.CreateButton("Yes");
+			NoButton = WindowFactory.CreateButton("No");
 
 			YesButton.Position = new Vector2()
 			{
@@ -39,7 +43,7 @@ namespace Breakout.Core.Views.Screens
 		{
 			base.Draw(spriteBatch);
 
-			SetTextPosition(prompt, 75f);
+			AlignText(prompt, Alignment.Center, 75f);
 			prompt.Draw(spriteBatch);
 
 			YesButton.Draw(spriteBatch);

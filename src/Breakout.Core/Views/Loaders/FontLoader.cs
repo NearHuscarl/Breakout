@@ -9,7 +9,9 @@ namespace Breakout.Core.Views.Loaders
 		{
 			{ "ScoreFont", EntryPoint.Game.Content.Load<SpriteFont>("Fonts/ScoreFont") },
 			{ "MenuFont", EntryPoint.Game.Content.Load<SpriteFont>("Fonts/MenuFont") },
-			{ "HeadlineFont", EntryPoint.Game.Content.Load<SpriteFont>("Fonts/HeadlineFont") },
+			{ "HeaderFont", EntryPoint.Game.Content.Load<SpriteFont>("Fonts/HeaderFont") },
+			{ "TitleFont", EntryPoint.Game.Content.Load<SpriteFont>("Fonts/TitleFont") },
+			{ "BoldTitleFont", EntryPoint.Game.Content.Load<SpriteFont>("Fonts/BoldTitleFont") },
 		};
 
 		public static SpriteFont Load(string fontName)

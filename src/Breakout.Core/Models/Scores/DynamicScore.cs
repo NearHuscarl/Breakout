@@ -9,8 +9,8 @@ namespace Breakout.Core.Models.Scores
 	/// </summary>
 	public class DynamicScore
 	{
-		private int currentScore { get; set; } = 0;
-		private int scoreToUpdate { get; set; } = 0;
+		private int currentScore = 0;
+		private int scoreToUpdate = 0;
 
 		private Stack<int> stack;
 
@@ -61,6 +61,10 @@ namespace Breakout.Core.Models.Scores
 			get
 			{
 				return scoreToUpdate;
+			}
+			set
+			{
+				scoreToUpdate = value;
 			}
 		}
 

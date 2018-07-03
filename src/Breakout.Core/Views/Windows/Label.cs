@@ -1,4 +1,5 @@
 ﻿using Breakout.Core.Models;
+using Breakout.Core.Models.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -18,7 +19,7 @@ namespace Breakout.Core.Views.Windows
 			this.Position = position;
 			this.Text = text;
 
-			ForegroundColor = GameInfo.Theme["White"];
+			ForegroundColor = GlobalData.Theme["White"];
 		}
 
 		public Label(SpriteFont font, string text, Color fgColor)
@@ -31,7 +32,18 @@ namespace Breakout.Core.Views.Windows
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.DrawString(Font, Text, Position, ForegroundColor);
+			var sentences = Text.Split('\n');
+			var pivot = Position.X + Font.MeasureString(Text).X / 2;
+			var position = Position;
+
+			foreach (var sentence in sentences)
+			{
+				position.X = pivot - Font.MeasureString(sentence).X / 2;
+
+				spriteBatch.DrawString(Font, sentence, position, ForegroundColor);
+
+				position.Y += Font.LineSpacing;
+			}
 		}
 	}
 }

@@ -1,48 +1,75 @@
-﻿using Breakout.Core.Controllers.Levels;
-using Breakout.Core.Models;
+﻿using Breakout.Core.Models;
+using Breakout.Core.Utilities;
+using Breakout.Core.Views.Enums;
 using Breakout.Core.Views.Loaders;
-using Breakout.Core.Views.Sprites;
 using Breakout.Core.Views.UIComponents;
 using Breakout.Core.Views.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Text;
+using System.Threading;
 
 namespace Breakout.Core.Views.Screens
 {
+	public enum SummerizedStage
+	{
+		Score,
+		Star,
+		Done,
+	}
+
 	public class WinningScreen : BigScreen
 	{
-		public Label LevelText { get; set; }
 		public Label WinningText { get; set; }
+		public Label ScoreText { get; set; }
+
+		public Button RestartButton { get; set; }
 		public Button NextButton { get; set; }
+
+		public int StarCount { get; set; }
 
 		public Star Star1 { get; set; }
 		public Star Star2 { get; set; }
 		public Star Star3 { get; set; }
 
+		private DelayedAction addStar1;
+		private DelayedAction addStar2;
+		private DelayedAction addStar3;
+
+		public int DisplayedScore { get; set; } = 0;
+		public int TimeBonusUpdateAmount { get; set; }
+
+		public SummerizedStage Stage { get; set; }
+
 		public WinningScreen()
 		{
-			Title.Text = "Victory";
+			Stage = SummerizedStage.Score;
 
-			NextButton = WindowFactory.CreateButton(new Vector2(), "Next");
+			RestartButton = WindowFactory.CreateButton("Restart");
+			NextButton = WindowFactory.CreateButton("Next");
 
-			NextButton.Position = new Vector2()
+			RestartButton.Position = new Vector2()
 			{
-				X = GetControlXPosition(NextButton, 1, 1),
+				X = GetControlXPosition(NextButton, 1, 2),
 				Y = Position.Y + Height * 0.75f,
 			};
 
-			LevelText = new Label(defaultFont, "Level " + LevelPicker.CurrentLevelNumber.ToString());
-			WinningText = new Label(FontLoader.Load("HeadlineFont"), "You Won!", GameInfo.Theme["Blue"]);
+			NextButton.Position = new Vector2()
+			{
+				X = GetControlXPosition(NextButton, 2, 2),
+				Y = Position.Y + Height * 0.75f,
+			};
 
-			Star1 = WindowFactory.CreateStar(new Vector2());
-			Star2 = WindowFactory.CreateStar(new Vector2());
-			Star3 = WindowFactory.CreateStar(new Vector2());
+			WinningText = new Label(FontLoader.Load("HeaderFont"), "You Win!", GlobalData.Theme["Blue"]);
+			ScoreText = new Label(FontLoader.Load("HeaderFont"), "", GlobalData.Theme["LightMagenta"]);
+
+			Star1 = WindowFactory.CreateStar();
+			Star2 = WindowFactory.CreateStar();
+			Star3 = WindowFactory.CreateStar();
 
 			Star2.Position = new Vector2()
 			{
 				X = Position.X + Width / 2 - Star1.Width / 2,
-				Y = Position.Y + Height * 0.4f,
+				Y = Position.Y + Height * 0.30f,
 			};
 
 			Star1.Position = new Vector2()
@@ -51,23 +78,62 @@ namespace Breakout.Core.Views.Screens
 				Y = Star2.Position.Y + 20,
 			};
 
-
 			Star3.Position = new Vector2()
 			{
 				X = Position.X + Width / 2 - Star1.Width / 2 + Star1.Width * 1.25f,
 				Y = Star2.Position.Y + 20,
 			};
+
+			addStar1 = new DelayedAction(Star1.Shine, 0.5f);
+			addStar2 = new DelayedAction(Star2.Shine, 1.0f);
+			addStar3 = new DelayedAction(Star3.Shine, 1.5f);
+		}
+
+		public void AddStar(float deltaTime)
+		{
+			if (IsDone())
+				Stage = SummerizedStage.Done;
+
+			addStar1.Update(deltaTime);
+
+			if (StarCount == 1)
+				return;
+
+			addStar2.Update(deltaTime);
+
+			if (StarCount == 2)
+				return;
+
+			addStar3.Update(deltaTime);
+		}
+
+		private bool IsDone()
+		{
+			if (StarCount == 1 && Star1.IsShine)
+				return true;
+
+			if (StarCount == 2 && Star1.IsShine && Star2.IsShine)
+				return true;
+
+			if (StarCount == 3 && Star1.IsShine && Star2.IsShine && Star3.IsShine)
+				return true;
+
+			return false;
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			base.Draw(spriteBatch);
 
-			SetTextPosition(LevelText, 30);
-			SetTextPosition(WinningText, 65);
+			AlignText(WinningText, Alignment.Center, 25);
+			AlignText(ScoreText, Alignment.Center, 175);
 
-			LevelText.Draw(spriteBatch);
+			ScoreText.Text = DisplayedScore.ToString();
+
 			WinningText.Draw(spriteBatch);
+			ScoreText.Draw(spriteBatch);
+
+			RestartButton.Draw(spriteBatch);
 			NextButton.Draw(spriteBatch);
 
 			Star1.Draw(spriteBatch);

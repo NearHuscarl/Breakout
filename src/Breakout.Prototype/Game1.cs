@@ -1,6 +1,6 @@
 ﻿using Breakout;
 using Breakout.Fonts;
-using Breakout.Models;
+using Breakout.Core.Models;
 using Breakout.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

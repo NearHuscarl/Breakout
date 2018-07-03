@@ -8,7 +8,7 @@ namespace Breakout.Core.Views
 {
 	public static class WindowFactory
 	{
-		public static Button CreateButton(Vector2 position, string text)
+		public static Button CreateButton(string text)
 		{
 			Texture2D inactiveImage = TextureLoader.Load("ButtonInactive");
 			Texture2D hoveredImage = TextureLoader.Load("ButtonHovered");
@@ -16,42 +16,50 @@ namespace Breakout.Core.Views
 
 			SpriteFont buttonFont = FontLoader.Load("MenuFont");
 
-			return new Button(inactiveImage, hoveredImage, clickedImage, buttonFont, position, text);
+			return new Button(inactiveImage, hoveredImage, clickedImage, buttonFont, text);
 		}
 
-		public static CheckBox CreateCheckBox(Vector2 position, string text, bool initalValue)
+		public static CheckBox CreateCheckBox(string text, bool initalValue)
 		{
 			Texture2D checkedImage = TextureLoader.Load("CheckBoxChecked");
 			Texture2D uncheckedImage = TextureLoader.Load("CheckBoxUnchecked");
 
 			SpriteFont checkboxFont = FontLoader.Load("MenuFont");
 
-			return new CheckBox(checkedImage, uncheckedImage, checkboxFont, position, text, initalValue);
+			return new CheckBox(checkedImage, uncheckedImage, checkboxFont, text, initalValue);
 		}
 
-		public static RadioButton CreateRadioButton(Vector2 position, string text, bool initalValue)
+		public static RadioButton CreateRadioButton(string text, bool initalValue)
 		{
 			Texture2D checkedImage = TextureLoader.Load("RadioButtonChecked");
 			Texture2D uncheckedImage = TextureLoader.Load("RadioButtonUnchecked");
 
 			SpriteFont radioButtonFont = FontLoader.Load("MenuFont");
 
-			return new RadioButton(checkedImage, uncheckedImage, radioButtonFont, position, text, initalValue);
+			return new RadioButton(checkedImage, uncheckedImage, radioButtonFont, text, initalValue);
 		}
 
-		public static Label CreateLabel(Vector2 position, string text)
+		public static Textbox CreateTextbox(string placeholder="")
+		{
+			Texture2D textboxImage = TextureLoader.Load("Textbox");
+			SpriteFont textboxFont = FontLoader.Load("MenuFont");
+
+			return new Textbox(textboxImage, textboxFont, placeholder);
+		}
+
+		public static Label CreateLabel(string text)
 		{
 			SpriteFont labelFont = FontLoader.Load("MenuFont");
 
-			return new Label(labelFont, text, position);
+			return new Label(labelFont, text);
 		}
 
-		public static Star CreateStar(Vector2 position)
+		public static Star CreateStar()
 		{
 			Texture2D unstarTexture = TextureLoader.Load("Unstar");
 			Texture2D starTexture = TextureLoader.Load("Star");
 
-			return new Star(unstarTexture, starTexture, position);
+			return new Star(unstarTexture, starTexture);
 		}
 	}
 }

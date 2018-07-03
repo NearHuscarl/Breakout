@@ -40,7 +40,7 @@ namespace Breakout.Pipeline.TiledMap
 
 		public override string GetRuntimeReader(TargetPlatform targetPlatform)
 		{
-			return "Breakout.Core.Utilities.TiledMapReader, Breakout";
+			return "Breakout.Core.Utilities.Map.TiledMapReader, Breakout";
 		}
 	}
 }

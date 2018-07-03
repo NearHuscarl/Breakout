@@ -9,8 +9,8 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using Breakout.Core.Models.Maps;
-using Breakout.Pipeline.TiledMap;
-using System;
+using Breakout.Core.Models.Data;
+using Breakout.Core.Utilities.Map;
 
 namespace Breakout.Core.Models
 {
@@ -40,6 +40,8 @@ namespace Breakout.Core.Models
 		public Paddle Paddle { get; set; }
 
 		public BlockMap Map { get; set; }
+		public string MapName { get; set; }
+
 		public List<Ball> Balls { get; set; }
 
 		public List<PowerUpPackage> Packages { get; set; }
@@ -51,6 +53,9 @@ namespace Breakout.Core.Models
 		public Timer Timer { get; set; }
 		public int BlockLeft { get; set; }
 
+		public int FinalScore { get; set; }
+		public int HighScore { get; set; } = 0;
+
 		public bool IsInGame { get; private set; } = false;
 
 		public Scene(Game game) : base(game)
@@ -58,12 +63,14 @@ namespace Breakout.Core.Models
 
 		}
 
-		public void InitializeMenu(TiledMap logo)
+		public void InitializeMenu()
 		{
 			EntryPoint.Game.Scene.CleanUp();
 
 			Balls = ModelFactory.CreateRandomBalls();
-			Map = MapManager.LoadGameObjects(logo);
+
+			Map = MapManager.Load(0);
+			MapName = MapManager.Stages[0];
 
 			PowerUps = new List<PowerUp>();
 			Packages = new List<PowerUpPackage>();
@@ -72,17 +79,21 @@ namespace Breakout.Core.Models
 			IsInGame = false;
 		}
 
-		public void InitializeGame(TiledMap map)
+		public void InitializeGame(Session session)
 		{
 			EntryPoint.Game.Scene.CleanUp();
 
 			Timer = new Timer();
-			Player = ModelFactory.CreatePlayer();
+
+			HighScore = session.CurrentScore;
+			Player = ModelFactory.CreatePlayer(session);
+
+			Map = MapManager.Load(session.CurrentLevel);
+			MapName = MapManager.Stages[GlobalData.Session.CurrentLevel];
 
 			Paddle = ModelFactory.CreatePaddle();
 			Balls = ModelFactory.CreateBall();
 
-			Map = MapManager.LoadGameObjects(map);
 			BlockLeft = Map.Layer1.Count;
 
 			PowerUps = new List<PowerUp>();
@@ -92,6 +103,9 @@ namespace Breakout.Core.Models
 			IsInGame = true;
 		}
 
+		/// <summary>
+		/// Reset ball and paddle after losing a live
+		/// </summary>
 		public void Reset()
 		{
 			Player.CurrentCombo = 0;

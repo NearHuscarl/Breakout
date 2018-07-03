@@ -1,4 +1,5 @@
 ﻿using Breakout.Core.Models;
+using Breakout.Core.Models.Data;
 using Breakout.Core.Models.Enums;
 using Breakout.Core.Views.Enums;
 using Breakout.Core.Views.Sprites;
@@ -26,8 +27,9 @@ namespace Breakout.Core.Views.Renderers
 		public Dictionary<GameColor, BlockUI> Blocks;
 		private GameSprite skeletonBlock;
 
-		private ScoreBar scoreBar;
-		private Dictionary<Stage, Background> backgrounds;
+		private Header header;
+		private Footer footer;
+		private Background backgrounds;
 
 		public MonoGameRenderer(Scene scene)
 		{
@@ -35,8 +37,9 @@ namespace Breakout.Core.Views.Renderers
 
 			cursor = SpriteFactory.CreateCursor(content);
 
-			backgrounds = SpriteFactory.CreateBackground(content);
-			scoreBar = new ScoreBar(scene);
+			backgrounds = SpriteFactory.CreateBackground(content, scene);
+			header = SpriteFactory.CreateHeader(scene);
+			footer = SpriteFactory.CreateFooter(scene);
 
 			PaddleUI = SpriteFactory.CreatePaddle(content);
 			BallUI = SpriteFactory.CreateBall(content);
@@ -47,7 +50,7 @@ namespace Breakout.Core.Views.Renderers
 
 		public override void DrawMenu(float elapsed)
 		{
-			backgrounds[Stage.Menu].Draw(spriteBatch);
+			backgrounds.Draw(spriteBatch);
 
 			DrawBallAndBlocks(elapsed);
 
@@ -60,13 +63,14 @@ namespace Breakout.Core.Views.Renderers
 		{
 			deltaTime = elapsed;
 
-			backgrounds[Stage.Level1].Draw(spriteBatch);
+			backgrounds.Draw(spriteBatch);
 
 			PaddleUI.Draw(spriteBatch, scene.Paddle);
 
 			DrawBallAndBlocks(deltaTime);
 
-			scoreBar.Draw(spriteBatch);
+			header.Draw(spriteBatch);
+			footer.Draw(spriteBatch);
 
 			DrawScreens();
 		}
@@ -106,8 +110,8 @@ namespace Breakout.Core.Views.Renderers
 			int monitorWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 			int monitorHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 
-			position.X = (int)(monitorWidth * 0.5f - GameInfo.Screen.Width * 0.5f);
-			position.Y = (int)(monitorHeight * 0.3f - GameInfo.Screen.Height * 0.3f);
+			position.X = (int)(monitorWidth * 0.5f - GlobalData.Screen.Width * 0.5f);
+			position.Y = (int)(monitorHeight * 0.3f - GlobalData.Screen.Height * 0.3f);
 
 			EntryPoint.Game.Window.Position = position;
 		}

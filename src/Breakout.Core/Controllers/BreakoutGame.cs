@@ -28,7 +28,7 @@ namespace Breakout.Core
 
 		protected override void Initialize()
 		{
-			Scene = new Scene(EntryPoint.Game);
+			Scene = new Scene(this);
 
 			StateMachine.Initialize(Scene);
 

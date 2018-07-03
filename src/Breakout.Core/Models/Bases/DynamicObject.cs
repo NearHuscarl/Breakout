@@ -1,4 +1,4 @@
-﻿using Breakout.Core.Utilities;
+﻿using Breakout.Core.Utilities.GameMath;
 using Microsoft.Xna.Framework;
 
 namespace Breakout.Core.Models.Bases
@@ -30,7 +30,7 @@ namespace Breakout.Core.Models.Bases
 
 		public bool IsOffBottom(Vector2 position)
 		{
-			if (position.Y + this.Height > GameInfo.Screen.Height)
+			if (position.Y + this.Height > GlobalData.Screen.Height)
 			{
 				return true;
 			}
@@ -47,7 +47,7 @@ namespace Breakout.Core.Models.Bases
 
 		public bool IsHittingRightWall(Vector2 position)
 		{
-			if (position.X + Width >= GameInfo.Screen.Width)
+			if (position.X + Width >= GlobalData.Screen.Width)
 				return true;
 
 			return false;
@@ -63,7 +63,7 @@ namespace Breakout.Core.Models.Bases
 
 		public bool IsOffBottom()
 		{
-			if (this.Position.Y + this.Height > GameInfo.Screen.Height)
+			if (this.Position.Y + this.Height > GlobalData.Screen.Height)
 			{
 				return true;
 			}
@@ -80,7 +80,7 @@ namespace Breakout.Core.Models.Bases
 
 		public bool IsHittingRightWall()
 		{
-			if (Position.X + Width >= GameInfo.Screen.Width)
+			if (Position.X + Width >= GlobalData.Screen.Width)
 				return true;
 
 			return false;

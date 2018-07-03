@@ -1,6 +1,6 @@
 ﻿using Breakout.Core.Models;
 using Breakout.Core.Models.Enums;
-using Breakout.Core.Views.Enums;
+using Breakout.Core.Utilities.Map;
 using Breakout.Core.Views.Loaders;
 using Breakout.Core.Views.Sprites;
 using Breakout.Core.Views.Sprites.Blocks;
@@ -13,35 +13,31 @@ namespace Breakout.Core.Views
 {
 	public static class SpriteFactory
 	{
+		public static Background CreateBackground(ContentManager content, Scene scene)
+		{
+			Dictionary<string, Texture2D> backgroundImages = new Dictionary<string, Texture2D>();
+
+			foreach (var bgName in MapManager.Stages.Values)
+			{
+				try
+				{
+					backgroundImages.Add(bgName, BackgroundLoader.Load(bgName));
+				}
+				catch (ContentLoadException)
+				{
+					backgroundImages.Add(bgName, BackgroundLoader.Load("Default"));
+				}
+			}
+
+			return new Background(scene, backgroundImages);
+		}
+
 		public static Cursor CreateCursor(ContentManager content)
 		{
 			Texture2D cursorTexture = content.Load<Texture2D>("Cursor");
 			Cursor cursor = new Cursor(cursorTexture);
 
 			return cursor;
-		}
-
-		public static Dictionary<Stage, Background> CreateBackground(ContentManager content)
-		{
-			Texture2D menuBgTexture = content.Load<Texture2D>("Backgrounds/MenuBackground");
-			Texture2D level1BgTexture = content.Load<Texture2D>("Backgrounds/Level1_Background");
-
-			Background menuBackground = new Background(menuBgTexture);
-			Background lvl1Background = new Background(level1BgTexture);
-
-			return new Dictionary<Stage, Background>()
-			{
-				{ Stage.Menu, menuBackground },
-				{ Stage.Level1, lvl1Background },
-			};
-		}
-
-		public static GameSprite CreateFooter(ContentManager content)
-		{
-			Texture2D footerTexture = content.Load<Texture2D>("Backgrounds/Footer");
-			GameSprite footer = new GameSprite(footerTexture);
-
-			return footer;
 		}
 
 		public static PaddleUI CreatePaddle(ContentManager content)
@@ -75,15 +71,15 @@ namespace Breakout.Core.Views
 			Texture2D grayBlockTexture = content.Load<Texture2D>("Blocks/Gray");
 			Texture2D blackBlockTexture = content.Load<Texture2D>("Blocks/Black");
 
-			BlockUI redBlock = new BlockUI(redBlockTexture, GameInfo.Theme["LightRed"], GameInfo.Theme["Red"]);
-			BlockUI orangeBlock = new BlockUI(orangeBlockTexture, GameInfo.Theme["LightOrange"], GameInfo.Theme["Orange"]);
-			BlockUI yellowBlock = new BlockUI(yellowBlockTexture, GameInfo.Theme["LightYellow"], GameInfo.Theme["Yellow"]);
-			BlockUI greenBlock = new BlockUI(yellowBlockTexture, GameInfo.Theme["LightGreen"], GameInfo.Theme["Green"]);
-			BlockUI blueBlock = new BlockUI(blueBlockTexture, GameInfo.Theme["LightBlue"], GameInfo.Theme["Blue"]);
-			BlockUI cyanBlock = new BlockUI(cyanBlockTexture, GameInfo.Theme["LightCyan"], GameInfo.Theme["Cyan"]);
-			BlockUI magentaBlock = new BlockUI(magentaBlockTexture, GameInfo.Theme["LightMagenta"], GameInfo.Theme["Magenta"]);
-			BlockUI grayBlock = new BlockUI(grayBlockTexture, GameInfo.Theme["LightGray"], GameInfo.Theme["Gray"]);
-			BlockUI blackBlock = new BlockUI(blackBlockTexture, GameInfo.Theme["Dark"], GameInfo.Theme["Black"]);
+			BlockUI redBlock = new BlockUI(redBlockTexture, GlobalData.Theme["LightRed"], GlobalData.Theme["Red"]);
+			BlockUI orangeBlock = new BlockUI(orangeBlockTexture, GlobalData.Theme["LightOrange"], GlobalData.Theme["Orange"]);
+			BlockUI yellowBlock = new BlockUI(yellowBlockTexture, GlobalData.Theme["LightYellow"], GlobalData.Theme["Yellow"]);
+			BlockUI greenBlock = new BlockUI(yellowBlockTexture, GlobalData.Theme["LightGreen"], GlobalData.Theme["Green"]);
+			BlockUI blueBlock = new BlockUI(blueBlockTexture, GlobalData.Theme["LightBlue"], GlobalData.Theme["Blue"]);
+			BlockUI cyanBlock = new BlockUI(cyanBlockTexture, GlobalData.Theme["LightCyan"], GlobalData.Theme["Cyan"]);
+			BlockUI magentaBlock = new BlockUI(magentaBlockTexture, GlobalData.Theme["LightMagenta"], GlobalData.Theme["Magenta"]);
+			BlockUI grayBlock = new BlockUI(grayBlockTexture, GlobalData.Theme["LightGray"], GlobalData.Theme["Gray"]);
+			BlockUI blackBlock = new BlockUI(blackBlockTexture, GlobalData.Theme["Dark"], GlobalData.Theme["Black"]);
 
 			return new Dictionary<GameColor, BlockUI>()
 			{
@@ -105,6 +101,28 @@ namespace Breakout.Core.Views
 			GameSprite skeletonBlock = new GameSprite(skeletonBlockTexture);
 
 			return skeletonBlock;
+		}
+
+		public static Header CreateHeader(Scene scene)
+		{
+			Dictionary<string, Texture2D> headerTextures = new Dictionary<string, Texture2D>()
+			{
+				{ "Background", TextureLoader.Load("Header") },
+				{ "LeftEdge", TextureLoader.Load("HeaderEdgeLeft") },
+				{ "RightEdge", TextureLoader.Load("HeaderEdgeRight") },
+
+				{ "GoldenBackground", TextureLoader.Load("GoldenHeader") },
+				{ "GoldenRightEdge", TextureLoader.Load("GoldenHeaderEdgeRight") },
+			};
+
+			return new Header(scene, headerTextures);
+		}
+
+		public static Footer CreateFooter(Scene scene)
+		{
+			Texture2D background = TextureLoader.Load("Footer");
+
+			return new Footer(scene, background);
 		}
 	}
 }

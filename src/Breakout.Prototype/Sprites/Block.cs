@@ -14,10 +14,5 @@ namespace Breakout.Sprites
 		{
 			this.position = position;
 		}
-
-		public void Update(GameTime gameTime)
-		{
-
-		}
 	}
 }

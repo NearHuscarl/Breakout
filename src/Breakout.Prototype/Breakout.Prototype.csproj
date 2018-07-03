@@ -40,6 +40,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Update|x86'">
+    <OutputPath>bin\x86\Update\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Fonts\Font.cs" />
     <Compile Include="Fonts\Live.cs" />

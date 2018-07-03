@@ -1,4 +1,5 @@
 ﻿using Breakout.Core.Models;
+using Breakout.Core.Models.Data;
 using Breakout.Core.Views.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,8 +26,8 @@ namespace Breakout.Core.Views.Screens
 				Y = Position.Y + Margin + GetTitlePosition().Y,
 			};
 
-			OpenCodeButton = WindowFactory.CreateButton(new Vector2(), "Source Code");
-			CancelButton = WindowFactory.CreateButton(new Vector2(), "Cancel");
+			OpenCodeButton = WindowFactory.CreateButton("Source Code");
+			CancelButton = WindowFactory.CreateButton("Cancel");
 
 			OpenCodeButton.Position = new Vector2()
 			{
@@ -45,11 +46,11 @@ namespace Breakout.Core.Views.Screens
 		{
 			StringBuilder builder = new StringBuilder();
 
-			builder.AppendLine($"Author: {GameInfo.Author}");
+			builder.AppendLine($"Author: {GlobalData.Author}");
 			builder.AppendLine();
-			builder.AppendLine($"License: {GameInfo.License}");
+			builder.AppendLine($"License: {GlobalData.License}");
 			builder.AppendLine();
-			builder.AppendLine($"Version: {GameInfo.CurrentVersion}");
+			builder.AppendLine($"Version: {GlobalData.CurrentVersion}");
 
 			return builder.ToString();
 		}

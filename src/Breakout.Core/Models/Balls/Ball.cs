@@ -1,13 +1,8 @@
 ﻿using Breakout.Core.Models.Bases;
 using Breakout.Core.Models.Paddles;
-using Breakout.Core.Utilities;
+using Breakout.Core.Utilities.Audio;
+using Breakout.Core.Utilities.GameMath;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Breakout.Core.Models.Balls
 {
@@ -178,7 +173,7 @@ namespace Breakout.Core.Models.Balls
 			{
 				float collisionPosX = this.Position.X + this.Width / 2;
 				float paddleContact = (collisionPosX - paddle.Position.X) / paddle.Width;
-				float ballReturnedAngle = MathHelper.Lerp(180, 0, paddleContact);
+				float ballReturnedAngle = MathHelper.Lerp(160, 20, paddleContact);
 
 				ChangeDirection(ballReturnedAngle);
 				paddle.Hit();
@@ -212,7 +207,7 @@ namespace Breakout.Core.Models.Balls
 			Position += Direction * MathHelper.Clamp(CurrentVelocity, MinVelocity, MaxVelocity) * elapsed;
 
 			// Fix a bug when ball stuck at wall border when both paddle and wall jam the ball at 2 edges
-			Position.X = MathHelper.Clamp(Position.X, 0, GameInfo.Screen.Width - this.Width);
+			Position.X = MathHelper.Clamp(Position.X, 0, GlobalData.Screen.Width - this.Width);
 		}
 	}
 }

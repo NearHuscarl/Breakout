@@ -1,4 +1,4 @@
-﻿using Breakout.Core.Utilities;
+﻿using Breakout.Core.Utilities.Helper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

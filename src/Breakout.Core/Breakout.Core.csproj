@@ -44,22 +44,26 @@
     <OutputPath>bin\x86\Update\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BaseStates\GameState.cs" />
+    <Compile Include="Controllers\BaseStates\State.cs" />
+    <Compile Include="Controllers\BaseStates\ScreenState.cs" />
     <Compile Include="Controllers\BreakoutGame.cs" />
     <Compile Include="Controllers\EntryPoint.cs" />
-    <Compile Include="Controllers\Levels\Level.cs" />
-    <Compile Include="Controllers\Levels\LevelPicker.cs" />
     <Compile Include="Controllers\StateMachine.cs" />
-    <Compile Include="Controllers\States\ExitAppState.cs" />
-    <Compile Include="Controllers\States\ExitGameState.cs" />
-    <Compile Include="Controllers\States\GameState.cs" />
-    <Compile Include="Controllers\States\InitialState.cs" />
-    <Compile Include="Controllers\States\MenuState.cs" />
-    <Compile Include="Controllers\States\PauseState.cs" />
-    <Compile Include="Controllers\States\AboutState.cs" />
-    <Compile Include="Controllers\States\RestartState.cs" />
-    <Compile Include="Controllers\States\SettingState.cs" />
-    <Compile Include="Controllers\States\State.cs" />
-    <Compile Include="Controllers\States\WinningState.cs" />
+    <Compile Include="Controllers\MenuStates\ExitAppState.cs" />
+    <Compile Include="Controllers\MenuStates\ExitGameState.cs" />
+    <Compile Include="Controllers\GameStates\PlayState.cs" />
+    <Compile Include="Controllers\MenuStates\WinAllState.cs" />
+    <Compile Include="Controllers\MenuStates\MenuState.cs" />
+    <Compile Include="Controllers\MenuStates\OverwriteState.cs" />
+    <Compile Include="Controllers\GameStates\PauseState.cs" />
+    <Compile Include="Controllers\MenuStates\AboutState.cs" />
+    <Compile Include="Controllers\MenuStates\RestartState.cs" />
+    <Compile Include="Controllers\MenuStates\SettingState.cs" />
+    <Compile Include="Controllers\MenuStates\WinningState.cs" />
+    <Compile Include="Data\HighScoreAccess.cs" />
+    <Compile Include="Data\SessionAccess.cs" />
+    <Compile Include="Data\SettingsAccess.cs" />
     <Compile Include="Extensions\EnumExtension.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
@@ -69,6 +73,10 @@
     <Compile Include="Models\Blocks\Block.cs" />
     <Compile Include="Models\Blocks\FlashingBlock.cs" />
     <Compile Include="Models\Blocks\LightBlock.cs" />
+    <Compile Include="Models\Data\GameData.cs" />
+    <Compile Include="Models\Data\HighScore.cs" />
+    <Compile Include="Models\Data\Session.cs" />
+    <Compile Include="Models\Data\Settings.cs" />
     <Compile Include="Models\Enums\ButtonState.cs" />
     <Compile Include="Models\Enums\Difficulty.cs" />
     <Compile Include="Models\Enums\GameColor.cs" />
@@ -76,16 +84,20 @@
     <Compile Include="Models\Maps\BlockMap.cs" />
     <Compile Include="Models\Scores\Timer.cs" />
     <Compile Include="Utilities\DelayedAction.cs" />
-    <Compile Include="Utilities\TiledMapReader.cs" />
+    <Compile Include="Utilities\Map\MapManager.cs" />
+    <Compile Include="Utilities\Result.cs" />
+    <Compile Include="Utilities\Map\TiledMapReader.cs" />
     <Compile Include="Models\Shapes\ICircle.cs" />
     <Compile Include="Models\Shapes\IRectangle.cs" />
+    <Compile Include="Views\Loaders\BackgroundLoader.cs" />
     <Compile Include="Views\Loaders\FontLoader.cs" />
-    <Compile Include="Views\Loaders\MapLoader.cs" />
     <Compile Include="Views\Screens\Screen.cs" />
+    <Compile Include="Views\Screens\WinAllScreen.cs" />
     <Compile Include="Views\Screens\WindowScreen.cs" />
     <Compile Include="Views\Screens\MenuScreen.cs" />
     <Compile Include="Views\Screens\WinningScreen.cs" />
-    <Compile Include="Views\UIComponents\ScoreBar.cs" />
+    <Compile Include="Views\UIComponents\Header.cs" />
+    <Compile Include="Views\UIComponents\Footer.cs" />
     <Compile Include="Views\Loaders\TextureLoader.cs" />
     <Compile Include="Models\Shapes\Circle.cs" />
     <Compile Include="Models\Bases\CircleObject.cs" />
@@ -93,9 +105,9 @@
     <Compile Include="Models\Bases\DynamicObject.cs" />
     <Compile Include="Models\Blocks\BlockInfo.cs" />
     <Compile Include="Models\Explosions\Explosion.cs" />
-    <Compile Include="Models\Maps\MapManager.cs" />
+    <Compile Include="Utilities\Map\BlockMapReader.cs" />
     <Compile Include="Models\Shapes\FontShape.cs" />
-    <Compile Include="Models\GameInfo.cs" />
+    <Compile Include="Models\GlobalData.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\Players\IPlayer.cs" />
     <Compile Include="Models\Paddles\Paddle.cs" />
@@ -111,7 +123,7 @@
     <Compile Include="Models\Scene.cs" />
     <Compile Include="Models\Scores\DynamicScore.cs" />
     <Compile Include="Views\UIComponents\Star.cs" />
-    <Compile Include="Views\UIComponents\Text.cs" />
+    <Compile Include="Views\UIComponents\Statusline.cs" />
     <Compile Include="Views\Windows\CheckBox.cs" />
     <Compile Include="Views\Windows\Control.cs" />
     <Compile Include="Views\Windows\Label.cs" />
@@ -121,16 +133,15 @@
     <Compile Include="Views\Screens\BigScreen.cs" />
     <Compile Include="Views\Windows\RadioGroup.cs" />
     <Compile Include="Views\Screens\SettingScreen.cs" />
-    <Compile Include="Models\SpriteInfo.cs" />
+    <Compile Include="Models\SpriteData.cs" />
     <Compile Include="Views\WindowManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\AudioManager.cs" />
-    <Compile Include="Utilities\FontHelper.cs" />
-    <Compile Include="Utilities\GeometryMath.cs" />
-    <Compile Include="Utilities\InputHelper.cs" />
-    <Compile Include="Utilities\RandomMath.cs" />
+    <Compile Include="Utilities\Audio\AudioManager.cs" />
+    <Compile Include="Utilities\Helper\FontHelper.cs" />
+    <Compile Include="Utilities\GameMath\GeometryMath.cs" />
+    <Compile Include="Utilities\Helper\InputHelper.cs" />
+    <Compile Include="Utilities\GameMath\RandomMath.cs" />
     <Compile Include="Views\Enums\Alignment.cs" />
-    <Compile Include="Views\Enums\Stage.cs" />
     <Compile Include="Views\Renderers\AbstractRenderer.cs" />
     <Compile Include="Views\Renderers\MonoGameRenderer.cs" />
     <Compile Include="Views\SpriteFactory.cs" />
@@ -144,6 +155,7 @@
     <Compile Include="Views\Sprites\PaddleUI.cs" />
     <Compile Include="Views\Sprites\GameSprite.cs" />
     <Compile Include="Views\Windows\RadioButton.cs" />
+    <Compile Include="Views\Windows\Textbox.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -172,6 +184,7 @@
       <Name>Breakout.Pipeline</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <PropertyGroup>

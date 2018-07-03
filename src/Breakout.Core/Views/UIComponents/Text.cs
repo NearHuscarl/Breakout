@@ -1,4 +1,5 @@
 ﻿using Breakout.Core.Models;
+using Breakout.Core.Models.Data;
 using Breakout.Core.Views.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,7 +9,7 @@ namespace Breakout.Core.Views.UIComponents
 	public class Text
 	{
 		private SpriteFont font;
-		private Color color;
+		public Color color { get; set; }
 
 		public Vector2 Position;
 
@@ -38,11 +39,11 @@ namespace Breakout.Core.Views.UIComponents
 
 			else if (alignment == Alignment.Right)
 			{
-				return GameInfo.Screen.Width - contentLength - offsetLength;
+				return GlobalData.Screen.Width - 5 - contentLength - offsetLength;
 			}
 
 			// (alignment == Alignment.Center)
-			return GameInfo.Screen.Width / 2 - contentLength / 2;
+			return GlobalData.Screen.Width / 2 - contentLength / 2;
 		}
 	}
 }

@@ -21,10 +21,9 @@ namespace Breakout.Core.Views.Windows
 
 		public bool IsChecked { get; protected set; }
 
-		public CheckBoxButton(Texture2D checkedImage, Texture2D uncheckedImage, SpriteFont font, Vector2 position, string text, bool initialValue)
+		public CheckBoxButton(Texture2D checkedImage, Texture2D uncheckedImage, SpriteFont font, string text, bool initialValue)
 		{
 			this.Font = font;
-			this.Position = position;
 			this.Text = text;
 			this.IsChecked = initialValue;
 

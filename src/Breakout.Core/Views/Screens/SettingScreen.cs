@@ -1,6 +1,6 @@
 ﻿using Breakout.Core.Models;
 using Breakout.Core.Models.Enums;
-using Breakout.Core.Utilities;
+using Breakout.Core.Utilities.Audio;
 using Breakout.Core.Views.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,8 +21,8 @@ namespace Breakout.Core.Views.Screens
 		{
 			Title.Text = "Setting";
 
-			ApplyButton = WindowFactory.CreateButton(new Vector2(), "Apply");
-			CancelButton = WindowFactory.CreateButton(new Vector2(), "Cancel");
+			ApplyButton = WindowFactory.CreateButton("Apply");
+			CancelButton = WindowFactory.CreateButton("Cancel");
 
 			ApplyButton.Position = new Vector2()
 			{
@@ -36,28 +36,26 @@ namespace Breakout.Core.Views.Screens
 				Y = Position.Y + Height * 0.75f,
 			};
 
+			SoundText = WindowFactory.CreateLabel("Sound");
+			DifficultyText = WindowFactory.CreateLabel("Difficulty");
 
-			Vector2 soundTextPosition =      new Vector2(Position.X + 100f, Position.Y + 70f);
-			Vector2 difficultyTextPosition = new Vector2(Position.X + 100f, Position.Y + 140f);
-
-			Vector2 muteCheckboxPosition =   new Vector2(Position.X + 200f, Position.Y + 60f);
-
-			Vector2 easyRadioBtnPosition =   new Vector2(Position.X + 200f, Position.Y + 130f);
-			Vector2 normalRadioBtnPosition = new Vector2(Position.X + 200f, Position.Y + 180f);
-			Vector2 hardRadioBtnPosition =   new Vector2(Position.X + 200f, Position.Y + 230f);
-
-
-			SoundText = WindowFactory.CreateLabel(soundTextPosition, "Sound");
-			DifficultyText = WindowFactory.CreateLabel(difficultyTextPosition, "Difficulty");
-
-			MuteCheckbox = WindowFactory.CreateCheckBox(muteCheckboxPosition, "Mute", AudioManager.IsMute);
+			MuteCheckbox = WindowFactory.CreateCheckBox("Mute", AudioManager.IsMute);
 
 			DifficultiesRadioGroup = new RadioGroup(new RadioButton[]
 			{
-				WindowFactory.CreateRadioButton(easyRadioBtnPosition, "Easy", GameInfo.Difficulty == Difficulty.Easy),
-				WindowFactory.CreateRadioButton(normalRadioBtnPosition, "Normal", GameInfo.Difficulty == Difficulty.Normal),
-				WindowFactory.CreateRadioButton(hardRadioBtnPosition, "Hard", GameInfo.Difficulty == Difficulty.Hard),
+				WindowFactory.CreateRadioButton("Easy",   GlobalData.Settings.Difficulty == Difficulty.Easy),
+				WindowFactory.CreateRadioButton("Normal", GlobalData.Settings.Difficulty == Difficulty.Normal),
+				WindowFactory.CreateRadioButton("Hard",   GlobalData.Settings.Difficulty == Difficulty.Hard),
 			});
+
+			SoundText.Position =      new Vector2(Position.X + 100f, Position.Y + 70f);
+			DifficultyText.Position = new Vector2(Position.X + 100f, Position.Y + 140f);
+
+			MuteCheckbox.Position = new Vector2(Position.X + 200f, Position.Y + 60f);
+
+			DifficultiesRadioGroup.RadioButtons[0].Position = new Vector2(Position.X + 200f, Position.Y + 130f);
+			DifficultiesRadioGroup.RadioButtons[1].Position = new Vector2(Position.X + 200f, Position.Y + 180f);
+			DifficultiesRadioGroup.RadioButtons[2].Position = new Vector2(Position.X + 200f, Position.Y + 230f);
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)

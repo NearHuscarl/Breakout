@@ -1,13 +1,8 @@
 ﻿using Breakout.Core.Models.Bases;
 using Breakout.Core.Models.Enums;
-using Breakout.Core.Utilities;
+using Breakout.Core.Utilities.Audio;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Breakout.Core.Models.Paddles
 {
@@ -41,8 +36,8 @@ namespace Breakout.Core.Models.Paddles
 
 			this.Position = new Vector2()
 			{
-				X = GameInfo.Screen.Width / 2 - Width / 2,
-				Y = GameInfo.Screen.Height - Height - 30,
+				X = GlobalData.Screen.Width / 2 - Width / 2,
+				Y = GlobalData.Screen.Height - Height - 30,
 			};
 
 			this.Velocity = velocity;
@@ -87,7 +82,7 @@ namespace Breakout.Core.Models.Paddles
 
 			if (this.IsHittingRightWall())
 			{
-				Position.X = GameInfo.Screen.Width - Width;
+				Position.X = GlobalData.Screen.Width - Width;
 
 				if (!this.IsHittingRightWall(oldPosition))
 					AudioManager.PlaySound("PaddleHitWall", percent: scene.Volume);

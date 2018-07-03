@@ -1,4 +1,6 @@
 ﻿using Breakout.Core.Models;
+using Breakout.Core.Models.Data;
+using Breakout.Core.Views.Enums;
 using Breakout.Core.Views.Loaders;
 using Breakout.Core.Views.Windows;
 using Microsoft.Xna.Framework;
@@ -21,8 +23,8 @@ namespace Breakout.Core.Views.Screens
 			{
 				return new Vector2()
 				{
-					X = GameInfo.Screen.Width / 2 - Width / 2,
-					Y = GameInfo.Screen.Height / 2 - Height / 2,
+					X = GlobalData.Screen.Width / 2 - Width / 2,
+					Y = GlobalData.Screen.Height / 2 - Height / 2,
 				};
 			}
 		}
@@ -86,12 +88,23 @@ namespace Breakout.Core.Views.Screens
 			return Position.Y + margin * controlOrdinalNumber + control.Height * (controlOrdinalNumber - 1);
 		}
 
-		protected void SetTextPosition(Label label, float lineOffset)
+		protected void AlignText(Label label, Alignment alignment=Alignment.Center, float lineOffset=25f)
 		{
+			float x;
+
+			if (alignment == Alignment.Center)
+				x = Position.X + Width / 2 - label.Font.MeasureString(label.Text).X / 2;
+
+			else if (alignment == Alignment.Left)
+				x = Position.X + Margin;
+
+			else
+				x = Position.X + Width - Margin;
+
 			label.Position = new Vector2()
 			{
-				X = Position.X + Width / 2 - label.Font.MeasureString(label.Text).X / 2,
-				Y = Position.Y + Margin + label.Font.MeasureString(label.Text).Y + lineOffset,
+				X = x,
+				Y = Position.Y + Margin + label.Font.LineSpacing + lineOffset,
 			};
 		}
 

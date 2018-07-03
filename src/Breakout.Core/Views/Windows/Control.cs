@@ -1,4 +1,5 @@
 ﻿using Breakout.Core.Models;
+using Breakout.Core.Models.Data;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -14,8 +15,8 @@ namespace Breakout.Core.Views.Windows
 
 		public virtual string Text { get; set; }
 
-		public Color ForegroundColor { get; set; } = GameInfo.Theme["White"];
-		public Color BackgroundColor { get; set; } = GameInfo.Theme["Black"];
+		public Color ForegroundColor { get; set; } = GlobalData.Theme["White"];
+		public Color BackgroundColor { get; set; } = GlobalData.Theme["Black"];
 
 		public virtual Rectangle Rectangle { get; }
 

@@ -1,25 +1,24 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Breakout.Core.Models;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Breakout.Core.Views.UIComponents
 {
 	public class Background
 	{
-		private Texture2D texture;
+		private Scene scene;
+		private Dictionary<string, Texture2D> textures;
 
-		public Background(Texture2D texture)
+		public Background(Scene scene, Dictionary<string, Texture2D> textures)
 		{
-			this.texture = texture;
+			this.scene = scene;
+			this.textures = textures;
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(texture, Vector2.Zero, Color.White);
+			spriteBatch.Draw(textures[scene.MapName], Vector2.Zero, Color.White);
 		}
 	}
 }

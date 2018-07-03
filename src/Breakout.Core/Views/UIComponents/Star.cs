@@ -1,4 +1,5 @@
-﻿using Breakout.Core.Views.Windows;
+﻿using Breakout.Core.Utilities.Audio;
+using Breakout.Core.Views.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -12,17 +13,21 @@ namespace Breakout.Core.Views.UIComponents
 		public override int Width { get { return textures[false].Width; } }
 		public override int Height { get { return textures[false].Height; } }
 
-		public bool IsShine { get; set; }
+		public bool IsShine { get; private set; }
 
-		public Star(Texture2D unStarTexture, Texture2D starTexture, Vector2 position)
+		public Star(Texture2D unStarTexture, Texture2D starTexture)
 		{
 			textures = new Dictionary<bool, Texture2D>()
 			{
 				{ false, unStarTexture },
 				{ true, starTexture },
 			};
+		}
 
-			Position = position;
+		public void Shine()
+		{
+			AudioManager.PlaySound("GetStar");
+			IsShine = true;
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)
