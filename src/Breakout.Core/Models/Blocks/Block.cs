@@ -50,7 +50,7 @@ namespace Breakout.Core.Models.Blocks
 		{
 			if (RandomMath.RandomPercent(powerUpSpawnChance))
 			{
-				PowerUp powerUp = PowerUpGenerator.GenerateRandomPowerUp();
+				PowerUp powerUp = PowerUpGenerator.GenerateRandomPowerUp(scene);
 				return ModelFactory.CreatePowerUpPackage(powerUp, this.Position);
 			}
 

@@ -207,10 +207,7 @@ namespace Breakout.Core.Models
 			{
 				PowerUp powerUp = package.GetPowerUp();
 
-				if (powerUp.Target == PowerUpTarget.Ball)
-					powerUp.Activate(Balls);
-				else
-					powerUp.Activate(Paddle);
+				powerUp.Activate();
 
 				PowerUps.Add(powerUp);
 				Packages.Remove(package);

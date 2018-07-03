@@ -12,13 +12,17 @@ namespace Breakout.Core.Models.PowerUps
 	public class PowerUpPackage : RectangleObject
 	{
 		public PowerUp PowerUp { get; private set; }
+		public PowerUpType Type
+		{
+			get { return PowerUp.PowerUpType;  }
+		}
 
 		public PowerUpPackage(PowerUp powerUp, int width, int height, Vector2 position)
 			: base(width, height, position)
 		{
 			PowerUp = powerUp;
-			Velocity = 500f;
-			Direction = new Vector2(0, -1); // going down
+			Velocity = 300f;
+			Direction = new Vector2(0, 1); // going down
 		}
 
 		public PowerUp GetPowerUp()

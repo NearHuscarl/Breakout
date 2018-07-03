@@ -24,6 +24,8 @@ namespace Breakout.Core.Views.Renderers
 
 		public PaddleUI PaddleUI;
 		public GameSprite BallUI;
+		private Dictionary<PowerUpType, GameSprite> powerups;
+
 		public Dictionary<GameColor, BlockUI> Blocks;
 		private GameSprite skeletonBlock;
 
@@ -43,6 +45,7 @@ namespace Breakout.Core.Views.Renderers
 
 			PaddleUI = SpriteFactory.CreatePaddle(content);
 			BallUI = SpriteFactory.CreateBall(content);
+			powerups = SpriteFactory.CreatePowerups(content);
 
 			Blocks = SpriteFactory.CreateBlocks(content);
 			skeletonBlock = SpriteFactory.CreateSkeletonBlock(content);
@@ -52,7 +55,7 @@ namespace Breakout.Core.Views.Renderers
 		{
 			backgrounds.Draw(spriteBatch);
 
-			DrawBallAndBlocks(elapsed);
+			DrawGameEntities(elapsed);
 
 			cursor.Draw(spriteBatch);
 
@@ -67,7 +70,7 @@ namespace Breakout.Core.Views.Renderers
 
 			PaddleUI.Draw(spriteBatch, scene.Paddle);
 
-			DrawBallAndBlocks(deltaTime);
+			DrawGameEntities(deltaTime);
 
 			header.Draw(spriteBatch);
 			footer.Draw(spriteBatch);
@@ -75,7 +78,7 @@ namespace Breakout.Core.Views.Renderers
 			DrawScreens();
 		}
 
-		private void DrawBallAndBlocks(float elapsed)
+		private void DrawGameEntities(float elapsed)
 		{
 			foreach (var block in Blocks.Values)
 				block.UpdateColor(elapsed);
@@ -88,6 +91,9 @@ namespace Breakout.Core.Views.Renderers
 
 			foreach (var block in scene.Map.Layer1)
 				Blocks[block.Color].Draw(spriteBatch, block);
+
+			foreach (var package in scene.Packages)
+				powerups[package.Type].Draw(spriteBatch, package);
 		}
 
 		public override void DrawScreens()

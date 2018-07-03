@@ -59,6 +59,34 @@ namespace Breakout.Core.Views
 			return ball;
 		}
 
+		public static Dictionary<PowerUpType, GameSprite> CreatePowerups(ContentManager content)
+		{
+			Texture2D doubleTexture = content.Load<Texture2D>("Powerups/Double");
+			Texture2D tripleTexture = content.Load<Texture2D>("Powerups/Triple");
+			Texture2D biggerTexture = content.Load<Texture2D>("Powerups/Bigger");
+			Texture2D smallerTexture = content.Load<Texture2D>("Powerups/Smaller");
+			Texture2D strongerTexture = content.Load<Texture2D>("Powerups/Stronger");
+			Texture2D weakerTexture = content.Load<Texture2D>("Powerups/Weaker");
+			Texture2D fasterTexture = content.Load<Texture2D>("Powerups/Faster");
+			Texture2D slowerTexture = content.Load<Texture2D>("Powerups/Slower");
+			Texture2D longerTexture = content.Load<Texture2D>("Powerups/Longer");
+			Texture2D shorterTexture = content.Load<Texture2D>("Powerups/Shorter");
+
+			return new Dictionary<PowerUpType, GameSprite>()
+			{
+				{ PowerUpType.Double, new GameSprite(doubleTexture) },
+				{ PowerUpType.Triple, new GameSprite(tripleTexture) },
+				{ PowerUpType.Bigger, new GameSprite(biggerTexture) },
+				{ PowerUpType.Smaller, new GameSprite(smallerTexture) },
+				{ PowerUpType.Stronger, new GameSprite(strongerTexture) },
+				{ PowerUpType.Weaker, new GameSprite(weakerTexture) },
+				{ PowerUpType.Faster, new GameSprite(fasterTexture) },
+				{ PowerUpType.Slower, new GameSprite(slowerTexture) },
+				{ PowerUpType.Longer, new GameSprite(longerTexture) },
+				{ PowerUpType.Shorter, new GameSprite(shorterTexture) },
+			};
+		}
+
 		public static Dictionary<GameColor, BlockUI> CreateBlocks(ContentManager content)
 		{
 			Texture2D redBlockTexture = content.Load<Texture2D>("Blocks/Red");

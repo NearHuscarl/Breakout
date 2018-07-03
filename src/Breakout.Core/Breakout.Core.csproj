@@ -82,6 +82,8 @@
     <Compile Include="Models\Enums\GameColor.cs" />
     <Compile Include="Models\Enums\PaddleLength.cs" />
     <Compile Include="Models\Maps\BlockMap.cs" />
+    <Compile Include="Models\PowerUps\BallPowerUp.cs" />
+    <Compile Include="Models\PowerUps\PaddlePowerUp.cs" />
     <Compile Include="Models\Scores\Timer.cs" />
     <Compile Include="Utilities\ApplicationPath.cs" />
     <Compile Include="Utilities\DelayedAction.cs" />

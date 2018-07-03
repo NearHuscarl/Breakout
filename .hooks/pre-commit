@@ -11,3 +11,4 @@ echo
 
 git add README.md
 git add setup.cfg
+git add src/Breakout.Core/Properties/AssemblyInfo.cs

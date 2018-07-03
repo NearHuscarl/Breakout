@@ -1,5 +1,7 @@
 ﻿using Breakout.Core.Controllers.BaseStates;
 using Breakout.Core.Models;
+using Breakout.Core.Models.IO;
+using Breakout.Core.Utilities.Helper;
 using Breakout.Core.Views;
 using Breakout.Core.Views.Renderers;
 using Breakout.Core.Views.Screens;
@@ -26,6 +28,11 @@ namespace Breakout.Core.Controllers.MenuStates
 			HandleButton(settingButton, StateMachine.OpenSetting);
 			HandleButton(aboutButton, StateMachine.OpenAbout);
 			HandleButton(exitButton, StateMachine.ExitApp);
+
+			if (InputHelper.IsNewKeyPress(Input.Exit))
+			{
+				StateMachine.ExitApp();
+			}
 
 			StateMachine.Scene.Step(EntryPoint.Game.Elapsed);
 		}

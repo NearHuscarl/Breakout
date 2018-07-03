@@ -22,7 +22,10 @@ namespace Breakout.Core.Models.Blocks
 		public override void OnDestroy()
 		{
 			base.OnDestroy();
-			scene.PowerUps.Add(new PowerUp(PowerUpType.Faster, scene.Balls));
+
+			var powerup = new BallPowerUp(PowerUpType.Faster, scene.Balls);
+			powerup.Activate();
+			scene.PowerUps.Add(powerup);
 		}
 	}
 }
