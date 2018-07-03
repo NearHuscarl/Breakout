@@ -1,9 +1,8 @@
-﻿using System;
-namespace Breakout.Core.Models.Data
+﻿namespace Breakout.Core.Models.Data
 {
 	public class Session : GameData
 	{
-		public static readonly string Path = System.IO.Path.Combine(Directory, "session.xml");
+		public static readonly string FullPath = System.IO.Path.Combine(Directory, "session.xml");
 
 		public int CurrentLevel { get; set; }
 		public int CurrentLives { get; set; }

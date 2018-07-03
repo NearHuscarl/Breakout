@@ -135,7 +135,7 @@ namespace Breakout.Core.Controllers
 			Scene.Player.Live--;
 			Scene.Reset();
 
-			ChangeState(pauseState);
+			PauseGame();
 		}
 
 		public static void Restart()

@@ -83,6 +83,7 @@
     <Compile Include="Models\Enums\PaddleLength.cs" />
     <Compile Include="Models\Maps\BlockMap.cs" />
     <Compile Include="Models\Scores\Timer.cs" />
+    <Compile Include="Utilities\ApplicationPath.cs" />
     <Compile Include="Utilities\DelayedAction.cs" />
     <Compile Include="Utilities\Map\MapManager.cs" />
     <Compile Include="Utilities\Result.cs" />
@@ -174,7 +175,6 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.config" />
     <None Include="app.manifest" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Deployment\PostBuild.ps1" />
     <None Include="packages.config" />
   </ItemGroup>

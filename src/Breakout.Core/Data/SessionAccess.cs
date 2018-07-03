@@ -14,7 +14,7 @@ namespace Breakout.Core.Data
 			{
 				Session session = new Session();
 
-				using (FileStream stream = new FileStream(Session.Path, FileMode.Open))
+				using (FileStream stream = new FileStream(Session.FullPath, FileMode.Open))
 				{
 					XmlSerializer serializer = new XmlSerializer(typeof(Session));
 					session = serializer.Deserialize(stream) as Session;
@@ -35,7 +35,7 @@ namespace Breakout.Core.Data
 				if (!Directory.Exists(Session.Directory))
 					Directory.CreateDirectory(Session.Directory);
 
-				using (FileStream stream = new FileStream(Session.Path, FileMode.Create))
+				using (FileStream stream = new FileStream(Session.FullPath, FileMode.Create))
 				{
 					XmlSerializer serializer = new XmlSerializer(typeof(Session));
 					serializer.Serialize(stream, settings);
