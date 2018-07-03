@@ -30,9 +30,14 @@ namespace Breakout.Core.Controllers.MenuStates
 				NextLevel();
 			}
 
+			if (winningScreen == null)
+			{
+				return;
+			}
+
 			if (winningScreen.Stage == SummerizedStage.Score)
 			{
-				SummerizeScore();
+				SummerizeScore(winningScreen);
 			}
 			else if (winningScreen.Stage == SummerizedStage.Star)
 			{
@@ -41,10 +46,8 @@ namespace Breakout.Core.Controllers.MenuStates
 			// SummerizedStage.Done
 		}
 
-		private void SummerizeScore()
+		private void SummerizeScore(WinningScreen winningScreen)
 		{
-			var winningScreen = (WinningScreen)WindowManager.CurrentScreen;
-
 			if (StateMachine.Scene.Player.Score.Score > 0)
 			{
 				AudioManager.PlaySound("AddScore");
