@@ -3,7 +3,7 @@
 """
 This script convert pixel from image to character:
 	x:  skeleton block
-	_:  empty
+	_:  empty (layer 0)
 
 	0:  black
 	1:  dark
@@ -15,6 +15,7 @@ This script convert pixel from image to character:
 
 	4:  silver
 	5:  white
+	f4: flashing white
 
 	C:  cyan
 	c:  light cyan
@@ -62,49 +63,53 @@ except ImportError:
 	sys.exit(1)
 
 COL2STR_BG = {
-		"#000000": "x",
-		"#ecf0f1": "_",
+		"#000000ff": "x",
+		"#ecf0f1ff": "_",
 		}
 
 COL2STR = {
-		"#2c3e50": "0",
-		"#34495e": "1",
-		"#000000": "f0",
+		"#2c3e50ff": "0",
+		"#34495eff": "1",
+		"#000000ff": "f0",
 
-		"#7f8c8d": "2",
-		"#95a5a6": "3",
-		"#808080": "f2",
+		"#7f8c8dff": "2",
+		"#95a5a6ff": "3",
+		"#808080ff": "f2",
 
-		"#bdc3c7": "4",
-		"#ecf0f1": "5",
+		"#bdc3c7ff": "4",
+		"#ecf0f1ff": "5",
+		"#ffffffff": "f4",
 
-		"#16a085": "C",
-		"#1abc9c": "c",
-		"#00ffff": "fc",
+		"#16a085ff": "C",
+		"#1abc9cff": "c",
+		"#00ffffff": "fc",
 
-		"#27ae60": "G",
-		"#2ecc71": "g",
-		"#008000": "fg",
+		"#27ae60ff": "G",
+		"#2ecc71ff": "g",
+		"#008000ff": "fg",
 
-		"#2980b9": "B",
-		"#3498db": "b",
-		"#0000ff": "fb",
+		"#2980b9ff": "B",
+		"#3498dbff": "b",
+		"#0000ffff": "fb",
 
-		"#8e44ad": "M",
-		"#9b59b6": "m",
-		"#ff00ff": "fm",
+		"#8e44adff": "M",
+		"#9b59b6ff": "m",
+		"#ff00ffff": "fm",
 
-		"#f39c12": "Y",
-		"#f1c40f": "y",
-		"#ffff00": "fy",
+		"#f39c12ff": "Y",
+		"#f1c40fff": "y",
+		"#ffff00ff": "fy",
 
-		"#d35400": "O",
-		"#e67e22": "o",
-		"#ffa500": "fo",
+		"#d35400ff": "O",
+		"#e67e22ff": "o",
+		"#ffa500ff": "fo",
 
-		"#c0392b": "R",
-		"#e74c3c": "r",
-		"#ff0000": "fr",
+		"#c0392bff": "R",
+		"#e74c3cff": "r",
+		"#ff0000ff": "fr",
+
+		"#ffffff00": "_",
+		"#00000000": "_",
 		}
 
 def get_script_path():
@@ -129,8 +134,7 @@ def chunk_list(a, n):
 
 def rgb_to_hex(color):
 	"""Convert an rgb color to hex."""
-	color = color[0:3]
-	return "#%02x%02x%02x" % (*color,)
+	return "#%02x%02x%02x%02x" % (*color,)
 
 def is_bg(file):
 	""" if image file is background map """
@@ -164,7 +168,7 @@ def generate_matrix(imgfile, color_to_str):
 
 			else:
 				raise ColorNotFoundError("Color {} at ({}, {}) cannot be found color dictionary"
-						.format(matrix[row][column], row, column))
+						.format(matrix[row][column], column, row))
 
 	return matrix
 
@@ -177,7 +181,7 @@ def generate_map(imgfile):
 	return generate_matrix(imgfile, COL2STR)
 
 def generate_bg_map(imgfile):
-	""" generate the map that one layer below """
+	""" generate the skeleton map that one layer below """
 	return generate_matrix(imgfile, COL2STR_BG)
 
 def main():

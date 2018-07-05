@@ -32,7 +32,7 @@ namespace Breakout.Core.Views.Renderers
 
 		private Header header;
 		private Footer footer;
-		private Background backgrounds;
+		private Background background;
 
 		public MonoGameRenderer(Scene scene)
 		{
@@ -40,7 +40,7 @@ namespace Breakout.Core.Views.Renderers
 
 			cursor = SpriteFactory.CreateCursor(content);
 
-			backgrounds = SpriteFactory.CreateBackground(content, scene);
+			background = SpriteFactory.CreateBackground(content, scene);
 			header = SpriteFactory.CreateHeader(scene);
 			footer = SpriteFactory.CreateFooter(scene);
 
@@ -54,7 +54,7 @@ namespace Breakout.Core.Views.Renderers
 
 		public override void DrawMenu(float elapsed)
 		{
-			backgrounds.Draw(spriteBatch);
+			background.Draw(spriteBatch);
 
 			DrawGameEntities(elapsed);
 
@@ -67,7 +67,7 @@ namespace Breakout.Core.Views.Renderers
 		{
 			deltaTime = elapsed;
 
-			backgrounds.Draw(spriteBatch);
+			background.Draw(spriteBatch);
 
 			PaddleUI.Draw(spriteBatch, scene.Paddle);
 

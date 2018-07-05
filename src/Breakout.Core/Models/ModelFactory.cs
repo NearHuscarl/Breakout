@@ -107,9 +107,9 @@ namespace Breakout.Core.Models
 				return new FlashingBlock(EntryPoint.Game.Scene, SpriteData.BlockWidth, SpriteData.BlockHeight, position, BlockInfo.Attributes[blockType]);
 
 			else if (BlockInfo.IsLight(blockType))
-				return new LightBlock(EntryPoint.Game.Scene, SpriteData.BlockWidth, SpriteData.BlockHeight, position, BlockInfo.Attributes[blockType]);
+				return new NormalBlock(EntryPoint.Game.Scene, SpriteData.BlockWidth, SpriteData.BlockHeight, position, BlockInfo.Attributes[blockType]);
 
-			return new NormalBlock(EntryPoint.Game.Scene, SpriteData.BlockWidth, SpriteData.BlockHeight, position, BlockInfo.Attributes[blockType]);
+			return new LightBlock(EntryPoint.Game.Scene, SpriteData.BlockWidth, SpriteData.BlockHeight, position, BlockInfo.Attributes[blockType]);
 		}
 
 		public static GameObject CreateSkeletonBlock(BlockType blockType, Vector2 position)

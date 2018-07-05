@@ -39,8 +39,9 @@ namespace Breakout.Core.Models.Blocks
 			{ BlockType.Blue,    new BlockAtrributes(health: 30, color: GameColor.Blue, favoredPowerUp: PowerUpType.Weaker) },
 			{ BlockType.Cyan,    new BlockAtrributes(health: 20, color: GameColor.Cyan, favoredPowerUp: PowerUpType.Bigger, secondaryFavoredPowerUp: PowerUpType.Smaller) },
 			{ BlockType.Magenta, new BlockAtrributes(health: 10, color: GameColor.Magenta, favoredPowerUp: PowerUpType.Nothing) },
-			{ BlockType.Gray,    new BlockAtrributes(health: 80, color: GameColor.Gray, favoredPowerUp: PowerUpType.Magnetize) },
 			{ BlockType.Black,   new BlockAtrributes(health: 90, color: GameColor.Black, favoredPowerUp: PowerUpType.Longer, secondaryFavoredPowerUp: PowerUpType.Shorter) },
+			{ BlockType.Gray,    new BlockAtrributes(health: 80, color: GameColor.Gray, favoredPowerUp: PowerUpType.Magnetize) },
+			{ BlockType.White,   new BlockAtrributes(health: 50, color: GameColor.White, favoredPowerUp: PowerUpType.Nothing) },
 
 			{ BlockType.LightRed,     new BlockAtrributes(health: 10, color: GameColor.Red, favoredPowerUp: PowerUpType.Stronger) },
 			{ BlockType.LightOrange,  new BlockAtrributes(health: 60, color: GameColor.Orange, favoredPowerUp: PowerUpType.Slower) },
@@ -49,8 +50,9 @@ namespace Breakout.Core.Models.Blocks
 			{ BlockType.LightBlue,    new BlockAtrributes(health: 30, color: GameColor.Blue, favoredPowerUp: PowerUpType.Weaker) },
 			{ BlockType.LightCyan,    new BlockAtrributes(health: 20, color: GameColor.Cyan, favoredPowerUp: PowerUpType.Bigger, secondaryFavoredPowerUp: PowerUpType.Smaller) },
 			{ BlockType.LightMagenta, new BlockAtrributes(health: 10, color: GameColor.Magenta, favoredPowerUp: PowerUpType.Nothing) },
-			{ BlockType.LightGray,    new BlockAtrributes(health: 80, color: GameColor.Gray, favoredPowerUp: PowerUpType.Magnetize) },
 			{ BlockType.Dark,         new BlockAtrributes(health: 90, color: GameColor.Black, favoredPowerUp: PowerUpType.Longer, secondaryFavoredPowerUp: PowerUpType.Shorter) },
+			{ BlockType.LightGray,    new BlockAtrributes(health: 80, color: GameColor.Gray, favoredPowerUp: PowerUpType.Magnetize) },
+			{ BlockType.Silver,       new BlockAtrributes(health: 80, color: GameColor.White, favoredPowerUp: PowerUpType.Nothing) },
 
 			 // One hit, blow up surrounding when hit
 			{ BlockType.FlashingRed,     new BlockAtrributes(health: 1, color: GameColor.Red, favoredPowerUp: PowerUpType.Stronger) },
@@ -60,8 +62,9 @@ namespace Breakout.Core.Models.Blocks
 			{ BlockType.FlashingBlue,    new BlockAtrributes(health: 1, color: GameColor.Blue, favoredPowerUp: PowerUpType.Weaker) },
 			{ BlockType.FlashingCyan,    new BlockAtrributes(health: 1, color: GameColor.Cyan, favoredPowerUp: PowerUpType.Bigger, secondaryFavoredPowerUp: PowerUpType.Smaller) },
 			{ BlockType.FlashingMagenta, new BlockAtrributes(health: 1, color: GameColor.Magenta, favoredPowerUp: PowerUpType.Nothing) },
-			{ BlockType.FlashingGray,    new BlockAtrributes(health: 1, color: GameColor.Gray, favoredPowerUp: PowerUpType.Magnetize) },
 			{ BlockType.FlashingBlack,   new BlockAtrributes(health: 1, color: GameColor.Black, favoredPowerUp: PowerUpType.Longer, secondaryFavoredPowerUp: PowerUpType.Shorter) },
+			{ BlockType.FlashingGray,    new BlockAtrributes(health: 1, color: GameColor.Gray, favoredPowerUp: PowerUpType.Magnetize) },
+			{ BlockType.FlashingWhite,   new BlockAtrributes(health: 1, color: GameColor.White, favoredPowerUp: PowerUpType.Nothing) },
 
 			{ BlockType.Skeleton, BlockAtrributes.Empty },
 			{ BlockType.None, BlockAtrributes.Empty },

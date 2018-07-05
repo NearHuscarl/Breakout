@@ -72,7 +72,7 @@
     <Compile Include="Models\Bases\IInteractive.cs" />
     <Compile Include="Models\Blocks\Block.cs" />
     <Compile Include="Models\Blocks\FlashingBlock.cs" />
-    <Compile Include="Models\Blocks\LightBlock.cs" />
+    <Compile Include="Models\Blocks\NormalBlock.cs" />
     <Compile Include="Models\Data\GameData.cs" />
     <Compile Include="Models\Data\HighScore.cs" />
     <Compile Include="Models\Data\Session.cs" />
@@ -117,7 +117,7 @@
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\Players\IPlayer.cs" />
     <Compile Include="Models\Paddles\Paddle.cs" />
-    <Compile Include="Models\Blocks\NormalBlock.cs" />
+    <Compile Include="Models\Blocks\LightBlock.cs" />
     <Compile Include="Models\Enums\BlockType.cs" />
     <Compile Include="Models\Enums\PowerUpType.cs" />
     <Compile Include="Models\IO\Input.cs" />

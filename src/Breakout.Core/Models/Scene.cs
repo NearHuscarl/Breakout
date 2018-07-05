@@ -90,7 +90,7 @@ namespace Breakout.Core.Models
 			Player = ModelFactory.CreatePlayer(session);
 
 			Map = MapManager.Load(session.CurrentLevel);
-			MapName = MapManager.Stages[GlobalData.Session.CurrentLevel];
+			MapName = MapManager.Stages[session.CurrentLevel];
 
 			Paddle = ModelFactory.CreatePaddle();
 			Balls = ModelFactory.CreateBall();
@@ -247,7 +247,7 @@ namespace Breakout.Core.Models
 		{
 			package.Timer += deltaTime;
 
-			if (package.IsOffBottom())
+			if (package.IsCompletelyOffBottom())
 				Packages.Remove(package);
 
 			foreach (var ball in Balls)

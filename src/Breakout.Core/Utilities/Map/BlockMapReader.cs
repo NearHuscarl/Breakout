@@ -19,6 +19,7 @@ namespace Breakout.Core.Utilities.Map
 
 			{ "0", BlockType.Black },
 			{ "2", BlockType.Gray },
+			{ "4", BlockType.Silver },
 			{ "C", BlockType.Cyan },
 			{ "G", BlockType.Green },
 			{ "B", BlockType.Blue },
@@ -29,6 +30,7 @@ namespace Breakout.Core.Utilities.Map
 
 			{ "1", BlockType.Dark },
 			{ "3", BlockType.LightGray },
+			{ "5", BlockType.White },
 			{ "c", BlockType.LightCyan },
 			{ "g", BlockType.LightGreen },
 			{ "b", BlockType.LightBlue },
@@ -39,6 +41,7 @@ namespace Breakout.Core.Utilities.Map
 
 			{ "f0", BlockType.FlashingBlack },
 			{ "f2", BlockType.FlashingGray },
+			{ "f4", BlockType.FlashingWhite },
 			{ "fc", BlockType.FlashingCyan },
 			{ "fg", BlockType.FlashingGreen },
 			{ "fb", BlockType.FlashingBlue },
@@ -46,9 +49,6 @@ namespace Breakout.Core.Utilities.Map
 			{ "fy", BlockType.FlashingYellow },
 			{ "fo", BlockType.FlashingOrange },
 			{ "fr", BlockType.FlashingRed },
-
-			{ "4", BlockType.None },
-			{ "5", BlockType.None },
 		};
 
 		public BlockMap LoadGameObjects(TiledMap matrix)

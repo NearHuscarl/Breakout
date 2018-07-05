@@ -116,8 +116,9 @@ namespace Breakout.Core.Views
 			Texture2D blueBlockTexture = content.Load<Texture2D>("Blocks/Blue");
 			Texture2D cyanBlockTexture = content.Load<Texture2D>("Blocks/Cyan");
 			Texture2D magentaBlockTexture = content.Load<Texture2D>("Blocks/Magenta");
-			Texture2D grayBlockTexture = content.Load<Texture2D>("Blocks/Gray");
 			Texture2D blackBlockTexture = content.Load<Texture2D>("Blocks/Black");
+			Texture2D grayBlockTexture = content.Load<Texture2D>("Blocks/Gray");
+			Texture2D whiteBlockTexture = content.Load<Texture2D>("Blocks/White");
 
 			BlockUI redBlock = new BlockUI(redBlockTexture, GlobalData.Theme["LightRed"], GlobalData.Theme["Red"]);
 			BlockUI orangeBlock = new BlockUI(orangeBlockTexture, GlobalData.Theme["LightOrange"], GlobalData.Theme["Orange"]);
@@ -126,8 +127,9 @@ namespace Breakout.Core.Views
 			BlockUI blueBlock = new BlockUI(blueBlockTexture, GlobalData.Theme["LightBlue"], GlobalData.Theme["Blue"]);
 			BlockUI cyanBlock = new BlockUI(cyanBlockTexture, GlobalData.Theme["LightCyan"], GlobalData.Theme["Cyan"]);
 			BlockUI magentaBlock = new BlockUI(magentaBlockTexture, GlobalData.Theme["LightMagenta"], GlobalData.Theme["Magenta"]);
-			BlockUI grayBlock = new BlockUI(grayBlockTexture, GlobalData.Theme["LightGray"], GlobalData.Theme["Gray"]);
 			BlockUI blackBlock = new BlockUI(blackBlockTexture, GlobalData.Theme["Dark"], GlobalData.Theme["Black"]);
+			BlockUI grayBlock = new BlockUI(grayBlockTexture, GlobalData.Theme["LightGray"], GlobalData.Theme["Gray"]);
+			BlockUI whiteBlock = new BlockUI(whiteBlockTexture, GlobalData.Theme["Silver"], GlobalData.Theme["White"]);
 
 			return new Dictionary<GameColor, BlockUI>()
 			{
@@ -140,6 +142,7 @@ namespace Breakout.Core.Views
 				{ GameColor.Magenta, magentaBlock },
 				{ GameColor.Gray, grayBlock },
 				{ GameColor.Black, blackBlock },
+				{ GameColor.White, whiteBlock },
 			};
 		}
 

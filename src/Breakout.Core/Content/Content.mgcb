@@ -354,11 +354,6 @@
 /processor:TiledMapProcessor
 /build:Maps/Quick.json
 
-#begin Maps/What.json
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Maps/What.json
-
 #begin Sounds/CheckBoxToggle.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -881,4 +876,164 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Balls/Small.png
+
+#begin Blocks/White.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Blocks/White.png
+
+#begin Backgrounds/Classic.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Classic.png
+
+#begin Maps/Classic.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Classic.json
+
+#begin Backgrounds/Friendzone.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Friendzone.jpg
+
+#begin Maps/Friendzone.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Friendzone.json
+
+#begin Backgrounds/Tank.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Tank.jpg
+
+#begin Backgrounds/Minions.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Minions.jpg
+
+#begin Maps/Minions.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Minions.json
+
+#begin Backgrounds/Shit.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Shit.jpg
+
+#begin Maps/Shit.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Shit.json
+
+#begin Maps/Bird.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Bird.json
+
+#begin Backgrounds/Bird.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Bird.jpg
+
+#begin Backgrounds/Minecraft.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Minecraft.jpg
+
+#begin Maps/Minecraft.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Minecraft.json
+
+#begin Backgrounds/Whale.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Whale.jpg
+
+#begin Maps/Whale.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Whale.json
+
+#begin Backgrounds/Fastfood.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Fastfood.jpg
+
+#begin Maps/Fastfood.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Fastfood.json
 

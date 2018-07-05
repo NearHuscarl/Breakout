@@ -90,6 +90,15 @@ namespace Breakout.Core.Models.Bases
 			return false;
 		}
 
+		public bool IsCompletelyOffBottom()
+		{
+			if (this.Position.Y > GlobalData.Screen.Height)
+			{
+				return true;
+			}
+			return false;
+		}
+
 		public bool IsHittingLeftWall()
 		{
 			if (Position.X <= 0)
