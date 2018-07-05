@@ -5,10 +5,11 @@ namespace Breakout.Core.Models.Bases
 	public interface IInteractive
 	{
 		/// <summary>
-		/// Method to describe certain action when this object is hit with another
-		/// Dynamic Object
+		/// Method to describe certain action when this object is hit with
+		/// another Dynamic Object
 		/// </summary>
-		void Hit();
+		/// <param name="source">another</param>
+		void Hit(object source);
 		Rectangle Rectangle { get; }
 	}
 }

@@ -5,7 +5,7 @@ namespace Breakout.Core.Models.Bases
 {
 	public class CircleObject : DynamicObject, ICircle
 	{
-		public int Radius { get; set; }
+		public virtual int Radius { get; set; }
 		public Circle Circle
 		{
 			get

@@ -65,43 +65,6 @@ namespace Breakout.Core.Models
 
 		public static SpriteData SpriteData { get; private set; }
 
-		public static float PaddleVelocity
-		{
-			get
-			{
-				if (Settings.Difficulty == Difficulty.Hard)
-					return 1000f;
-
-				return 800f;
-			}
-		}
-
-		public static PaddleLength PaddleLength
-		{
-			get
-			{
-				if (Settings.Difficulty == Difficulty.Easy)
-					return PaddleLength.Long;
-
-				if (Settings.Difficulty == Difficulty.Normal)
-					return PaddleLength.Medium;
-
-				return PaddleLength.Short;
-			}
-		}
-
-		public static int BallStrength { get; private set; }
-		public static float BallVelocity
-		{
-			get
-			{
-				if (Settings.Difficulty == Difficulty.Hard)
-					return 400f;
-
-				return 320f;
-			}
-		}
-
 		public static int ExplosiveRadius { get; private set; }
 
 		public static void Initialize()
@@ -156,8 +119,6 @@ namespace Breakout.Core.Models
 				{ "Silver",       "#bdc3c7".ToColor() },
 				{ "White",        "#ecf0f1".ToColor() },
 			};
-
-			BallStrength = 5;
 
 			ExplosiveRadius = 40;
 		}

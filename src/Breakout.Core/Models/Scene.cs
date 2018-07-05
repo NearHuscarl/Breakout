@@ -11,13 +11,13 @@ using System.Linq;
 using Breakout.Core.Models.Maps;
 using Breakout.Core.Models.Data;
 using Breakout.Core.Utilities.Map;
+using Breakout.Core.Models.Enums;
 
 namespace Breakout.Core.Models
 {
 	public class Scene : GameComponent
 	{
 		private float deltaTime;
-
 		private bool isBackground;
 
 		public bool IsBackground
@@ -67,6 +67,7 @@ namespace Breakout.Core.Models
 		{
 			EntryPoint.Game.Scene.CleanUp();
 
+			Paddle = null;
 			Balls = ModelFactory.CreateRandomBalls();
 
 			Map = MapManager.Load(0);
@@ -112,6 +113,7 @@ namespace Breakout.Core.Models
 
 			Paddle = ModelFactory.CreatePaddle();
 			Balls = ModelFactory.CreateBall();
+			PowerUps.Clear();
 		}
 
 		/// <summary>
@@ -164,7 +166,7 @@ namespace Breakout.Core.Models
 				Balls.Remove(ball);
 
 			ball.HandleWallCollision();
-			ball.HandlePaddleCollision(Paddle);
+			Paddle.HandleBall(ball);
 
 			foreach (var block in Map.Layer1)
 			{
@@ -201,20 +203,64 @@ namespace Breakout.Core.Models
 			}
 		}
 
+		public void TriggerPowerup(PowerUp powerUp)
+		{
+			PowerUp similarPowerup = null;
+
+			switch (powerUp.PowerUpType)
+			{
+				case PowerUpType.Bigger:
+				case PowerUpType.Smaller:
+					similarPowerup = PowerUps.Where(p => p.PowerUpType == PowerUpType.Bigger || p.PowerUpType == PowerUpType.Smaller).FirstOrDefault();
+					break;
+
+				case PowerUpType.Longer:
+				case PowerUpType.Shorter:
+					similarPowerup = PowerUps.Where(p => p.PowerUpType == PowerUpType.Longer || p.PowerUpType == PowerUpType.Shorter).FirstOrDefault();
+					break;
+
+				case PowerUpType.Faster:
+				case PowerUpType.Slower:
+					similarPowerup = PowerUps.Where(p => p.PowerUpType == PowerUpType.Faster || p.PowerUpType == PowerUpType.Slower).FirstOrDefault();
+					break;
+
+				case PowerUpType.Stronger:
+				case PowerUpType.Weaker:
+					similarPowerup = PowerUps.Where(p => p.PowerUpType == PowerUpType.Stronger || p.PowerUpType == PowerUpType.Weaker).FirstOrDefault();
+					break;
+			}
+
+			if (similarPowerup == null)
+			{
+				PowerUps.Add(powerUp);
+			}
+			else
+			{
+				PowerUps.Remove(similarPowerup);
+				PowerUps.Add(powerUp);
+			}
+
+			powerUp.Activate();
+		}
+
 		public void HandlePackage(PowerUpPackage package)
 		{
-			if (Paddle != null && package.IsTouching(Paddle))
-			{
-				PowerUp powerUp = package.GetPowerUp();
-
-				powerUp.Activate();
-
-				PowerUps.Add(powerUp);
-				Packages.Remove(package);
-			}
+			package.Timer += deltaTime;
 
 			if (package.IsOffBottom())
 				Packages.Remove(package);
+
+			foreach (var ball in Balls)
+			{
+				if (package.IsTouching(ball) && package.Timer >= PowerUpPackage.ReadyToHitBallInterval)
+				{
+					package.SpawnPowerUp(ball);
+					break;
+				}
+			}
+
+			if (Paddle != null && package.IsTouching(Paddle))
+				package.SpawnPowerUp(Paddle);
 
 			package.UpdateMovement(deltaTime);
 		}
@@ -240,7 +286,7 @@ namespace Breakout.Core.Models
 			foreach (var block in Map.Layer1)
 			{
 				if (block.Rectangle.Intersects(explosion.Rectangle))
-					block.Hit();
+					block.Hit(explosion);
 			}
 
 			ExplosiveZones.Remove(explosion);

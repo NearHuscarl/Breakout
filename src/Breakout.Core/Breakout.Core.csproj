@@ -77,13 +77,15 @@
     <Compile Include="Models\Data\HighScore.cs" />
     <Compile Include="Models\Data\Session.cs" />
     <Compile Include="Models\Data\Settings.cs" />
+    <Compile Include="Models\Enums\BallSize.cs" />
+    <Compile Include="Models\Enums\BallStrength.cs" />
     <Compile Include="Models\Enums\ButtonState.cs" />
     <Compile Include="Models\Enums\Difficulty.cs" />
     <Compile Include="Models\Enums\GameColor.cs" />
     <Compile Include="Models\Enums\PaddleLength.cs" />
+    <Compile Include="Models\Enums\PaddleType.cs" />
     <Compile Include="Models\Maps\BlockMap.cs" />
-    <Compile Include="Models\PowerUps\BallPowerUp.cs" />
-    <Compile Include="Models\PowerUps\PaddlePowerUp.cs" />
+    <Compile Include="Models\Paddles\MagnetizedPaddle.cs" />
     <Compile Include="Models\Scores\Timer.cs" />
     <Compile Include="Utilities\ApplicationPath.cs" />
     <Compile Include="Utilities\DelayedAction.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Views\Screens\WindowScreen.cs" />
     <Compile Include="Views\Screens\MenuScreen.cs" />
     <Compile Include="Views\Screens\WinningScreen.cs" />
+    <Compile Include="Views\Sprites\BallUI.cs" />
     <Compile Include="Views\UIComponents\Header.cs" />
     <Compile Include="Views\UIComponents\Footer.cs" />
     <Compile Include="Views\Loaders\TextureLoader.cs" />
@@ -121,7 +124,6 @@
     <Compile Include="Models\Players\Player.cs" />
     <Compile Include="Models\PowerUps\PowerUp.cs" />
     <Compile Include="Models\PowerUps\PowerUpBehaviour.cs" />
-    <Compile Include="Models\PowerUps\PowerUpGenerator.cs" />
     <Compile Include="Models\PowerUps\PowerUpPackage.cs" />
     <Compile Include="Models\Scene.cs" />
     <Compile Include="Models\Scores\DynamicScore.cs" />

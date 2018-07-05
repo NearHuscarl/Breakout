@@ -8,10 +8,7 @@ namespace Breakout.Core.Utilities.GameMath
 		private static Random random = new Random();
 		public static Random Random
 		{
-			get
-			{
-				return random;
-			}
+			get { return random; }
 		}
 
 		public static bool RandomBoolean()

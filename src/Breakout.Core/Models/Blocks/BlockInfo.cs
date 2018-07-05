@@ -8,58 +8,60 @@ using System.Threading.Tasks;
 
 namespace Breakout.Core.Models.Blocks
 {
+	public struct BlockAtrributes
+	{
+		public int Health;
+		public GameColor Color;
+		public PowerUpType FavoredPowerUp;
+		public PowerUpType SecondaryFavorePowerUp;
+
+		private static BlockAtrributes emptyAttributes = new BlockAtrributes(0, GameColor.None, PowerUpType.Nothing, PowerUpType.Nothing);
+
+		public static BlockAtrributes Empty { get { return emptyAttributes; } }
+
+		public BlockAtrributes(int health, GameColor color, PowerUpType favoredPowerUp, PowerUpType secondaryFavoredPowerUp = PowerUpType.Nothing)
+		{
+			Health = health;
+			Color = color;
+			FavoredPowerUp = favoredPowerUp;
+			SecondaryFavorePowerUp = secondaryFavoredPowerUp;
+		}
+	}
+
 	public static class BlockInfo
 	{
-		public struct BlockAtrributes
-		{
-			public int Health;
-			public int PowerUpChance;
-			public GameColor Color;
-
-			private static BlockAtrributes emptyAttributes = new BlockAtrributes(0, 0, GameColor.None);
-
-			public static BlockAtrributes Empty { get { return emptyAttributes; } }
-
-			public BlockAtrributes(int health, int powerUpChance, GameColor color)
-			{
-				Health = health;
-				PowerUpChance = powerUpChance;
-				Color = color;
-			}
-		}
-
 		public static Dictionary<BlockType, BlockAtrributes> Attributes = new Dictionary<BlockType, BlockAtrributes>()
 		{
-			{ BlockType.Red,     new BlockAtrributes(health: 10, powerUpChance: 30, color: GameColor.Red) },
-			{ BlockType.Orange,  new BlockAtrributes(health: 60, powerUpChance: 20, color: GameColor.Orange) },
-			{ BlockType.Yellow,  new BlockAtrributes(health: 50, powerUpChance: 15, color: GameColor.Yellow) },
-			{ BlockType.Green,   new BlockAtrributes(health: 40, powerUpChance: 10, color: GameColor.Green) },
-			{ BlockType.Blue,    new BlockAtrributes(health: 30, powerUpChance:  8, color: GameColor.Blue) },
-			{ BlockType.Cyan,    new BlockAtrributes(health: 20, powerUpChance:  5, color: GameColor.Cyan) },
-			{ BlockType.Magenta, new BlockAtrributes(health: 10, powerUpChance:  2, color: GameColor.Magenta) },
-			{ BlockType.Gray,    new BlockAtrributes(health: 80, powerUpChance:  0, color: GameColor.Gray) },
-			{ BlockType.Black,   new BlockAtrributes(health: 90, powerUpChance:  0, color: GameColor.Black) },
+			{ BlockType.Red,     new BlockAtrributes(health: 10, color: GameColor.Red, favoredPowerUp: PowerUpType.Stronger) },
+			{ BlockType.Orange,  new BlockAtrributes(health: 60, color: GameColor.Orange, favoredPowerUp: PowerUpType.Slower) },
+			{ BlockType.Yellow,  new BlockAtrributes(health: 50, color: GameColor.Yellow, favoredPowerUp: PowerUpType.Faster) },
+			{ BlockType.Green,   new BlockAtrributes(health: 40, color: GameColor.Green, favoredPowerUp: PowerUpType.Double, secondaryFavoredPowerUp: PowerUpType.Triple) },
+			{ BlockType.Blue,    new BlockAtrributes(health: 30, color: GameColor.Blue, favoredPowerUp: PowerUpType.Weaker) },
+			{ BlockType.Cyan,    new BlockAtrributes(health: 20, color: GameColor.Cyan, favoredPowerUp: PowerUpType.Bigger, secondaryFavoredPowerUp: PowerUpType.Smaller) },
+			{ BlockType.Magenta, new BlockAtrributes(health: 10, color: GameColor.Magenta, favoredPowerUp: PowerUpType.Nothing) },
+			{ BlockType.Gray,    new BlockAtrributes(health: 80, color: GameColor.Gray, favoredPowerUp: PowerUpType.Magnetize) },
+			{ BlockType.Black,   new BlockAtrributes(health: 90, color: GameColor.Black, favoredPowerUp: PowerUpType.Longer, secondaryFavoredPowerUp: PowerUpType.Shorter) },
 
-			{ BlockType.LightRed,     new BlockAtrributes(health: 10, powerUpChance: 30, color: GameColor.Red) },
-			{ BlockType.LightOrange,  new BlockAtrributes(health: 60, powerUpChance: 20, color: GameColor.Orange) },
-			{ BlockType.LightYellow,  new BlockAtrributes(health: 50, powerUpChance: 15, color: GameColor.Yellow) },
-			{ BlockType.LightGreen,   new BlockAtrributes(health: 40, powerUpChance: 10, color: GameColor.Green) },
-			{ BlockType.LightBlue,    new BlockAtrributes(health: 30, powerUpChance:  8, color: GameColor.Blue) },
-			{ BlockType.LightCyan,    new BlockAtrributes(health: 20, powerUpChance:  5, color: GameColor.Cyan) },
-			{ BlockType.LightMagenta, new BlockAtrributes(health: 10, powerUpChance:  2, color: GameColor.Magenta) },
-			{ BlockType.LightGray,    new BlockAtrributes(health: 80, powerUpChance:  0, color: GameColor.Gray) },
-			{ BlockType.Dark,         new BlockAtrributes(health: 90, powerUpChance:  0, color: GameColor.Black) },
+			{ BlockType.LightRed,     new BlockAtrributes(health: 10, color: GameColor.Red, favoredPowerUp: PowerUpType.Stronger) },
+			{ BlockType.LightOrange,  new BlockAtrributes(health: 60, color: GameColor.Orange, favoredPowerUp: PowerUpType.Slower) },
+			{ BlockType.LightYellow,  new BlockAtrributes(health: 50, color: GameColor.Yellow, favoredPowerUp: PowerUpType.Faster) },
+			{ BlockType.LightGreen,   new BlockAtrributes(health: 40, color: GameColor.Green, favoredPowerUp: PowerUpType.Double, secondaryFavoredPowerUp: PowerUpType.Triple) },
+			{ BlockType.LightBlue,    new BlockAtrributes(health: 30, color: GameColor.Blue, favoredPowerUp: PowerUpType.Weaker) },
+			{ BlockType.LightCyan,    new BlockAtrributes(health: 20, color: GameColor.Cyan, favoredPowerUp: PowerUpType.Bigger, secondaryFavoredPowerUp: PowerUpType.Smaller) },
+			{ BlockType.LightMagenta, new BlockAtrributes(health: 10, color: GameColor.Magenta, favoredPowerUp: PowerUpType.Nothing) },
+			{ BlockType.LightGray,    new BlockAtrributes(health: 80, color: GameColor.Gray, favoredPowerUp: PowerUpType.Magnetize) },
+			{ BlockType.Dark,         new BlockAtrributes(health: 90, color: GameColor.Black, favoredPowerUp: PowerUpType.Longer, secondaryFavoredPowerUp: PowerUpType.Shorter) },
 
 			 // One hit, blow up surrounding when hit
-			{ BlockType.FlashingRed,     new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Red) },
-			{ BlockType.FlashingOrange,  new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Orange) },
-			{ BlockType.FlashingYellow,  new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Yellow) },
-			{ BlockType.FlashingGreen,   new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Green) },
-			{ BlockType.FlashingBlue,    new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Blue) },
-			{ BlockType.FlashingCyan,    new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Cyan) },
-			{ BlockType.FlashingMagenta, new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Magenta) },
-			{ BlockType.FlashingGray,    new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Gray) },
-			{ BlockType.FlashingBlack,   new BlockAtrributes(health: 1, powerUpChance: 1, color: GameColor.Black) },
+			{ BlockType.FlashingRed,     new BlockAtrributes(health: 1, color: GameColor.Red, favoredPowerUp: PowerUpType.Stronger) },
+			{ BlockType.FlashingOrange,  new BlockAtrributes(health: 1, color: GameColor.Orange, favoredPowerUp: PowerUpType.Slower) },
+			{ BlockType.FlashingYellow,  new BlockAtrributes(health: 1, color: GameColor.Yellow, favoredPowerUp: PowerUpType.Faster) },
+			{ BlockType.FlashingGreen,   new BlockAtrributes(health: 1, color: GameColor.Green, favoredPowerUp: PowerUpType.Double, secondaryFavoredPowerUp: PowerUpType.Triple) },
+			{ BlockType.FlashingBlue,    new BlockAtrributes(health: 1, color: GameColor.Blue, favoredPowerUp: PowerUpType.Weaker) },
+			{ BlockType.FlashingCyan,    new BlockAtrributes(health: 1, color: GameColor.Cyan, favoredPowerUp: PowerUpType.Bigger, secondaryFavoredPowerUp: PowerUpType.Smaller) },
+			{ BlockType.FlashingMagenta, new BlockAtrributes(health: 1, color: GameColor.Magenta, favoredPowerUp: PowerUpType.Nothing) },
+			{ BlockType.FlashingGray,    new BlockAtrributes(health: 1, color: GameColor.Gray, favoredPowerUp: PowerUpType.Magnetize) },
+			{ BlockType.FlashingBlack,   new BlockAtrributes(health: 1, color: GameColor.Black, favoredPowerUp: PowerUpType.Longer, secondaryFavoredPowerUp: PowerUpType.Shorter) },
 
 			{ BlockType.Skeleton, BlockAtrributes.Empty },
 			{ BlockType.None, BlockAtrributes.Empty },

@@ -78,7 +78,7 @@ namespace Breakout.Core.Views.UIComponents
 			spriteBatch.Draw(textures["RightEdge"], new Vector2(GlobalData.Screen.Width - comboLength - textures["RightEdge"].Width, 0), Color.White);
 
 			spriteBatch.Draw(textures["GoldenBackground"], rightBottomDestinationRectangle, rightBottomSourceRectangle, Color.White);
-			spriteBatch.Draw(textures["GoldenRightEdge"], new Vector2(GlobalData.Screen.Width - comboLength - textures["GoldenRightEdge"].Width, maxComboVerticalPos), Color.White);
+			spriteBatch.Draw(textures["GoldenRightEdge"], new Vector2(GlobalData.Screen.Width - maxComboLength - textures["GoldenRightEdge"].Width, maxComboVerticalPos), Color.White);
 
 			AlignText(LevelText, Alignment.Left);
 			AlignText(ScoreText, Alignment.Center);

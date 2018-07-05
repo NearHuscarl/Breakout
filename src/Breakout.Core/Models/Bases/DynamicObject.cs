@@ -8,13 +8,33 @@ namespace Breakout.Core.Models.Bases
 		protected Scene scene;
 
 		public Vector2 Direction;
-
 		public virtual float Velocity { get; set; }
 
-		public void ChangeDirection(float angle)
+		// In monogame, Y is inverted compared to X and Y in math
+		public float Angle
 		{
-			// In monogame, Y is inverted compared to X and Y in math
-			Direction = GeometryMath.Angle2Vector(-angle);
+			get
+			{
+				Vector2 invertedYDir = new Vector2(Direction.X, -Direction.Y);
+
+				return GeometryMath.Vector2Angle(invertedYDir);
+			}
+			set
+			{
+				Direction = GeometryMath.Angle2Vector(-value);
+			}
+		}
+
+		protected void ReflectHorizontally()
+		{
+			Direction.X = -Direction.X;
+			Angle += RandomMath.RandomBetween(-4f, 4f);
+		}
+
+		protected void ReflectVertically()
+		{
+			Direction.Y = -Direction.Y;
+			Angle += RandomMath.RandomBetween(-4f, 4f);
 		}
 
 		/// <summary>

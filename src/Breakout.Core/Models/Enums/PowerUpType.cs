@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Breakout.Core.Models.Enums
+﻿namespace Breakout.Core.Models.Enums
 {
 	public enum PowerUpType
 	{
@@ -16,7 +10,11 @@ namespace Breakout.Core.Models.Enums
 		Weaker,
 		Slower,
 		Faster,
+
 		Longer,
 		Shorter,
+		Magnetize,
+
+		Nothing,
 	}
 }

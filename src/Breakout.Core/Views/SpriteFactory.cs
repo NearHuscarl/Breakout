@@ -42,21 +42,37 @@ namespace Breakout.Core.Views
 
 		public static PaddleUI CreatePaddle(ContentManager content)
 		{
-			Texture2D extraLongPaddleTexture = content.Load<Texture2D>("Paddles/ExtraLongPaddle");
-			Texture2D longPaddleTexture = content.Load<Texture2D>("Paddles/LongPaddle");
-			Texture2D mediumPaddleTexture = content.Load<Texture2D>("Paddles/MediumPaddle");
-			Texture2D shortPaddleTexture = content.Load<Texture2D>("Paddles/ShortPaddle");
-			Texture2D extraShortPaddleTexture = content.Load<Texture2D>("Paddles/ExtraShortPaddle");
+			var normalTextures = new Dictionary<PaddleLength, Texture2D>()
+			{
+				{ PaddleLength.ExtraShort, content.Load<Texture2D>("Paddles/ExtraShortPaddle") },
+				{ PaddleLength.Short, content.Load<Texture2D>("Paddles/ShortPaddle") },
+				{ PaddleLength.Medium, content.Load<Texture2D>("Paddles/MediumPaddle") },
+				{ PaddleLength.Long, content.Load<Texture2D>("Paddles/LongPaddle") },
+				{ PaddleLength.ExtraLong, content.Load<Texture2D>("Paddles/ExtraLongPaddle") },
+			};
 
-			return new PaddleUI(extraShortPaddleTexture, shortPaddleTexture, mediumPaddleTexture, longPaddleTexture, extraLongPaddleTexture);
+			var magnetTextures = new Dictionary<PaddleLength, Texture2D>()
+			{
+				{ PaddleLength.ExtraShort, content.Load<Texture2D>("Paddles/MagnetExtraShortPaddle") },
+				{ PaddleLength.Short, content.Load<Texture2D>("Paddles/MagnetShortPaddle") },
+				{ PaddleLength.Medium, content.Load<Texture2D>("Paddles/MagnetMediumPaddle") },
+				{ PaddleLength.Long, content.Load<Texture2D>("Paddles/MagnetLongPaddle") },
+				{ PaddleLength.ExtraLong, content.Load<Texture2D>("Paddles/MagnetExtraLongPaddle") },
+			};
+
+			return new PaddleUI(normalTextures, magnetTextures);
 		}
 
-		public static GameSprite CreateBall(ContentManager content)
+		public static BallUI CreateBall(ContentManager content)
 		{
-			Texture2D ballTexture = content.Load<Texture2D>("Ball");
-			GameSprite ball = new GameSprite(ballTexture);
+			var textures = new Dictionary<BallSize, Texture2D>()
+			{
+				{ BallSize.Small, content.Load<Texture2D>("Balls/Small") },
+				{ BallSize.Medium, content.Load<Texture2D>("Balls/Medium") },
+				{ BallSize.Big, content.Load<Texture2D>("Balls/Big") },
+			};
 
-			return ball;
+			return new BallUI(textures);
 		}
 
 		public static Dictionary<PowerUpType, GameSprite> CreatePowerups(ContentManager content)
@@ -69,8 +85,10 @@ namespace Breakout.Core.Views
 			Texture2D weakerTexture = content.Load<Texture2D>("Powerups/Weaker");
 			Texture2D fasterTexture = content.Load<Texture2D>("Powerups/Faster");
 			Texture2D slowerTexture = content.Load<Texture2D>("Powerups/Slower");
+
 			Texture2D longerTexture = content.Load<Texture2D>("Powerups/Longer");
 			Texture2D shorterTexture = content.Load<Texture2D>("Powerups/Shorter");
+			Texture2D magnetTexture = content.Load<Texture2D>("Powerups/Magnet");
 
 			return new Dictionary<PowerUpType, GameSprite>()
 			{
@@ -82,8 +100,10 @@ namespace Breakout.Core.Views
 				{ PowerUpType.Weaker, new GameSprite(weakerTexture) },
 				{ PowerUpType.Faster, new GameSprite(fasterTexture) },
 				{ PowerUpType.Slower, new GameSprite(slowerTexture) },
+
 				{ PowerUpType.Longer, new GameSprite(longerTexture) },
 				{ PowerUpType.Shorter, new GameSprite(shorterTexture) },
+				{ PowerUpType.Magnetize, new GameSprite(magnetTexture) },
 			};
 		}
 

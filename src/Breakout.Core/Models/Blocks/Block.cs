@@ -4,6 +4,7 @@ using Breakout.Core.Models.Enums;
 using Breakout.Core.Models.PowerUps;
 using Microsoft.Xna.Framework;
 using Breakout.Core.Utilities.GameMath;
+using Breakout.Core.Models.Balls;
 
 namespace Breakout.Core.Models.Blocks
 {
@@ -33,33 +34,78 @@ namespace Breakout.Core.Models.Blocks
 
 		public bool IsBroken { get; private set; } = false;
 
-		protected readonly int powerUpSpawnChance;
+		private float powerUpSpawnChance = 30f; // in percent
 
-		public Block(Scene scene, int width, int height, Vector2 position, BlockType blockType)
+		protected PowerUpType favoredPowerUp;
+		protected PowerUpType secondaryfavoredPowerUp;
+
+		public Block(Scene scene, int width, int height, Vector2 position, BlockAtrributes attrs)
 			: base(width, height, position)
 		{
 			this.scene = scene;
 
-			this.Color = BlockInfo.Attributes[blockType].Color;
-			this.powerUpSpawnChance = BlockInfo.Attributes[blockType].PowerUpChance;
-			this.MaxHealth = BlockInfo.Attributes[blockType].Health;
+			this.Color = attrs.Color;
+			this.MaxHealth = attrs.Health;
 			this.Health = this.MaxHealth;
+			this.favoredPowerUp = attrs.FavoredPowerUp;
+			this.secondaryfavoredPowerUp = attrs.SecondaryFavorePowerUp;
 		}
 
 		private PowerUpPackage SpawnPowerUpPackage()
 		{
-			if (RandomMath.RandomPercent(powerUpSpawnChance))
-			{
-				PowerUp powerUp = PowerUpGenerator.GenerateRandomPowerUp(scene);
-				return ModelFactory.CreatePowerUpPackage(powerUp, this.Position);
-			}
+			// TODO: remove
+			//PowerUp pu = null;
 
-			return null;
+			//if (RandomMath.RandomBoolean())
+			//	pu = new PowerUp(scene, PowerUpType.Magnetize);
+			//else
+			//	pu = new PowerUp(scene, PowerUpType.Longer);
+
+			//return ModelFactory.CreatePowerUpPackage(pu, this.Position);
+
+
+			if (!RandomMath.RandomPercent(powerUpSpawnChance))
+				return null;
+
+			PowerUp powerUp = null;
+			var randNum = RandomMath.RandomBetween(0, 100);
+
+			if (0 <= randNum && randNum < 30 && favoredPowerUp != PowerUpType.Nothing)
+				powerUp = new PowerUp(scene, favoredPowerUp);
+
+			else if (30 <= randNum && randNum < 50 && secondaryfavoredPowerUp != PowerUpType.Nothing)
+				powerUp = new PowerUp(scene, secondaryfavoredPowerUp);
+
+			else
+				powerUp = new PowerUp(scene, RandomMath.RandomEnum<PowerUpType>());
+
+			if (powerUp.PowerUpType == PowerUpType.Nothing)
+				return null;
+
+			return ModelFactory.CreatePowerUpPackage(powerUp, this.Position);
 		}
 
-		public virtual void Hit()
+		public virtual void Hit(object src)
 		{
-			Health -= 10;
+			var ball = src as Ball;
+
+			if (ball == null)
+				return;
+
+			switch (ball.Strength)
+			{
+				case BallStrength.Weak:
+					Health -= 5;
+					break;
+
+				case BallStrength.Normal:
+					Health -= 10;
+					break;
+
+				case BallStrength.Strong:
+					Health -= 30;
+					break;
+			}
 		}
 
 		public virtual void OnDestroy()

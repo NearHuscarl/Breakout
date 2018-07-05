@@ -7,15 +7,15 @@ namespace Breakout.Core.Models.Blocks
 {
 	public class LightBlock : Block
 	{
-		public LightBlock(Scene scene, int width, int height, Vector2 position, BlockType blockType)
-			: base(scene, width, height, position, blockType)
+		public LightBlock(Scene scene, int width, int height, Vector2 position, BlockAtrributes attrs)
+			: base(scene, width, height, position, attrs)
 		{
 
 		}
 
-		public override void Hit()
+		public override void Hit(object src)
 		{
-			base.Hit();
+			base.Hit(src);
 			AudioManager.PlaySound("HitLightBlock", percent: scene.Volume);
 		}
 
@@ -23,9 +23,9 @@ namespace Breakout.Core.Models.Blocks
 		{
 			base.OnDestroy();
 
-			var powerup = new BallPowerUp(PowerUpType.Faster, scene.Balls);
+			var powerup = new PowerUp(scene, PowerUpType.Faster);
 			powerup.Activate();
-			scene.PowerUps.Add(powerup);
+			scene.TriggerPowerup(powerup);
 		}
 	}
 }

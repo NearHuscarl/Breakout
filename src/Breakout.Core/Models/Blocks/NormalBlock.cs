@@ -6,15 +6,16 @@ namespace Breakout.Core.Models.Blocks
 {
 	public class NormalBlock : Block
 	{
-		public NormalBlock(Scene scene, int width, int height, Vector2 position, BlockType blockType)
-			: base(scene, width, height, position, blockType)
+		public NormalBlock(Scene scene, int width, int height, Vector2 position, BlockAtrributes attrs)
+			: base(scene, width, height, position, attrs)
 		{
-			this.Health = (int)(BlockInfo.Attributes[blockType].Health * 0.1f);
+			// TODO: why * 0.1f
+			this.Health = (int)(attrs.Health * 0.1f);
 		}
 
-		public override void Hit()
+		public override void Hit(object src)
 		{
-			base.Hit();
+			base.Hit(src);
 			AudioManager.PlaySound("HitNormalBlock", percent: scene.Volume);
 		}
 	}

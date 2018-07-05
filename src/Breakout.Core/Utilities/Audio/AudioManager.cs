@@ -80,6 +80,7 @@ namespace Breakout.Core.Utilities.Audio
 				"HitPowerUp",
 				"HitWall",
 				"HitPaddle",
+				"HitMagnetizedPaddle",
 				"PaddleHitWall",
 
 				"AddScore",

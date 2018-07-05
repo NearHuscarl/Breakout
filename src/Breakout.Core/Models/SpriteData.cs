@@ -7,8 +7,6 @@
 
 		public static int PaddleHeight { get; private set; }
 
-		public static int BallRadius { get; private set; }
-
 		public static int PackageWidth { get; private set; }
 		public static int PackageHeight { get; private set; }
 
@@ -19,10 +17,8 @@
 
 			PaddleHeight = 17;
 
-			BallRadius = 8;
-
-			PackageWidth = 20;
-			PackageHeight = 20;
+			PackageWidth = 25;
+			PackageHeight = 25;
 		}
 	}
 }

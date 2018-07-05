@@ -10,10 +10,13 @@ using System.Threading.Tasks;
 
 namespace Breakout.Core.Models.PowerUps
 {
-	public abstract class PowerUp : RectangleObject
+	public class PowerUp
 	{
+		private Scene scene;
+
 		#region Properties
 
+		public static readonly float ActiveTime = 20f; // in secs
 		public PowerUpType PowerUpType { get; private set;  }
 
 		/// <summary>
@@ -34,13 +37,37 @@ namespace Breakout.Core.Models.PowerUps
 
 		#endregion
 
-		public PowerUp(PowerUpType type)
+		public PowerUp(Scene scene, PowerUpType type)
 		{
+			this.scene = scene;
+
 			PowerUpType = type;
-			Timer = 20f;
+
+			Timer = ActiveTime;
 		}
 
-		public abstract void Activate();
-		public abstract void Deactivate();
+		public void Activate()
+		{
+			if (PowerUpBehaviour.BallPowerUp.ContainsKey(PowerUpType))
+			{
+				PowerUpBehaviour.BallPowerUp[PowerUpType].Invoke(scene);
+			}
+			else
+			{
+				PowerUpBehaviour.PaddlePowerUp[PowerUpType].Invoke(scene);
+			}
+		}
+
+		public void Deactivate()
+		{
+			if (PowerUpBehaviour.BallPowerDown.ContainsKey(PowerUpType))
+			{
+				PowerUpBehaviour.BallPowerDown[PowerUpType].Invoke(scene);
+			}
+			else
+			{
+				PowerUpBehaviour.PaddlePowerDown[PowerUpType].Invoke(scene);
+			}
+		}
 	}
 }

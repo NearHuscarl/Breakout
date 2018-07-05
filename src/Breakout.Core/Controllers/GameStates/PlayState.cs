@@ -1,6 +1,7 @@
 ﻿using Breakout.Core.Controllers.BaseStates;
 using Breakout.Core.Models;
 using Breakout.Core.Models.IO;
+using Breakout.Core.Models.Paddles;
 using Breakout.Core.Utilities.Helper;
 using Breakout.Core.Utilities.Map;
 using Breakout.Core.Views.Renderers;
@@ -37,6 +38,13 @@ namespace Breakout.Core.Controllers.GameStates
 			else if (InputHelper.IsKeyDown(Input.MovePaddleRight))
 			{
 				StateMachine.Scene.Paddle.MoveRight(EntryPoint.Game.Elapsed);
+			}
+
+			else if (InputHelper.IsNewKeyPress(Input.Fire))
+			{
+				var paddle = StateMachine.Scene.Paddle as MagnetizedPaddle;
+
+				paddle?.Release();
 			}
 
 			else if (InputHelper.IsNewKeyPress(Input.Exit))

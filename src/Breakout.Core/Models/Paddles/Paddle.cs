@@ -1,6 +1,8 @@
-﻿using Breakout.Core.Models.Bases;
+﻿using Breakout.Core.Models.Balls;
+using Breakout.Core.Models.Bases;
 using Breakout.Core.Models.Enums;
 using Breakout.Core.Utilities.Audio;
+using Breakout.Extensions;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
@@ -9,8 +11,11 @@ namespace Breakout.Core.Models.Paddles
 	public class Paddle : RectangleObject, IInteractive
 	{
 		private Vector2 oldPosition;
+		private PaddleLength length;
 
-		private static readonly Dictionary<PaddleLength, int> lengthDict = new Dictionary<PaddleLength, int>()
+		#region Properties
+
+		public static readonly Dictionary<PaddleLength, int> Lengths = new Dictionary<PaddleLength, int>()
 		{
 			{ PaddleLength.ExtraShort, 80 },
 			{ PaddleLength.Short, 100 },
@@ -19,20 +24,29 @@ namespace Breakout.Core.Models.Paddles
 			{ PaddleLength.ExtraLong, 150 },
 		};
 
-		public PaddleLength Length { get; private set; }
-
-		public override int Width
+		public PaddleLength Length
 		{
-			get
+			get { return length; }
+			set
 			{
-				return lengthDict[Length];
+				Position.X -= (Lengths[value] - Lengths[Length]) / 2;
+				length = value;
+				ClampPosition();
 			}
 		}
 
-		public Paddle(Scene scene, PaddleLength length, int height, float velocity) : base(lengthDict[length], height)
+		public override int Width
 		{
+			get { return Lengths[Length]; }
+		}
+
+		#endregion
+
+
+		public Paddle(Scene scene, int height)
+		{
+			this.Height = height;
 			this.scene = scene;
-			this.Length = length;
 
 			this.Position = new Vector2()
 			{
@@ -40,7 +54,37 @@ namespace Breakout.Core.Models.Paddles
 				Y = GlobalData.Screen.Height - Height - 30,
 			};
 
-			this.Velocity = velocity;
+			switch (GlobalData.Settings.Difficulty)
+			{
+				case Difficulty.Easy:
+					this.Length = PaddleLength.Long;
+					this.Velocity = 800f;
+					break;
+
+				case Difficulty.Normal:
+					this.Length = PaddleLength.Medium;
+					this.Velocity = 800f;
+					break;
+
+				case Difficulty.Hard:
+					this.Length = PaddleLength.Short;
+					this.Velocity = 1000f;
+					break;
+			}
+		}
+
+		public void CopyAttributes(Paddle paddle)
+		{
+			this.Position = paddle.Position;
+			this.Length = paddle.Length;
+		}
+
+		private void ClampPosition()
+		{
+			if (this.IsHittingLeftWall())
+				Position.X = 0;
+			else if (this.IsHittingRightWall())
+				Position.X = GlobalData.Screen.Width - Width;
 		}
 
 		public void DriftLeft(float elapsed)
@@ -91,14 +135,38 @@ namespace Breakout.Core.Models.Paddles
 			Direction = Vector2.Zero;
 		}
 
-		public void ModifyLength(int offset)
+		public virtual void HandleBall(Ball ball)
 		{
-			Width += offset;
+			ball.BounceBack(this);
 		}
 
-		public void Hit()
+		public virtual void Hit(object src)
 		{
 			AudioManager.PlaySound("HitPaddle", percent: scene.Volume);
+		}
+
+		/// <summary>
+		///                .-*-.
+		///               /     \
+		///               \     /
+		///   0            '-.-'            0.5                             1 --> contact area
+		///   +--------------│---------------|------------------------------+
+		///   |              │               |                              | --> Paddle Object
+		///   +--------------│---------------|------------------------------+
+		///                  │
+		///  collisionPosX ──┘
+		///
+		/// </summary>
+		public float GetPaddleContactArea(Ball ball)
+		{
+			float collisionPosX = ball.Position.X + ball.Width / 2;
+
+			return (collisionPosX - this.Position.X) / this.Width;
+		}
+
+		public float GetBounceBackAngle(float contactArea)
+		{
+			return MathHelper.Lerp(160, 20, contactArea);
 		}
 	}
 }

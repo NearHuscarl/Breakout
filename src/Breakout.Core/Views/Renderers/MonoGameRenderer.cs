@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Breakout.Core.Views.Renderers
 {
@@ -23,7 +24,7 @@ namespace Breakout.Core.Views.Renderers
 		private Cursor cursor;
 
 		public PaddleUI PaddleUI;
-		public GameSprite BallUI;
+		public BallUI BallUI;
 		private Dictionary<PowerUpType, GameSprite> powerups;
 
 		public Dictionary<GameColor, BlockUI> Blocks;
@@ -92,8 +93,10 @@ namespace Breakout.Core.Views.Renderers
 			foreach (var block in scene.Map.Layer1)
 				Blocks[block.Color].Draw(spriteBatch, block);
 
-			foreach (var package in scene.Packages)
-				powerups[package.Type].Draw(spriteBatch, package);
+			scene.Packages
+				.Where(p => p.Type != PowerUpType.Nothing)
+				.ToList()
+				.ForEach(p => powerups[p.Type].Draw(spriteBatch, p));
 		}
 
 		public override void DrawScreens()

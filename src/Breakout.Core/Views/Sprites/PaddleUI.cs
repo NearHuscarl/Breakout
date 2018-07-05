@@ -8,24 +8,21 @@ namespace Breakout.Core.Views.Sprites
 {
 	public class PaddleUI
 	{
-		private Dictionary<PaddleLength, Texture2D> texture;
+		private Dictionary<PaddleLength, Texture2D> normalTextures;
+		private Dictionary<PaddleLength, Texture2D> magnetTextures;
 
-		public PaddleUI(Texture2D extraShortTexture, Texture2D shortTexture, Texture2D mediumTexture, Texture2D longTexture, Texture2D extraLongTexture)
+		public PaddleUI(Dictionary<PaddleLength, Texture2D> normalTextures, Dictionary<PaddleLength, Texture2D> magnetTextures)
 		{
-
-			texture = new Dictionary<PaddleLength, Texture2D>()
-			{
-				{ PaddleLength.ExtraShort, extraShortTexture },
-				{ PaddleLength.Short, shortTexture },
-				{ PaddleLength.Medium, mediumTexture },
-				{ PaddleLength.Long, longTexture },
-				{ PaddleLength.ExtraLong, extraLongTexture },
-			};
+			this.normalTextures = normalTextures;
+			this.magnetTextures = magnetTextures;
 		}
 
 		public virtual void Draw(SpriteBatch spriteBatch, Paddle paddle)
 		{
-			spriteBatch.Draw(texture[paddle.Length], paddle.Position, Color.White);
+			if (paddle.GetType() == typeof(MagnetizedPaddle))
+				spriteBatch.Draw(magnetTextures[paddle.Length], paddle.Position, Color.White);
+			else
+				spriteBatch.Draw(normalTextures[paddle.Length], paddle.Position, Color.White);
 		}
 	}
 }

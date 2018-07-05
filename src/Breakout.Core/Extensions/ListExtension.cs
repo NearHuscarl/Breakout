@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace Breakout.Extensions
 {
@@ -8,6 +9,19 @@ namespace Breakout.Extensions
 		{
 			if (item != null)
 				list.Add(item);
+		}
+
+		/// <summary>
+		/// IList.Cleaer() alternative to remove all items in an ObservableCollection
+		/// and trigger remove event
+		/// </summary>
+		/// <param name="list"></param>
+		public static void RemoveAll(this IList list)
+		{
+			while (list.Count > 0)
+			{
+				list.RemoveAt(list.Count - 1);
+			}
 		}
 	}
 }

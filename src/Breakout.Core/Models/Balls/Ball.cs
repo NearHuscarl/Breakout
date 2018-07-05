@@ -1,33 +1,101 @@
-﻿using Breakout.Core.Models.Bases;
+﻿using System;
+using Breakout.Core.Models.Bases;
 using Breakout.Core.Models.Paddles;
 using Breakout.Core.Utilities.Audio;
 using Breakout.Core.Utilities.GameMath;
 using Microsoft.Xna.Framework;
+using Breakout.Core.Models.Enums;
+using System.Collections.Generic;
+using Breakout.Extensions;
 
 namespace Breakout.Core.Models.Balls
 {
 	public class Ball : CircleObject
 	{
+		private BallSize size = BallSize.Medium;
+		private BallStrength strength = BallStrength.Normal;
 		private float velocity;
 
 		#region Properties
 
-		public float MaxVelocity { get; set; }
-		public float MinVelocity { get; set; }
+		public static readonly Dictionary<BallSize, int> RadiusDict = new Dictionary<BallSize, int>()
+		{
+			{ BallSize.Small, 11 },
+			{ BallSize.Medium, 17 },
+			{ BallSize.Big, 23 },	
+		};
+
+		public BallSize Size
+		{
+			get { return size; }
+			set
+			{
+				Position.X -= (RadiusDict[value] - RadiusDict[Size]) / 2;
+				size = value;
+				ClampPosition();
+
+				switch (value)
+				{
+					case BallSize.Small:
+						Velocity = BaseVelocity + 150;
+						break;
+
+					case BallSize.Medium:
+						Velocity = BaseVelocity;
+						break;
+
+					case BallSize.Big:
+						Velocity = BaseVelocity -= 50;
+						break;
+				}
+			}
+		}
+
+		public BallStrength Strength
+		{
+			get { return strength; }
+			set
+			{
+				strength = value;
+				// TODO: set damage for block
+			}
+		}
+
+		public bool IsAttached { get; set; } = false; // is attach to magnetized paddle
+
+		public float BaseVelocity { get; private set; }
+		public float MaxVelocity { get; private set; }
+		public float MinVelocity { get; private set; }
 
 		public override float Velocity
 		{
+			get { return velocity; }
+
 			set
 			{
-				float diff = CurrentVelocity - Velocity;
+				var diff = CurrentVelocity - Velocity;
 
-				velocity = value;
+				velocity = MathHelper.Clamp(value, MinVelocity, MaxVelocity);
 				CurrentVelocity = velocity + diff;
 			}
-			get
-			{
-				return velocity;
-			}
+		}
+
+		public override int Width
+		{
+			get { return RadiusDict[Size]; }
+			set { }
+		}
+
+		public override int Height
+		{
+			get { return RadiusDict[Size]; }
+			set { }
+		}
+
+		public override int Radius
+		{
+			get { return RadiusDict[Size] / 2; }
+			set { }
 		}
 
 		/// <summary>
@@ -36,41 +104,57 @@ namespace Breakout.Core.Models.Balls
 		/// </summary>
 		public float CurrentVelocity { get; set; }
 
-		public int Strength { get; set; }
-
-		public float Angle
-		{
-			get
-			{
-				Vector2 invertedYDir = new Vector2(Direction.X, -Direction.Y);
-
-				return GeometryMath.Vector2Angle(invertedYDir);
-			}
-		}
-
 		#endregion
 
-		public Ball(Scene scene, int radius, int strength, float velocity, Vector2 position) : base(radius, position)
+		public Ball(Scene scene, Vector2 position)
 		{
 			this.scene = scene;
 
-			this.Radius = radius;
-			this.Width = this.Height = (Radius * 2);
 			this.Position = position;
 
-			this.Velocity = velocity;
-			this.MinVelocity = velocity - 200;
-			this.MaxVelocity = velocity + 200;
+			if (GlobalData.Settings.Difficulty == Difficulty.Hard)
+				this.BaseVelocity = 440f;
+			else
+				this.BaseVelocity = 360f;
+
+			// Order is important
+			this.MinVelocity = BaseVelocity - 100;
+			this.MaxVelocity = BaseVelocity + 300;
+			this.Velocity = BaseVelocity;
 
 			this.CurrentVelocity = Velocity;
+			this.Position = position;
+		}
+
+		public void IncreaseSize()
+		{
+			//Position.X -= (Radius[Size.Next()] - Lengths[Length]) / 2;
+			//Length = Length.Next();
+			//ClampPosition();
+		}
+
+		public void DecreaseSize()
+		{
+			//Position.X += (Lengths[Length] - Lengths[Length.Previous()]) / 2;
+			//Length = Length.Previous();
+			//ClampPosition();
+		}
+
+		public Ball ShallowCopy()
+		{
+			return (Ball)this.MemberwiseClone();
+		}
+
+		private void ClampPosition()
+		{
+			Position.X = MathHelper.Clamp(Position.X, 0, GlobalData.Screen.Width - this.Width);
+			Position.Y = MathHelper.Clamp(Position.Y, 0, GlobalData.Screen.Height - this.Height);
 		}
 
 		public void ResetPosition()
 		{
-			var angle = RandomMath.RandomBoolean() ?
+			Angle = RandomMath.RandomBoolean() ?
 				RandomMath.RandomBetween(45, 135) : RandomMath.RandomBetween(225, 315);
-
-			ChangeDirection(angle);
 		}
 
 		/// <summary>
@@ -93,18 +177,6 @@ namespace Breakout.Core.Models.Balls
 			}
 		}
 
-		private void ReflectHorizontally()
-		{
-			Direction.X = -Direction.X;
-			ChangeDirection(Angle + RandomMath.RandomBetween(-4f, 4f));
-		}
-
-		private void ReflectVertically()
-		{
-			Direction.Y = -Direction.Y;
-			ChangeDirection(Angle + RandomMath.RandomBetween(-4f, 4f));
-		}
-
 		/// <summary>
 		/// Solve collision between ball and another object. Return true
 		/// if collision happens, false if not
@@ -118,28 +190,28 @@ namespace Breakout.Core.Models.Balls
 			if (Direction.X > 0 && IsTouchingLeft(obj))
 			{
 				ReflectHorizontally();
-				obj.Hit();
+				obj.Hit(this);
 				isCollided = true;
 			}
 
 			else if (Direction.X < 0 && IsTouchingRight(obj))
 			{
 				ReflectHorizontally();
-				obj.Hit();
+				obj.Hit(this);
 				isCollided = true;
 			}
 
 			else if (Direction.Y > 0 && IsTouchingTop(obj))
 			{
 				ReflectVertically();
-				obj.Hit();
+				obj.Hit(this);
 				isCollided = true;
 			}
 
 			else if (Direction.Y < 0 && IsTouchingBottom(obj))
 			{
 				ReflectVertically();
-				obj.Hit();
+				obj.Hit(this);
 				isCollided = true;
 			}
 
@@ -147,14 +219,14 @@ namespace Breakout.Core.Models.Balls
 		}
 
 		/// <summary>
-		/// When ball hits paddle, it will not reflect back normally like when
+		/// When the ball hits the paddle, it will not reflect back normally like when
 		/// it's hitting wall or block. But instead, it will simply bound back
 		/// on the left side if it hits the left side of the paddle and vice versa
 		///           __
 		///          |\      |
 		///            \     |
 		///             \   ╲|╱
-		///   0          \   │              0.5                             1 --> paddle contact
+		///   0          \   │              0.5                             1 --> contact area
 		///               \.-|-.             | - 90 degree
 		///               /\ |  \            |
 		///               \ \|  /            |
@@ -162,26 +234,20 @@ namespace Breakout.Core.Models.Balls
 		///   +--------------│---------------|-+----------------------------+
 		///   |              │               |                              | --> Paddle Object
 		///   +--------------│---------------|------------------------------+
-		///                  │
-		///  collisionPosX ──┘
-		///
 		/// </summary>
-		/// <param name="paddle"></param>
-		public void HandlePaddleCollision(Paddle paddle)
+		public void BounceBack(Paddle paddle)
 		{
 			if (IsTouchingTop(paddle))
 			{
-				float collisionPosX = this.Position.X + this.Width / 2;
-				float paddleContact = (collisionPosX - paddle.Position.X) / paddle.Width;
-				float ballReturnedAngle = MathHelper.Lerp(160, 20, paddleContact);
+				float contactArea = paddle.GetPaddleContactArea(this);
+				float bounceBackAngle = paddle.GetBounceBackAngle(contactArea);
 
-				ChangeDirection(ballReturnedAngle);
-				paddle.Hit();
+				Angle = bounceBackAngle;
+				paddle.Hit(this);
 			}
-
 			else if (Direction.Y > 0 && IsTouchingLeft(paddle) || Direction.X < 0 && IsTouchingRight(paddle))
 			{
-				paddle.Hit();
+				paddle.Hit(this);
 				ReflectHorizontally();
 			}
 
@@ -198,13 +264,16 @@ namespace Breakout.Core.Models.Balls
 
 		public override void UpdateMovement(float elapsed)
 		{
+			if (IsAttached)
+				return;
+
 			if (CurrentVelocity > Velocity)
 				CurrentVelocity--;
 
 			if (CurrentVelocity < Velocity)
 				CurrentVelocity++;
 
-			Position += Direction * MathHelper.Clamp(CurrentVelocity, MinVelocity, MaxVelocity) * elapsed;
+			Position += Direction * CurrentVelocity * elapsed;
 
 			// Fix a bug when ball stuck at wall border when both paddle and wall jam the ball at 2 edges
 			Position.X = MathHelper.Clamp(Position.X, 0, GlobalData.Screen.Width - this.Width);
