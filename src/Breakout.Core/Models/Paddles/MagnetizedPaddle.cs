@@ -55,16 +55,21 @@ namespace Breakout.Core.Models.Paddles
 
 		public override void HandleBall(Ball ball)
 		{
-			if (IsTouching(ball) && !TrackedBalls.Any(trackedBall => trackedBall.Instance.Equals(ball)))
+			if (IsTouching(ball))
 			{
-				ball.Position.Y = Position.Y - ball.Height;
+				Hit(ball);
 
-				TrackedBall trackedBall = new TrackedBall();
+				if (!TrackedBalls.Any(trackedBall => trackedBall.Instance.Equals(ball)))
+				{
+					ball.Position.Y = Position.Y - ball.Height;
 
-				trackedBall.Instance = ball;
-				trackedBall.ContactArea = GetPaddleContactArea(ball);
+					TrackedBall trackedBall = new TrackedBall();
 
-				TrackedBalls.Add(trackedBall);
+					trackedBall.Instance = ball;
+					trackedBall.ContactArea = GetPaddleContactArea(ball);
+
+					TrackedBalls.Add(trackedBall);
+				}
 			}
 
 			foreach (var trackedBall in TrackedBalls)
@@ -77,16 +82,9 @@ namespace Breakout.Core.Models.Paddles
 
 		public void Release()
 		{
-			//foreach (var trackedBall in TrackedBalls)
-			//{
-			//	var ball = trackedBall.Instance;
-
-			//	ball.Angle = this.GetBounceBackAngle(trackedBall.ContactArea);
-			//}
-
+			Hit(null);
 			TrackedBalls.RemoveAll();
 		}
-
 
 		public override void Hit(object src)
 		{
