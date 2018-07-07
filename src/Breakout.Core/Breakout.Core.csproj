@@ -79,7 +79,7 @@
     <Compile Include="Models\Data\Settings.cs" />
     <Compile Include="Models\Enums\BallSize.cs" />
     <Compile Include="Models\Enums\BallStrength.cs" />
-    <Compile Include="Models\Enums\ButtonState.cs" />
+    <Compile Include="Views\Enums\ButtonState.cs" />
     <Compile Include="Models\Enums\Difficulty.cs" />
     <Compile Include="Models\Enums\GameColor.cs" />
     <Compile Include="Models\Enums\PaddleLength.cs" />

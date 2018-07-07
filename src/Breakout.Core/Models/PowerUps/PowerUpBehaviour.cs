@@ -35,6 +35,7 @@ namespace Breakout.Core.Models.PowerUps
 			{ PowerUpType.Weaker, RestoreBallStrength },
 			{ PowerUpType.Faster, RestoreBallSpeed },
 			{ PowerUpType.Slower, RestoreBallSpeed },
+			{ PowerUpType.Nothing, DoNothing },
 		};
 
 		public static Dictionary<PowerUpType, Action<Scene>> PaddlePowerUp = new Dictionary<PowerUpType, Action<Scene>>()

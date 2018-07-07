@@ -1,4 +1,4 @@
-﻿namespace Breakout.Core.Models.Enums
+﻿namespace Breakout.Core.Views.Enums
 {
 	public enum ButtonState
 	{

@@ -175,7 +175,11 @@ namespace Breakout.Core.Models
 			if (SpawnPowerUpTimer >= SpawnPowerUpInterval)
 			{
 				var randPowerup = new PowerUp(this, RandomMath.RandomEnum<PowerUpType>());
-				var randPosition = new Vector2(RandomMath.RandomBetween(0, GlobalData.Screen.Width - SpriteData.PackageWidth), 0);
+				var randPosition = new Vector2()
+				{
+					X = RandomMath.RandomBetween(0, GlobalData.Screen.Width - SpriteData.PackageWidth),
+					Y = 0 - SpriteData.PackageHeight,
+				};
 
 				Packages.AddIfNotNull(ModelFactory.CreatePowerUpPackage(randPowerup, randPosition));
 				SpawnPowerUpTimer = 0;

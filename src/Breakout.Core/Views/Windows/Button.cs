@@ -1,5 +1,6 @@
 ﻿using Breakout.Core.Models.Enums;
 using Breakout.Core.Utilities.Audio;
+using Breakout.Core.Views.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
