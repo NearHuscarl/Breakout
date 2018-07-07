@@ -964,11 +964,6 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/Shit.jpg
 
-#begin Maps/Shit.json
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Maps/Shit.json
-
 #begin Maps/Bird.json
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
@@ -1041,4 +1036,9 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:Maps/Flashing.json
+
+#begin Maps/Poop.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Poop.json
 
