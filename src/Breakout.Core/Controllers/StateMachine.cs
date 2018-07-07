@@ -2,6 +2,7 @@
 using Breakout.Core.Controllers.GameStates;
 using Breakout.Core.Controllers.MenuStates;
 using Breakout.Core.Models;
+using Breakout.Core.Models.Data;
 using Breakout.Core.Models.IO;
 using Breakout.Core.Utilities;
 using Breakout.Core.Utilities.Audio;
@@ -143,6 +144,7 @@ namespace Breakout.Core.Controllers
 
 		public static void Restart()
 		{
+			GlobalData.Session.CurrentLives = Session.Default.CurrentLives;
 			Scene.InitializeGame(GlobalData.Session);
 			PauseGame();
 		}
