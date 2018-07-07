@@ -1,7 +1,5 @@
 ﻿using Breakout.Core.Models.Maps;
 using Breakout.Core.Utilities.Map;
-using Breakout.Pipeline.TiledMap;
-using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using System.Linq;
 
