@@ -99,9 +99,9 @@ namespace Breakout.Core.Controllers.MenuStates
 			var scoreFor2Star = MapManager.Maps.Where(m => m.Name == StateMachine.Scene.MapName).Select(m => m.ScoreFor2Star).First();
 			var scoreFor3Star = MapManager.Maps.Where(m => m.Name == StateMachine.Scene.MapName).Select(m => m.ScoreFor3Star).First();
 
-			if (StateMachine.Scene.FinalScore >= scoreFor2Star)
+			if (StateMachine.Scene.FinalScore >= scoreFor3Star)
 				return 3;
-			else if (StateMachine.Scene.FinalScore >= scoreFor3Star)
+			else if (StateMachine.Scene.FinalScore >= scoreFor2Star)
 				return 2;
 			else
 				return 1;

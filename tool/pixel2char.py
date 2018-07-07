@@ -201,7 +201,7 @@ def main():
 			data['layer0'] = generate_empty_map(data['layer1'])
 
 		with open(get_output_path(png_file), 'w') as file:
-			json.dump(data, file, indent=3, sort_keys=True)
+			json.dump(data, file, separators=(',',':'))
 
 if __name__ == '__main__':
 	main()

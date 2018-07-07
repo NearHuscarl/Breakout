@@ -1037,3 +1037,8 @@
 /processor:TiledMapProcessor
 /build:Maps/Fastfood.json
 
+#begin Maps/Flashing.json
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Maps/Flashing.json
+
