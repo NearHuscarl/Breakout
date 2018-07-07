@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace EDictionary.Core.Utilities
+namespace Breakout.Core.Utilities
 {
 	public static class ApplicationPath
 	{

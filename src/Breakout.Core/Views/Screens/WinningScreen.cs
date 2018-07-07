@@ -36,7 +36,11 @@ namespace Breakout.Core.Views.Screens
 		private DelayedAction addStar3;
 
 		public int DisplayedScore { get; set; } = 0;
-		public int TimeBonusUpdateAmount { get; set; }
+
+		public float ScoreUpdateAmount { get; set; }
+		public float TimeBonusUpdateAmount { get; set; }
+		public float TimerUpdateAmount { get; set; }
+		public float ComboUpdateAmount { get; set; }
 
 		public SummerizedStage Stage { get; set; }
 
@@ -128,7 +132,7 @@ namespace Breakout.Core.Views.Screens
 			AlignText(WinningText, Alignment.Center, 25);
 			AlignText(ScoreText, Alignment.Center, 175);
 
-			ScoreText.Text = DisplayedScore.ToString();
+			ScoreText.Text = DisplayedScore.ToString("N0");
 
 			WinningText.Draw(spriteBatch);
 			ScoreText.Draw(spriteBatch);

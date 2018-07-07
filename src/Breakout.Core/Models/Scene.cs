@@ -12,6 +12,8 @@ using Breakout.Core.Models.Maps;
 using Breakout.Core.Models.Data;
 using Breakout.Core.Utilities.Map;
 using Breakout.Core.Models.Enums;
+using Breakout.Extensions;
+using Breakout.Core.Utilities.GameMath;
 
 namespace Breakout.Core.Models
 {
@@ -58,6 +60,20 @@ namespace Breakout.Core.Models
 
 		public bool IsInGame { get; private set; } = false;
 
+		public float BallVelocity { get; private set; } = 400f;
+
+		/// <summary>
+		/// Make ball velocity increased over time
+		/// </summary>
+		public float IncreaseBallVelocityTimer { get; private set; } = 0f;
+		public float IncreaseBallVelocityInterval { get; private set; } = 30f; // in seconds
+
+		/// <summary>
+		/// Spawn powerup every <SpawnPowerUpTimer> seconds if no block were hit
+		/// </summary>
+		public float SpawnPowerUpTimer { get; private set; } = 0f;
+		public float SpawnPowerUpInterval { get; private set; } = 15f;
+
 		public Scene(Game game) : base(game)
 		{
 
@@ -71,7 +87,7 @@ namespace Breakout.Core.Models
 			Balls = ModelFactory.CreateRandomBalls();
 
 			Map = MapManager.Load(0);
-			MapName = MapManager.Stages[0];
+			MapName = MapManager.Maps.Where(m => m.Level == 0).Select(m => m.Name).First();
 
 			PowerUps = new List<PowerUp>();
 			Packages = new List<PowerUpPackage>();
@@ -90,7 +106,7 @@ namespace Breakout.Core.Models
 			Player = ModelFactory.CreatePlayer(session);
 
 			Map = MapManager.Load(session.CurrentLevel);
-			MapName = MapManager.Stages[session.CurrentLevel];
+			MapName = MapManager.Maps.Where(m => m.Level == session.CurrentLevel).Select(m => m.Name).First();
 
 			Paddle = ModelFactory.CreatePaddle();
 			Balls = ModelFactory.CreateBall();
@@ -124,7 +140,7 @@ namespace Breakout.Core.Models
 			deltaTime = elapsed;
 
 			if (IsInGame)
-				Timer.Count.Update(deltaTime);
+				UpdateTimers();
 
 			foreach (var ball in Balls.ToList())
 				HandleBall(ball);
@@ -140,6 +156,30 @@ namespace Breakout.Core.Models
 
 			foreach (var explosion in ExplosiveZones.ToList())
 				HandleExplosion(explosion);
+		}
+
+		private void UpdateTimers()
+		{
+			Timer.Count.Update(deltaTime);
+			IncreaseBallVelocityTimer += deltaTime;
+			SpawnPowerUpTimer += deltaTime;
+
+			if (IncreaseBallVelocityTimer >= IncreaseBallVelocityInterval)
+			{
+				BallVelocity += 10;
+				Balls.ForEach(b => { b.BaseVelocity = BallVelocity; b.Velocity = BallVelocity; });
+
+				IncreaseBallVelocityTimer = 0;
+			}
+
+			if (SpawnPowerUpTimer >= SpawnPowerUpInterval)
+			{
+				var randPowerup = new PowerUp(this, RandomMath.RandomEnum<PowerUpType>());
+				var randPosition = new Vector2(RandomMath.RandomBetween(0, GlobalData.Screen.Width - SpriteData.PackageWidth), 0);
+
+				Packages.AddIfNotNull(ModelFactory.CreatePowerUpPackage(randPowerup, randPosition));
+				SpawnPowerUpTimer = 0;
+			}
 		}
 
 		private void HandleBall(Ball ball)
@@ -170,19 +210,25 @@ namespace Breakout.Core.Models
 
 			foreach (var block in Map.Layer1)
 			{
-				if (ball.HandleCollision(block))
-				{
-					UpdateScores();
-					break;
-				}
+				ball.HandleCollision(block);
 			}
 
 			ball.UpdateMovement(deltaTime);
 		}
 
-		private void UpdateScores()
+		public void UpdateScores(int score)
 		{
-			Player.Score.AddScore(160);
+			if (Player == null)
+				return;
+
+			Player.Score.AddScore(score);
+		}
+
+		public void UpdateCombo()
+		{
+			if (Player == null)
+				return;
+
 			Player.CurrentCombo++;
 
 			if (Player.CurrentCombo > Player.HighestCombo)
@@ -227,6 +273,10 @@ namespace Breakout.Core.Models
 				case PowerUpType.Stronger:
 				case PowerUpType.Weaker:
 					similarPowerup = PowerUps.Where(p => p.PowerUpType == PowerUpType.Stronger || p.PowerUpType == PowerUpType.Weaker).FirstOrDefault();
+					break;
+
+				case PowerUpType.Magnetize:
+					similarPowerup = PowerUps.Where(p => p.PowerUpType == PowerUpType.Magnetize).FirstOrDefault();
 					break;
 			}
 

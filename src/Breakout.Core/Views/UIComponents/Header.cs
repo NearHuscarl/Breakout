@@ -43,7 +43,7 @@ namespace Breakout.Core.Views.UIComponents
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			LevelText.Text = "Lvl " + GlobalData.Session.CurrentLevel;
-			ScoreText.Text = scene.Player.Score.Score.ToString();
+			ScoreText.Text = scene.Player.Score.Value.ToString("N0");
 			ComboText.Text = "x" + scene.Player.CurrentCombo.ToString();
 			MaxComboText.Text = "x" + scene.Player.HighestCombo.ToString();
 

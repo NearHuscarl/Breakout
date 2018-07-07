@@ -4,7 +4,7 @@ namespace Breakout.Core.Models.Scores
 {
 	public class Timer
 	{
-		public int Counter { get; set; }
+		public float Counter { get; set; }
 		public DelayedAction Count { get; private set; }
 
 		public Timer()

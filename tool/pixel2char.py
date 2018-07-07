@@ -80,32 +80,32 @@ COL2STR = {
 		"#ecf0f1ff": "5",
 		"#ffffffff": "f4",
 
-		"#16a085ff": "C",
-		"#1abc9cff": "c",
+		"#16a085ff": "c",
+		"#1abc9cff": "C",
 		"#00ffffff": "fc",
 
-		"#27ae60ff": "G",
-		"#2ecc71ff": "g",
+		"#27ae60ff": "g",
+		"#2ecc71ff": "G",
 		"#008000ff": "fg",
 
-		"#2980b9ff": "B",
-		"#3498dbff": "b",
+		"#2980b9ff": "b",
+		"#3498dbff": "B",
 		"#0000ffff": "fb",
 
-		"#8e44adff": "M",
-		"#9b59b6ff": "m",
+		"#8e44adff": "m",
+		"#9b59b6ff": "M",
 		"#ff00ffff": "fm",
 
-		"#f39c12ff": "Y",
-		"#f1c40fff": "y",
+		"#f39c12ff": "y",
+		"#f1c40fff": "Y",
 		"#ffff00ff": "fy",
 
-		"#d35400ff": "O",
-		"#e67e22ff": "o",
+		"#d35400ff": "o",
+		"#e67e22ff": "O",
 		"#ffa500ff": "fo",
 
-		"#c0392bff": "R",
-		"#e74c3cff": "r",
+		"#c0392bff": "r",
+		"#e74c3cff": "R",
 		"#ff0000ff": "fr",
 
 		"#ffffff00": "_",

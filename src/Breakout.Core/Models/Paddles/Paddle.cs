@@ -58,17 +58,17 @@ namespace Breakout.Core.Models.Paddles
 			{
 				case Difficulty.Easy:
 					this.Length = PaddleLength.Long;
-					this.Velocity = 800f;
+					this.Velocity = 1200f;
 					break;
 
 				case Difficulty.Normal:
 					this.Length = PaddleLength.Medium;
-					this.Velocity = 800f;
+					this.Velocity = 1200f;
 					break;
 
 				case Difficulty.Hard:
 					this.Length = PaddleLength.Short;
-					this.Velocity = 1000f;
+					this.Velocity = 1500f;
 					break;
 			}
 		}

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Breakout.Core.Models.Scores
@@ -9,6 +10,11 @@ namespace Breakout.Core.Models.Scores
 	/// </summary>
 	public class DynamicScore
 	{
+		/// <summary>
+		/// The total time to increase each new score
+		/// </summary>
+		private static readonly float updateTime = 100f; // in milisecond
+
 		private int currentScore = 0;
 		private int scoreToUpdate = 0;
 
@@ -16,6 +22,12 @@ namespace Breakout.Core.Models.Scores
 
 		private Thread t1;
 		private bool isDone = false;
+
+		public int Value
+		{
+			get { return scoreToUpdate; }
+			set { scoreToUpdate = value; }
+		}
 
 		public DynamicScore()
 		{
@@ -40,31 +52,22 @@ namespace Breakout.Core.Models.Scores
 			{
 				if (stack.Count > 0)
 				{
-					int newScore = stack.Pop() + currentScore;
+					int addedScore = stack.Pop();
+					int newScore = addedScore + currentScore;
+					float updateAmount = addedScore / updateTime;
 
-					for (int i = currentScore; i <= newScore; i++)
+					for (float i = currentScore; i <= newScore; i += updateAmount)
 					{
-						scoreToUpdate = i;
+						scoreToUpdate = (int)i;
 						Thread.Sleep(1);
 					}
 
+					scoreToUpdate = currentScore + addedScore;
 					currentScore = scoreToUpdate;
 				}
 
 				if (isDone)
 					return;
-			}
-		}
-
-		public int Score
-		{
-			get
-			{
-				return scoreToUpdate;
-			}
-			set
-			{
-				scoreToUpdate = value;
 			}
 		}
 

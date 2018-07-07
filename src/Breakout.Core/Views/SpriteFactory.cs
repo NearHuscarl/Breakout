@@ -17,15 +17,15 @@ namespace Breakout.Core.Views
 		{
 			Dictionary<string, Texture2D> backgroundImages = new Dictionary<string, Texture2D>();
 
-			foreach (var bgName in MapManager.Stages.Values)
+			foreach (var mapInfo in MapManager.Maps)
 			{
 				try
 				{
-					backgroundImages.Add(bgName, BackgroundLoader.Load(bgName));
+					backgroundImages.Add(mapInfo.Name, BackgroundLoader.Load(mapInfo.Name));
 				}
 				catch (ContentLoadException)
 				{
-					backgroundImages.Add(bgName, BackgroundLoader.Load("Default"));
+					backgroundImages.Add(mapInfo.Name, BackgroundLoader.Load("Default"));
 				}
 			}
 

@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Breakout.Core.Views.Sprites.Blocks
 {
-	public class FlatBlockUI
+	public class NormalBlockUI
 	{
 		private Texture2D texture;
 
 		private Color fullColor;
 		private Color emptyColor;
 
-		public FlatBlockUI(Texture2D texture, Color fullColor, Color emptyColor)
+		public NormalBlockUI(Texture2D texture, Color fullColor, Color emptyColor)
 		{
 			this.texture = texture;
 			this.fullColor = fullColor;

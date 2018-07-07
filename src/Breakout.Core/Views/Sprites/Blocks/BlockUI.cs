@@ -6,12 +6,14 @@ namespace Breakout.Core.Views.Sprites.Blocks
 {
 	public class BlockUI
 	{
-		private FlatBlockUI flatBlockUI;
+		private NormalBlockUI normalBlockUI;
+		private GameSprite lightBlockUI;
 		private FlashingBlockUI flashingBlockUI;
 
 		public BlockUI(Texture2D texture, Color startColor, Color endColor)
 		{
-			flatBlockUI = new FlatBlockUI(texture, startColor, endColor);
+			normalBlockUI = new NormalBlockUI(texture, startColor, endColor);
+			lightBlockUI = new GameSprite(texture, endColor);
 			flashingBlockUI = new FlashingBlockUI(texture, startColor, endColor);
 		}
 
@@ -24,9 +26,10 @@ namespace Breakout.Core.Views.Sprites.Blocks
 		{
 			if (model.GetType() == typeof(FlashingBlock))
 				flashingBlockUI.Draw(spriteBatch, model);
-
+			else if (model.GetType() == typeof(LightBlock))
+				lightBlockUI.Draw(spriteBatch, model);
 			else
-				flatBlockUI.Draw(spriteBatch, model);
+				normalBlockUI.Draw(spriteBatch, model);
 		}
 	}
 }

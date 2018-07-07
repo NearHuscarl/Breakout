@@ -89,11 +89,13 @@
     <Compile Include="Models\Scores\Timer.cs" />
     <Compile Include="Utilities\ApplicationPath.cs" />
     <Compile Include="Utilities\DelayedAction.cs" />
-    <Compile Include="Utilities\Map\MapManager.cs" />
+    <Compile Include="Models\Maps\MapManager.cs" />
+    <Compile Include="Utilities\Map\MapLoader.cs" />
     <Compile Include="Utilities\Result.cs" />
     <Compile Include="Utilities\Map\TiledMapReader.cs" />
     <Compile Include="Models\Shapes\ICircle.cs" />
     <Compile Include="Models\Shapes\IRectangle.cs" />
+    <Compile Include="Utilities\GameStats.cs" />
     <Compile Include="Views\Loaders\BackgroundLoader.cs" />
     <Compile Include="Views\Loaders\FontLoader.cs" />
     <Compile Include="Views\Screens\Screen.cs" />
@@ -152,7 +154,7 @@
     <Compile Include="Views\SpriteFactory.cs" />
     <Compile Include="Views\UIComponents\Background.cs" />
     <Compile Include="Views\Sprites\Blocks\BlockUI.cs" />
-    <Compile Include="Views\Sprites\Blocks\FlatBlockUI.cs" />
+    <Compile Include="Views\Sprites\Blocks\NormalBlockUI.cs" />
     <Compile Include="Views\Windows\Button.cs" />
     <Compile Include="Views\Windows\CheckBoxButton.cs" />
     <Compile Include="Views\UIComponents\Cursor.cs" />

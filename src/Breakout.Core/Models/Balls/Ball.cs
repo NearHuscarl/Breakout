@@ -54,16 +54,12 @@ namespace Breakout.Core.Models.Balls
 		public BallStrength Strength
 		{
 			get { return strength; }
-			set
-			{
-				strength = value;
-				// TODO: set damage for block
-			}
+			set { strength = value; }
 		}
 
 		public bool IsAttached { get; set; } = false; // is attach to magnetized paddle
 
-		public float BaseVelocity { get; private set; }
+		public float BaseVelocity { get; set; }
 		public float MaxVelocity { get; private set; }
 		public float MinVelocity { get; private set; }
 
@@ -112,10 +108,10 @@ namespace Breakout.Core.Models.Balls
 
 			this.Position = position;
 
-			if (GlobalData.Settings.Difficulty == Difficulty.Hard)
-				this.BaseVelocity = 440f;
+			if (GlobalData.Settings.Difficulty != Difficulty.Hard)
+				this.BaseVelocity = scene.BallVelocity;
 			else
-				this.BaseVelocity = 360f;
+				this.BaseVelocity = scene.BallVelocity + 80f;
 
 			// Order is important
 			this.MinVelocity = BaseVelocity - 100;
@@ -124,20 +120,6 @@ namespace Breakout.Core.Models.Balls
 
 			this.CurrentVelocity = Velocity;
 			this.Position = position;
-		}
-
-		public void IncreaseSize()
-		{
-			//Position.X -= (Radius[Size.Next()] - Lengths[Length]) / 2;
-			//Length = Length.Next();
-			//ClampPosition();
-		}
-
-		public void DecreaseSize()
-		{
-			//Position.X += (Lengths[Length] - Lengths[Length.Previous()]) / 2;
-			//Length = Length.Previous();
-			//ClampPosition();
 		}
 
 		public Ball ShallowCopy()
@@ -183,39 +165,30 @@ namespace Breakout.Core.Models.Balls
 		/// </summary>
 		/// <param name="obj">object to check collision with</param>
 		/// <returns>Determite if ball hit object</returns>
-		public bool HandleCollision(IInteractive obj)
+		public void HandleCollision(IInteractive obj)
 		{
-			bool isCollided = false;
-
 			if (Direction.X > 0 && IsTouchingLeft(obj))
 			{
 				ReflectHorizontally();
 				obj.Hit(this);
-				isCollided = true;
 			}
-
 			else if (Direction.X < 0 && IsTouchingRight(obj))
 			{
 				ReflectHorizontally();
 				obj.Hit(this);
-				isCollided = true;
-			}
 
+			}
 			else if (Direction.Y > 0 && IsTouchingTop(obj))
 			{
 				ReflectVertically();
 				obj.Hit(this);
-				isCollided = true;
-			}
 
+			}
 			else if (Direction.Y < 0 && IsTouchingBottom(obj))
 			{
 				ReflectVertically();
 				obj.Hit(this);
-				isCollided = true;
 			}
-
-			return isCollided;
 		}
 
 		/// <summary>

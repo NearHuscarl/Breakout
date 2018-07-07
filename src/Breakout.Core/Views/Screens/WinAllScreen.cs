@@ -19,10 +19,10 @@ namespace Breakout.Core.Views.Screens
 			Title.Text = "Congratulation!";
 
 			WinAllText = new Label(FontLoader.Load("HeaderFont"), "You have passed all levels!", GlobalData.Theme["Silver"]);
-			HighScoreText = new Label(FontLoader.Load("HeaderFont"), "High Score: " + GlobalData.Session.CurrentScore, GlobalData.Theme["Yellow"]);
+			HighScoreText = new Label(FontLoader.Load("HeaderFont"), "High Score: " + GlobalData.Session.CurrentScore.ToString("N0"), GlobalData.Theme["Yellow"]);
 
 			TextBox = WindowFactory.CreateTextbox();
-			SaveButton = WindowFactory.CreateButton("Save");
+			SaveButton = WindowFactory.CreateButton("Back to menu");
 
 			TextBox.Position = new Vector2()
 			{
@@ -41,13 +41,17 @@ namespace Breakout.Core.Views.Screens
 		{
 			base.Draw(spriteBatch);
 
-			AlignText(WinAllText, Alignment.Center, 25);
-			AlignText(HighScoreText, Alignment.Center, 90);
+			AlignText(WinAllText, Alignment.Center, 75);
+			AlignText(HighScoreText, Alignment.Center, 140);
+
+			//AlignText(WinAllText, Alignment.Center, 25);
+			//AlignText(HighScoreText, Alignment.Center, 90);
 
 			WinAllText.Draw(spriteBatch);
 			HighScoreText.Draw(spriteBatch);
 
-			TextBox.Draw(spriteBatch);
+			// TODO: deadline :(
+			//TextBox.Draw(spriteBatch);
 			SaveButton.Draw(spriteBatch);
 		}
 	}

@@ -3,6 +3,7 @@ using Breakout.Core.Controllers.GameStates;
 using Breakout.Core.Controllers.MenuStates;
 using Breakout.Core.Models;
 using Breakout.Core.Models.IO;
+using Breakout.Core.Utilities;
 using Breakout.Core.Utilities.Audio;
 using Breakout.Core.Utilities.Map;
 using Breakout.Core.Views;
@@ -62,11 +63,13 @@ namespace Breakout.Core.Controllers
 			AudioManager.LoadSound(EntryPoint.Game.Content);
 			AudioManager.IsMute = GlobalData.Settings.IsMute;
 
-			MapManager.Initialize(EntryPoint.Game.Content);
+			MapLoader.Initialize(EntryPoint.Game.Content);
 
 			Input.SetDefaultInput();
 
 			OpenMenu();
+
+			GameStats.PrintMapsInfo();
 		}
 
 		// Highscore window
@@ -150,30 +153,45 @@ namespace Breakout.Core.Controllers
 			ChangeState(restartState);
 		}
 
+		private static int GetFinalScore(WinningScreen winningScreen = null)
+		{
+			// Avg score:
+			// Time Bonus: 6500 (5 mins)
+			// Raw: 60000
+			// Max Combo: 100 * 100 = 10000
+			// --> 71500
+
+			// 3 mins: 1 / 180 * 2000000 -> 11111
+			// 5 mins: 1 / 300 * 2000000 -> 6666
+			// 7 mins: 1 / 420 * 2000000 -> 4761
+
+			int rawScore = Scene.Player.Score.Value;
+			int timeBonus = (int)(1f / Scene.Timer.Counter * 2000000);
+			int comboScore = Scene.Player.HighestCombo * 100;
+
+			if (winningScreen != null)
+			{
+				float updateTime = 1.5f; // in seconds
+				float updateInterval = EntryPoint.Game.Elapsed;
+
+				winningScreen.ScoreUpdateAmount = rawScore * updateInterval / updateTime;
+				winningScreen.TimeBonusUpdateAmount = timeBonus * updateInterval / updateTime;
+				winningScreen.TimerUpdateAmount = winningScreen.TimeBonusUpdateAmount * Scene.Timer.Counter / timeBonus;
+				winningScreen.ComboUpdateAmount = comboScore * updateInterval / updateTime;
+			}
+
+			return rawScore + timeBonus + comboScore;
+		}
+
 		public static void WinGame()
 		{
 			AudioManager.PlaySound("WinGame", percent: 1.5f);
 
-			// Avg score:
-			// Time Bonus: 200 (5 mins)
-			// Raw: 3000
-			// Max Combo: 3 * 300 * 0.3 = 300
-			// --> 3500
 			WinningScreen winningScreen = new WinningScreen();
 
 			winningScreen.Title.Text = $"Level {GlobalData.Session.CurrentLevel.ToString()} Passed!";
 
-			// 1 mins: 1 / 60  * 70000 -> 1166
-			// 3 mins: 1 / 180 * 70000 -> 388
-			// 5 mins: 1 / 300 * 70000 -> 233
-
-			int rawScore = Scene.Player.Score.Score;
-			int timeBonus = (1 / Scene.Timer.Counter) * 70000;
-			int comboScore = Scene.Player.HighestCombo * 5;
-
-			winningScreen.TimeBonusUpdateAmount = timeBonus / Scene.Timer.Counter;
-
-			Scene.FinalScore = rawScore + timeBonus + comboScore;
+			Scene.FinalScore = GetFinalScore(winningScreen);
 
 			WindowManager.Open(winningScreen);
 			ChangeState(winningState);
@@ -182,6 +200,8 @@ namespace Breakout.Core.Controllers
 		public static void WinAll()
 		{
 			AudioManager.PlaySong("WinAllGame");
+
+			GlobalData.Session.CurrentScore += GetFinalScore();
 
 			WindowManager.Open(new WinAllScreen());
 			ChangeState(winAllState);

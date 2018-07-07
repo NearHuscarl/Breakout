@@ -8,6 +8,8 @@ using Breakout.Core.Models;
 using Breakout.Core.Utilities.Helper;
 using Breakout.Core.Controllers.BaseStates;
 using Breakout.Core.Utilities.Audio;
+using System;
+using System.Linq;
 
 namespace Breakout.Core.Controllers.MenuStates
 {
@@ -48,29 +50,45 @@ namespace Breakout.Core.Controllers.MenuStates
 
 		private void SummerizeScore(WinningScreen winningScreen)
 		{
-			if (StateMachine.Scene.Player.Score.Score > 0)
+			var player = StateMachine.Scene.Player;
+
+			if (player.Score.Value > 0)
 			{
+				var updateAmount = (int)Math.Ceiling(winningScreen.ScoreUpdateAmount);
+
+				winningScreen.DisplayedScore += updateAmount;
+				player.Score.Value -= updateAmount;
+				player.Score.Value = Math.Max(0, player.Score.Value);
+
 				AudioManager.PlaySound("AddScore");
-				winningScreen.DisplayedScore += 4;
-				StateMachine.Scene.Player.Score.Score -= 4;
 				return;
 			}
 
-			if (StateMachine.Scene.Player.HighestCombo > 0)
+			if (player.HighestCombo > 0)
 			{
+				var updateAmount = (int)Math.Ceiling(winningScreen.ComboUpdateAmount);
+
+				winningScreen.DisplayedScore += updateAmount;
+				player.HighestCombo -= updateAmount;
+				player.HighestCombo = Math.Max(0, player.HighestCombo);
+
 				AudioManager.PlaySound("AddScore");
-				winningScreen.DisplayedScore += 5;
-				StateMachine.Scene.Player.HighestCombo--;
 				return;
 			}
 
 			if (StateMachine.Scene.Timer.Counter > 0)
 			{
+				var updateAmount = (int)Math.Ceiling(winningScreen.TimeBonusUpdateAmount);
+
+				winningScreen.DisplayedScore += updateAmount;
+				StateMachine.Scene.Timer.Counter -= winningScreen.TimerUpdateAmount;
+				StateMachine.Scene.Timer.Counter = Math.Max(0, StateMachine.Scene.Timer.Counter);
+
 				AudioManager.PlaySound("AddScore");
-				winningScreen.DisplayedScore += winningScreen.TimeBonusUpdateAmount;
-				StateMachine.Scene.Timer.Counter--;
 				return;
 			}
+
+			winningScreen.DisplayedScore = StateMachine.Scene.FinalScore;
 
 			winningScreen.StarCount = GetStars();
 			winningScreen.Stage = SummerizedStage.Star;
@@ -78,9 +96,12 @@ namespace Breakout.Core.Controllers.MenuStates
 
 		private int GetStars()
 		{
-			if (StateMachine.Scene.FinalScore > 3800)
+			var scoreFor2Star = MapManager.Maps.Where(m => m.Name == StateMachine.Scene.MapName).Select(m => m.ScoreFor2Star).First();
+			var scoreFor3Star = MapManager.Maps.Where(m => m.Name == StateMachine.Scene.MapName).Select(m => m.ScoreFor3Star).First();
+
+			if (StateMachine.Scene.FinalScore >= scoreFor2Star)
 				return 3;
-			else if (StateMachine.Scene.FinalScore > 3500)
+			else if (StateMachine.Scene.FinalScore >= scoreFor3Star)
 				return 2;
 			else
 				return 1;

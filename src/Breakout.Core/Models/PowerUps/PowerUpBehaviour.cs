@@ -63,6 +63,12 @@ namespace Breakout.Core.Models.PowerUps
 
 			foreach (var oldBall in oldBalls)
 			{
+				// the new ball will be spawned at the exact same position with the old ball on the paddle
+				// so they will be forever overlapped anyway. This also prevent a bug where paddle dont
+				// have the info of the new attached balls
+				if (oldBall.IsAttached)
+					continue;
+
 				var ball1 = oldBall.ShallowCopy();
 				var ball2 = oldBall.ShallowCopy();
 
@@ -84,6 +90,9 @@ namespace Breakout.Core.Models.PowerUps
 
 			foreach (var oldBall in oldBalls)
 			{
+				if (oldBall.IsAttached)
+					continue;
+
 				var ball1 = oldBall.ShallowCopy();
 				var ball2 = oldBall.ShallowCopy();
 

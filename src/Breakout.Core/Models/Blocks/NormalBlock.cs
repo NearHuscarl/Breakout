@@ -14,7 +14,7 @@ namespace Breakout.Core.Models.Blocks
 		public override void Hit(object src)
 		{
 			base.Hit(src);
-			AudioManager.PlaySound("HitLightBlock", percent: scene.Volume);
+			AudioManager.PlaySound("HitNormalBlock", percent: scene.Volume);
 		}
 	}
 }

@@ -5,6 +5,7 @@ using Breakout.Core.Models.PowerUps;
 using Microsoft.Xna.Framework;
 using Breakout.Core.Utilities.GameMath;
 using Breakout.Core.Models.Balls;
+using Breakout.Core.Models.Explosions;
 
 namespace Breakout.Core.Models.Blocks
 {
@@ -34,7 +35,7 @@ namespace Breakout.Core.Models.Blocks
 
 		public bool IsBroken { get; private set; } = false;
 
-		private float powerUpSpawnChance = 30f; // in percent
+		private int powerUpSpawnChance = 15; // in percent
 
 		protected PowerUpType favoredPowerUp;
 		protected PowerUpType secondaryfavoredPowerUp;
@@ -59,7 +60,7 @@ namespace Breakout.Core.Models.Blocks
 			//if (RandomMath.RandomBoolean())
 			//	pu = new PowerUp(scene, PowerUpType.Magnetize);
 			//else
-			//	pu = new PowerUp(scene, PowerUpType.Longer);
+			//	pu = new PowerUp(scene, PowerUpType.Triple);
 
 			//return ModelFactory.CreatePowerUpPackage(pu, this.Position);
 
@@ -87,24 +88,35 @@ namespace Breakout.Core.Models.Blocks
 
 		public virtual void Hit(object src)
 		{
-			var ball = src as Ball;
-
-			if (ball == null)
-				return;
-
-			switch (ball.Strength)
+			if (src.GetType() == typeof(Ball))
 			{
-				case BallStrength.Weak:
-					Health -= 5;
-					break;
+				var ball = (Ball)src;
 
-				case BallStrength.Normal:
-					Health -= 10;
-					break;
+				switch (ball.Strength)
+				{
+					case BallStrength.Weak:
+						Health -= 5;
+						scene.UpdateScores(35);
+						break;
 
-				case BallStrength.Strong:
-					Health -= 30;
-					break;
+					case BallStrength.Normal:
+						Health -= 10;
+						scene.UpdateScores(70);
+						break;
+
+					case BallStrength.Strong:
+						Health -= 30;
+						scene.UpdateScores(210);
+						break;
+				}
+
+				scene.UpdateCombo();
+			}
+
+			if (src.GetType() == typeof(Explosion))
+			{
+				Health -= 10;
+				scene.UpdateScores(20);
 			}
 		}
 

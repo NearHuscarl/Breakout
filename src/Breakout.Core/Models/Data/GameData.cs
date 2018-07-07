@@ -1,4 +1,4 @@
-﻿using EDictionary.Core.Utilities;
+﻿using Breakout.Core.Utilities;
 
 namespace Breakout.Core.Models.Data
 {
