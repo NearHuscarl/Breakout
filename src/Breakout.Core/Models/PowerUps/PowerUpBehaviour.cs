@@ -142,7 +142,7 @@ namespace Breakout.Core.Models.PowerUps
 
 		private static void MakeBallSlower(Scene scene)
 		{
-			scene.Balls.ForEach(ball => ball.Velocity -= 50);
+			scene.Balls.ForEach(ball => ball.Velocity -= 75);
 		}
 
 		private static void RestoreBallSpeed(Scene scene)

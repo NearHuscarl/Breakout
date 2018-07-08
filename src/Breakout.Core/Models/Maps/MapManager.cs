@@ -27,17 +27,19 @@ namespace Breakout.Core.Models
 		public static readonly List<MapInfo> Maps = new List<MapInfo>()
 		{
 			new MapInfo (0, "Menu", 0, 0),
+			//new MapInfo (1, "Flashing", 0, 0),
+
 			//new MapInfo (1, "Quick", 0, 0),
-			new MapInfo (1, "Minecraft", 30000, 40000),
-			new MapInfo (2, "Friendzone", 37000, 47000),
-			new MapInfo (3, "Bird", 37000, 47000),
-			new MapInfo (4, "Shit", 51000, 61000),
+			new MapInfo (1, "Minecraft", 30000, 40000), //
+			new MapInfo (2, "Friendzone", 50000, 56000), //
+			new MapInfo (3, "Bird", 52000, 60000),
+			new MapInfo (4, "Poop", 51000, 61000),
 			new MapInfo (5, "Whale", 53000, 63000),
-			new MapInfo (6, "Classic", 61000, 71000),
-			new MapInfo (7, "Tank", 61000, 71000),
-			new MapInfo (8, "Mario", 62000, 72000),
-			new MapInfo (9, "Fastfood", 71000, 81000),
-			new MapInfo (10, "Minions", 80000, 90000),
+			new MapInfo (6, "Classic", 111000, 120000), //
+			new MapInfo (7, "Tank", 111000, 120000),
+			new MapInfo (8, "Mario", 111000, 120000),
+			new MapInfo (9, "Fastfood", 111000, 120000),
+			new MapInfo (10, "Minions", 111000, 120000),
 
 			// new MapInfo (1, "Quick2", 0, 0),
 		};

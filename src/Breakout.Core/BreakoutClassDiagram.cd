@@ -1,0 +1,920 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Breakout.Core.Controllers.BaseStates.GameState" Collapsed="true">
+    <Position X="2" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\BaseStates\GameState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.BaseStates.ScreenState" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAIAAAAAAAAAIAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\BaseStates\ScreenState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.BaseStates.State" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\BaseStates\State.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.BreakoutGame" Collapsed="true">
+    <Position X="0.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAABwAAgAAAAAAACAAAAAAAQACAAAAAAAQ=</HashCode>
+      <FileName>Controllers\BreakoutGame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.EntryPoint" Collapsed="true">
+    <Position X="0.75" Y="2.75" Width="1.5" />
+    <AssociationLine Name="Game" Type="Breakout.Core.BreakoutGame" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.75" Y="3" />
+        <Point X="0.375" Y="3" />
+        <Point X="0.375" Y="1.812" />
+        <Point X="0.75" Y="1.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Controllers\EntryPoint.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Game" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.GameStates.PauseState" Collapsed="true">
+    <Position X="0.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\GameStates\PauseState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.GameStates.PlayState" Collapsed="true">
+    <Position X="3" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\GameStates\PlayState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.MenuStates.AboutState" Collapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\MenuStates\AboutState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.MenuStates.ExitAppState" Collapsed="true">
+    <Position X="9.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\MenuStates\ExitAppState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.MenuStates.ExitGameState" Collapsed="true">
+    <Position X="7.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\MenuStates\ExitGameState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.MenuStates.MenuState" Collapsed="true">
+    <Position X="5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Controllers\MenuStates\MenuState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.MenuStates.OverwriteState" Collapsed="true">
+    <Position X="9.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\MenuStates\OverwriteState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.MenuStates.RestartState" Collapsed="true">
+    <Position X="5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\MenuStates\RestartState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.MenuStates.SettingState" Collapsed="true">
+    <Position X="7.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\MenuStates\SettingState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.MenuStates.WinAllState" Collapsed="true">
+    <Position X="5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\MenuStates\WinAllState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.MenuStates.WinningState" Collapsed="true">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAEAAAAAgAAAQAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Controllers\MenuStates\WinningState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Controllers.StateMachine" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgBgAgQggAAFQEBgAAAACIAkAAAAAACKAJhCAQgABQ=</HashCode>
+      <FileName>Controllers\StateMachine.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="CurrentState" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Breakout.Core.Data.HighScoreAccess" Collapsed="true">
+    <Position X="30" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\HighScoreAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Data.SessionAccess" Collapsed="true">
+    <Position X="31.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Data\SessionAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Data.SettingsAccess" Collapsed="true">
+    <Position X="33.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\SettingsAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Extensions.EnumExtension" Collapsed="true">
+    <Position X="26.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgBAAAAAAIAAEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\EnumExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Extensions.ListExtension" Collapsed="true">
+    <Position X="35.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\ListExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Extensions.StringExtension" Collapsed="true">
+    <Position X="28.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\StringExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Balls.Ball" Collapsed="true">
+    <Position X="23" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAYAAAADBAAgAAAAIAAIEAEAABAAAAAQAQQBBB0AgE=</HashCode>
+      <FileName>Models\Balls\Ball.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Bases.CircleObject" Collapsed="true">
+    <Position X="25.25" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAADBAAAgAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Models\Bases\CircleObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Breakout.Core.Models.Bases.DynamicObject" Collapsed="true">
+    <Position X="26.25" Y="18" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAQACAAAAAAAAACAAAIAEAAAAQAAAIEQAARAkAAo=</HashCode>
+      <FileName>Models\Bases\DynamicObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Bases.GameObject" Collapsed="true">
+    <Position X="26.25" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAgAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Bases\GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Bases.RectangleObject" Collapsed="true">
+    <Position X="27.5" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgACAAAAAAAAAAAAIADBAAEAgAAAAAAAAAAIAAAQ=</HashCode>
+      <FileName>Models\Bases\RectangleObject.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Breakout.Core.Models.Blocks.Block" Collapsed="true">
+    <Position X="27.5" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABCAAAAIAACAAAAAIAAAAAAAAAQACAAAIAgAAAAAg=</HashCode>
+      <FileName>Models\Blocks\Block.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Breakout.Core.Models.Blocks.BlockInfo" Collapsed="true">
+    <Position X="23.25" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Models\Blocks\BlockInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Blocks.FlashingBlock" Collapsed="true">
+    <Position X="25.25" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Blocks\FlashingBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Blocks.LightBlock" Collapsed="true">
+    <Position X="29.75" Y="22.5" Width="1.5" />
+    <InheritanceLine Type="Breakout.Core.Models.Blocks.Block" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="28.25" Y="21.691" />
+        <Point X="28.25" Y="22.125" />
+        <Point X="30.5" Y="22.125" />
+        <Point X="30.5" Y="22.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Blocks\LightBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Blocks.NormalBlock" Collapsed="true">
+    <Position X="27.5" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Blocks\NormalBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Data.GameData" Collapsed="true">
+    <Position X="22.75" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Data\GameData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Data.Session" Collapsed="true">
+    <Position X="21.75" Y="18" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAgAAAAAIAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Data\Session.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Data.Settings" Collapsed="true">
+    <Position X="23.75" Y="18" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAQAAAAAAIAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Data\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Explosions.Explosion" Collapsed="true">
+    <Position X="26.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAgAAAAAAAEAAA=</HashCode>
+      <FileName>Models\Explosions\Explosion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.GlobalData" Collapsed="true">
+    <Position X="28.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAQhAEABAAACACAQAgAgAAAEIAQCAA=</HashCode>
+      <FileName>Models\GlobalData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.MapManager" Collapsed="true">
+    <Position X="31" Y="18" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Models\Maps\MapManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.ModelFactory" Collapsed="true">
+    <Position X="28.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIABAEAAAAAAAAAgAAQAAAAAAAAQAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModelFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Scene">
+    <Position X="34.25" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gIAEAAQUADEAFICAADkgQAAgAhAEAIACJAKICUgEIAA=</HashCode>
+      <FileName>Models\Scene.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Map" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Breakout.Core.Models.SpriteData" Collapsed="true">
+    <Position X="35.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAABgAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Models\SpriteData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.IO.Input" Collapsed="true">
+    <Position X="31.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAQAAABAAAAAAIBAAAEAAAAIAAAAAAACAA=</HashCode>
+      <FileName>Models\IO\Input.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Maps.BlockMap" Collapsed="true">
+    <Position X="31" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Maps\BlockMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Paddles.MagnetizedPaddle" Collapsed="true">
+    <Position X="22.75" Y="21" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAABIAAAAAAAAAAAAAAAAAABAAAgA=</HashCode>
+      <FileName>Models\Paddles\MagnetizedPaddle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Paddles.Paddle" Collapsed="true">
+    <Position X="25.25" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAIAAAAAAAIAFIAAEBABIAAAACJQAAAAAEgAAA=</HashCode>
+      <FileName>Models\Paddles\Paddle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Breakout.Core.Models.Players.Player" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAoAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Models\Players\Player.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Breakout.Core.Models.PowerUps.PowerUp" Collapsed="true">
+    <Position X="32.25" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACBAAABAAAAAAIAAAAAAAAAgAAAAAgAEAAA=</HashCode>
+      <FileName>Models\PowerUps\PowerUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.PowerUps.PowerUpBehaviour" Collapsed="true">
+    <Position X="32.25" Y="21.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAACCKAAAAAACQAAAQIBQAAgABAIEAAEwBACBAAAA=</HashCode>
+      <FileName>Models\PowerUps\PowerUpBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.PowerUps.PowerUpPackage" Collapsed="true">
+    <Position X="29.75" Y="21" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACIABAAAAAAAAAAIAAAAAAAAAAAAAAQAAAAAEAAA=</HashCode>
+      <FileName>Models\PowerUps\PowerUpPackage.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PowerUp" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Breakout.Core.Models.Scores.DynamicScore" Collapsed="true">
+    <Position X="35.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAIAAAAAAAIAAAgAAAAAYABAAgggAAAAEA=</HashCode>
+      <FileName>Models\Scores\DynamicScore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Models.Scores.Timer" Collapsed="true">
+    <Position X="33.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAQAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Models\Scores\Timer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.ApplicationPath" Collapsed="true">
+    <Position X="26.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAIAAAAIAAAAAAAAAACIAAA=</HashCode>
+      <FileName>Utilities\ApplicationPath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.DelayedAction" Collapsed="true">
+    <Position X="33.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAQAAAAAQ=</HashCode>
+      <FileName>Utilities\DelayedAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.GameStats" Collapsed="true">
+    <Position X="37" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Utilities\GameStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.Result" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAABAAAAAAAAABAIAAEAAA=</HashCode>
+      <FileName>Utilities\Result.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.Result&lt;T&gt;" Collapsed="true">
+    <Position X="20.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\Result.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.Audio.AudioManager" Collapsed="true">
+    <Position X="28.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAAAAABIAoAAAAAAgIAKAQAAAggAJAACgACYA=</HashCode>
+      <FileName>Utilities\Audio\AudioManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.GameMath.GeometryMath" Collapsed="true">
+    <Position X="26.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAEAQAAAA=</HashCode>
+      <FileName>Utilities\GameMath\GeometryMath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.GameMath.RandomMath" Collapsed="true">
+    <Position X="28.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAACAAAAAAAAgAAAAAAABAAAAAUQAAAAAAA=</HashCode>
+      <FileName>Utilities\GameMath\RandomMath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.Helper.FontHelper" Collapsed="true">
+    <Position X="31.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\Helper\FontHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.Helper.InputHelper" Collapsed="true">
+    <Position X="33.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACAAAAAAAAAAAIgEgAQAAAAAAQEAAABAAAQAAAAAA=</HashCode>
+      <FileName>Utilities\Helper\InputHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.Map.BlockMapReader" Collapsed="true">
+    <Position X="26.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAgA=</HashCode>
+      <FileName>Utilities\Map\BlockMapReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.Map.MapLoader" Collapsed="true">
+    <Position X="37" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAAAAAAUAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\Map\MapLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Utilities.Map.TiledMapReader" Collapsed="true">
+    <Position X="31.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\Map\TiledMapReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Loaders.BackgroundLoader" Collapsed="true">
+    <Position X="31.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Loaders\BackgroundLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Loaders.FontLoader" Collapsed="true">
+    <Position X="33.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Views\Loaders\FontLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Loaders.TextureLoader" Collapsed="true">
+    <Position X="30" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Loaders\TextureLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Renderers.AbstractRenderer" Collapsed="true">
+    <Position X="6.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Views\Renderers\AbstractRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Renderers.MonoGameRenderer" Collapsed="true">
+    <Position X="6.5" Y="16.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAGEFQAAAEAIAEAAACAJIAAAAABAIAAAAAAAAAAIBA=</HashCode>
+      <FileName>Views\Renderers\MonoGameRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Screens.AboutScreen" Collapsed="true">
+    <Position X="16" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAgACAAAAAAAAAAAAAAAAAAAABAABAAA=</HashCode>
+      <FileName>Views\Screens\AboutScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Screens.BigScreen" Collapsed="true">
+    <Position X="12.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Screens\BigScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Screens.MenuScreen" Collapsed="true">
+    <Position X="13.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Screens\MenuScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Screens.MessageBox" Collapsed="true">
+    <Position X="10" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAIBAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Views\Screens\MessageBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Screens.Screen" Collapsed="true">
+    <Position X="12.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Screens\Screen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Screens.SettingScreen" Collapsed="true">
+    <Position X="9.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAgAAAQAAAAAAAAAACAAAAAAAJAEAAAA=</HashCode>
+      <FileName>Views\Screens\SettingScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Screens.WinAllScreen" Collapsed="true">
+    <Position X="11.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAEgAAAAAAAAgAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Screens\WinAllScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Screens.WindowScreen" Collapsed="true">
+    <Position X="11.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgABACAAkAgAAAAAEAAAAAMAAGAAAAAAAAAIAA=</HashCode>
+      <FileName>Views\Screens\WindowScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Screens.WinningScreen" Collapsed="true">
+    <Position X="13.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAiAAAAAIIgBAQAEAEAEgAAAAAAQBAAkEABgAAAA=</HashCode>
+      <FileName>Views\Screens\WinningScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.SpriteFactory" Collapsed="true">
+    <Position X="37" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAIAAAAAAAgAAQAAAAAAAIAAAEAAAQQAAAAAA=</HashCode>
+      <FileName>Views\SpriteFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.WindowFactory" Collapsed="true">
+    <Position X="35.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAQAAAgAAAAAEQCAA=</HashCode>
+      <FileName>Views\WindowFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.WindowManager" Collapsed="true">
+    <Position X="37" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAABAAIAAAAAAAAAAAAAAAACAAAIAAAAAAAAA=</HashCode>
+      <FileName>Views\WindowManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Sprites.BallUI" Collapsed="true">
+    <Position X="12.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Sprites\BallUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Sprites.GameSprite" Collapsed="true">
+    <Position X="14" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAgCAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Sprites\GameSprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Sprites.PaddleUI" Collapsed="true">
+    <Position X="15.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAoAAA=</HashCode>
+      <FileName>Views\Sprites\PaddleUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Sprites.Blocks.BlockUI" Collapsed="true">
+    <Position X="15.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAgEAAAAAAAAAAAAAAIAAAAAAAAAEAAA=</HashCode>
+      <FileName>Views\Sprites\Blocks\BlockUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Sprites.Blocks.FlashingBlockUI" Collapsed="true">
+    <Position X="12.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAgAEAAAAAAAAAAEAAgACgAAEAEAAAAA=</HashCode>
+      <FileName>Views\Sprites\Blocks\FlashingBlockUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Sprites.Blocks.NormalBlockUI" Collapsed="true">
+    <Position X="14" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAgAAAAAAAAIAAABAAgAAAIAAAAAAAAA=</HashCode>
+      <FileName>Views\Sprites\Blocks\NormalBlockUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.UIComponents.Background" Collapsed="true">
+    <Position X="14" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAgAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\UIComponents\Background.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.UIComponents.Cursor" Collapsed="true">
+    <Position X="31.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\UIComponents\Cursor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.UIComponents.Footer" Collapsed="true">
+    <Position X="15.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAIAAAAAAAAAAAAAEAAAQAAAQAAA=</HashCode>
+      <FileName>Views\UIComponents\Footer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.UIComponents.Header" Collapsed="true">
+    <Position X="15.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAEAAAggAAAFEAAAAAQAAAAAAAAAgAAAgAAA=</HashCode>
+      <FileName>Views\UIComponents\Header.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.UIComponents.Star" Collapsed="true">
+    <Position X="9.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAABEAAAgAAAAAAEEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\UIComponents\Star.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.UIComponents.Statusline" Collapsed="true">
+    <Position X="15.75" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAIAAAAAAAACAAAAAAAAAIAA=</HashCode>
+      <FileName>Views\UIComponents\Statusline.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Windows.Button" Collapsed="true">
+    <Position X="10" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABBAAEAgAAgAAAAEAAEAAgAAAAAAEABAAAAAA=</HashCode>
+      <FileName>Views\Windows\Button.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Windows.CheckBox" Collapsed="true">
+    <Position X="9" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Windows\CheckBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Windows.CheckBoxButton" Collapsed="true">
+    <Position X="8" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCAAAgAAgAAAAEAAAAAgAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Views\Windows\CheckBoxButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Windows.Control" Collapsed="true">
+    <Position X="8" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAgAgAgAAAAAEAACAAgAAAAAAAACAACAAA=</HashCode>
+      <FileName>Views\Windows\Control.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Windows.Label" Collapsed="true">
+    <Position X="6.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Windows\Label.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Windows.RadioButton" Collapsed="true">
+    <Position X="7" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Windows\RadioButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Windows.RadioGroup" Collapsed="true">
+    <Position X="26.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Views\Windows\RadioGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Breakout.Core.Views.Windows.Textbox" Collapsed="true">
+    <Position X="6" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABABAAgAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Windows\Textbox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Breakout.Core.Models.Blocks.BlockAtrributes" Collapsed="true">
+    <Position X="26.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAABAAAAgAAAAIAAAAAAAAAAAAAAAAAgIAAAAA=</HashCode>
+      <FileName>Models\Blocks\BlockInfo.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Breakout.Core.Models.Data.PlayerStats" Collapsed="true">
+    <Position X="35.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAQAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Data\HighScore.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Breakout.Core.Models.Data.HighScore" Collapsed="true">
+    <Position X="31.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Data\HighScore.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Breakout.Core.Models.MapInfo" Collapsed="true">
+    <Position X="33.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAhAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Maps\MapManager.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Breakout.Core.Models.Paddles.TrackedBall" Collapsed="true">
+    <Position X="37" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Models\Paddles\MagnetizedPaddle.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Breakout.Core.Models.Shapes.Circle" Collapsed="true">
+    <Position X="28.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAQAAAAAAAIAAAACACAAAAAYIA=</HashCode>
+      <FileName>Models\Shapes\Circle.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Breakout.Core.Models.Shapes.FontShape" Collapsed="true">
+    <Position X="30" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAABAAAAEAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Shapes\FontShape.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Breakout.Core.Models.Bases.IInteractive" Collapsed="true">
+    <Position X="22.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Bases\IInteractive.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Breakout.Core.Models.Players.IPlayer" Collapsed="true">
+    <Position X="22.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAoAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Models\Players\IPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Breakout.Core.Models.Shapes.ICircle" Collapsed="true">
+    <Position X="22.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Shapes\ICircle.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Breakout.Core.Models.Shapes.IRectangle" Collapsed="true">
+    <Position X="22.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Shapes\IRectangle.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Breakout.Core.Models.Enums.BallSize" Collapsed="true">
+    <Position X="30.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAABAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Models\Enums\BallSize.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Breakout.Core.Models.Enums.BallStrength" Collapsed="true">
+    <Position X="32" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAIAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Models\Enums\BallStrength.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Breakout.Core.Models.Enums.BlockType" Collapsed="true">
+    <Position X="30.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEAvAARAAQABAhIEBBAAAACMBAhgAARAAAAACDEAAAA=</HashCode>
+      <FileName>Models\Enums\BlockType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Breakout.Core.Views.Enums.ButtonState" Collapsed="true">
+    <Position X="33.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAGAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Enums\ButtonState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Breakout.Core.Models.Enums.Difficulty" Collapsed="true">
+    <Position X="30.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAIAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Models\Enums\Difficulty.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Breakout.Core.Models.Enums.GameColor" Collapsed="true">
+    <Position X="32" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAARAAAAAAhAAABAAAAAABAAAAAAAAAAAADEAAAA=</HashCode>
+      <FileName>Models\Enums\GameColor.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Breakout.Core.Models.Enums.PaddleLength" Collapsed="true">
+    <Position X="30.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAgAAAAACAACAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Models\Enums\PaddleLength.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Breakout.Core.Models.Enums.PaddleType" Collapsed="true">
+    <Position X="32" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Enums\PaddleType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Breakout.Core.Models.Enums.PowerUpType" Collapsed="true">
+    <Position X="32" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCAIEAAACAIIAAAAAAAEAAAEAAACAAAAEAEAAAAAAAA=</HashCode>
+      <FileName>Models\Enums\PowerUpType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Breakout.Core.Utilities.Status" Collapsed="true">
+    <Position X="33.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAQAAAAAAABAAAgAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\Result.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Breakout.Core.Utilities.Helper.MouseButtons" Collapsed="true">
+    <Position X="26.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAABQACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utilities\Helper\InputHelper.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Breakout.Core.Views.Enums.Alignment" Collapsed="true">
+    <Position X="26.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAIAAA=</HashCode>
+      <FileName>Views\Enums\Alignment.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Breakout.Core.Views.Screens.SummerizedStage" Collapsed="true">
+    <Position X="35.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Views\Screens\WinningScreen.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -104,6 +104,7 @@ namespace Breakout.Core.Models
 
 			HighScore = session.CurrentScore;
 			Player = ModelFactory.CreatePlayer(session);
+			BallVelocity = 450f;
 
 			Map = MapManager.Load(session.CurrentLevel);
 			MapName = MapManager.Maps.Where(m => m.Level == session.CurrentLevel).Select(m => m.Name).First();

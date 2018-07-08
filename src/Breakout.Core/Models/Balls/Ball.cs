@@ -108,13 +108,23 @@ namespace Breakout.Core.Models.Balls
 
 			this.Position = position;
 
-			if (GlobalData.Settings.Difficulty != Difficulty.Hard)
-				this.BaseVelocity = scene.BallVelocity;
-			else
-				this.BaseVelocity = scene.BallVelocity + 80f;
+			switch (GlobalData.Settings.Difficulty)
+			{
+				case Difficulty.Easy:
+					this.BaseVelocity = scene.BallVelocity - 50f;
+					break;
+
+				case Difficulty.Normal:
+					this.BaseVelocity = scene.BallVelocity;
+					break;
+
+				case Difficulty.Hard:
+					this.BaseVelocity = scene.BallVelocity + 50f;
+					break;
+			}
 
 			// Order is important
-			this.MinVelocity = BaseVelocity - 100;
+			this.MinVelocity = BaseVelocity - 150;
 			this.MaxVelocity = BaseVelocity + 300;
 			this.Velocity = BaseVelocity;
 
